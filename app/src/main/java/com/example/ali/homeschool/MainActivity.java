@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 import com.example.ali.homeschool.data.Entry.CourseColumns;
 import com.example.ali.homeschool.data.Entry.LessonColumns;
+import com.example.ali.homeschool.data.Entry.SubjectColumns;
 import com.example.ali.homeschool.data.Entry.TopicColumns;
 import com.example.ali.homeschool.data.Entry.TopicContentColumns;
 import com.example.ali.homeschool.data.DataProvider;
@@ -87,17 +88,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //CursorLoader cursorLoader = new CursorLoader(this,DataProvider.Lesson.CONTENT_URI,
         //        new String[]{LessonColumns._ID,LessonColumns.LESSON_NAME},null,null,null);
         //Topic Test
-        //CursorLoader cursorLoader = new CursorLoader(this,DataProvider.Topic.CONTENT_URI,
-        //        new String[]{TopicColumns._ID,TopicColumns.TOPIC_NAME},null,null,null);
+        CursorLoader cursorLoader = new CursorLoader(this,DataProvider.Topic.CONTENT_URI,
+               new String[]{TopicColumns._ID,TopicColumns.TOPIC_NAME},null,null,null);
         //TopicContent Test
-        CursorLoader cursorLoader = new CursorLoader(this,DataProvider.TopicContent.CONTENT_URI,
-                new String[]{TopicContentColumns._ID,TopicContentColumns.CONTENT},null,null,null);
+       // CursorLoader cursorLoader = new CursorLoader(this,DataProvider.TopicContent.CONTENT_URI,
+         //       new String[]{TopicContentColumns._ID,TopicContentColumns.CONTENT},null,null,null);
         return cursorLoader;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-       // cursorAdapter.swapCursor(data);
+       //cursorAdapter.swapCursor(data);
         data.moveToFirst();
         //Subject Test
         //String test = data.getString(data.getColumnIndex(SubjectColumns.SUBJECT_NAME));
@@ -106,10 +107,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //Lesson Test
         //String test = data.getString(data.getColumnIndex(LessonColumns.LESSON_NAME));
         //Topic Test
-        //String test = data.getString(data.getColumnIndex(TopicColumns.TOPIC_NAME));
+        String test = data.getString(data.getColumnIndex(TopicColumns.TOPIC_NAME));
         //TopicContent Test
-        byte[] test = data.getBlob(data.getColumnIndex(TopicContentColumns.CONTENT));
-        Log.v("Test"," "+test[0]);
+        //byte[] test = data.getBlob(data.getColumnIndex(TopicContentColumns.CONTENT));
+        Log.v("Test"," "+test);
     }
 
     @Override
