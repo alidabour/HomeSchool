@@ -7,6 +7,7 @@ import android.content.Loader;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.icu.util.Currency;
+import android.media.Image;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,15 @@ import com.example.ali.homeschool.data.Entry.SubjectColumns;
 import com.example.ali.homeschool.data.Entry.TopicColumns;
 import com.example.ali.homeschool.data.Entry.TopicContentColumns;
 import com.example.ali.homeschool.data.DataProvider;
+
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
     private static final int CURSOR_LOADER_ID = 0;
@@ -43,6 +53,41 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
 
         }
+        InputStream stream = null;
+        String layout="<LinearLayout><ImageView\n" +
+                "        android:id=\"@+id/dd\"\n" +
+                "        android:src=\"@drawable/ic_launcher\"\n" +
+                "        android:layout_width=\"wrap_content\"\n" +
+                "        android:layout_height=\"wrap_content\" />\n" +
+                "    <TextView\n" +
+                "        android:id=\"@+id/djd\"\n" +
+                "        android:layout_width=\"wrap_content\"\n" +
+                "        android:layout_height=\"wrap_content\" /></LinearLayout>";
+        stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
+        ParseXML parseXML = new ParseXML();
+        List<ParseXML.ViewX> views =  null;
+        String id=null;
+        try {
+            views=parseXML.parse(stream);
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(views!=null) {
+            Log.v("Test", "Views.Empty: " + views.isEmpty());
+            Log.v("Test", "Views.length: " + views.size());
+            Log.v("Test","Views.get(0).id : "+views.get(0).id);
+            for (ParseXML.ViewX x : views) {
+                Log.v("Test", "Id : " + x.id);
+            }
+
+        } else {
+            Log.v("Test", "Views == null");
+        }
+       // for (ParseXML.ImageViewX x:views){
+         //   Log.v("Test","Id : " +x.id);
+        //}
 
         startTopic = (Button) findViewById(R.id.startTopic);
         getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
