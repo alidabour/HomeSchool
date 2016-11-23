@@ -1,7 +1,12 @@
 package com.example.ali.homeschool;
 
+import android.content.Context;
 import android.util.Log;
 import android.util.Xml;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -17,8 +22,10 @@ import java.util.List;
 
 public class ParseXML {
     private static final String ns = null;
-    public ViewX parse(InputStream in) throws XmlPullParserException, IOException {
+    private static Context context;
+    public View parse(InputStream in,Context context) throws XmlPullParserException, IOException {
         try {
+            this.context=context;
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in, null);
@@ -28,14 +35,47 @@ public class ParseXML {
             in.close();
         }
     }
-        private ViewX readLayout(XmlPullParser parser) throws XmlPullParserException, IOException {
+        private View readLayout(XmlPullParser parser) throws XmlPullParserException, IOException {
             List views = new ArrayList();
             String id=null;
             id=parser.getAttributeValue(ns,"android:id");
-            LinearLayoutX linearLayoutX=new LinearLayoutX(id);
-            linearLayoutX.setLayout_height(parser.getAttributeValue(ns,"android:layout:height"));
-            linearLayoutX.setLayout_width(parser.getAttributeValue(ns,"android:layout:width"));
-            linearLayoutX.setOrientation(parser.getAttributeValue(ns,"android:orientation"));
+
+            LinearLayout linearLayout=new LinearLayout(context);
+            String height = parser.getAttributeValue(ns,"android:layout:height");
+            String width = parser.getAttributeValue(ns,"android:layout:width");
+            String orientation=parser.getAttributeValue(ns,"android:orientation");
+            if (height.equals("match_parent")){
+                if (width.equals("match_parent")){
+                    linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT));
+                }else if(width.equals("wrap_content")){
+                    linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                }else {
+                    linearLayout.setLayoutParams(new LinearLayout.LayoutParams(Integer.parseInt(width),LinearLayout.LayoutParams.MATCH_PARENT));
+                }
+            }
+            else if (height.equals("wrap_content")){
+                if (width.equals("match_parent")){
+                    linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+                }else if(width.equals("wrap_content")){
+                    linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                }else {
+                    linearLayout.setLayoutParams(new LinearLayout.LayoutParams(Integer.parseInt(width),LinearLayout.LayoutParams.WRAP_CONTENT));
+                }
+            }
+            else {
+                linearLayout.setLayoutParams(new LinearLayout.LayoutParams(Integer.parseInt(width),Integer.parseInt(height)));
+            }
+            if(orientation.equals("vertical")){
+
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+            }
+            else {
+                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            }
+            //LinearLayoutX linearLayoutX=new LinearLayoutX(id);
+            //linearLayoutX.setLayout_height(parser.getAttributeValue(ns,"android:layout:height"));
+            //linearLayoutX.setLayout_width(parser.getAttributeValue(ns,"android:layout:width"));
+            //linearLayoutX.setOrientation(parser.getAttributeValue(ns,"android:orientation"));
             //Log.v("Parse","L id:" + parser.getAttributeValue(ns,"android:id"));
             //Log.v("Parse","L Id="+parser.getAttributeValue(0));
             //Log.v("Parse","L Get Text: "+parser.getText());
@@ -66,23 +106,23 @@ public class ParseXML {
                 Log.v("Parse","Child :"+name);
                 if (name.equals("ImageView")) {
                     //Log.v("Parse","L if == imageview");
-                    linearLayoutX.addView(readImageView(parser));
+                    linearLayout.addView(readImageView(parser));
 
                 }
                 else if(name.equals("TextView")) {
-                    linearLayoutX.addView(readTextView(parser));
+                    linearLayout.addView(readTextView(parser));
                 }else if(name.equals("Button")){
                     Log.v("Parse","__________Button________");
-                    linearLayoutX.addView(readButton(parser));
+                    linearLayout.addView(readButton(parser));
                 }else if (name.equals("LinearLayout")){
                     Log.v("Parse","__________LinearLayout________");
-                    linearLayoutX.addView(readLayout(parser));
+                    linearLayout.addView(readLayout(parser));
                 } else {
                     skip(parser);
                 }
             }
             //views.add(linearLayoutX);
-            return linearLayoutX;
+            return linearLayout;
         }
     public static class ViewX{
         String id;
@@ -196,7 +236,33 @@ public class ParseXML {
             this.orientation = orientation;
         }
     }
-    private ButtonX readButton (XmlPullParser parser)throws XmlPullParserException,IOException{
+    private Button readButton (XmlPullParser parser)throws XmlPullParserException,IOException{
+        Button button=new Button(context);
+        button.setId(Integer.parseInt(parser.getAttributeValue(ns,"android:id")));
+        String height=parser.getAttributeValue(ns,"android:layout_height");
+        String width = parser.getAttributeValue(ns,"android:layout_width");
+        if (height.equals("match_parent")){
+            if (width.equals("match_parent")){
+                button.setLayoutParams(new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            }else if(width.equals("wrap_content")){
+                button.setLayoutParams(new  ViewGroup.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,  ViewGroup.LayoutParams.MATCH_PARENT));
+            }else {
+                button.setLayoutParams(new  ViewGroup.LayoutParams(Integer.parseInt(width), ViewGroup.LayoutParams(Integer.parseInt(height)));
+            }
+        }
+        else if (height.equals("wrap_content")){
+            if (width.equals("match_parent")){
+                linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+            }else if(width.equals("wrap_content")){
+                linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            }else {
+                linearLayout.setLayoutParams(new LinearLayout.LayoutParams(Integer.parseInt(width),LinearLayout.LayoutParams.WRAP_CONTENT));
+            }
+        }
+        else {
+            linearLayout.setLayoutParams(new LinearLayout.LayoutParams(Integer.parseInt(width),Integer.parseInt(height)));
+        }
+        button.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
         parser.require(XmlPullParser.START_TAG, ns,"Button");
         ButtonX buttonX=new ButtonX(parser.getAttributeValue(ns,"android:id"));
         buttonX.setLayout_height(parser.getAttributeValue(ns,"android:layout_height"));
