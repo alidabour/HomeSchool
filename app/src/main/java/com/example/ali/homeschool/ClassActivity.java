@@ -1,5 +1,6 @@
 package com.example.ali.homeschool;
 
+import android.content.Context;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,60 +24,74 @@ import java.util.List;
 
 public class ClassActivity extends AppCompatActivity {
     //RelativeLayout relativeLayout;
-    LinearLayout linearLayout;
+    View linearLayout;
     ImageView imageView;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //relativeLayout = (RelativeLayout) findViewById(R.id.activity_class);
+        context=getApplicationContext();
         InputStream stream = null;
-        String layout="<LinearLayout\n" +
-                "        android:id=\"@+id/LinearLayoutID\"><ImageView\n" +
-                "        android:id=\"@+id/dd\"\n" +
-                "        android:src=\"@drawable/ic_launcher\"\n" +
-                "        android:layout_width=\"wrap_content\"\n" +
-                "        android:layout_height=\"wrap_content\" />\n" +
-                "    <TextView\n" +
-                "        android:id=\"@+id/djd\"\n" +
-                "        android:layout_width=\"wrap_content\"\n" +
-                "        android:layout_height=\"wrap_content\" /> <LinearLayout\n android:id=\"@+id/innerLinearLayoutID\"" +
-                "      android:layout_width=\"wrap_content\"\n" +
-                "      android:layout_height=\"wrap_content\">\n" +
-                "    <TextView\n" +
-                "        android:id=\"@+id/textViewInsideLinear\"\n" +
-                "        android:layout_width=\"wrap_content\"\n" +
-                "        android:layout_height=\"wrap_content\" />\n" +"  <Button\n" +
-                "        android:id=\"@+id/buttonID\"\n" +
-                "        android:onClick=\"Function\"\n" +
-                "        android:layout_width=\"wrap_content\"\n" +
-                "        android:layout_height=\"wrap_content\" />"+
-                "  </LinearLayout>  </LinearLayout>";
+        String layout = "<LinearLayout android:orientation=\"vertical\" android:layout_weight=\"0\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"match_parent\"><ImageView android:layout_weight=\"5\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\" /><LinearLayout android:orientation=\"horizontal\" android:layout_weight=\"1\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\"><Button android:layout_weight=\"1\" android:id=\"91\" android:text=\"Meow\" android:layout_width=\"0\" android:layout_height=\"match_parent\" /><Button android:layout_weight=\"1\" android:id=\"90\" android:text=\"Cat\" android:layout_width=\"0\" android:layout_height=\"match_parent\" /></LinearLayout></LinearLayout>";
+//        String layout="<LinearLayout \n" +
+//                "android:orientation=\"vertical\"\n" +
+//                "    android:id=\"3\"\n" +
+//                "    android:layout_width=\"match_parent\"\n" +
+//                "    android:layout_height=\"match_parent\"\n" +
+//                "<ImageView\n" +
+//                "    android:layout_weight=\"5\"\n" +
+//                "    android:layout_width=\"match_parent\"\n" +
+//                "    android:layout_height=\"0dp\" />\n" +
+//                "    <LinearLayout\n" +
+//                "        android:orientation=\"horizontal\"\n" +
+//                "        android:layout_weight=\"1\"\n" +
+//                "        android:layout_width=\"match_parent\"\n" +
+//                "        android:layout_height=\"0dp\">\n" +
+//                "        <Button\n" +
+//                "            android:text=\"Sound\"\n" +
+//                "            android:onClick=\"sound\"\n" +
+//                "            android:id=\"1\"\n" +
+//                "            android:layout_weight=\"1\"\n" +
+//                "            android:layout_width=\"0dp\"\n" +
+//                "            android:layout_height=\"match_parent\" />\n" +
+//                "        <Button\n" +
+//                "            android:onClick=\"name\"\n" +
+//                "            android:id=\"2\"\n" +
+//                "            android:text=\"Name\"\n" +
+//                "            android:layout_weight=\"1\"\n" +
+//                "            android:layout_width=\"0dp\"\n" +
+//                "            android:layout_height=\"match_parent\" />\n" +
+//                "    </LinearLayout>\n" +
+//                "\n" +
+//                "</LinearLayout>";
         stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
         ParseXML parseXML = new ParseXML();
         ParseXML.LinearLayoutX viewX =null;
         try {
-            viewX=(ParseXML.LinearLayoutX)parseXML.parse(stream);
+            linearLayout=parseXML.parse(stream,context);
 
         } catch (XmlPullParserException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        linearLayout = new LinearLayout(this);
-        if(viewX.getOrientation().equals("vertical")){
-            linearLayout.setOrientation(LinearLayout.VERTICAL);
-        }
-        else {
-            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        }
-        //Width = MP , Height = MP
-        if(viewX.getLayout_height().equals("match_parent")){
-            if (viewX.getLayout_width().equals("match_parent")){
-
-            }
-        }
-        LinearLayout.LayoutParams lp =
-                new LinearLayout.LayoutParams(-1,LinearLayout.LayoutParams.MATCH_PARENT);
+        //Log.v("ClassActivity","Linear Layout : "+linearLayout.getId());
+//        linearLayout = new LinearLayout(this);
+//        if(viewX.getOrientation().equals("vertical")){
+//            linearLayout.setOrientation(LinearLayout.VERTICAL);
+//        }
+//        else {
+//            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+//        }
+//        //Width = MP , Height = MP
+//        if(viewX.getLayout_height().equals("match_parent")){
+//            if (viewX.getLayout_width().equals("match_parent")){
+//
+//            }
+//        }
+//        LinearLayout.LayoutParams lp =
+//                new LinearLayout.LayoutParams(-1,LinearLayout.LayoutParams.MATCH_PARENT);
         //imageView = new ImageView(linearLayout.getContext());
         //imageView.setImageDrawable(linearLayout.getResources().getDrawable(R.drawable.ic_launcher));
         //Width = MP , Height = WC
