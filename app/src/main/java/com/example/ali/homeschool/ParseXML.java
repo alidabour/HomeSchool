@@ -79,16 +79,30 @@ public class ParseXML {
         float weight = Float.parseFloat(parser.getAttributeValue(ns,"android:layout_weight"));
         button.setId(id);
         button.setOnClickListener(new View.OnClickListener() {
-            final MediaPlayer mp = MediaPlayer.create(context, R.raw.catsound);
+             MediaPlayer mp ;
             final MediaPlayer sp = MediaPlayer.create(context,R.raw.catname);
             @Override
             public void onClick(View view) {
                 Log.v("Parse","Button id:"+button.getId());
                 int id =button.getId();
-                if(id==91){
-                    mp.start();
-                }else {
-                    sp.start();
+                switch (id){
+                    case 1:
+                        mp = MediaPlayer.create(context,R.raw.catname);
+                        mp.start();
+                        break;
+                    case 12:
+                        mp = MediaPlayer.create(context,R.raw.catsound);
+                        mp.start();
+                        break;
+                    case 2:
+                        mp = MediaPlayer.create(context,R.raw.dogname);
+                        mp.start();
+                        break;
+                    case 21:
+                        mp = MediaPlayer.create(context,R.raw.dogsound);
+                        mp.start();
+                        break;
+
                 }
 
             }
@@ -114,7 +128,12 @@ public class ParseXML {
         imageView.setId(id);
         //int imageDrawableId = context.getResources().getDrawable(R.drawable.ic_launcher);
         //imageView.setImageDrawable(parser.getAttributeValue(ns,"android:src"));
-        imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_launcher));
+        if (id==1){
+            imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.catimage));
+
+        }else {
+            imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.dogimage));
+        }
         String height=parser.getAttributeValue(ns,"android:layout_height");
         String width = parser.getAttributeValue(ns,"android:layout_width");
         imageView.setLayoutParams(getLayoutParams(height,width,weight,scale));

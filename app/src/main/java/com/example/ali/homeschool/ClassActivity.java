@@ -2,6 +2,7 @@ package com.example.ali.homeschool;
 
 import android.content.Context;
 import android.media.Image;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClassActivity extends AppCompatActivity {
@@ -27,13 +29,23 @@ public class ClassActivity extends AppCompatActivity {
     View linearLayout;
     ImageView imageView;
     Context context;
+    ViewPager pager;
+    ArrayList<String> layouts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        layouts=new ArrayList<String>();
         //relativeLayout = (RelativeLayout) findViewById(R.id.activity_class);
         context=getApplicationContext();
-        InputStream stream = null;
-        String layout = "<LinearLayout android:orientation=\"vertical\" android:layout_weight=\"0\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"match_parent\"><ImageView android:layout_weight=\"5\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\" /><LinearLayout android:orientation=\"horizontal\" android:layout_weight=\"1\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\"><Button android:layout_weight=\"1\" android:id=\"91\" android:text=\"Meow\" android:layout_width=\"0\" android:layout_height=\"match_parent\" /><Button android:layout_weight=\"1\" android:id=\"90\" android:text=\"Cat\" android:layout_width=\"0\" android:layout_height=\"match_parent\" /></LinearLayout></LinearLayout>";
+        //InputStream stream = null;
+        String layout = "<LinearLayout android:orientation=\"vertical\" android:layout_weight=\"0\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"match_parent\"><ImageView android:layout_weight=\"5\" android:id=\"1\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\" /><LinearLayout android:orientation=\"horizontal\" android:layout_weight=\"1\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\"><Button android:layout_weight=\"1\" android:id=\"12\" android:text=\"Meow\" android:layout_width=\"0\" android:layout_height=\"match_parent\" /><Button android:layout_weight=\"1\" android:id=\"1\" android:text=\"Cat\" android:layout_width=\"0\" android:layout_height=\"match_parent\" /></LinearLayout></LinearLayout>";
+        layouts.add(layout);
+        String layoutt = "<LinearLayout android:orientation=\"vertical\" android:layout_weight=\"0\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"match_parent\"><ImageView android:layout_weight=\"5\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\" /><LinearLayout android:orientation=\"horizontal\" android:layout_weight=\"1\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\"><Button android:layout_weight=\"1\" android:id=\"21\" android:text=\"Bark\" android:layout_width=\"0\" android:layout_height=\"match_parent\" /><Button android:layout_weight=\"1\" android:id=\"2\" android:text=\"Dog\" android:layout_width=\"0\" android:layout_height=\"match_parent\" /></LinearLayout></LinearLayout>";
+        layouts.add(layoutt);
+
+        setContentView(R.layout.activity_class);
+        pager = (ViewPager) findViewById(R.id.viewPager);
+        pager.setAdapter(new TopicPagerAdapter(getSupportFragmentManager(),layouts));
 //        String layout="<LinearLayout \n" +
 //                "android:orientation=\"vertical\"\n" +
 //                "    android:id=\"3\"\n" +
@@ -65,17 +77,17 @@ public class ClassActivity extends AppCompatActivity {
 //                "    </LinearLayout>\n" +
 //                "\n" +
 //                "</LinearLayout>";
-        stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
-        ParseXML parseXML = new ParseXML();
-        ParseXML.LinearLayoutX viewX =null;
-        try {
-            linearLayout=parseXML.parse(stream,context);
-
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
+//        ParseXML parseXML = new ParseXML();
+//        ParseXML.LinearLayoutX viewX =null;
+//        try {
+//            linearLayout=parseXML.parse(stream,context);
+//
+//        } catch (XmlPullParserException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         //Log.v("ClassActivity","Linear Layout : "+linearLayout.getId());
 //        linearLayout = new LinearLayout(this);
 //        if(viewX.getOrientation().equals("vertical")){
@@ -113,7 +125,6 @@ public class ClassActivity extends AppCompatActivity {
 //        }
 
         //Set View after finish construction the layout
-        setContentView(linearLayout);
     }
     View CreateImageView(){
         ImageView imageView = new ImageView(linearLayout.getContext());

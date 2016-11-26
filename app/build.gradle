@@ -28,9 +28,11 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
+
     compile 'net.simonvt.schematic:schematic:0.6.3'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
     testCompile 'junit:junit:4.12'
+    apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
 }
