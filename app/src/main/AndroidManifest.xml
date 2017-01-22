@@ -24,7 +24,8 @@
             android:exported="false"
             android:grantUriPermissions="true" />
 
-        <activity android:name=".ClassActivity"></activity>
+        <activity android:name=".ClassActivity" />
+        <activity android:name=".HomeActivity"></activity>
     </application>
 
 </manifest>
