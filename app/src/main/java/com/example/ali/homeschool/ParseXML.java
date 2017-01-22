@@ -91,7 +91,7 @@ public class ParseXML {
                         mp.start();
                         break;
                     case 12:
-                        mp = MediaPlayer.create(context,R.raw.catsound);
+                        mp = MediaPlayer.create(context,R.raw.catssound);
                         mp.start();
                         break;
                     case 2:
