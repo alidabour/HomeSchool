@@ -3,4 +3,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="TeacherName">Ahmed Ali</string>
+    <string name="CourseName">Animals Vol.1</string>
+    <string name="ratingValue">554 Ratings</string>
+    <string name="CourseDescription">Course Description</string>
+    <string name="CourseDescriptionBody">Learn about animals Learn about animals Learn about animals Learn about animals Learn about animalsLearn about animals Learn about animals Learn about animals Learn about animals</string>
 </resources>

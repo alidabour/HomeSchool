@@ -1,5 +1,6 @@
 package com.example.ali.homeschool;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -69,6 +70,17 @@ public class HomeActivity extends AppCompatActivity {
         categoryRecycleView.setLayoutManager(categoryLayoutManger);
         CategoryAdapter categoryAdapter = new CategoryAdapter(categoryInformationList);
         categoryRecycleView.setAdapter(categoryAdapter);
+        categoryRecycleView.addOnItemTouchListener(new RecyclerTouchListener(this, categoryRecycleView, new RecyclerTouchListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        startActivity(new Intent(getApplicationContext(),CourseDescriptionActivity.class));}
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+                })
+        );
 
         RecyclerView c2 = (RecyclerView)findViewById(R.id.c22);
         c2.setHasFixedSize(true);
