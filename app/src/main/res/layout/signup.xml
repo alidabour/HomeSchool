@@ -8,8 +8,20 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimary"
     tools:context=".sign_up">
 
+<LinearLayout
+    android:paddingTop="200dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:tint="@color/colorPrimaryDark"
+        android:layout_margin="15dp"
+        android:src="@drawable/user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -20,7 +32,19 @@
             android:hint="Username" />
     </android.support.design.widget.TextInputLayout>
 
+</LinearLayout>
+
     <!-- add some padding -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:tint="@color/colorPrimaryDark"
+            android:layout_margin="15dp"
+            android:src="@drawable/password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,8 +57,18 @@
             android:inputType="textPassword" />
 
     </android.support.design.widget.TextInputLayout>
-
+</LinearLayout>
     <!-- password input -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:tint="@color/colorPrimaryDark"
+            android:layout_margin="15dp"
+            android:src="@drawable/mail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,8 +79,18 @@
             android:layout_height="wrap_content"
             android:hint="Email"/>
     </android.support.design.widget.TextInputLayout>
-
+</LinearLayout>
     <!-- change color of hint text-->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:tint="@color/colorPrimaryDark"
+            android:layout_margin="15dp"
+            android:src="@drawable/user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -57,8 +101,9 @@
             android:hint="Date of Birth"
              />
     </android.support.design.widget.TextInputLayout>
-
+</LinearLayout>
     <Button
+        android:paddingTop="10dp"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:text="Register"
