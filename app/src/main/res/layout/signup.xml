@@ -29,7 +29,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username" />
+            android:hint="Username"
+            android:textColor="@color/colorPrimaryDark"/>
     </android.support.design.widget.TextInputLayout>
 
 </LinearLayout>
@@ -54,7 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/colorPrimaryDark"/>
 
     </android.support.design.widget.TextInputLayout>
 </LinearLayout>
@@ -77,7 +79,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"/>
+            android:hint="Email"
+            android:textColor="@color/colorPrimaryDark"/>
     </android.support.design.widget.TextInputLayout>
 </LinearLayout>
     <!-- change color of hint text-->
@@ -99,7 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Date of Birth"
-             />
+            android:textColor="@color/colorPrimaryDark" />
     </android.support.design.widget.TextInputLayout>
 </LinearLayout>
     <Button
@@ -109,5 +112,6 @@
         android:text="Register"
         android:layout_gravity="center_horizontal"
         android:id="@+id/RegisterButton"
-        android:background="@color/colorAccent"/>
+        android:background="@color/colorAccent"
+        android:foreground="@color/colorAccent" />
 </LinearLayout>
