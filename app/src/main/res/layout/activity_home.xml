@@ -1,11 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_home"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:elevation="4dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_height="wrap_content">
+    <android.support.design.widget.CollapsingToolbarLayout
+        app:contentScrim="@color/colorPrimary"
+        android:id="@+id/collapsing_toolbar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+        android:fitsSystemWindows="true"
+        app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
+        android:layout_height="200dp">
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/recycleview_collapsing_toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"/>-->
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPage_collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!--<ImageView-->
+            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+            <!--android:src="@drawable/catimage"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent" />-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/mToolbar"
+        app:layout_collapseMode="pin"
+        android:fitsSystemWindows="true"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent"/>
+
+    </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+    <LinearLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+        android:id="@+id/activity_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -13,14 +63,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.example.ali.homeschool.HomeActivity">
-    <TextView
+>    <TextView
+
         android:paddingBottom="10dp"
         android:text="Category :"
         android:textSize="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 <android.support.v7.widget.RecyclerView
+    android:nestedScrollingEnabled="false"
     android:id="@+id/category_recyclerView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
@@ -34,6 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <android.support.v7.widget.RecyclerView
+        android:nestedScrollingEnabled="false"
     android:id="@+id/c22"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
@@ -46,9 +98,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <android.support.v7.widget.RecyclerView
+        android:nestedScrollingEnabled="false"
+
         android:id="@+id/c33"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
