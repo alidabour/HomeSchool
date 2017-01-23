@@ -8,4 +8,10 @@
     <string name="ratingValue">554 Ratings</string>
     <string name="CourseDescription">Course Description</string>
     <string name="CourseDescriptionBody">Learn about animals Learn about animals Learn about animals Learn about animals Learn about animalsLearn about animals Learn about animals Learn about animals Learn about animals</string>
+    <string name="title_activity_main3">Main3Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

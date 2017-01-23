@@ -7,9 +7,10 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+    android:label="@string/app_name"
+    android:theme="@style/AppTheme">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +31,23 @@
 
         <activity android:name=".ClassActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".CourseDescriptionActivity"></activity>
+        <activity android:name=".CourseDescriptionActivity"
+            android:parentActivityName=".Main3Activity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Main3Activity"/>
+        </activity>
+        <activity
+            android:name=".Main3Activity"
+        android:label="@string/title_activity_main3"
+        android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
