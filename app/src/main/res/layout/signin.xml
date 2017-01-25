@@ -19,7 +19,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"/>
+            android:hint="@string/email"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword" />
 
     </android.support.design.widget.TextInputLayout>
@@ -39,7 +39,7 @@
     <Button
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:text="Signin"
+        android:text="@string/signin"
         android:layout_gravity="center_horizontal"
         android:id="@+id/SigninButton"/>
 </LinearLayout>

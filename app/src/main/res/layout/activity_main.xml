@@ -18,7 +18,7 @@
         android:id="@+id/Register"
         android:layout_gravity="center_vertical"
         android:background="@android:color/transparent"
-        android:text="Register"
+        android:text="@string/register"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
@@ -28,7 +28,7 @@
         android:id="@+id/Signin"
         android:layout_gravity="center_vertical"
         android:background="@android:color/transparent"
-        android:text="Sign in"
+        android:text="@string/signin"
         android:layout_alignTop="@+id/Register"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -41,7 +41,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:background="@android:color/transparent"
-        android:text="Guest" />
+        android:text="@string/guest" />
 
 
 </RelativeLayout>

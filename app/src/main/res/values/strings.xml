@@ -10,6 +10,15 @@
     <string name="CourseDescriptionBody">Learn about animals Learn about animals Learn about animals Learn about animals Learn about animalsLearn about animals Learn about animals Learn about animals Learn about animals</string>
     <string name="title_activity_main3">Main3Activity</string>
 
+    <string name="New">New!</string>
+    <string name="signin">Sign in</string>
+    <string name="category">Category:</string>
+    <string name="topVisited">Top Visited</string>
+    <string name="guest">Guest</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
