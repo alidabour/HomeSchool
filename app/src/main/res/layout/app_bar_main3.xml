@@ -8,7 +8,7 @@
     tools:context="com.example.ali.homeschool.Main3Activity">
 
     <android.support.design.widget.AppBarLayout
-
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -40,7 +40,10 @@
 </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main3" />
-
+<include
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    layout="@layout/content_main4"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"/>
 
 </android.support.design.widget.CoordinatorLayout>

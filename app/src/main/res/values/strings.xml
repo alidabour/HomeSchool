@@ -23,4 +23,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="topics_descrirpestion">Topics</string>
+    <string name="enroll">Enroll</string>
+    <string name="youMustSignIn">You have to Sign In</string>
+    <string name="enrollDone">You have Successfully enrolled</string>
+    <string name="title_activity_main4">Main4Activity</string>
 </resources>

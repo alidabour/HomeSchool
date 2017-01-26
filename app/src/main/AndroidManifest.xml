@@ -7,10 +7,9 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
         android:supportsRtl="true"
-    android:label="@string/app_name"
-    android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,23 +30,27 @@
 
         <activity android:name=".ClassActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".CourseDescriptionActivity"
-            android:parentActivityName=".Main3Activity">
-
+        <activity
+            android:name=".CourseDescriptionActivity"
+            android:parentActivityName=".Main4Activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Main3Activity"/>
+                android:value=".Main3Activity" />
         </activity>
         <activity
-            android:name=".Main3Activity"
-        android:label="@string/title_activity_main3"
-        android:theme="@style/AppTheme">
+            android:name=".Main4Activity"
+            android:label="@string/title_activity_main4"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--<activity-->
+            <!--android:name=".Main4Activity"-->
+            <!--android:label="@string/title_activity_main4"-->
+            <!--android:theme="@style/AppTheme"></activity>-->
     </application>
 
 </manifest>

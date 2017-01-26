@@ -25,7 +25,7 @@ public class Guest extends AppCompatActivity{
      //   getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         CollapsingToolbarLayout collapsingToolbarLayout=(CollapsingToolbarLayout) findViewById(R.id.collapse_toolbar);
        // collapsingToolbarLayout.setTitle("Courses");
-        ListView L1 = (ListView) findViewById(R.id.listView);
+        ListView L1 = (ListView) findViewById(R.id.listViewguest);
         for(int i=0;i<10;i++){
             x[i]="Hello";
         }

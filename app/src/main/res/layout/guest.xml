@@ -63,7 +63,7 @@
     <ListView
         android:layout_width="420dp"
         android:layout_height="320dp"
-        android:id="@+id/listView"
+        android:id="@+id/listViewguest"
         tools:listitem="@android:layout/simple_list_item_2"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

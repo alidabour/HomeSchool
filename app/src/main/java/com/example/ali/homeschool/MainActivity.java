@@ -50,8 +50,10 @@ public class MainActivity extends AppCompatActivity {
         Guest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                intent.putExtra("type",0);
 
-                startActivity(new Intent(getBaseContext() ,Main3Activity.class));
+                startActivity(intent);
 
             }
         });
