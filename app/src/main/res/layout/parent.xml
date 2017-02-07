@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ToggleButton
+        android:text="ToggleButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/TrialButton" />
+
+    <GridView
+        android:id="@+id/ParentGridView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="300dp"
+        android:numColumns="2"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:layout_below="@+id/TrialButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>
