@@ -8,12 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import static android.support.v4.app.ActivityCompat.startActivity;
-
 /**
  * Created by lenovo on 30/11/2016.
  */
-public class sign_in  extends AppCompatActivity{
+public class Sign_In extends AppCompatActivity{
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,7 +24,7 @@ public class sign_in  extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 Toast.makeText(getBaseContext(),"You have Signed in Successfully", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getBaseContext() , sign_in_as.class));
+                startActivity(new Intent(getBaseContext() , SignInAs.class));
             }
         });
 

@@ -2,6 +2,8 @@ package com.example.ali.homeschool;
 
 /**
  * Created by Ali on 1/22/2017.
+ * This is the clas that i can create an object from that will have the
+ * image and the text of the course
  */
 
 public class CategoryInformation {

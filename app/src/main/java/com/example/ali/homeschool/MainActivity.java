@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -14,27 +13,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.home_activity);
 
         //ImageView imageView = (ImageView) findViewById(R.id.imageView);
         Button Signup = (Button) findViewById(R.id.Signin);
-       // GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(Signup);
-       // Glide.with(this).load(R.drawable.hello).into(imageViewTarget);
 
         Button Signin = (Button) findViewById(R.id.Register);
-       // GlideDrawableImageViewTarget imageViewTarget1 = new GlideDrawableImageViewTarget(Signin);
-       // Glide.with(this).load(R.drawable.hello).into(imageViewTarget1);
 
         Button Guest = (Button) findViewById(R.id.Guest);
-       // GlideDrawableImageViewTarget imageViewTarget2 = new GlideDrawableImageViewTarget(Guest);
-       // Glide.with(this).load(R.drawable.hello).into(imageViewTarget2);
+
 
 
         Signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getBaseContext() , sign_up.class));
+                startActivity(new Intent(getBaseContext() , Register.class));
 
             }
         });
@@ -43,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getBaseContext() , sign_in.class));
+                startActivity(new Intent(getBaseContext() , Sign_In.class));
 
             }
         });
         Guest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), Guest.class);
                 intent.putExtra("type",0);
 
                 startActivity(intent);

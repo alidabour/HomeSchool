@@ -14,14 +14,15 @@ import java.util.List;
 
 /**
  * Created by Ali on 1/23/2017.
+ * it's use in the view baser
  */
 
-public class ImageCollapsingToolBarAdapter extends PagerAdapter {
+public class SampleCoursesToolbarAdapter extends PagerAdapter {
     Context mContext;
     private int[] sliderImagesId = new int[]{
             R.drawable.earlymath,R.drawable.ic_launcher,R.drawable.earlymath
     };
-    public ImageCollapsingToolBarAdapter(Context mContext) {
+    public SampleCoursesToolbarAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -49,37 +50,3 @@ public class ImageCollapsingToolBarAdapter extends PagerAdapter {
         ((ViewPager) container).removeView((ImageView) object);
     }
 }
-// extends RecyclerView.Adapter<ImageCollapsingToolBarAdapter.ImageViewHolder> {
-//    List<Integer> imageIds ;
-//
-//    public ImageCollapsingToolBarAdapter(List<Integer> imageIds) {
-//        this.imageIds = imageIds;
-//    }
-//
-//    @Override
-//    public ImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        View itemView = LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.collapsing_image_item,parent,false);
-//        return new ImageCollapsingToolBarAdapter.ImageViewHolder(itemView);
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(ImageViewHolder holder, int position) {
-//        int id = imageIds.get(position);
-//        holder.image.setImageResource(id);
-//
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return imageIds.size();
-//    }
-//
-//    public static class ImageViewHolder extends RecyclerView.ViewHolder {
-//        protected ImageView image;
-//        public ImageViewHolder(View itemView) {
-//            super(itemView);
-//            image = (ImageView) itemView.findViewById(R.id.collapsing_toolbar_image_item);
-//        }
-//    }
-//}

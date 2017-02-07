@@ -1,5 +1,6 @@
 package com.example.ali.homeschool;
 
+
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import java.util.List;
 
 /**
  * Created by Ali on 1/22/2017.
+ * This class is designed to create the course as an image and a text beneath it
+ * and that is being used in the recycle view in the StudentHomeActivity Layout
  */
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {

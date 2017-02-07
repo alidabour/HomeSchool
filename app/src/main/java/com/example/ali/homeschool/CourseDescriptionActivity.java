@@ -13,6 +13,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+This is the class which i use to get the description of the course from the click listener
+and supposely later on i would use the data base to fetch this data
+ */
 public class CourseDescriptionActivity extends AppCompatActivity {
     Toolbar toolbar;
     ListView topicsListView;
@@ -26,6 +30,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
         toolbar.setTitle("Animals Vol. 1");
         enroll = (Button) findViewById(R.id.enroll);
         setSupportActionBar(toolbar);
+        // this line supports the back button to go back
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         topicsListView = (ListView) findViewById(R.id.listViewDes);

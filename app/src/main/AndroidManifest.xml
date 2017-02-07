@@ -17,10 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".sign_up" />
-        <activity android:name=".sign_in" />
-        <activity android:name=".sign_in_as" />
-        <activity android:name=".Guest" />
+        <activity android:name=".Register" />
+        <activity android:name=".Sign_In" />
+        <activity android:name=".SignInAs" />
+        <activity android:name=".Guesttrial______________" />
 
         <provider
             android:name=".data.generated.DataProvider"
@@ -28,17 +28,18 @@
             android:exported="false"
             android:grantUriPermissions="true" />
 
-        <activity android:name=".ClassActivity" />
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".ClassActivitytrial____________________" />
+        <activity android:name=".Guest" />
+        <activity android:name=".Parentactivity" />
         <activity
             android:name=".CourseDescriptionActivity"
-            android:parentActivityName=".Main4Activity">
+            android:parentActivityName=".StudentHomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Main3Activity" />
+                android:value=".Main3Activitytrial______________" />
         </activity>
         <activity
-            android:name=".Main4Activity"
+            android:name=".StudentHomeActivity"
             android:label="@string/title_activity_main4"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -47,10 +48,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity-->
-            <!--android:name=".Main4Activity"-->
-            <!--android:label="@string/title_activity_main4"-->
-            <!--android:theme="@style/AppTheme"></activity>-->
+
     </application>
 
 </manifest>
