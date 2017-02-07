@@ -28,4 +28,6 @@
     <string name="youMustSignIn">You have to Sign In</string>
     <string name="enrollDone">You have Successfully enrolled</string>
     <string name="title_activity_main4">Courses</string>
+    <string name="title_activity_enrolled_course">EnrolledCourse</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

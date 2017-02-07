@@ -14,13 +14,18 @@
 
     <Button xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:fitsSystemWindows="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Course"
-        tools:context="com.example.ali.homeschool.Main3Activitytrial______________"/>
+        android:id="@+id/PressedCourse"
+        />
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/enrolledCourses"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+
 
 </LinearLayout>
 

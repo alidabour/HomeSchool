@@ -1,4 +1,4 @@
-package com.example.ali.homeschool;
+package com.example.ali.homeschool.closed;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.ali.homeschool.adabter.LessonPagerAdapter;
+import com.example.ali.homeschool.R;
 
 import java.util.ArrayList;
 

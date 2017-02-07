@@ -1,4 +1,4 @@
-package com.example.ali.homeschool;
+package com.example.ali.homeschool.closed;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+
+import com.example.ali.homeschool.adabter.CategoryAdapter;
+import com.example.ali.homeschool.CategoryInformation;
+import com.example.ali.homeschool.CourseDescriptionActivity;
+import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.RecyclerTouchListener;
+import com.example.ali.homeschool.adabter.SampleCoursesToolbarAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

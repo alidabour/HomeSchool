@@ -1,4 +1,4 @@
-package com.example.ali.homeschool;
+package com.example.ali.homeschool.closed;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.ali.homeschool.R;
 
 /**
  * Created by lenovo on 30/11/2016.

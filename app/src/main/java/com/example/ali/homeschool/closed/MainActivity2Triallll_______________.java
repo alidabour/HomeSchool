@@ -1,4 +1,4 @@
-package com.example.ali.homeschool;
+package com.example.ali.homeschool.closed;
 
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.ali.homeschool.Guest;
+import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.Utils;
 import com.example.ali.homeschool.data.Entry.TopicColumns;
 import com.example.ali.homeschool.data.DataProvider;
 

@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.ali.homeschool.adabter.SampleCoursesToolbarAdapter;
+
 /*
     We enter this class from the Student image button as it has more than one fragment
     it contains the navigation bar and we use the fragments and replace them

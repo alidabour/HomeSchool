@@ -1,17 +1,27 @@
 package com.example.ali.homeschool;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.example.ali.homeschool.adabter.CategoryAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MyCoursesFragment extends Fragment {
+    List<CategoryInformation> categoryInformationList;
 
 
     public MyCoursesFragment() {
@@ -24,7 +34,43 @@ public class MyCoursesFragment extends Fragment {
                              Bundle savedInstanceState) {
         container.removeAllViews();
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_courses_fragmetnt, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_courses_fragmetnt, container, false);
+
+        Button pressedCourse = (Button) view.findViewById(R.id.PressedCourse);
+
+        pressedCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (getActivity(),EnrolledCourse.class);
+                startActivity(intent);
+            }
+        });
+        categoryInformationList = new ArrayList<CategoryInformation>();
+        CategoryInformation categoryInformation= new CategoryInformation("Arabic",R.drawable.earlymath);
+        categoryInformationList.add(categoryInformation);
+        categoryInformation = new  CategoryInformation("English",R.drawable.earlymath);
+        categoryInformationList.add(categoryInformation);
+        categoryInformation = new  CategoryInformation("Math",R.drawable.earlymath);
+        categoryInformationList.add(categoryInformation);
+        categoryInformation = new  CategoryInformation("Math",R.drawable.earlymath);
+        categoryInformationList.add(categoryInformation);
+        categoryInformation = new  CategoryInformation("Math",R.drawable.earlymath);
+        categoryInformationList.add(categoryInformation);
+        categoryInformation = new  CategoryInformation("Math",R.drawable.earlymath);
+        categoryInformationList.add(categoryInformation);
+        categoryInformation = new  CategoryInformation("Math",R.drawable.earlymath);
+        categoryInformationList.add(categoryInformation);
+        categoryInformation = new  CategoryInformation("Math",R.drawable.earlymath);
+        categoryInformationList.add(categoryInformation);
+        RecyclerView enrolledCourses = (RecyclerView)view.findViewById(R.id.enrolledCourses);
+        enrolledCourses.setHasFixedSize(true);
+        LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+//        categoryLayoutManger.setOrientation(LinearLayoutManager.HORIZONTAL);
+        enrolledCourses.setLayoutManager(categoryLayoutManger);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(categoryInformationList);
+        enrolledCourses.setAdapter(categoryAdapter);
+
+        return view;
     }
 
 }

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getBaseContext() , Register.class));
+                startActivity(new Intent(getBaseContext() , Sign_In.class));
 
             }
         });
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getBaseContext() , Sign_In.class));
+                startActivity(new Intent(getBaseContext() , Register.class));
 
             }
         });

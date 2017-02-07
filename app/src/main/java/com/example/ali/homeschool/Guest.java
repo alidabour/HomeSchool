@@ -12,6 +12,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.ali.homeschool.adabter.CategoryAdapter;
+import com.example.ali.homeschool.adabter.SampleCoursesToolbarAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 

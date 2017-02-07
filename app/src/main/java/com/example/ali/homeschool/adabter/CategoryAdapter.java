@@ -1,4 +1,4 @@
-package com.example.ali.homeschool;
+package com.example.ali.homeschool.adabter;
 
 
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.ali.homeschool.CategoryInformation;
+import com.example.ali.homeschool.R;
 
 import java.util.List;
 

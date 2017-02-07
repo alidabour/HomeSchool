@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ali.homeschool.MainActivity2Triallll_______________">
+    tools:context="com.example.ali.homeschool.closed.MainActivity2Triallll_______________">
   <LinearLayout
       android:orientation="vertical"
       android:layout_width="match_parent"
