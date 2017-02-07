@@ -20,21 +20,5 @@ public class Parentactivity extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent);
-
-        Intent intent = getIntent();
-
-
-        GridView gridview = (GridView) findViewById(R.id.ParentGridView);
-        gridview.setAdapter(new ImageAdapter(this));
-
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-                Toast.makeText(Parentactivity.this, "" + position,
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        });
     }
-
 }
