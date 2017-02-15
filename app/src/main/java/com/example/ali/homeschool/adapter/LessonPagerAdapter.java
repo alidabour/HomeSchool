@@ -1,4 +1,4 @@
-package com.example.ali.homeschool.adabter;
+package com.example.ali.homeschool.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

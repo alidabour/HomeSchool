@@ -1,4 +1,4 @@
-package com.example.ali.homeschool.adabter;
+package com.example.ali.homeschool.adapter;
 
 import android.content.Context;
 import android.view.View;

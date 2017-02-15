@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.ali.homeschool.adabter.LessonPagerAdapter;
+import com.example.ali.homeschool.adapter.LessonPagerAdapter;
 import com.example.ali.homeschool.R;
 
 import java.util.ArrayList;

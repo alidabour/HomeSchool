@@ -19,7 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.adabter.SampleCoursesToolbarAdapter;
+import com.example.ali.homeschool.adapter.SampleCoursesToolbarAdapter;
 import com.example.ali.homeschool.controller.fragments.MyCoursesFragment;
 import com.example.ali.homeschool.controller.fragments.StudentFeaturedCoursesFragment;
 

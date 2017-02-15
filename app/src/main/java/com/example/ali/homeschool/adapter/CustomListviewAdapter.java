@@ -1,4 +1,4 @@
-package com.example.ali.homeschool.adabter;
+package com.example.ali.homeschool.adapter;
 
 /**
  * Created by P on 2/9/2017.
@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;

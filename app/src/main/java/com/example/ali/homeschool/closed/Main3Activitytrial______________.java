@@ -17,12 +17,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.example.ali.homeschool.adabter.CategoryAdapter;
+import com.example.ali.homeschool.adapter.CategoryAdapter;
 import com.example.ali.homeschool.data.CategoryInformation;
 import com.example.ali.homeschool.controller.activities.CourseDescriptionActivity;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.RecyclerTouchListener;
-import com.example.ali.homeschool.adabter.SampleCoursesToolbarAdapter;
+import com.example.ali.homeschool.adapter.SampleCoursesToolbarAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

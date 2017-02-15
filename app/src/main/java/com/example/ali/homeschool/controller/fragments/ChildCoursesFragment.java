@@ -7,10 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.adabter.CustomListviewAdapter;
+import com.example.ali.homeschool.adapter.CustomListviewAdapter;
 
 import java.util.ArrayList;
 

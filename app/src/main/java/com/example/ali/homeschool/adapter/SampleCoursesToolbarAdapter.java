@@ -1,18 +1,13 @@
-package com.example.ali.homeschool.adabter;
+package com.example.ali.homeschool.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.ali.homeschool.R;
-
-import java.util.List;
 
 /**
  * Created by Ali on 1/23/2017.

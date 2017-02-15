@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.RecyclerTouchListener;
-import com.example.ali.homeschool.adabter.TopicsAdapter;
+import com.example.ali.homeschool.adapter.TopicsAdapter;
 import com.example.ali.homeschool.closed.ClassActivitytrial____________________;
 
 import java.util.ArrayList;
