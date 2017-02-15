@@ -1,4 +1,4 @@
-package com.example.ali.homeschool;
+package com.example.ali.homeschool.controller.activities;
 
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+
+import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.controller.fragments.TopicsFragment;
 
 /*
 This Class is after pressing on amy course in mycourses and using the tabs to switch between

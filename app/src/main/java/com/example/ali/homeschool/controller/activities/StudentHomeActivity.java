@@ -1,4 +1,4 @@
-package com.example.ali.homeschool;
+package com.example.ali.homeschool.controller.activities;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -18,7 +18,10 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adabter.SampleCoursesToolbarAdapter;
+import com.example.ali.homeschool.controller.fragments.MyCoursesFragment;
+import com.example.ali.homeschool.controller.fragments.StudentFeaturedCoursesFragment;
 
 /*
     We enter this class from the Student image button as it has more than one fragment
@@ -122,6 +125,12 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
             Log.v("Test", "Test");
             //appBarLayout.removeView(cllapsingToolbarLayout);
             appBarLayout.setExpanded(false);
+            appBarLayout.addOnOffsetChangedListener(new   AppBarLayout.OnOffsetChangedListener() {
+                @Override
+                public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                    appBarLayout.setExpanded(false,false);
+                }
+            });
             mViewPager.removeAllViews();
             Fragment newFragment = new MyCoursesFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();

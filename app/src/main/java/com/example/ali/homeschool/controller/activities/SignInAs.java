@@ -1,10 +1,12 @@
-package com.example.ali.homeschool;
+package com.example.ali.homeschool.controller.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+
+import com.example.ali.homeschool.R;
 
 /**
  * Created by lenovo on 30/11/2016.
@@ -30,7 +32,7 @@ public class SignInAs extends AppCompatActivity {
         Parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),Parentactivity.class);
+                Intent intent = new Intent(getApplicationContext(),ParentActivity.class);
                 intent.putExtra("type",1);
                 startActivity(intent);
             }

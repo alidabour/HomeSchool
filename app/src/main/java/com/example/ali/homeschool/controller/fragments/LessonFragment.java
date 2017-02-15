@@ -1,4 +1,4 @@
-package com.example.ali.homeschool;
+package com.example.ali.homeschool.controller.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.example.ali.homeschool.ParseXML;
 
 import org.xmlpull.v1.XmlPullParserException;
 

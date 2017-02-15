@@ -10,16 +10,16 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".controller.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Register" />
-        <activity android:name=".Sign_In" />
-        <activity android:name=".SignInAs" />
+        <activity android:name=".controller.activities.Register" />
+        <activity android:name=".controller.activities.Sign_In" />
+        <activity android:name=".controller.activities.SignInAs" />
         <activity android:name=".closed.Guesttrial______________" />
 
         <provider
@@ -29,17 +29,16 @@
             android:grantUriPermissions="true" />
 
         <activity android:name=".closed.ClassActivitytrial____________________" />
-        <activity android:name=".Guest" />
-        <activity android:name=".Parentactivity" />
+        <activity android:name=".controller.activities.Guest" />
         <activity
-            android:name=".CourseDescriptionActivity"
-            android:parentActivityName=".StudentHomeActivity">
+            android:name=".controller.activities.CourseDescriptionActivity"
+            android:parentActivityName=".controller.activities.StudentHomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".closed.Main3Activitytrial______________" />
         </activity>
         <activity
-            android:name=".StudentHomeActivity"
+            android:name=".controller.activities.StudentHomeActivity"
             android:label="@string/title_activity_main4"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -49,9 +48,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EnrolledCourse"
+            android:name=".controller.activities.EnrolledCourse"
             android:label="@string/title_activity_enrolled_course"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".controller.activities.ParentActivity"
+            android:label="@string/title_activity_parent"
+            android:parentActivityName=".controller.activities.SignInAs"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ali.homeschool.controller.activities.SignInAs" />
+        </activity>
+        <activity
+            android:name=".controller.activities.ChildCourses"
+            android:label="@string/title_activity_child_courses"
+            android:parentActivityName=".controller.activities.ParentActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ali.homeschool.controller.activities.ParentActivity" />
+        </activity>
     </application>
 
 </manifest>

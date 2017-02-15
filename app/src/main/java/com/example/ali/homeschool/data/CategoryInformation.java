@@ -1,8 +1,8 @@
-package com.example.ali.homeschool;
+package com.example.ali.homeschool.data;
 
 /**
  * Created by Ali on 1/22/2017.
- * This is the clas that i can create an object from that will have the
+ * This is the class that i can create an object from that will have the
  * image and the text of the course
  */
 

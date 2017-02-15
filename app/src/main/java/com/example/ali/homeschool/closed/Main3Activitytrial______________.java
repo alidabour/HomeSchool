@@ -18,8 +18,8 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.example.ali.homeschool.adabter.CategoryAdapter;
-import com.example.ali.homeschool.CategoryInformation;
-import com.example.ali.homeschool.CourseDescriptionActivity;
+import com.example.ali.homeschool.data.CategoryInformation;
+import com.example.ali.homeschool.controller.activities.CourseDescriptionActivity;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.RecyclerTouchListener;
 import com.example.ali.homeschool.adabter.SampleCoursesToolbarAdapter;

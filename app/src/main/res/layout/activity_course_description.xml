@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.ali.homeschool.CourseDescriptionActivity">
+    tools:context="com.example.ali.homeschool.controller.activities.CourseDescriptionActivity">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"

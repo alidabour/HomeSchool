@@ -1,4 +1,4 @@
-package com.example.ali.homeschool;
+package com.example.ali.homeschool.controller.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.ali.homeschool.R;
 
 /**
  * Created by lenovo on 30/11/2016.

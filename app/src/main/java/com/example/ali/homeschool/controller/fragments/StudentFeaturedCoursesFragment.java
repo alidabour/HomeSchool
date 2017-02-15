@@ -1,4 +1,4 @@
-package com.example.ali.homeschool;
+package com.example.ali.homeschool.controller.fragments;
 
 
 import android.app.Fragment;
@@ -10,6 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ali.homeschool.data.CategoryInformation;
+import com.example.ali.homeschool.controller.activities.CourseDescriptionActivity;
+import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.RecyclerTouchListener;
 import com.example.ali.homeschool.adabter.CategoryAdapter;
 
 import java.util.ArrayList;
@@ -60,6 +64,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
         categoryRecycleView.setLayoutManager(categoryLayoutManger);
         CategoryAdapter categoryAdapter = new CategoryAdapter(categoryInformationList);
         categoryRecycleView.setAdapter(categoryAdapter);
+
         //here when we use the addonitemtouchlistener we need to consider that the listener listens
         //to the activity so we can't "this" as this is a fragment not an activity
         //and that is what it desires

@@ -1,4 +1,4 @@
-package com.example.ali.homeschool;
+package com.example.ali.homeschool.controller.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +10,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.ali.homeschool.R;
+
 import java.util.ArrayList;
-import java.util.List;
 
 /*
 This is the class which i use to get the description of the course from the click listener

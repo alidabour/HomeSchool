@@ -30,4 +30,6 @@
     <string name="title_activity_main4">Courses</string>
     <string name="title_activity_enrolled_course">EnrolledCourse</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_parent">ParentActivity</string>
+    <string name="title_activity_child_courses">ChildCourses</string>
 </resources>

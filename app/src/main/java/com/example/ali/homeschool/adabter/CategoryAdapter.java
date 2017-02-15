@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ali.homeschool.CategoryInformation;
+import com.example.ali.homeschool.data.CategoryInformation;
 import com.example.ali.homeschool.R;
 
 import java.util.List;

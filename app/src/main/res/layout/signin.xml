@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/colorBack"
-    tools:context=".Sign_In">
+    tools:context=".controller.activities.Sign_In">
 
     <!-- add some padding -->
 <android.support.design.widget.TextInputLayout

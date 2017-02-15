@@ -1,4 +1,4 @@
-package com.example.ali.homeschool;
+package com.example.ali.homeschool.controller.fragments;
 
 
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.ali.homeschool.data.CategoryInformation;
+import com.example.ali.homeschool.controller.activities.EnrolledCourse;
+import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adabter.CategoryAdapter;
 
 import java.util.ArrayList;

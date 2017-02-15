@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.ali.homeschool.LessonFragment;
+import com.example.ali.homeschool.controller.fragments.LessonFragment;
 
 import java.util.ArrayList;
 

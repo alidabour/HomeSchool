@@ -1,4 +1,4 @@
-package com.example.ali.homeschool;
+package com.example.ali.homeschool.controller.activities;
 
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
@@ -12,6 +12,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.ali.homeschool.data.CategoryInformation;
+import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.RecyclerTouchListener;
 import com.example.ali.homeschool.adabter.CategoryAdapter;
 import com.example.ali.homeschool.adabter.SampleCoursesToolbarAdapter;
 
