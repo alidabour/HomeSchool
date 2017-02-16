@@ -34,4 +34,6 @@
     <string name="title_activity_parent">ParentActivity</string>
     <string name="title_activity_child_courses">ChildCourses</string>
     <string name="home_welcome_msg_h1">علم طفلك في راحة منزلك</string>
+    <string name="home_welcome_h2">علم طفلك في راحة منزلك علم طفلك في راحة منزلك</string>
+    <string name="logoName">علمني</string>
 </resources>

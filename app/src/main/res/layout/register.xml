@@ -1,117 +1,191 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:float="http://schemas.android.com/apk/res-auto"
+<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/colorBack"
-    tools:context=".controller.activities.Register">
-
-<LinearLayout
-    android:paddingTop="200dp"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
     <ImageView
-        android:tint="@color/colorPrimaryDark"
-        android:layout_margin="15dp"
-        android:src="@drawable/user"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/user"
+        android:id="@+id/imageView2"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/password"
+        android:id="@+id/imageView3"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/textInputLayout2"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout2" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/mail"
+        android:id="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout3"
+        app:layout_constraintTop_toTopOf="@+id/textInputLayout3"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView3" />
+
     <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:id="@+id/textInputLayout"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="32dp"
+        app:layout_constraintLeft_toRightOf="@+id/imageView2"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username"
-            android:textColor="@color/colorPrimaryDark"/>
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp" />
     </android.support.design.widget.TextInputLayout>
 
-</LinearLayout>
-
-    <!-- add some padding -->
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:tint="@color/colorPrimaryDark"
-            android:layout_margin="15dp"
-            android:src="@drawable/password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:id="@+id/textInputLayout3"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="@+id/textInputLayout2">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:textColor="@color/colorPrimaryDark"/>
-
+            android:hint="Password" />
     </android.support.design.widget.TextInputLayout>
-</LinearLayout>
-    <!-- password input -->
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:tint="@color/colorPrimaryDark"
-            android:layout_margin="15dp"
-            android:src="@drawable/mail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-<android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-      >
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:textColor="@color/colorPrimaryDark"/>
-    </android.support.design.widget.TextInputLayout>
-</LinearLayout>
-    <!-- change color of hint text-->
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:tint="@color/colorPrimaryDark"
-            android:layout_margin="15dp"
-            android:src="@drawable/user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:id="@+id/textInputLayout2"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintLeft_toLeftOf="@+id/textInputLayout"
+        android:layout_marginTop="16dp">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Date of Birth"
-            android:textColor="@color/colorPrimaryDark" />
+            android:hint="Email" />
     </android.support.design.widget.TextInputLayout>
-</LinearLayout>
+
     <Button
-        android:paddingTop="10dp"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:text="@string/register"
-        android:layout_gravity="center_horizontal"
+        android:text="Register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/RegisterButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:textAllCaps="false"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"
         android:background="@color/colorAccent"
-         />
-</LinearLayout>
+        android:foreground="@drawable/ripple" />
+
+
+    <!--<ImageView-->
+        <!--android:tint="@color/colorPrimaryDark"-->
+        <!--android:layout_margin="15dp"-->
+        <!--android:src="@drawable/user"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
+    <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--<EditText-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="Username"-->
+            <!--android:textColor="@color/colorPrimaryDark"/>-->
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+        <!--<ImageView-->
+            <!--android:tint="@color/colorPrimaryDark"-->
+            <!--android:layout_margin="15dp"-->
+            <!--android:src="@drawable/password"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+    <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--&gt;-->
+
+        <!--<EditText-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="@string/password"-->
+            <!--android:inputType="textPassword"-->
+            <!--android:textColor="@color/colorPrimaryDark"/>-->
+
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+        <!--<ImageView-->
+            <!--android:tint="@color/colorPrimaryDark"-->
+            <!--android:layout_margin="15dp"-->
+            <!--android:src="@drawable/mail"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+<!--<android.support.design.widget.TextInputLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+      <!--&gt;-->
+
+        <!--<EditText-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="@string/email"-->
+            <!--android:textColor="@color/colorPrimaryDark"/>-->
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+        <!--<ImageView-->
+            <!--android:tint="@color/colorPrimaryDark"-->
+            <!--android:layout_margin="15dp"-->
+            <!--android:src="@drawable/user"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+    <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--<EditText-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="Date of Birth"-->
+            <!--android:textColor="@color/colorPrimaryDark" />-->
+    <!--</android.support.design.widget.TextInputLayout>-->
+    <!--<Button-->
+        <!--android:textAllCaps="false"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/register"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:id="@+id/RegisterButton"-->
+        <!--android:background="@color/colorAccent"-->
+         <!--/>-->
+
+</android.support.constraint.ConstraintLayout>
