@@ -166,17 +166,13 @@ public class Main3Activitytrial______________ extends AppCompatActivity implemen
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.coursesNav) {
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.featuredCoursesNaV) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.settings) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.signout) {
 
         }
 

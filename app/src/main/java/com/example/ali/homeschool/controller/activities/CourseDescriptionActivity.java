@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.R;
@@ -21,6 +22,7 @@ and supposely later on i would use the data base to fetch this data
 public class CourseDescriptionActivity extends AppCompatActivity {
     Toolbar toolbar;
     ListView topicsListView;
+   // TableLayout topicsTable;
     Intent intent;
     Button enroll;
     @Override
@@ -40,9 +42,18 @@ public class CourseDescriptionActivity extends AppCompatActivity {
         items.add("Topic 1");
         items.add("Topic 1");
         items.add("Topic 1");
+        items.add("Topic 1");
+        items.add("Topic 1");
+        items.add("Topic 1");
+        items.add("Topic 1");
+        items.add("Topic 1");
+        items.add("Topic 1");
+
         ArrayAdapter<String> itemsAdapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
         topicsListView.setAdapter(itemsAdapter);
+      //  topicsTable = (TableLayout) findViewById(R.id.listViewDes);
+
         intent = getIntent();
         final int type = intent.getIntExtra("type",0);
         enroll.setOnClickListener(new View.OnClickListener() {

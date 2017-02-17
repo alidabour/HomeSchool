@@ -40,13 +40,13 @@ public class StudentFeaturedCoursesFragment extends Fragment {
 
         //  Here we add in the array list to be used in the RecyclerView
         categoryInformationList = new ArrayList<CategoryInformation>();
-        CategoryInformation categoryInformation= new CategoryInformation("Arabic",R.drawable.earlymath);
+        CategoryInformation categoryInformation= new CategoryInformation("لغة عربية",R.drawable.earlymath);
         categoryInformationList.add(categoryInformation);
         categoryInformation = new  CategoryInformation("English",R.drawable.earlymath);
         categoryInformationList.add(categoryInformation);
-        categoryInformation = new  CategoryInformation("Math",R.drawable.earlymath);
+        categoryInformation = new  CategoryInformation("رياضة",R.drawable.earlymath);
         categoryInformationList.add(categoryInformation);
-        categoryInformation = new  CategoryInformation("Math",R.drawable.earlymath);
+        categoryInformation = new  CategoryInformation("رياضة",R.drawable.earlymath);
         categoryInformationList.add(categoryInformation);
         categoryInformation = new  CategoryInformation("Math",R.drawable.earlymath);
         categoryInformationList.add(categoryInformation);

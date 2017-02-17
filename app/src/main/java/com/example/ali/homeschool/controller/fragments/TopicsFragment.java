@@ -41,7 +41,7 @@ public class TopicsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_topics, container, false);
 
         List<String> names = new ArrayList<>();
-        names.add("Topic 1");names.add("Topic 2");names.add("Topic 3");names.add("Topic 4");
+        names.add("introduction");names.add("Topic 2");names.add("Topic 3");names.add("Topic 4");
         names.add("Topic 5");names.add("Topic 6");names.add("Topic 7");names.add("Topic 8");
         names.add("Topic 9");names.add("Topic 10");names.add("Topic 11");names.add("Topic 12");
         RecyclerView topicsRecyclerView = (RecyclerView)view.findViewById(R.id.topicsRecyclerView);

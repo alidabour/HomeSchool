@@ -121,7 +121,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.coursesNav) {
             Log.v("Test", "Test");
             //appBarLayout.removeView(cllapsingToolbarLayout);
             appBarLayout.setExpanded(false);
@@ -142,7 +142,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
             transaction.commit();
 
             // Commit the transaction
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.featuredCoursesNaV) {
             Log.v("Test", "Test");
             //appBarLayout.removeView(cllapsingToolbarLayout);
             appBarLayout.setExpanded(true);
@@ -160,13 +160,9 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
             transaction.commit();
 
             // Commit the transaction
-        } else if (id == R.id.nav_slideshow) {
+        }  else if (id == R.id.settings) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.signout) {
 
         }
 
