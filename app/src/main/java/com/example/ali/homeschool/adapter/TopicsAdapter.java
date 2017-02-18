@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.ali.homeschool.R;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Created by Ali on 2/7/2017.
@@ -30,6 +31,7 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
     public void onBindViewHolder(TopicViewHolder holder, int position) {
         String name = names.get(position);
         holder.topicName.setText(name);
+        holder.topicNum.setText(String.valueOf(position));
     }
 
     @Override
@@ -39,10 +41,11 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
 
     public static class TopicViewHolder extends RecyclerView.ViewHolder {
         protected TextView topicName;
-
+        protected TextView topicNum;
         public TopicViewHolder(View itemView) {
             super(itemView);
             topicName = (TextView) itemView.findViewById(R.id.topicName);
+            topicNum = (TextView) itemView.findViewById(R.id.topicNum);
         }
     }
 }
