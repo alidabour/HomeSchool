@@ -11,13 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.ali.homeschool.RecyclerTouchListener;
+import com.example.ali.homeschool.controller.activities.ChildCourses;
 import com.example.ali.homeschool.data.CategoryInformation;
 import com.example.ali.homeschool.controller.activities.EnrolledCourse;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.CategoryAdapter;
+import com.example.ali.homeschool.controller.activities.StudentHomeActivity;
+
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 /**
@@ -39,15 +44,6 @@ public class MyCoursesFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_courses_fragmetnt, container, false);
 
-        Button pressedCourse = (Button) view.findViewById(R.id.PressedCourse);
-
-        pressedCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent (getActivity(),EnrolledCourse.class);
-                startActivity(intent);
-            }
-        });
         categoryInformationList = new ArrayList<CategoryInformation>();
         CategoryInformation categoryInformation= new CategoryInformation("Arabic",R.drawable.earlymath);
         categoryInformationList.add(categoryInformation);
@@ -72,6 +68,20 @@ public class MyCoursesFragment extends Fragment {
         enrolledCourses.setLayoutManager(categoryLayoutManger);
         CategoryAdapter categoryAdapter = new CategoryAdapter(categoryInformationList);
         enrolledCourses.setAdapter(categoryAdapter);
+
+        enrolledCourses.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), enrolledCourses, new RecyclerTouchListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent (getActivity(),EnrolledCourse.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
+
 
         return view;
     }

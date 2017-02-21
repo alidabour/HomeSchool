@@ -43,5 +43,7 @@
     <string name="sign_out">Sign out</string>
     <string name="name_nav">Manar Mostafa</string>
     <string name="SignIn">Sign In</string>
+    <string name="Email">Email</string>
+    <string name="Username">Username</string>
 
 </resources>

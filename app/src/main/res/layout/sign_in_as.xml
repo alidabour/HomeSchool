@@ -15,8 +15,10 @@
         android:layout_width="match_parent"
         android:layout_height="230dp"
         android:id="@+id/Parent"
+        android:background="@drawable/photoid"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"/>
 
     <ImageButton
         android:layout_width="match_parent"
