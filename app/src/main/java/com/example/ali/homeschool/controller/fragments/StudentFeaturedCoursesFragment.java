@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,8 @@ import com.example.ali.homeschool.controller.activities.CourseDescriptionActivit
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.RecyclerTouchListener;
 import com.example.ali.homeschool.adapter.CategoryAdapter;
+import com.example.ali.homeschool.data.DataProvider;
+import com.example.ali.homeschool.data.Entry.CourseColumns;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,12 +117,18 @@ public class StudentFeaturedCoursesFragment extends Fragment implements LoaderMa
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
+        return new CursorLoader(getActivity(), DataProvider.Course.CONTENT_URI,
+                      new String[]{CourseColumns._ID, CourseColumns.COURSE_NAME},null,null,null);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
+        if(data.moveToFirst()){
+            Log.v("Test","Cursor :" +data.getString(data.getColumnIndex(CourseColumns.COURSE_NAME)));
+        }else {
+            Log.v("Test","Cursor");
+        }
     }
 
     @Override
