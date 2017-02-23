@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class Utils {
     public static ArrayList subjectToContentVals(String subj){
+        //Test
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
         ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                 DataProvider.Subject.CONTENT_URI);
