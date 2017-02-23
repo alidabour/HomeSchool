@@ -3,7 +3,10 @@ package com.example.ali.homeschool.controller.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,7 +27,7 @@ import java.util.List;
  * This is the inital fragment for the Student which contains the featured courses as well
  * as the navigation bar for his courses and settings
  */
-public class StudentFeaturedCoursesFragment extends Fragment {
+public class StudentFeaturedCoursesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     View view;
     List<CategoryInformation> categoryInformationList;
     public int type;
@@ -106,5 +109,20 @@ public class StudentFeaturedCoursesFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }

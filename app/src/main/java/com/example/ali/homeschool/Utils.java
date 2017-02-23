@@ -27,7 +27,6 @@ public class Utils {
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
         ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                 DataProvider.Subject.CONTENT_URI);
-
              builder.withValue(SubjectColumns.SUBJECT_NAME,subj);
              batchOperations.add(builder.build());
 
