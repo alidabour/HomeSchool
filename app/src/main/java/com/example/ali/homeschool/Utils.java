@@ -23,6 +23,7 @@ public class Utils {
     public static ArrayList subjectToContentVals(String subj){
         //Test
         int test;
+        int test2;
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
         ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                 DataProvider.Subject.CONTENT_URI);
