@@ -1,5 +1,24 @@
 package com.example.ali.homeschool.adapter;
 
+/**
+ * Created by Ali on 2/23/2017.
+ */
+
+import android.database.Cursor;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.data.CategoryInformation;
+import com.example.ali.homeschool.data.Entry.CourseColumns;
+
+import java.util.List;
+
+
 
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
@@ -23,24 +42,24 @@ import java.util.List;
  * and that is being used in the recycle view in the StudentHomeActivity Layout
  */
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+public class EnrolledCoursesAdapter extends RecyclerView.Adapter<EnrolledCoursesAdapter.CategoryViewHolder> {
     List<CategoryInformation> categoryInformationList ;
     private Cursor mCursor;
 
-    public CategoryAdapter(List<CategoryInformation> categoryInformationList) {
+    public EnrolledCoursesAdapter(List<CategoryInformation> categoryInformationList) {
         this.categoryInformationList = categoryInformationList;
 //        Log.v("Test","Constr."+categoryInformationList.get(0).getCategoryName());
     }
 
     @Override
-    public CategoryAdapter.CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EnrolledCoursesAdapter.CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.category_item_card,parent,false);
+                .inflate(R.layout.enrolled_course_item,parent,false);
         return new CategoryViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(CategoryAdapter.CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(EnrolledCoursesAdapter.CategoryViewHolder holder, int position) {
         mCursor.moveToPosition(position);
 //        CategoryInformation categoryInformation = categoryInformationList.get(position);
 //        Log.v("Test","test");

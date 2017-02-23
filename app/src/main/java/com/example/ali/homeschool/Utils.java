@@ -38,33 +38,44 @@ public class Utils {
         context.getContentResolver().applyBatch(DataProvider.AUTHORITY,Utils.subjectToContentVals("Math"));
 
     }
-    public static ArrayList courseToContentValue (String course){
+    public static ArrayList courseToContentValue (String course,int id){
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
         ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                 DataProvider.Course.CONTENT_URI
         );
         builder.withValue(CourseColumns.COURSE_NAME,course);
+        builder.withValue(CourseColumns.GLOBAL_ID,id);
         batchOperations.add(builder.build());
         return batchOperations;
     }
     public static void addCoursesTest(Context context) throws RemoteException, OperationApplicationException {
-        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,courseToContentValue("FirstCourse"));
-        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,courseToContentValue("SecondCourse"));
-        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,courseToContentValue("ThirdCourse"));
+        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,courseToContentValue("FirstCourse",1));
+        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,courseToContentValue("SecondCourse",2));
+        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,courseToContentValue("ThirdCourse",3));
     }
-    public static ArrayList lessonToContentValue (String lesson){
+    public static ArrayList lessonToContentValue (String lesson,int id){
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
         ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                 DataProvider.Lesson.CONTENT_URI
         );
         builder.withValue(LessonColumns.LESSON_NAME,lesson);
+        builder.withValue(LessonColumns.COURSE_ID,id);
         batchOperations.add(builder.build());
         return batchOperations;
     }
     public static void addLessonsTest(Context context) throws RemoteException, OperationApplicationException {
-        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,lessonToContentValue("FirstLesson"));
-        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,lessonToContentValue("SecondLesson"));
-        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,lessonToContentValue("ThirdLesson"));
+        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,lessonToContentValue("FirstLesson",1));
+        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,lessonToContentValue("SecondLesson",1));
+        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,lessonToContentValue("ThirdLesson",1));
+
+        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,lessonToContentValue("FirstLesson",2));
+        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,lessonToContentValue("SecondLesson",2));
+        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,lessonToContentValue("ThirdLesson",2));
+
+
+        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,lessonToContentValue("FirstLesson",3));
+        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,lessonToContentValue("SecondLesson",3));
+        context.getContentResolver().applyBatch(DataProvider.AUTHORITY,lessonToContentValue("ThirdLesson",3));
     }
     public static ArrayList topicToContentValue (String topic){
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();

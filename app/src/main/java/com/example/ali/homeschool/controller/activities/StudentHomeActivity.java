@@ -69,7 +69,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 v.getParent().requestDisallowInterceptTouchEvent(true);
-                Log.v("Test", "Pager Touch");
+//                Log.v("Test", "Pager Touch");
                 return false;
             }
         });
@@ -122,7 +122,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         int id = item.getItemId();
 
         if (id == R.id.coursesNav) {
-            Log.v("Test", "Test");
+//            Log.v("Test", "Test");
             //appBarLayout.removeView(cllapsingToolbarLayout);
             appBarLayout.setExpanded(false);
             appBarLayout.addOnOffsetChangedListener(new   AppBarLayout.OnOffsetChangedListener() {
@@ -143,7 +143,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
 
             // Commit the transaction
         } else if (id == R.id.featuredCoursesNaV) {
-            Log.v("Test", "Test");
+//            Log.v("Test", "Test");
             //appBarLayout.removeView(cllapsingToolbarLayout);
             appBarLayout.setExpanded(true);
             mViewPager.setAdapter(imageCollapsingToolBarAdapter);

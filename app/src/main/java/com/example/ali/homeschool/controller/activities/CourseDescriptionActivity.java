@@ -35,6 +35,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_course_description);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Animals Vol. 1");

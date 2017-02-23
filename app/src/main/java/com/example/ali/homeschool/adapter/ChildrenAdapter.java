@@ -25,7 +25,7 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Catego
 
     public ChildrenAdapter(List<CategoryInformation> categoryInformationList) {
         this.categoryInformationList = categoryInformationList;
-        Log.v("Test","Constr."+categoryInformationList.get(0).getCategoryName());
+//        Log.v("Test","Constr."+categoryInformationList.get(0).getCategoryName());
     }
 
     @Override
@@ -38,8 +38,8 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Catego
     @Override
     public void onBindViewHolder(CategoryViewHolder holder, int position) {
         CategoryInformation categoryInformation = categoryInformationList.get(position);
-        Log.v("Test","test");
-        Log.v("Test","Inf:"+categoryInformation.getCategoryName()+" "+categoryInformation.getCategoryImage());
+//        Log.v("Test","test");
+//        Log.v("Test","Inf:"+categoryInformation.getCategoryName()+" "+categoryInformation.getCategoryImage());
         holder.childrenName.setText(categoryInformation.getCategoryName());
         holder.childrenImage.setImageResource(categoryInformation.getCategoryImage());
     }

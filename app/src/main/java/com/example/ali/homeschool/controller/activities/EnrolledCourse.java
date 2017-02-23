@@ -1,5 +1,6 @@
 package com.example.ali.homeschool.controller.activities;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,7 +30,7 @@ them as it's being called in the MyCoursesFragment
  */
 public class EnrolledCourse extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
+    String id;
     private ViewPager mViewPager;
 
     @Override
@@ -38,6 +39,10 @@ public class EnrolledCourse extends AppCompatActivity {
         setContentView(R.layout.activity_enrolled_course);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Intent intent = getIntent();
+        if(intent != null){
+           id = intent.getStringExtra("courseID");
+        }
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -131,7 +136,11 @@ public class EnrolledCourse extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position){
                 case 0:
-                    return new TopicsFragment().newInstance();
+                    Bundle bundle= new Bundle();
+                    bundle.putString("courseID",id);
+                    TopicsFragment topicsFragment = new TopicsFragment().newInstance();
+                    topicsFragment.setArguments(bundle);
+                    return topicsFragment;
                 case 1:
 
                 case 2:
