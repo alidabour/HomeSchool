@@ -30,9 +30,10 @@ import java.util.List;
 public class TopicsFragment extends Fragment  implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int CURSOR_LOADER_ID = 2;
     String id;
-
+    TopicsAdapter topicsAdapter;
     public TopicsFragment() {
         // Required empty public constructor
+
     }
     public static TopicsFragment newInstance() {
         TopicsFragment fragment = new TopicsFragment();
@@ -64,7 +65,7 @@ public class TopicsFragment extends Fragment  implements LoaderManager.LoaderCal
         topicsRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         topicsRecyclerView.setLayoutManager(layoutManager);
-        TopicsAdapter topicsAdapter = new TopicsAdapter(names);
+        topicsAdapter = new TopicsAdapter(names);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(topicsRecyclerView.getContext(),layoutManager.getOrientation());
         topicsRecyclerView.addItemDecoration(dividerItemDecoration);
         topicsRecyclerView.setAdapter(topicsAdapter);
@@ -97,13 +98,14 @@ public class TopicsFragment extends Fragment  implements LoaderManager.LoaderCal
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (data.moveToFirst()) {
-            Log.v("Test", "Cursor Lesson data:" + data.getCount());
-            Log.v("Test", "Cursor Lesson ID:" + data.getString(data.getColumnIndex(LessonColumns.COURSE_ID)));
-        } else {
-            Log.v("Test", "Cursor");
-        }
-//        to.swapCursor(cursor);
+
+//        if (data.moveToFirst()) {
+////            Log.v("Test", "Cursor Lesson data: " + data.getCount());
+////            Log.v("Test", "Cursor Lesson ID:" + data.getString(data.getColumnIndex(LessonColumns.COURSE_ID)));
+//        } else {
+//            Log.v("Test", "Cursor");
+//        }
+        topicsAdapter.swapCursor(data);
     }
 
 //    @Override

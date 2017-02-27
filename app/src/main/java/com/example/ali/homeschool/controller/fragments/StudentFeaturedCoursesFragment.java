@@ -107,7 +107,12 @@ public class StudentFeaturedCoursesFragment extends Fragment implements LoaderCa
         LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 //        categoryLayoutManger.setOrientation(LinearLayoutManager.HORIZONTAL);
         categoryRecycleView.setLayoutManager(categoryLayoutManger);
-        categoryAdapter = new CategoryAdapter(categoryInformationList);
+        categoryAdapter = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+            @Override
+            public void onClick(String test) {
+
+            }
+        });
         categoryRecycleView.setAdapter(categoryAdapter);
 
         //here when we use the addonitemtouchlistener we need to consider that the listener listens
@@ -136,7 +141,12 @@ public class StudentFeaturedCoursesFragment extends Fragment implements LoaderCa
         LinearLayoutManager cm2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
         c2.setLayoutManager(cm2);
-        CategoryAdapter ca = new CategoryAdapter(categoryInformationList);
+        CategoryAdapter ca = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+            @Override
+            public void onClick(String test) {
+
+            }
+        });
         c2.setAdapter(ca);
 
 
@@ -146,7 +156,12 @@ public class StudentFeaturedCoursesFragment extends Fragment implements LoaderCa
         LinearLayoutManager cm3 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
         c3.setLayoutManager(cm3);
-        CategoryAdapter ca3 = new CategoryAdapter(categoryInformationList);
+        CategoryAdapter ca3 = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+            @Override
+            public void onClick(String test) {
+
+            }
+        });
         c3.setAdapter(ca3);
 
 

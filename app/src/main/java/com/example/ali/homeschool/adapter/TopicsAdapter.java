@@ -1,5 +1,6 @@
 package com.example.ali.homeschool.adapter;
 
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,8 @@ import java.util.StringTokenizer;
 
 public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewHolder> {
     List<String> names;
+    private Cursor mCursor;
+
     public TopicsAdapter(List<String> names){
         this.names=names;
     }
@@ -33,7 +36,20 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
         holder.topicName.setText(name);
         holder.topicNum.setText(String.valueOf(position));
     }
+    public Cursor swapCursor(Cursor c) {
+        // check if this cursor is the same as the previous cursor (mCursor)
+        if (mCursor == c) {
+            return null; // bc nothing has changed
+        }
+        Cursor temp = mCursor;
+        this.mCursor = c; // new cursor value assigned
 
+        //check if this is a valid cursor, then update the cursor
+        if (c != null) {
+            this.notifyDataSetChanged();
+        }
+        return temp;
+    }
     @Override
     public int getItemCount() {
         return names.size();

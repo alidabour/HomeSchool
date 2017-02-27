@@ -28,7 +28,7 @@ import com.example.ali.homeschool.controller.fragments.TopicsFragment;
 This Class is after pressing on amy course in mycourses and using the tabs to switch between
 them as it's being called in the MyCoursesFragment
  */
-public class EnrolledCourse extends AppCompatActivity {
+public class EnrolledCourseActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     String id;
     private ViewPager mViewPager;

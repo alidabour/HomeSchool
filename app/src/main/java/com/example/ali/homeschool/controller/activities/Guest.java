@@ -73,7 +73,12 @@ public class Guest extends AppCompatActivity {
         LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(Guest.this,LinearLayoutManager.HORIZONTAL,false);
 //        categoryLayoutManger.setOrientation(LinearLayoutManager.HORIZONTAL);
         categoryRecycleView.setLayoutManager(categoryLayoutManger);
-        CategoryAdapter categoryAdapter = new CategoryAdapter(categoryInformationList);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+            @Override
+            public void onClick(String test) {
+
+            }
+        });
         categoryRecycleView.setAdapter(categoryAdapter);
         categoryRecycleView.addOnItemTouchListener(new RecyclerTouchListener(this, categoryRecycleView, new RecyclerTouchListener.OnItemClickListener() {
                     @Override
@@ -94,7 +99,12 @@ public class Guest extends AppCompatActivity {
         LinearLayoutManager cm2 = new LinearLayoutManager(Guest.this,LinearLayoutManager.HORIZONTAL,false);
         //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
         c2.setLayoutManager(cm2);
-        CategoryAdapter ca = new CategoryAdapter(categoryInformationList);
+        CategoryAdapter ca = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+            @Override
+            public void onClick(String test) {
+
+            }
+        });
         c2.setAdapter(ca);
 
         RecyclerView c3= (RecyclerView)findViewById(R.id.c33);
@@ -102,7 +112,12 @@ public class Guest extends AppCompatActivity {
         LinearLayoutManager cm3 = new LinearLayoutManager(Guest.this,LinearLayoutManager.HORIZONTAL,false);
         //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
         c3.setLayoutManager(cm3);
-        CategoryAdapter ca3 = new CategoryAdapter(categoryInformationList);
+        CategoryAdapter ca3 = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+            @Override
+            public void onClick(String test) {
+
+            }
+        });
         c3.setAdapter(ca3);
         final ViewPager mViewPager = (ViewPager) findViewById(R.id.viewPage_collapsing_toolbar);
         SampleCoursesToolbarAdapter imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(this);

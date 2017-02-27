@@ -12,17 +12,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
-import com.example.ali.homeschool.RecyclerTouchListener;
-import com.example.ali.homeschool.controller.activities.ChildCourses;
+
+import com.example.ali.homeschool.adapter.EnrolledCoursesAdapter;
+import com.example.ali.homeschool.controller.activities.EnrolledCourseActivity;
 import com.example.ali.homeschool.data.CategoryInformation;
-import com.example.ali.homeschool.controller.activities.EnrolledCourse;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.CategoryAdapter;
-import com.example.ali.homeschool.controller.activities.StudentHomeActivity;
 import com.example.ali.homeschool.data.DataProvider;
 import com.example.ali.homeschool.data.Entry.CourseColumns;
 
@@ -46,7 +44,7 @@ public class MyCoursesFragment extends Fragment implements LoaderCallbacks<Curso
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         container.removeAllViews();
         // Inflate the layout for this fragment
@@ -75,22 +73,30 @@ public class MyCoursesFragment extends Fragment implements LoaderCallbacks<Curso
         LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
 //        categoryLayoutManger.setOrientation(LinearLayoutManager.HORIZONTAL);
         enrolledCourses.setLayoutManager(categoryLayoutManger);
-        categoryAdapter = new CategoryAdapter(categoryInformationList);
-        enrolledCourses.setAdapter(categoryAdapter);
-
-        enrolledCourses.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), enrolledCourses, new RecyclerTouchListener.OnItemClickListener() {
+        categoryAdapter = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
             @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent (getActivity(),EnrolledCourse.class);
-                intent.putExtra("courseID","2");
+            public void onClick(String id) {
+                Log.v("Test","MyCourseFragment");
+                Intent intent = new Intent(getActivity(), EnrolledCourseActivity.class);
+                intent.putExtra("courseID",id);
                 startActivity(intent);
             }
+        });
+        enrolledCourses.setAdapter(categoryAdapter);
 
-            @Override
-            public void onLongItemClick(View view, int position) {
-
-            }
-        }));
+//        enrolledCourses.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), enrolledCourses, new RecyclerTouchListener.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                Intent intent = new Intent (getActivity(),EnrolledCourseActivity.class);
+//                intent.putExtra("courseID","2");
+//                startActivity(intent);
+//            }
+//
+//            @Override
+//            public void onLongItemClick(View view, int position) {
+//
+//            }
+//        }));
         return view;
     }
 
@@ -103,17 +109,17 @@ public class MyCoursesFragment extends Fragment implements LoaderCallbacks<Curso
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(getActivity(), DataProvider.Course.CONTENT_URI,
-                new String[]{CourseColumns._ID, CourseColumns.COURSE_NAME}, null, null, null);
+                new String[]{CourseColumns._ID, CourseColumns.GLOBAL_ID,CourseColumns.COURSE_NAME}, null, null, null);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        if (cursor.moveToFirst()) {
-            Log.v("Test", "Cursor :" + cursor.getString(cursor.getColumnIndex(CourseColumns.COURSE_NAME)));
-        } else {
-            Log.v("Test", "Cursor");
-        }
         categoryAdapter.swapCursor(cursor);
+//        if (cursor.moveToFirst()) {
+//            Log.v("Test", "Cursor Global id:" + cursor.getString(cursor.getColumnIndex(CourseColumns._ID)));
+//        } else {
+//            Log.v("Test", "Cursor");
+//        }
     }
 
     @Override

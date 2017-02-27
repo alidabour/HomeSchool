@@ -26,8 +26,12 @@ import java.util.List;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
     List<CategoryInformation> categoryInformationList ;
     private Cursor mCursor;
-
-    public CategoryAdapter(List<CategoryInformation> categoryInformationList) {
+    public  OnClickHandler onClickHandler;
+    public interface OnClickHandler {
+        void onClick(String test);
+    }
+    public CategoryAdapter(List<CategoryInformation> categoryInformationList,OnClickHandler onClickHandler) {
+        this.onClickHandler = onClickHandler;
         this.categoryInformationList = categoryInformationList;
 //        Log.v("Test","Constr."+categoryInformationList.get(0).getCategoryName());
     }
@@ -74,13 +78,23 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         return temp;
     }
 
-    public static class CategoryViewHolder extends RecyclerView.ViewHolder {
+    public  class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         protected TextView categoryName;
         protected ImageView categoryImage;
         public CategoryViewHolder(View itemView) {
             super(itemView);
             categoryImage = (ImageView) itemView.findViewById(R.id.category_imageView);
             categoryName = (TextView) itemView.findViewById(R.id.category_textView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            Cursor cursor = mCursor;
+            cursor.moveToPosition(position);
+            String id = mCursor.getString(mCursor.getColumnIndex(CourseColumns.GLOBAL_ID));
+            onClickHandler.onClick(id);
         }
     }
 }
