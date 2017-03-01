@@ -2,12 +2,14 @@ package com.example.ali.homeschool.adapter;
 
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.data.Entry.LessonColumns;
 
 import java.util.List;
 import java.util.StringTokenizer;
@@ -32,9 +34,13 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
 
     @Override
     public void onBindViewHolder(TopicViewHolder holder, int position) {
-        String name = names.get(position);
+        Log.v("Test","Position :" + position);
+        mCursor.moveToPosition(position);
+        Log.v("Test","Count : "+mCursor.getCount());
+
+        String name = mCursor.getString(mCursor.getColumnIndex(LessonColumns.LESSON_NAME));
         holder.topicName.setText(name);
-        holder.topicNum.setText(String.valueOf(position));
+        holder.topicNum.setText(String.valueOf(mCursor.getInt(mCursor.getColumnIndex(LessonColumns.LESSON_NUMBER))));
     }
     public Cursor swapCursor(Cursor c) {
         // check if this cursor is the same as the previous cursor (mCursor)

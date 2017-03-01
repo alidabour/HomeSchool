@@ -29,6 +29,7 @@ import java.util.List;
 
 public class TopicsFragment extends Fragment  implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int CURSOR_LOADER_ID = 2;
+    private RecyclerView topicsRecyclerView;
     String id;
     TopicsAdapter topicsAdapter;
     public TopicsFragment() {
@@ -61,14 +62,14 @@ public class TopicsFragment extends Fragment  implements LoaderManager.LoaderCal
         names.add("مقدمة");names.add("Topic 2");names.add("Topic 3");names.add("Topic 4");
         names.add("Topic 5");names.add("Topic 6");names.add("Topic 7");names.add("Topic 8");
         names.add("Topic 9");names.add("Topic 10");names.add("Topic 11");names.add("Topic 12");
-        RecyclerView topicsRecyclerView = (RecyclerView)view.findViewById(R.id.topicsRecyclerView);
+        topicsRecyclerView = (RecyclerView)view.findViewById(R.id.topicsRecyclerView);
         topicsRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         topicsRecyclerView.setLayoutManager(layoutManager);
         topicsAdapter = new TopicsAdapter(names);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(topicsRecyclerView.getContext(),layoutManager.getOrientation());
         topicsRecyclerView.addItemDecoration(dividerItemDecoration);
-        topicsRecyclerView.setAdapter(topicsAdapter);
+//        topicsRecyclerView.setAdapter(topicsAdapter);
         topicsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),topicsRecyclerView, new RecyclerTouchListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -91,13 +92,15 @@ public class TopicsFragment extends Fragment  implements LoaderManager.LoaderCal
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        Log.v("Test","On Create Loader");
         return new CursorLoader(getActivity(), DataProvider.Lesson.CONTENT_URI,
-                new String[]{LessonColumns._ID, LessonColumns.LESSON_NAME},null,null, null);
+                new String[]{LessonColumns._ID, LessonColumns.LESSON_NAME,LessonColumns.LESSON_NUMBER},null,null, null);
 //        LessonColumns.COURSE_ID +" = ?", new String[]{id}
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.v("Test","On Loader Finish");
 
 //        if (data.moveToFirst()) {
 ////            Log.v("Test", "Cursor Lesson data: " + data.getCount());
@@ -106,6 +109,8 @@ public class TopicsFragment extends Fragment  implements LoaderManager.LoaderCal
 //            Log.v("Test", "Cursor");
 //        }
         topicsAdapter.swapCursor(data);
+        topicsRecyclerView.setAdapter(topicsAdapter);
+
     }
 
 //    @Override
