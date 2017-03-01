@@ -45,5 +45,6 @@
     <string name="SignIn">Sign In</string>
     <string name="Email">Email</string>
     <string name="Username">Username</string>
+    <string name="ratings">Ratings</string>
 
 </resources>

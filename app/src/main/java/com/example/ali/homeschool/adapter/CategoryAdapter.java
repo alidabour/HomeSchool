@@ -31,6 +31,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         void onClick(String test);
     }
     public CategoryAdapter(List<CategoryInformation> categoryInformationList,OnClickHandler onClickHandler) {
+        Log.v("Test","----------------------------------CategoryAdapter");
+
         this.onClickHandler = onClickHandler;
         this.categoryInformationList = categoryInformationList;
 //        Log.v("Test","Constr."+categoryInformationList.get(0).getCategoryName());
@@ -45,23 +47,30 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(CategoryAdapter.CategoryViewHolder holder, int position) {
-        mCursor.moveToPosition(position);
+        Log.v("Test","----------------------------------CategoryAdapter : "+ categoryInformationList.get(position).toString());
+
+        holder.categoryImage.setImageResource(R.drawable.earlymath);
+        holder.categoryName.setText(categoryInformationList.get(position).getCategoryName());
+//        mCursor.moveToPosition(position);
 //        CategoryInformation categoryInformation = categoryInformationList.get(position);
 //        Log.v("Test","test");
 //        Log.v("Test","Inf:"+categoryInformation.getCategoryName()+" "+categoryInformation.getCategoryImage());
 //        holder.categoryName.setText(categoryInformation.getCategoryName());
 //        holder.categoryImage.setImageResource(categoryInformation.getCategoryImage());
-        holder.categoryName.setText(mCursor.getString(mCursor.getColumnIndex(CourseColumns.COURSE_NAME)));
-        holder.categoryImage.setImageResource(R.drawable.earlymath);
+
+        //test
+//        holder.categoryName.setText(mCursor.getString(mCursor.getColumnIndex(CourseColumns.COURSE_NAME)));
+//        holder.categoryImage.setImageResource(R.drawable.earlymath);
 
     }
 
     @Override
     public int getItemCount() {
-        if (mCursor == null) {
-            return 0;
-        }
-        return mCursor.getCount();
+//        if (mCursor == null) {
+//            return 0;
+//        }
+//        return mCursor.getCount();
+        return categoryInformationList.size();
     }
     public Cursor swapCursor(Cursor c) {
         // check if this cursor is the same as the previous cursor (mCursor)

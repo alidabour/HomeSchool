@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.ali.homeschool.controller.activities.ClassActivity;
 import com.example.ali.homeschool.controller.activities.Guest;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.Utils;
@@ -98,7 +99,7 @@ public class MainActivity2Triallll_______________ extends AppCompatActivity impl
         startTopic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),ClassActivitytrial____________________.class);
+                Intent intent = new Intent(getApplicationContext(),ClassActivity.class);
                 startActivity(intent);
             }
         });

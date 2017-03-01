@@ -1,6 +1,10 @@
-package com.example.ali.homeschool.closed;
+package com.example.ali.homeschool.controller.activities;
 
+import android.app.LoaderManager;
 import android.content.Context;
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.database.Cursor;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +16,8 @@ import android.widget.TextView;
 
 import com.example.ali.homeschool.adapter.LessonPagerAdapter;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.data.DataProvider;
+import com.example.ali.homeschool.data.Entry.TopicColumns;
 
 import java.util.ArrayList;
 
@@ -19,8 +25,9 @@ import java.util.ArrayList;
     This class is for advanced level later on as it is designed to get the images like the cat image and the voice
     and that is why it has not been deleted yet
  */
-public class ClassActivitytrial____________________ extends AppCompatActivity {
+public class ClassActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     //RelativeLayout relativeLayout;
+    private static final int CURSOR_LOADER_ID = 3;
     View linearLayout;
     ImageView imageView;
     Context context;
@@ -34,13 +41,12 @@ public class ClassActivitytrial____________________ extends AppCompatActivity {
         context=getApplicationContext();
         //InputStream stream = null;
         String layout = "<LinearLayout android:orientation=\"vertical\" android:layout_weight=\"0\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"match_parent\"><ImageView android:layout_weight=\"5\" android:id=\"1\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\" /><LinearLayout android:orientation=\"horizontal\" android:layout_weight=\"1\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\"><Button android:layout_weight=\"1\" android:id=\"12\" android:text=\"Meow\" android:layout_width=\"0\" android:layout_height=\"match_parent\" /><Button android:layout_weight=\"1\" android:id=\"1\" android:text=\"Cat\" android:layout_width=\"0\" android:layout_height=\"match_parent\" /></LinearLayout></LinearLayout>";
-        layouts.add(layout);
+//        layouts.add(layout);
         String layoutt = "<LinearLayout android:orientation=\"vertical\" android:layout_weight=\"0\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"match_parent\"><ImageView android:layout_weight=\"5\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\" /><LinearLayout android:orientation=\"horizontal\" android:layout_weight=\"1\" android:id=\"6\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\"><Button android:layout_weight=\"1\" android:id=\"21\" android:text=\"Bark\" android:layout_width=\"0\" android:layout_height=\"match_parent\" /><Button android:layout_weight=\"1\" android:id=\"2\" android:text=\"Dog\" android:layout_width=\"0\" android:layout_height=\"match_parent\" /></LinearLayout></LinearLayout>";
-        layouts.add(layoutt);
-
+//        layouts.add(layoutt);
+        getLoaderManager().initLoader(0, null, (LoaderManager.LoaderCallbacks<Cursor>) this);
         setContentView(R.layout.activity_class_trial);
         pager = (ViewPager) findViewById(R.id.viewPager);
-        pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(),layouts));
 //        String layout="<LinearLayout \n" +
 //                "android:orientation=\"vertical\"\n" +
 //                "    android:id=\"3\"\n" +
@@ -83,7 +89,7 @@ public class ClassActivitytrial____________________ extends AppCompatActivity {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        //Log.v("ClassActivitytrial____________________","Linear Layout : "+linearLayout.getId());
+        //Log.v("ClassActivity","Linear Layout : "+linearLayout.getId());
 //        linearLayout = new LinearLayout(this);
 //        if(viewX.getOrientation().equals("vertical")){
 //            linearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -155,4 +161,33 @@ public class ClassActivitytrial____________________ extends AppCompatActivity {
         return layout1;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        return new CursorLoader(getApplicationContext(), DataProvider.Topic.CONTENT_URI,
+         new String[]{TopicColumns.TOPIC_ID,TopicColumns.TOPIC_NAME,TopicColumns.TOPIC_LAYOUT}
+        ,null,null,null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        Log.v("Test","Cursor count : "+cursor.getCount());
+        while (cursor.moveToNext()){
+            layouts.add(cursor.getString(cursor.getColumnIndex(TopicColumns.TOPIC_LAYOUT)));
+        }
+        pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(),layouts));
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        Log.v("Test","onLoaderReset");
+        layouts.clear();
+
+    }
 }

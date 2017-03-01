@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.RecyclerTouchListener;
 import com.example.ali.homeschool.adapter.TopicsAdapter;
-import com.example.ali.homeschool.closed.ClassActivitytrial____________________;
+import com.example.ali.homeschool.controller.activities.ClassActivity;
 import com.example.ali.homeschool.data.DataProvider;
 import com.example.ali.homeschool.data.Entry.LessonColumns;
 
@@ -73,7 +73,7 @@ public class TopicsFragment extends Fragment  implements LoaderManager.LoaderCal
         topicsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),topicsRecyclerView, new RecyclerTouchListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(getActivity(), ClassActivitytrial____________________.class);
+                Intent intent = new Intent(getActivity(), ClassActivity.class);
                 startActivity(intent);
             }
 
@@ -125,7 +125,7 @@ public class TopicsFragment extends Fragment  implements LoaderManager.LoaderCal
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-//        categoryAdapter.swapCursor(null);
+        topicsAdapter.swapCursor(null);
     }
 
 

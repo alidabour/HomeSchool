@@ -22,6 +22,8 @@ public class DataProvider {
         String LESSON = "lesson";
         String TOPIC = "topic";
         String TOPIC_CONTENT = "topic_content";
+        String CHILD = "child";
+        String CHILD_PROGRESS = "child_progress";
     }
     private static Uri buildUri(String... paths){
         Uri.Builder builder= BASE_CONTENT_URI.buildUpon();
@@ -76,5 +78,15 @@ public class DataProvider {
     public static class TopicContent {
         @ContentUri( path = Path.TOPIC_CONTENT , type = "vnd.android.cursor.dir/topic_content")
         public static final Uri CONTENT_URI = buildUri(Path.TOPIC_CONTENT);
+    }
+    @TableEndpoint(table = SchoolDatabase.CHILD)
+    public static class Child {
+        @ContentUri(path = Path.CHILD, type = "vnd.android.cursor.dir/child")
+        public static final Uri CONTENT_URI = buildUri(Path.CHILD);
+    }
+    @TableEndpoint(table = SchoolDatabase.CHILD_PROGRESS)
+    public static class ChildProgress {
+        @ContentUri(path = Path.CHILD_PROGRESS, type = "vnd.android.cursor.dir/child_progress")
+        public static final Uri CONTENT_URI = buildUri(Path.CHILD_PROGRESS);
     }
 }

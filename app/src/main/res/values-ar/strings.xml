@@ -44,4 +44,5 @@
 <string name="Email">البريد الاكترونى</string>
 <string name="Username">اسم المسنخدم</string>
 <string name="topics_description">الدروس</string>
+    <string name="ratings">Ratings</string>
 </resources>

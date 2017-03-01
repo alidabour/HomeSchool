@@ -1,6 +1,7 @@
 package com.example.ali.homeschool.adapter;
 
 
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.data.CategoryInformation;
+import com.example.ali.homeschool.data.Entry.ChildColumns;
 
 import java.util.List;
 
@@ -22,9 +24,14 @@ import java.util.List;
 
 public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.CategoryViewHolder> {
     List<CategoryInformation> categoryInformationList ;
-
-    public ChildrenAdapter(List<CategoryInformation> categoryInformationList) {
+    public OnClickHandler onClickHandler;
+    private Cursor mCursor;
+    public interface OnClickHandler {
+        void onClick(String test);
+    }
+    public ChildrenAdapter(List<CategoryInformation> categoryInformationList,OnClickHandler onClickHandler) {
         this.categoryInformationList = categoryInformationList;
+        this.onClickHandler = onClickHandler;
 //        Log.v("Test","Constr."+categoryInformationList.get(0).getCategoryName());
     }
 
@@ -40,22 +47,45 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Catego
         CategoryInformation categoryInformation = categoryInformationList.get(position);
 //        Log.v("Test","test");
 //        Log.v("Test","Inf:"+categoryInformation.getCategoryName()+" "+categoryInformation.getCategoryImage());
-        holder.childrenName.setText(categoryInformation.getCategoryName());
-        holder.childrenImage.setImageResource(categoryInformation.getCategoryImage());
+        mCursor.moveToPosition(position);
+        holder.childrenName.setText(mCursor.getString(mCursor.getColumnIndex(ChildColumns.CHILD_NAME)));
+        holder.childrenImage.setImageResource(R.drawable.photoid);
     }
 
     @Override
     public int getItemCount() {
-        return categoryInformationList.size();
+        if (mCursor == null) {
+            return 0;
+        }
+        return mCursor.getCount();
     }
+    public Cursor swapCursor(Cursor c) {
+        // check if this cursor is the same as the previous cursor (mCursor)
+        if (mCursor == c) {
+            return null; // bc nothing has changed
+        }
+        Cursor temp = mCursor;
+        this.mCursor = c; // new cursor value assigned
 
-    public static class CategoryViewHolder extends RecyclerView.ViewHolder {
+        //check if this is a valid cursor, then update the cursor
+        if (c != null) {
+            this.notifyDataSetChanged();
+        }
+        return temp;
+    }
+    public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected TextView childrenName;
         protected ImageView childrenImage;
         public CategoryViewHolder(View itemView) {
             super(itemView);
             childrenImage = (ImageView) itemView.findViewById(R.id.children_imageView);
             childrenName = (TextView) itemView.findViewById(R.id.children_textView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            onClickHandler.onClick("test");
         }
     }
 }

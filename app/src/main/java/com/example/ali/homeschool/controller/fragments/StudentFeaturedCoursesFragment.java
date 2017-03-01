@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.ali.homeschool.Utils;
+import com.example.ali.homeschool.adapter.CourseSectionListAdapter;
 import com.example.ali.homeschool.data.CategoryInformation;
 import com.example.ali.homeschool.controller.activities.CourseDescriptionActivity;
 import com.example.ali.homeschool.R;
@@ -31,6 +32,7 @@ import com.example.ali.homeschool.RecyclerTouchListener;
 import com.example.ali.homeschool.adapter.CategoryAdapter;
 import com.example.ali.homeschool.data.DataProvider;
 import com.example.ali.homeschool.data.Entry.CourseColumns;
+import com.example.ali.homeschool.data.HeaderRVData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,8 @@ public class StudentFeaturedCoursesFragment extends Fragment implements LoaderCa
     View view;
     List<CategoryInformation> categoryInformationList;
     CategoryAdapter categoryAdapter;
+    CourseSectionListAdapter courseSectionListAdapter;
+    RecyclerView courseSectionRV;
     public int type;
 
     @Override
@@ -70,7 +74,7 @@ public class StudentFeaturedCoursesFragment extends Fragment implements LoaderCa
 //                Utils.addDefaultsSubjects(getApplicationContext());
                 Utils.addCoursesTest(getActivity());
                 Utils.addLessonsTest(getActivity());
-//                Utils.addTopicsTest(getApplicationContext());
+                Utils.addTopicsTest(getActivity());
 //                Utils.addTopicsContentsTest(getApplicationContext());
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -79,90 +83,89 @@ public class StudentFeaturedCoursesFragment extends Fragment implements LoaderCa
             }
 
         }
+        courseSectionRV = (RecyclerView)view.findViewById(R.id.category_recyclerView);
+        courseSectionRV.setHasFixedSize(true);
+        courseSectionRV.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        List<HeaderRVData> headerRVDatas = new ArrayList<>();
+        List<CategoryInformation> categoryInformations = new ArrayList<>();
+        categoryInformations.add(new CategoryInformation("Test",R.drawable.earlymath));
+
+        categoryInformations.add(new CategoryInformation("Test",R.drawable.earlymath));
+
+        categoryInformations.add(new CategoryInformation("Test",R.drawable.earlymath));
+
+        categoryInformations.add(new CategoryInformation("Test",R.drawable.earlymath));
+        headerRVDatas.add(new HeaderRVData("Section num1",categoryInformations));
+        headerRVDatas.add(new HeaderRVData("Section num2",categoryInformations));
+        headerRVDatas.add(new HeaderRVData("Section num3",categoryInformations));
+        courseSectionListAdapter = new CourseSectionListAdapter(getActivity(),headerRVDatas);
+        courseSectionRV.setAdapter(courseSectionListAdapter);
 //        getActivity().getSupportLoaderManager().initLoader(0, null, (LoaderManager.LoaderCallbacks<Cursor>)this);
         //    b = getArguments();
         //  type = b.getInt("type");
 
         //  Here we add in the array list to be used in the RecyclerView
-        categoryInformationList = new ArrayList<CategoryInformation>();
-        CategoryInformation categoryInformation = new CategoryInformation("لغة عربية", R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
-        categoryInformation = new CategoryInformation("English", R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
-        categoryInformation = new CategoryInformation("رياضة", R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
-        categoryInformation = new CategoryInformation("رياضة", R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
-        categoryInformation = new CategoryInformation("Math", R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
-        categoryInformation = new CategoryInformation("Math", R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
-        categoryInformation = new CategoryInformation("Math", R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
-        categoryInformation = new CategoryInformation("Math", R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
-
-        RecyclerView categoryRecycleView = (RecyclerView) view.findViewById(R.id.category_recyclerView);
-        categoryRecycleView.setHasFixedSize(true);
-        LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-//        categoryLayoutManger.setOrientation(LinearLayoutManager.HORIZONTAL);
-        categoryRecycleView.setLayoutManager(categoryLayoutManger);
-        categoryAdapter = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
-            @Override
-            public void onClick(String test) {
-
-            }
-        });
-        categoryRecycleView.setAdapter(categoryAdapter);
-
-        //here when we use the addonitemtouchlistener we need to consider that the listener listens
-        //to the activity so we can't "this" as this is a fragment not an activity
-        //and that is what it desires
-        categoryRecycleView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), categoryRecycleView, new RecyclerTouchListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        //    getActivity().startActivity(new Intent(getActivity(), CourseDescriptionActivity.class));
-                        Intent intent = new Intent(getActivity(), CourseDescriptionActivity.class);
-                        intent.putExtra("type", 1); // here i send the type one to notify that this is the student
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-
-                    }
-                })
-        );
-
-
-        // This is the RecyclerView of the Top Visited
-        RecyclerView c2 = (RecyclerView) view.findViewById(R.id.c22);
-        c2.setHasFixedSize(true);
-        LinearLayoutManager cm2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
-        c2.setLayoutManager(cm2);
-        CategoryAdapter ca = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
-            @Override
-            public void onClick(String test) {
-
-            }
-        });
-        c2.setAdapter(ca);
-
-
-        // This is the RecyclerView of the New
-        RecyclerView c3 = (RecyclerView) view.findViewById(R.id.c33);
-        c3.setHasFixedSize(true);
-        LinearLayoutManager cm3 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
-        c3.setLayoutManager(cm3);
-        CategoryAdapter ca3 = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
-            @Override
-            public void onClick(String test) {
-
-            }
-        });
-        c3.setAdapter(ca3);
+//        RecyclerView categoryRecycleView = (RecyclerView) view.findViewById(R.id.category_recyclerView);
+//        categoryRecycleView.setHasFixedSize(true);
+//        LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+////        categoryLayoutManger.setOrientation(LinearLayoutManager.HORIZONTAL);
+//        categoryRecycleView.setLayoutManager(categoryLayoutManger);
+//        categoryAdapter = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+//            @Override
+//            public void onClick(String test) {
+//
+//            }
+//        });
+//        categoryRecycleView.setAdapter(categoryAdapter);
+//
+//        //here when we use the addonitemtouchlistener we need to consider that the listener listens
+//        //to the activity so we can't "this" as this is a fragment not an activity
+//        //and that is what it desires
+//        categoryRecycleView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), categoryRecycleView, new RecyclerTouchListener.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(View view, int position) {
+//                        //    getActivity().startActivity(new Intent(getActivity(), CourseDescriptionActivity.class));
+//                        Intent intent = new Intent(getActivity(), CourseDescriptionActivity.class);
+//                        intent.putExtra("type", 1); // here i send the type one to notify that this is the student
+//                        startActivity(intent);
+//                    }
+//
+//                    @Override
+//                    public void onLongItemClick(View view, int position) {
+//
+//                    }
+//                })
+//        );
+//
+//
+//        // This is the RecyclerView of the Top Visited
+//        RecyclerView c2 = (RecyclerView) view.findViewById(R.id.c22);
+//        c2.setHasFixedSize(true);
+//        LinearLayoutManager cm2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+//        //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
+//        c2.setLayoutManager(cm2);
+//        CategoryAdapter ca = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+//            @Override
+//            public void onClick(String test) {
+//
+//            }
+//        });
+//        c2.setAdapter(ca);
+//
+//
+//        // This is the RecyclerView of the New
+//        RecyclerView c3 = (RecyclerView) view.findViewById(R.id.c33);
+//        c3.setHasFixedSize(true);
+//        LinearLayoutManager cm3 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+//        //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
+//        c3.setLayoutManager(cm3);
+//        CategoryAdapter ca3 = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+//            @Override
+//            public void onClick(String test) {
+//
+//            }
+//        });
+//        c3.setAdapter(ca3);
 
 
         return view;
@@ -187,7 +190,7 @@ public class StudentFeaturedCoursesFragment extends Fragment implements LoaderCa
         } else {
             Log.v("Test", "Cursor");
         }
-        categoryAdapter.swapCursor(cursor);
+//        categoryAdapter.swapCursor(cursor);
     }
 
     @Override

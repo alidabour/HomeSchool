@@ -7,20 +7,17 @@ import net.simonvt.schematic.annotation.DataType;
 import net.simonvt.schematic.annotation.PrimaryKey;
 
 /**
- * Created by Dabour on 10/27/2016.
+ * Created by Ali on 3/1/2017.
  */
 
-public class TopicColumns implements BaseColumns {
+public class ChildProgressColumns implements BaseColumns {
     @DataType(DataType.Type.INTEGER) @PrimaryKey @AutoIncrement
     public static final String _ID = BaseColumns._ID;
     @DataType(DataType.Type.INTEGER)
-    public static final String TOPIC_ID = "topic_id";
+    public static final String CHILD_ID = "child_id";
     @DataType(DataType.Type.TEXT)
-    public static final String LESSON_ID = "lesson_id";
-    @DataType(DataType.Type.TEXT)
-    public static final String TOPIC_NAME = "topic_name";
+    public static final String COURSE_NAME = "course_name";
     @DataType(DataType.Type.INTEGER)
-    public static final String TOPIC_NUMBER = "topic_number";
-    @DataType(DataType.Type.TEXT)
-    public static final String TOPIC_LAYOUT = "topic_layout";
+    public static final String COURSE_PROGRESS = "course_progress";
+
 }

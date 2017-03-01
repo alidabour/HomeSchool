@@ -11,20 +11,10 @@
     tools:context="com.example.ali.homeschool.controller.fragments.ChildCoursesFragment"
     tools:showIn="@layout/activity_child_courses">
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        android:text=" Computer Languages..."/>
 
-
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="25dp">
-    </ListView>
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleView"
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </RelativeLayout>
