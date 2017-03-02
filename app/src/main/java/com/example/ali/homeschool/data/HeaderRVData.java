@@ -1,5 +1,7 @@
 package com.example.ali.homeschool.data;
 
+import com.example.ali.homeschool.data.firebase.Courses;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,18 +10,18 @@ import java.util.List;
  */
 public class HeaderRVData {
     String header;
-    List<CategoryInformation> categoryInformations;
+    List<Courses> categoryInformations;
 
-    public HeaderRVData(String header, List<CategoryInformation> categoryInformations) {
+    public HeaderRVData(String header, List<Courses> categoryInformations) {
         this.header = header;
         this.categoryInformations = categoryInformations;
     }
 
-    public List<CategoryInformation> getCategoryInformations() {
+    public List<Courses> getCategoryInformations() {
         return categoryInformations;
     }
 
-    public void setCategoryInformations(ArrayList<CategoryInformation> categoryInformations) {
+    public void setCategoryInformations(ArrayList<Courses> categoryInformations) {
         this.categoryInformations = categoryInformations;
     }
 

@@ -1,16 +1,20 @@
 package com.example.ali.homeschool.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.controller.activities.CourseDescriptionActivity;
 import com.example.ali.homeschool.data.CategoryInformation;
 import com.example.ali.homeschool.data.HeaderRVData;
+import com.example.ali.homeschool.data.firebase.Courses;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +42,11 @@ public class CourseSectionListAdapter extends RecyclerView.Adapter<CourseSection
         List list = headerRVDataList.get(position).getCategoryInformations();
         CategoryAdapter itemListDataAdapter = new CategoryAdapter(list, new CategoryAdapter.OnClickHandler() {
             @Override
-            public void onClick(String test) {
-
+            public void onClick(Courses course) {
+                Intent intent= new Intent (context, CourseDescriptionActivity.class);
+                intent.putExtra("course",course);
+                Log.e( "onClick: ",intent.toString()+course );
+                context.startActivity(intent);
             }
         });
 

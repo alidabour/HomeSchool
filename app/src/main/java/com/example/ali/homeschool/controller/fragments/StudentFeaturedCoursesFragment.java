@@ -18,10 +18,12 @@ import android.content.CursorLoader;
 import android.os.RemoteException;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.LoginFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.ali.homeschool.Utils;
 import com.example.ali.homeschool.adapter.CourseSectionListAdapter;
@@ -33,9 +35,19 @@ import com.example.ali.homeschool.adapter.CategoryAdapter;
 import com.example.ali.homeschool.data.DataProvider;
 import com.example.ali.homeschool.data.Entry.CourseColumns;
 import com.example.ali.homeschool.data.HeaderRVData;
+import com.example.ali.homeschool.data.firebase.Courses;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -49,6 +61,10 @@ public class StudentFeaturedCoursesFragment extends Fragment implements LoaderCa
     CategoryAdapter categoryAdapter;
     CourseSectionListAdapter courseSectionListAdapter;
     RecyclerView courseSectionRV;
+    private ValueEventListener mPostListener;
+    private DatabaseReference databaseReference;
+    private List<Courses> users;
+    private List<HeaderRVData> headerRVDatas;
     public int type;
 
     @Override
@@ -83,23 +99,27 @@ public class StudentFeaturedCoursesFragment extends Fragment implements LoaderCa
             }
 
         }
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("courses");
+
+
         courseSectionRV = (RecyclerView)view.findViewById(R.id.category_recyclerView);
         courseSectionRV.setHasFixedSize(true);
         courseSectionRV.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        List<HeaderRVData> headerRVDatas = new ArrayList<>();
-        List<CategoryInformation> categoryInformations = new ArrayList<>();
-        categoryInformations.add(new CategoryInformation("Test",R.drawable.earlymath));
+         headerRVDatas = new ArrayList<>();
+//        List<Courses> categoryInformations = new ArrayList<>();
+//        categoryInformations.add(new Courses("Test",R.drawable.earlymath));
+//
+//        categoryInformations.add(new CategoryInformation("Test",R.drawable.earlymath));
+//
+//        categoryInformations.add(new CategoryInformation("Test",R.drawable.earlymath));
+//
+//        categoryInformations.add(new CategoryInformation("Test",R.drawable.earlymath));
+//        headerRVDatas.add(new HeaderRVData("Section num1",categoryInformations));
+//        headerRVDatas.add(new HeaderRVData("Section num2",categoryInformations));
+//        headerRVDatas.add(new HeaderRVData("Section num3",categoryInformations));
 
-        categoryInformations.add(new CategoryInformation("Test",R.drawable.earlymath));
 
-        categoryInformations.add(new CategoryInformation("Test",R.drawable.earlymath));
-
-        categoryInformations.add(new CategoryInformation("Test",R.drawable.earlymath));
-        headerRVDatas.add(new HeaderRVData("Section num1",categoryInformations));
-        headerRVDatas.add(new HeaderRVData("Section num2",categoryInformations));
-        headerRVDatas.add(new HeaderRVData("Section num3",categoryInformations));
-        courseSectionListAdapter = new CourseSectionListAdapter(getActivity(),headerRVDatas);
-        courseSectionRV.setAdapter(courseSectionListAdapter);
 //        getActivity().getSupportLoaderManager().initLoader(0, null, (LoaderManager.LoaderCallbacks<Cursor>)this);
         //    b = getArguments();
         //  type = b.getInt("type");
@@ -218,4 +238,68 @@ public class StudentFeaturedCoursesFragment extends Fragment implements LoaderCa
 //    public void onLoaderReset(Loader<Cursor> loader) {
 //
 //    }
+@Override
+public void onStart() {
+    super.onStart();
+    // Add value event listener to the post
+    // [START post_value_event_listener]DatabaseReference myRef = databaseReference;
+    DatabaseReference myRef = databaseReference;
+    myRef.addValueEventListener(
+            new ValueEventListener(){
+        public static final String TAG = "EmailPassword";
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            users = new ArrayList<>();
+            // Get Post object and use the values to update the UI
+            // [START_EXCLUDE]
+            for (DataSnapshot x:dataSnapshot.getChildren()){
+                Log.v("Test","Child : " +x.toString() );
+                Courses c = x.getValue(Courses.class);
+                String key = x.getKey();
+                c.setCourse_id(key);
+                users.add(c);
+                Log.v("Test","Child : " + users );
+            }
+            HashMap<String,ArrayList<Courses>> map =new HashMap<>();
+            for(Courses x : users){
+                ArrayList<Courses> c = new ArrayList<Courses>();
+                if(map.get(x.getSubject()) != null){
+                    c = map.get(x.getSubject());
+                    c.add(x);
+                    map.put(x.getSubject(),c);
+                }else {
+                    c.add(x);
+                    map.put(x.getSubject(),c);
+                }
+            }
+            Log.v("Test","Map :"+map.toString());
+            Iterator it = map.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+                headerRVDatas.add(new HeaderRVData((String)pair.getKey(),(List)pair.getValue()));
+                Log.v("Test","Map_______" +pair.getKey() + " = " + pair.getValue());
+                it.remove(); // avoids a ConcurrentModificationException
+            }
+            courseSectionListAdapter = new CourseSectionListAdapter(getActivity(),headerRVDatas);
+            courseSectionRV.setAdapter(courseSectionListAdapter);
+            // [END_EXCLUDE]
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            // Getting Post failed, log a message
+            Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            // [START_EXCLUDE]
+            Toast.makeText(getActivity(), "Failed to load post.",
+                    Toast.LENGTH_SHORT).show();
+            // [END_EXCLUDE]
+        }
+    });
+
+//    databaseReference.addValueEventListener(postListener);
+//    // [END post_value_event_listener]
+//
+//    // Keep copy of post listener so we can remove it when app stops
+//    mPostListener = postListener;
+}
 }

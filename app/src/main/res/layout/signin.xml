@@ -43,7 +43,8 @@
             android:layout_below="@+id/textInputLayout4"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:id="@+id/Email"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -57,7 +58,8 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/Email"/>
+                android:hint="@string/Email"
+                android:id="@+id/Password"/>
         </android.support.design.widget.TextInputLayout>
 
 </RelativeLayout>

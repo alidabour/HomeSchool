@@ -10,14 +10,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.ali.homeschool.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends AppCompatActivity {
 TextView logoname;
+    public FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
+        mAuth =FirebaseAuth.getInstance();
 //        logoname = (TextView) findViewById(R.id.logoName);
 //        logoname.setTypeface(Typeface.createFromAsset(getAssets(),"Amiri-Bold.ttf"));
         //ImageView imageView = (ImageView) findViewById(R.id.imageView);

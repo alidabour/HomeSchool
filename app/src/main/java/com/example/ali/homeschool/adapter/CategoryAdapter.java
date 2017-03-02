@@ -14,6 +14,7 @@ import com.example.ali.homeschool.data.CategoryInformation;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.data.DataProvider;
 import com.example.ali.homeschool.data.Entry.CourseColumns;
+import com.example.ali.homeschool.data.firebase.Courses;
 
 import java.util.List;
 
@@ -24,17 +25,17 @@ import java.util.List;
  */
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
-    List<CategoryInformation> categoryInformationList ;
+    List<Courses> CourseList ;
     private Cursor mCursor;
     public  OnClickHandler onClickHandler;
     public interface OnClickHandler {
-        void onClick(String test);
+        void onClick(Courses test);
     }
-    public CategoryAdapter(List<CategoryInformation> categoryInformationList,OnClickHandler onClickHandler) {
+    public CategoryAdapter(List<Courses> CourseList ,OnClickHandler onClickHandler) {
         Log.v("Test","----------------------------------CategoryAdapter");
 
         this.onClickHandler = onClickHandler;
-        this.categoryInformationList = categoryInformationList;
+        this.CourseList  = CourseList ;
 //        Log.v("Test","Constr."+categoryInformationList.get(0).getCategoryName());
     }
 
@@ -47,10 +48,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(CategoryAdapter.CategoryViewHolder holder, int position) {
-        Log.v("Test","----------------------------------CategoryAdapter : "+ categoryInformationList.get(position).toString());
+        Log.v("Test","----------------------------------CategoryAdapter : "+ CourseList.get(position).toString());
 
         holder.categoryImage.setImageResource(R.drawable.earlymath);
-        holder.categoryName.setText(categoryInformationList.get(position).getCategoryName());
+        holder.categoryName.setText(CourseList.get(position).getName());
 //        mCursor.moveToPosition(position);
 //        CategoryInformation categoryInformation = categoryInformationList.get(position);
 //        Log.v("Test","test");
@@ -70,7 +71,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 //            return 0;
 //        }
 //        return mCursor.getCount();
-        return categoryInformationList.size();
+        return CourseList.size();
     }
     public Cursor swapCursor(Cursor c) {
         // check if this cursor is the same as the previous cursor (mCursor)
@@ -100,10 +101,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            Cursor cursor = mCursor;
-            cursor.moveToPosition(position);
-            String id = mCursor.getString(mCursor.getColumnIndex(CourseColumns.GLOBAL_ID));
-            onClickHandler.onClick(id);
+//            Cursor cursor = mCursor;
+//            cursor.moveToPosition(position);
+          //  String id = mCursor.getString(mCursor.getColumnIndex(CourseColumns.GLOBAL_ID));
+          //  onClickHandler.onClick(id);
+            onClickHandler.onClick(CourseList.get(position));
         }
     }
 }

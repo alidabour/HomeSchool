@@ -93,54 +93,54 @@ public class Main3Activitytrial______________ extends AppCompatActivity implemen
         LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(Main3Activitytrial______________.this,LinearLayoutManager.HORIZONTAL,false);
 //        categoryLayoutManger.setOrientation(LinearLayoutManager.HORIZONTAL);
         categoryRecycleView.setLayoutManager(categoryLayoutManger);
-        CategoryAdapter categoryAdapter = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
-            @Override
-            public void onClick(String test) {
-
-            }
-        });
-        categoryRecycleView.setAdapter(categoryAdapter);
-        categoryRecycleView.addOnItemTouchListener(new RecyclerTouchListener(this, categoryRecycleView, new RecyclerTouchListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        Intent intent = new Intent(getApplicationContext(),CourseDescriptionActivity.class);
-                        intent.putExtra("type",1);
-
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-
-                    }
-                })
-        );
+//        CategoryAdapter categoryAdapter = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+//            @Override
+//            public void onClick(String test) {
+//
+//            }
+//        });
+//        categoryRecycleView.setAdapter(categoryAdapter);
+//        categoryRecycleView.addOnItemTouchListener(new RecyclerTouchListener(this, categoryRecycleView, new RecyclerTouchListener.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(View view, int position) {
+//                        Intent intent = new Intent(getApplicationContext(),CourseDescriptionActivity.class);
+//                        intent.putExtra("type",1);
+//
+//                        startActivity(intent);
+//                    }
+//
+//                    @Override
+//                    public void onLongItemClick(View view, int position) {
+//
+//                    }
+//                })
+//        );
 
         RecyclerView c2 = (RecyclerView)findViewById(R.id.c22);
         c2.setHasFixedSize(true);
         LinearLayoutManager cm2 = new LinearLayoutManager(Main3Activitytrial______________.this,LinearLayoutManager.HORIZONTAL,false);
         //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
         c2.setLayoutManager(cm2);
-        CategoryAdapter ca = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
-            @Override
-            public void onClick(String test) {
-
-            }
-        });
-        c2.setAdapter(ca);
-
-        RecyclerView c3= (RecyclerView)findViewById(R.id.c33);
-        c3.setHasFixedSize(true);
-        LinearLayoutManager cm3 = new LinearLayoutManager(Main3Activitytrial______________.this,LinearLayoutManager.HORIZONTAL,false);
-        //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
-        c3.setLayoutManager(cm3);
-        CategoryAdapter ca3 = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
-            @Override
-            public void onClick(String test) {
-
-            }
-        });
-        c3.setAdapter(ca3);
+//        CategoryAdapter ca = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+//            @Override
+//            public void onClick(String test) {
+//
+//            }
+//        });
+//        c2.setAdapter(ca);
+//
+//        RecyclerView c3= (RecyclerView)findViewById(R.id.c33);
+//        c3.setHasFixedSize(true);
+//        LinearLayoutManager cm3 = new LinearLayoutManager(Main3Activitytrial______________.this,LinearLayoutManager.HORIZONTAL,false);
+//        //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
+//        c3.setLayoutManager(cm3);
+//        CategoryAdapter ca3 = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+//            @Override
+//            public void onClick(String test) {
+//
+//            }
+//        });
+//        c3.setAdapter(ca3);
     }
 
     @Override

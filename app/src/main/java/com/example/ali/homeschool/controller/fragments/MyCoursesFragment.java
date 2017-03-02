@@ -73,16 +73,16 @@ public class MyCoursesFragment extends Fragment implements LoaderCallbacks<Curso
         LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
 //        categoryLayoutManger.setOrientation(LinearLayoutManager.HORIZONTAL);
         enrolledCourses.setLayoutManager(categoryLayoutManger);
-        categoryAdapter = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
-            @Override
-            public void onClick(String id) {
-                Log.v("Test","MyCourseFragment");
-                Intent intent = new Intent(getActivity(), EnrolledCourseActivity.class);
-                intent.putExtra("courseID",id);
-                startActivity(intent);
-            }
-        });
-        enrolledCourses.setAdapter(categoryAdapter);
+//        categoryAdapter = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+//            @Override
+//            public void onClick(String id) {
+//                Log.v("Test","MyCourseFragment");
+//                Intent intent = new Intent(getActivity(), EnrolledCourseActivity.class);
+//                intent.putExtra("courseID",id);
+//                startActivity(intent);
+//            }
+//        });
+//        enrolledCourses.setAdapter(categoryAdapter);
 
 //        enrolledCourses.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), enrolledCourses, new RecyclerTouchListener.OnItemClickListener() {
 //            @Override

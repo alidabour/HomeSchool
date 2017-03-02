@@ -73,71 +73,71 @@ public class Guest extends AppCompatActivity {
         LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(Guest.this,LinearLayoutManager.HORIZONTAL,false);
 //        categoryLayoutManger.setOrientation(LinearLayoutManager.HORIZONTAL);
         categoryRecycleView.setLayoutManager(categoryLayoutManger);
-        CategoryAdapter categoryAdapter = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
-            @Override
-            public void onClick(String test) {
-
-            }
-        });
-        categoryRecycleView.setAdapter(categoryAdapter);
-        categoryRecycleView.addOnItemTouchListener(new RecyclerTouchListener(this, categoryRecycleView, new RecyclerTouchListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        Intent i =new Intent(getApplicationContext(),CourseDescriptionActivity.class);
-                        int p = 0;
-                        startActivity(i);}
-
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-
-                    }
-                })
-        );
-
-        RecyclerView c2 = (RecyclerView)findViewById(R.id.c22);
-        c2.setHasFixedSize(true);
-        LinearLayoutManager cm2 = new LinearLayoutManager(Guest.this,LinearLayoutManager.HORIZONTAL,false);
-        //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
-        c2.setLayoutManager(cm2);
-        CategoryAdapter ca = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
-            @Override
-            public void onClick(String test) {
-
-            }
-        });
-        c2.setAdapter(ca);
+//        CategoryAdapter categoryAdapter = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+//            @Override
+//            public void onClick(String test) {
+//
+//            }
+//        });
+//        categoryRecycleView.setAdapter(categoryAdapter);
+//        categoryRecycleView.addOnItemTouchListener(new RecyclerTouchListener(this, categoryRecycleView, new RecyclerTouchListener.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(View view, int position) {
+//                        Intent i =new Intent(getApplicationContext(),CourseDescriptionActivity.class);
+//                        int p = 0;
+//                        startActivity(i);}
+//
+//                    @Override
+//                    public void onLongItemClick(View view, int position) {
+//
+//                    }
+//                })
+//        );
+//
+//        RecyclerView c2 = (RecyclerView)findViewById(R.id.c22);
+//        c2.setHasFixedSize(true);
+//        LinearLayoutManager cm2 = new LinearLayoutManager(Guest.this,LinearLayoutManager.HORIZONTAL,false);
+//        //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
+//        c2.setLayoutManager(cm2);
+//        CategoryAdapter ca = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+//            @Override
+//            public void onClick(String test) {
+//
+//            }
+//        });
+//        c2.setAdapter(ca);
 
         RecyclerView c3= (RecyclerView)findViewById(R.id.c33);
         c3.setHasFixedSize(true);
         LinearLayoutManager cm3 = new LinearLayoutManager(Guest.this,LinearLayoutManager.HORIZONTAL,false);
         //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
         c3.setLayoutManager(cm3);
-        CategoryAdapter ca3 = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
-            @Override
-            public void onClick(String test) {
-
-            }
-        });
-        c3.setAdapter(ca3);
-        final ViewPager mViewPager = (ViewPager) findViewById(R.id.viewPage_collapsing_toolbar);
-        SampleCoursesToolbarAdapter imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(this);
-        mViewPager.setAdapter(imageCollapsingToolBarAdapter);
-        mViewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                v.getParent().requestDisallowInterceptTouchEvent(true);
-                Log.v("Test","Pager Touch");
-                return false;
-            }
-        });
+//        CategoryAdapter ca3 = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
+//            @Override
+//            public void onClick(String test) {
+//
+//            }
+//        });
+//        c3.setAdapter(ca3);
+//        final ViewPager mViewPager = (ViewPager) findViewById(R.id.viewPage_collapsing_toolbar);
+//        SampleCoursesToolbarAdapter imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(this);
+//        mViewPager.setAdapter(imageCollapsingToolBarAdapter);
+//        mViewPager.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                v.getParent().requestDisallowInterceptTouchEvent(true);
+//                Log.v("Test","Pager Touch");
+//                return false;
+//            }
+//        });
 
         // this is used for showing the images in the slider up top
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                mViewPager.getParent().requestDisallowInterceptTouchEvent(true);
-            }
-        });
+//        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//                mViewPager.getParent().requestDisallowInterceptTouchEvent(true);
+//            }
+//        });
 
     }
 }
