@@ -34,8 +34,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class MyCoursesFragment extends Fragment implements LoaderCallbacks<Cursor> {
-    List<CategoryInformation> categoryInformationList;
-    CategoryAdapter categoryAdapter;
+    EnrolledCoursesAdapter enrolledCoursesAdapter;
     private static final int CURSOR_LOADER_ID = 1;
 
     public MyCoursesFragment() {
@@ -50,53 +49,11 @@ public class MyCoursesFragment extends Fragment implements LoaderCallbacks<Curso
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_courses_fragmetnt, container, false);
         getLoaderManager().initLoader(0, null, (LoaderManager.LoaderCallbacks<Cursor>) this);
-
-        categoryInformationList = new ArrayList<CategoryInformation>();
-        CategoryInformation categoryInformation= new CategoryInformation("Arabic",R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
-        categoryInformation = new  CategoryInformation("English",R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
-        categoryInformation = new  CategoryInformation("Math",R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
-        categoryInformation = new  CategoryInformation("Math",R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
-        categoryInformation = new  CategoryInformation("Math",R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
-        categoryInformation = new  CategoryInformation("Math",R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
-        categoryInformation = new  CategoryInformation("Math",R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
-        categoryInformation = new  CategoryInformation("Math",R.drawable.earlymath);
-        categoryInformationList.add(categoryInformation);
+        enrolledCoursesAdapter = new EnrolledCoursesAdapter();
         RecyclerView enrolledCourses = (RecyclerView)view.findViewById(R.id.enrolledCourses);
         enrolledCourses.setHasFixedSize(true);
         LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
-//        categoryLayoutManger.setOrientation(LinearLayoutManager.HORIZONTAL);
         enrolledCourses.setLayoutManager(categoryLayoutManger);
-//        categoryAdapter = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
-//            @Override
-//            public void onClick(String id) {
-//                Log.v("Test","MyCourseFragment");
-//                Intent intent = new Intent(getActivity(), EnrolledCourseActivity.class);
-//                intent.putExtra("courseID",id);
-//                startActivity(intent);
-//            }
-//        });
-//        enrolledCourses.setAdapter(categoryAdapter);
-
-//        enrolledCourses.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), enrolledCourses, new RecyclerTouchListener.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int position) {
-//                Intent intent = new Intent (getActivity(),EnrolledCourseActivity.class);
-//                intent.putExtra("courseID","2");
-//                startActivity(intent);
-//            }
-//
-//            @Override
-//            public void onLongItemClick(View view, int position) {
-//
-//            }
-//        }));
         return view;
     }
 
@@ -114,7 +71,8 @@ public class MyCoursesFragment extends Fragment implements LoaderCallbacks<Curso
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        categoryAdapter.swapCursor(cursor);
+        Log.v("Test","Cursor Count : "+cursor.getCount());
+        enrolledCoursesAdapter.swapCursor(cursor);
 //        if (cursor.moveToFirst()) {
 //            Log.v("Test", "Cursor Global id:" + cursor.getString(cursor.getColumnIndex(CourseColumns._ID)));
 //        } else {
@@ -124,7 +82,7 @@ public class MyCoursesFragment extends Fragment implements LoaderCallbacks<Curso
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        categoryAdapter.swapCursor(null);
+        enrolledCoursesAdapter.swapCursor(null);
     }
 
 }

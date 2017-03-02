@@ -1,6 +1,7 @@
 package com.example.ali.homeschool.controller.activities;
 
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -25,10 +26,10 @@ import com.example.ali.homeschool.adapter.TopicsFirebaseAdapter;
 import com.example.ali.homeschool.data.DataProvider;
 import com.example.ali.homeschool.data.Entry.CourseColumns;
 import com.example.ali.homeschool.data.Entry.LessonColumns;
+import com.example.ali.homeschool.data.Entry.TopicColumns;
 import com.example.ali.homeschool.data.firebase.Courses;
 import com.example.ali.homeschool.data.firebase.Lessons;
 import com.example.ali.homeschool.data.firebase.Topics;
-import com.example.ali.homeschool.data.firebase.Users;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,9 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /*
 This is the class which i use to get the description of the course from the click listener
@@ -64,7 +63,8 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
     TextView courseRatingText;
     TextView courseDescription;
     private DatabaseReference databaseReference;
-    private List<String> lessons;
+    private List<String> lessonsID;
+    private List<Lessons> lessonses;
     private List<Topics> topics;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
@@ -117,10 +117,43 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
         enroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Map<String, Object> data= new HashMap<String, Object>();
-                data.put("EnrolledCourses","2");
-                databaseReference.child("users").child(user.getUid()).updateChildren(data);
-                Log.e("onClick: ",data+ " "   );
+                databaseReference.child("users").child(user.getUid()).child("EnrolledCourses").push().setValue(key);
+                ContentValues contentValueCourse = new ContentValues();
+                contentValueCourse.put(CourseColumns.COURSE_NAME,courseName.getText().toString());
+                contentValueCourse.put(CourseColumns.COURSE_RATINGS,courseRatingText.getText().toString());
+                contentValueCourse.put(CourseColumns.COURSE_DES,courseDescription.getText().toString());
+                contentValueCourse.put(CourseColumns.COURSE_TEACHER,courseTeacher.getText().toString());
+                contentValueCourse.put(CourseColumns.SUBJECT_ID,"Test");
+                contentValueCourse.put(CourseColumns.GLOBAL_ID,"1");
+                contentValueCourse.put(CourseColumns.COURSE_IMG,"SS");
+                getContentResolver().insert(DataProvider.Course.CONTENT_URI,contentValueCourse);
+
+                List<ContentValues> contentValues = new ArrayList<ContentValues>();
+                for (Lessons x : lessonses){
+                    ContentValues contentValue = new ContentValues();
+                    contentValue.put(LessonColumns.COURSE_ID,x.getCourse_id());
+                    contentValue.put(LessonColumns.LESSON_NAME,x.getName());
+                    contentValue.put(LessonColumns.LESSON_NUMBER,x.getNumber());
+                    contentValue.put(LessonColumns.LESSON_ID,x.getLesson_id());
+                    contentValues.add(contentValue);
+                }
+                ContentValues[] contArray = new ContentValues[contentValues.size()];
+                contArray = contentValues.toArray(contArray);
+                getContentResolver().bulkInsert(DataProvider.Lesson.CONTENT_URI,contArray);
+                List<ContentValues> contentValuesT = new ArrayList<ContentValues>();
+                for(Topics x : topics){
+                    ContentValues contentValue = new ContentValues();
+                    contentValue.put(TopicColumns.LESSON_ID,x.getLesson_id());
+                    contentValue.put(TopicColumns.TOPIC_LAYOUT,x.getJson_layout());
+                    contentValue.put(TopicColumns.TOPIC_NAME,x.getName());
+                    contentValue.put(TopicColumns.TOPIC_NUMBER,x.getNumber());
+                    // TODO :: Change to REAL ID ! ! ! ! !! !  ! ! !  !
+                    contentValue.put(TopicColumns.TOPIC_ID,x.getNumber());
+                    contentValuesT.add(contentValue);
+                }
+                ContentValues[] contArrayT = new ContentValues[contentValuesT.size()];
+                contArrayT = contentValuesT.toArray(contArrayT);
+                getContentResolver().bulkInsert(DataProvider.Topic.CONTENT_URI,contArrayT);
                 if(type == 0){
                     Toast.makeText(CourseDescriptionActivity.this, getResources().getString(R.string.youMustSignIn), Toast.LENGTH_SHORT).show();
                 }
@@ -145,15 +178,17 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
 
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        lessons = new ArrayList<>();
+                        lessonsID = new ArrayList<>();
+                        lessonses = new ArrayList<>();
                         // Get Post object and use the values to update the UI
                         // [START_EXCLUDE]
                         for (DataSnapshot x : dataSnapshot.getChildren()) {
                             Log.v("Test", "Child : " + x.toString());
                             Lessons c = x.getValue(Lessons.class);
                             c.setLesson_id(x.getKey());
-                            lessons.add(c.getLesson_id());
-                            Log.v("Test", "Child : " + lessons);
+                            lessonses.add(c);
+                            lessonsID.add(c.getLesson_id());
+                            Log.v("Test", "Child : " + lessonsID);
                         }
 
                     }
@@ -169,7 +204,7 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
                     }
                 });
 
-//            for(Lessons x : lessons)
+//            for(Lessons x : lessonsID)
 //            myRef.child("topics").orderByChild("lesson_id").equalTo(x.getLesson_id()).addValueEventListener(
                 myRef.child("topics").orderByChild("lesson_id").addValueEventListener(
                     new ValueEventListener() {
@@ -183,14 +218,14 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
                         for (DataSnapshot x : dataSnapshot.getChildren()) {
                             Log.v("Test", "Child : " + x.toString());
                             Topics c = x.getValue(Topics.class);
-                            if(lessons.contains(c.getLesson_id())){
+                            if(lessonsID.contains(c.getLesson_id())){
                                 topics.add(c);
                                 Log.v("Test","---------------Topic Name : "+c.getName());
                             }
 //                            Log.v("Test", "Child : " + topics);
                         }
 //                        HashMap<String, ArrayList<Courses>> map = new HashMap<>();
-//                        for (Courses x : lessons) {
+//                        for (Courses x : lessonsID) {
 //                            ArrayList<Courses> c = new ArrayList<Courses>();
 //                            if (map.get(x.getSubject()) != null) {
 //                                c = map.get(x.getSubject());

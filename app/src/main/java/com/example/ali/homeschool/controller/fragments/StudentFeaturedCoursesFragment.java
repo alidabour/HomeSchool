@@ -86,21 +86,21 @@ public class StudentFeaturedCoursesFragment extends Fragment implements LoaderCa
 //        initLoader(CURSOR_LOADER_ID, null,g);
         getLoaderManager().initLoader(0, null, (LoaderManager.LoaderCallbacks<Cursor>) this);
         if (savedInstanceState == null) {
-            try {
-//                Utils.addDefaultsSubjects(getApplicationContext());
-                Utils.addCoursesTest(getActivity());
-                Utils.addLessonsTest(getActivity());
-                Utils.addTopicsTest(getActivity());
-//                Utils.addTopicsContentsTest(getApplicationContext());
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            } catch (OperationApplicationException e) {
-                e.printStackTrace();
-            }
+//            try {
+////                Utils.addDefaultsSubjects(getApplicationContext());
+////                Utils.addCoursesTest(getActivity());
+////                Utils.addLessonsTest(getActivity());
+////                Utils.addTopicsTest(getActivity());
+////                Utils.addTopicsContentsTest(getApplicationContext());
+//            } catch (RemoteException e) {
+//                e.printStackTrace();
+//            } catch (OperationApplicationException e) {
+//                e.printStackTrace();
+//            }
 
         }
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("courses");
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
         courseSectionRV = (RecyclerView)view.findViewById(R.id.category_recyclerView);
@@ -244,7 +244,7 @@ public void onStart() {
     // Add value event listener to the post
     // [START post_value_event_listener]DatabaseReference myRef = databaseReference;
     DatabaseReference myRef = databaseReference;
-    myRef.addValueEventListener(
+    myRef.child("courses").addValueEventListener(
             new ValueEventListener(){
         public static final String TAG = "EmailPassword";
         @Override

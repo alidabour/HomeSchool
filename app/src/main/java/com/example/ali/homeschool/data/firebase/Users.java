@@ -8,13 +8,6 @@ import com.google.firebase.database.Exclude;
 
 public class Users {
 
-    public Users(String name, String address, String age, String uid) {
-        this.name = name;
-        this.address = address;
-        this.age = age;
-        this.uid = uid;
-    }
-
     public String getName() {
         return name;
     }
@@ -39,19 +32,29 @@ public class Users {
         this.age = age;
     }
 
-    public String getUid() {
-        return uid;
+
+
+    public String getParentid() {
+        return parent_id;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setParentid(String parentid) {
+        this.parent_id = parentid;
     }
 
+    public Users(String name, String address, String age, String parentid) {
+        this.name = name;
+        this.address = address;
+        this.age = age;
+        this.parent_id = parentid;
+    }
+    public Users(){
+
+    }
 
     public String name;
     public String address;
     public String age;
-    public String uid;
-
+    public String parent_id;
 
 }

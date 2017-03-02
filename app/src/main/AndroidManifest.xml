@@ -70,6 +70,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ali.homeschool.controller.activities.ParentActivity" />
         </activity>
+        <activity android:name=".controller.activities.InstructorActivity"></activity>
     </application>
 
 </manifest>

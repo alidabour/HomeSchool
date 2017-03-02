@@ -37,7 +37,14 @@ public class SignInAs extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        ImageButton Instructor = (ImageButton) findViewById(R.id.Instructor);
+        final ImageButton instructor = (ImageButton) findViewById(R.id.Instructor);
+        instructor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), InstructorActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }

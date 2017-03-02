@@ -46,9 +46,7 @@ public class EnrolledCoursesAdapter extends RecyclerView.Adapter<EnrolledCourses
     List<CategoryInformation> categoryInformationList ;
     private Cursor mCursor;
 
-    public EnrolledCoursesAdapter(List<CategoryInformation> categoryInformationList) {
-        this.categoryInformationList = categoryInformationList;
-//        Log.v("Test","Constr."+categoryInformationList.get(0).getCategoryName());
+    public EnrolledCoursesAdapter() {
     }
 
     @Override
@@ -67,6 +65,7 @@ public class EnrolledCoursesAdapter extends RecyclerView.Adapter<EnrolledCourses
 //        holder.categoryName.setText(categoryInformation.getCategoryName());
 //        holder.categoryImage.setImageResource(categoryInformation.getCategoryImage());
         holder.categoryName.setText(mCursor.getString(mCursor.getColumnIndex(CourseColumns.COURSE_NAME)));
+        Log.v("Test","Enrolled :"+mCursor.getColumnIndex(CourseColumns.COURSE_NAME));
         holder.categoryImage.setImageResource(R.drawable.earlymath);
 
     }
