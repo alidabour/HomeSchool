@@ -208,7 +208,7 @@ public class StudentFeaturedCoursesFragment extends Fragment implements LoaderCa
         if (cursor.moveToFirst()) {
             Log.v("Test", "Cursor :" + cursor.getString(cursor.getColumnIndex(CourseColumns.COURSE_NAME)));
         } else {
-            Log.v("Test", "Cursor");
+            Log.v("Test", "Cursor ");
         }
 //        categoryAdapter.swapCursor(cursor);
     }
