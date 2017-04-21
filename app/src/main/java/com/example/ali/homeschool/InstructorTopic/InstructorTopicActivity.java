@@ -79,9 +79,11 @@ public class InstructorTopicActivity extends AppCompatActivity  implements Image
                 databaseReference = databaseReference.child("courses").child("0").child("lessons").child("1").child("topics");
                 String key = databaseReference.push().getKey();
                 TopicModel t= new TopicModel();
-                t.setId(Integer.parseInt(key));
+                t.setId(key);
                 t.setName("Name");
-                databaseReference.updateChildren(t.toMap());
+                t.setLayout(start  + midLayouts.toString() + end);
+                databaseReference.child(key).updateChildren(t.toMap());
+                finish();
 
 
             }

@@ -22,6 +22,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     DatabaseReference db;
     CourseCreated courseCreated;
     Button addTopicB;
+    LessonModel lessonModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +32,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), InstructorTopicActivity.class);
+                intent.putExtra("lesson",lessonModel);
                 startActivity(intent);
             }
         });
@@ -47,11 +49,15 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        db.child("courses").child(String.valueOf(courseCreated.getId())).addValueEventListener(
+        db.child("courses").child(String.valueOf(courseCreated.getId())).child("lessons").addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-
+                        for (DataSnapshot d : dataSnapshot.getChildren()){
+                            Log.v("Test","Lesson " + d.toString());
+                            lessonModel = d.getValue(LessonModel.class);
+                            Log.v("Test","LESSON __ "+ lessonModel.toString());
+                        }
                     }
 
                     @Override

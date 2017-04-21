@@ -11,11 +11,15 @@ import java.util.Map;
  */
 
 public class TopicModel implements Parcelable {
-    public int getId() {
+    String id;
+    String name;
+    String layout;
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -26,9 +30,13 @@ public class TopicModel implements Parcelable {
     public void setName(String name) {
         this.name = name;
     }
+    public String getLayout() {
+        return layout;
+    }
 
-    int id;
-    String name;
+    public void setLayout(String layout) {
+        this.layout = layout;
+    }
 
     @Override
     public int describeContents() {
@@ -37,16 +45,18 @@ public class TopicModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
+        dest.writeString(this.id);
         dest.writeString(this.name);
+        dest.writeString(this.layout);
     }
 
     public TopicModel() {
     }
 
     protected TopicModel(Parcel in) {
-        this.id = in.readInt();
+        this.id = in.readString();
         this.name = in.readString();
+        this.layout = in.readString();
     }
 
     public static final Parcelable.Creator<TopicModel> CREATOR = new Parcelable.Creator<TopicModel>() {
@@ -64,6 +74,7 @@ public class TopicModel implements Parcelable {
         HashMap<String,Object> topic = new HashMap<>();
         topic.put("id",id);
         topic.put("name",name);
+        topic.put("layout",layout);
         return topic;
     }
 }
