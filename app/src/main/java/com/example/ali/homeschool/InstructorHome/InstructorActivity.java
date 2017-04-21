@@ -1,15 +1,23 @@
 package com.example.ali.homeschool.InstructorHome;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.ali.homeschool.InstructorLessons.InstructorLessonsActivity;
+import com.example.ali.homeschool.InstructorTopic.InstructorTopicActivity;
 import com.example.ali.homeschool.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,10 +35,15 @@ public class InstructorActivity extends AppCompatActivity {
     FirebaseUser user;
     List<CourseCreated> coursesList;
     CourseCreatedAdapter courseCreatedAdapter;
+    Button addCourse;
+    String coursName;
+    String descriptionS;
+    String subjectS;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor);
+        addCourse  = (Button) findViewById(R.id.addCourse);
         coursesList = new ArrayList<>();
         coursesRV = (RecyclerView) findViewById(R.id.courses);
         coursesRV.setHasFixedSize(true);
@@ -41,6 +54,62 @@ public class InstructorActivity extends AppCompatActivity {
 //        Log.v("Test","User Email"+ user.getProviderId());
         Log.v("Test","User Email"+ user.getUid());
         db = FirebaseDatabase.getInstance().getReference();
+        addCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(InstructorActivity.this);
+                builder.setTitle("Sound Button");
+                LayoutInflater li = LayoutInflater.from(InstructorActivity.this);
+                LinearLayout someLayout;
+                someLayout = (LinearLayout)li.inflate(R.layout.dialog_add_course, null);
+
+                // Set up the input
+//                final EditText input = new EditText(MainActivity.this);
+//                final EditText audioIn = new EditText(MainActivity.this);
+                final EditText input = (EditText) someLayout.findViewById(R.id.courseName);
+                final EditText description = (EditText) someLayout.findViewById(R.id.description);
+                final EditText subject = (EditText) someLayout.findViewById(R.id.subject);
+
+//                input.setHint("Text");
+//                audioIn.setHint("Audio Link");
+//                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+//                input.setInputType(
+//                        InputType.TYPE_CLASS_TEXT );
+//                audioIn.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(someLayout);
+
+
+                // Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        coursName = input.getText().toString();
+                        subjectS = subject.getText().toString();
+                        descriptionS = description.getText().toString();
+                        String key = db.child("users").child(user.getUid()).child("CreatedCourse").push().getKey();
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("id").setValue(key);
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("name").setValue(coursName);
+                        String key2 = db.child("courses").push().getKey();
+                        db.child("courses").child(key2).child("description").setValue(description);
+                        db.child("courses").child(key2).child("name").setValue(coursName);
+                        db.child("courses").child(key2).child("subjectS").setValue(subjectS);
+                        db.child("courses").child(key2).child("description").setValue(description);
+
+
+
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
+        });
     }
 
     @Override
@@ -50,6 +119,7 @@ public class InstructorActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.v("Test","OnData");
+                coursesList = new ArrayList<CourseCreated>();
                 for (DataSnapshot x:dataSnapshot.getChildren()){
                     CourseCreated courseCreated = x.getValue(CourseCreated.class);
                     coursesList.add(courseCreated);

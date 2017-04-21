@@ -55,7 +55,8 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
 
         @Override
         public void onClick(View view) {
-
+            int p = getAdapterPosition();
+            onClickHandler.onClick(lessonModelList.get(p));
         }
     }
 }

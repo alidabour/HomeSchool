@@ -2,6 +2,7 @@ package com.example.ali.homeschool.InstructorTopic;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,6 +35,8 @@ public class InstructorTopicActivity extends AppCompatActivity  implements Image
     String m_Text = "";
     String audioLink = "";
     TextView image;
+    String courseId;
+    String lessonModel;
     TextView sound;
     ImageView ims;
     LinearLayout act_main;
@@ -73,10 +77,18 @@ public class InstructorTopicActivity extends AppCompatActivity  implements Image
         setContentView(R.layout.activity_instructor_topic);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         submitTV = (TextView) findViewById(R.id.submit);
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("lesson")){
+            lessonModel = intent.getStringExtra("lesson");
+        }
+        if (intent != null && intent.hasExtra("courseID")){
+            courseId = intent.getStringExtra("courseID");
+        }
         submitTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                databaseReference = databaseReference.child("courses").child("0").child("lessons").child("1").child("topics");
+                databaseReference = databaseReference.child("courses").child(courseId)
+                        .child("lessons").child(lessonModel).child("topics");
                 String key = databaseReference.push().getKey();
                 TopicModel t= new TopicModel();
                 t.setId(key);

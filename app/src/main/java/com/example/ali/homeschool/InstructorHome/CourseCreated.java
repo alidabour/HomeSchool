@@ -8,10 +8,10 @@ import android.os.Parcelable;
  */
 
 public class CourseCreated implements Parcelable {
-    int id;
+    String id;
     String name;
 
-    public CourseCreated(int id, String name) {
+    public CourseCreated(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -19,11 +19,11 @@ public class CourseCreated implements Parcelable {
     public CourseCreated() {
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -42,12 +42,12 @@ public class CourseCreated implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
+        dest.writeString(this.id);
         dest.writeString(this.name);
     }
 
     protected CourseCreated(Parcel in) {
-        this.id = in.readInt();
+        this.id = in.readString();
         this.name = in.readString();
     }
 
