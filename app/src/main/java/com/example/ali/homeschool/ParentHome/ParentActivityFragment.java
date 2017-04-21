@@ -76,13 +76,13 @@ public class ParentActivityFragment extends Fragment implements LoaderManager.Lo
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         for (DataSnapshot s : dataSnapshot.getChildren()) {
-                                            Log.v("Test","Outside "+s.toString());
-                                            db.child("courses").addValueEventListener(
+                                            Log.v("Test","Outside "+s.getValue());
+                                            db.child("courses").child(s.getValue(String.class)).addValueEventListener(
                                                     new ValueEventListener() {
                                                         @Override
                                                         public void onDataChange(
-                                                                DataSnapshot dataSnapshot) {
-                                                            Log.v("Test", "Inside " + dataSnapshot
+                                                                DataSnapshot inside) {
+                                                            Log.v("Test", "Inside " + inside
                                                                     .toString());
                                                         }
 
