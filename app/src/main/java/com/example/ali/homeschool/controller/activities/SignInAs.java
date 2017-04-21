@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.example.ali.homeschool.InstructorHome.InstructorActivity;
 import com.example.ali.homeschool.R;
 
 /**

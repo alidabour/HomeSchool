@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ali.homeschool">
+          package="com.example.ali.homeschool">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
@@ -13,45 +13,45 @@
         android:theme="@style/AppTheme">
         <activity android:name=".controller.activities.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".controller.activities.Register" />
-        <activity android:name=".controller.activities.Sign_In" />
-        <activity android:name=".controller.activities.SignInAs" />
-        <activity android:name=".closed.Guesttrial______________" />
+        <activity android:name=".controller.activities.Register"/>
+        <activity android:name=".controller.activities.Sign_In"/>
+        <activity android:name=".controller.activities.SignInAs"/>
+        <activity android:name=".closed.Guesttrial______________"/>
 
         <provider
             android:name=".data.generated.DataProvider"
             android:authorities="com.example.ali.homeschool.data.DataProvider"
             android:exported="false"
-            android:grantUriPermissions="true" />
+            android:grantUriPermissions="true"/>
 
-        <activity android:name=".controller.activities.ClassActivity" />
-        <activity android:name=".controller.activities.Guest" />
+        <activity android:name=".controller.activities.ClassActivity"/>
+        <activity android:name=".controller.activities.Guest"/>
         <activity
             android:name=".controller.activities.CourseDescriptionActivity"
             android:parentActivityName=".controller.activities.StudentHomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".closed.Main3Activitytrial______________" />
+                android:value=".closed.Main3Activitytrial______________"/>
         </activity>
         <activity
             android:name=".controller.activities.StudentHomeActivity"
             android:label="@string/title_activity_main4"
             android:theme="@style/AppTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".controller.activities.EnrolledCourseActivity"
             android:label="@string/title_activity_enrolled_course"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".controller.activities.ParentActivity"
             android:label="@string/title_activity_parent"
@@ -59,7 +59,7 @@
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.ali.homeschool.controller.activities.SignInAs" />
+                android:value="com.example.ali.homeschool.controller.activities.SignInAs"/>
         </activity>
         <activity
             android:name=".controller.activities.ChildCourses"
@@ -68,9 +68,13 @@
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.ali.homeschool.controller.activities.ParentActivity" />
+                android:value="com.example.ali.homeschool.controller.activities.ParentActivity"/>
         </activity>
-        <activity android:name=".controller.activities.InstructorActivity"></activity>
+        <activity android:name=".InstructorHome.InstructorActivity"/>
+        <activity android:name=".InstructorLessons.InstructorLessonsActivity">
+        </activity>
+        <activity android:name=".InstructorTopic.InstructorTopicActivity">
+        </activity>
     </application>
 
 </manifest>
