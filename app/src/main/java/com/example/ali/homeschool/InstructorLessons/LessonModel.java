@@ -17,6 +17,31 @@ public class LessonModel implements Parcelable {
     String name;
     Map<String,TopicModel> topics;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Map<String, TopicModel> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(
+            Map<String, TopicModel> topics) {
+        this.topics = topics;
+    }
+
     @Override
     public int describeContents() {
         return 0;

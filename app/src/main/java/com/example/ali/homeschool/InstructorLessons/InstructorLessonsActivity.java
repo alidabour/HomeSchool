@@ -17,6 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class InstructorLessonsActivity extends AppCompatActivity {
     RecyclerView lessonsRV;
     DatabaseReference db;
@@ -28,14 +31,14 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_lessons);
         addTopicB = (Button) findViewById(R.id.addTopic);
-        addTopicB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), InstructorTopicActivity.class);
-                intent.putExtra("lesson",lessonModel);
-                startActivity(intent);
-            }
-        });
+//        addTopicB.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), InstructorTopicActivity.class);
+//                intent.putExtra("lesson",lessonModel);
+//                startActivity(intent);
+//            }
+//        });
         lessonsRV = (RecyclerView) findViewById(R.id.lessonsRV);
         db = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
@@ -51,13 +54,25 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         super.onStart();
         db.child("courses").child(String.valueOf(courseCreated.getId())).child("lessons").addValueEventListener(
                 new ValueEventListener() {
+                    List<LessonModel> lessonModelList = new ArrayList<LessonModel>();
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot d : dataSnapshot.getChildren()){
                             Log.v("Test","Lesson " + d.toString());
                             lessonModel = d.getValue(LessonModel.class);
+                            lessonModelList.add(lessonModel);
                             Log.v("Test","LESSON __ "+ lessonModel.toString());
                         }
+                        LessonAdapter lessonAdapter = new LessonAdapter(lessonModelList,
+                                new LessonAdapter.OnClickHandler() {
+                                    @Override
+                                    public void onClick(LessonModel test) {
+                                        Intent intent = new Intent(getApplicationContext(), InstructorTopicActivity.class);
+                                        intent.putExtra("lesson",test);
+                                        intent.putExtra("courseID",courseCreated.getId());
+                                        startActivity(intent);
+                                    }
+                                });
                     }
 
                     @Override
