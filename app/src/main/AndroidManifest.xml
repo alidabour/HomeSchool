@@ -53,7 +53,7 @@
             android:label="@string/title_activity_enrolled_course"
             android:theme="@style/AppTheme"/>
         <activity
-            android:name=".controller.activities.ParentActivity"
+            android:name=".ParentHome.ParentActivity"
             android:label="@string/title_activity_parent"
             android:parentActivityName=".controller.activities.SignInAs"
             android:theme="@style/AppTheme">
@@ -64,11 +64,11 @@
         <activity
             android:name=".controller.activities.ChildCourses"
             android:label="@string/title_activity_child_courses"
-            android:parentActivityName=".controller.activities.ParentActivity"
+            android:parentActivityName=".ParentHome.ParentActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.ali.homeschool.controller.activities.ParentActivity"/>
+                android:value="com.example.ali.homeschool.ParentHome.ParentActivity"/>
         </activity>
         <activity android:name=".InstructorHome.InstructorActivity"/>
         <activity android:name=".InstructorLessons.InstructorLessonsActivity">

@@ -58,7 +58,7 @@ public class InstructorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(InstructorActivity.this);
-                builder.setTitle("Sound Button");
+                builder.setTitle("Add Course");
                 LayoutInflater li = LayoutInflater.from(InstructorActivity.this);
                 LinearLayout someLayout;
                 someLayout = (LinearLayout)li.inflate(R.layout.dialog_add_course, null);
@@ -89,14 +89,14 @@ public class InstructorActivity extends AppCompatActivity {
                         String key = db.child("users").child(user.getUid()).child("CreatedCourse").push().getKey();
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("id").setValue(key);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("name").setValue(coursName);
-                        String key2 = db.child("courses").push().getKey();
-                        db.child("courses").child(key2).child("description").setValue(description);
-                        db.child("courses").child(key2).child("name").setValue(coursName);
-                        db.child("courses").child(key2).child("subjectS").setValue(subjectS);
-                        db.child("courses").child(key2).child("description").setValue(description);
 
-
-
+                        db.child("courses").child(key).child("description").setValue(description);
+                        db.child("courses").child(key).child("name").setValue(coursName);
+                        db.child("courses").child(key).child("subjectS").setValue(subjectS);
+                        db.child("courses").child(key).child("description").setValue(description);
+                        db.child("courses").child(key).child("rate").setValue("5.0");
+                        db.child("courses").child(key).child("teacher").setValue(user.getDisplayName());
+                        db.child("courses").child(key).child("teacher_id").setValue(user.getUid());
 
                     }
                 });

@@ -1,7 +1,8 @@
-package com.example.ali.homeschool.controller.fragments;
+package com.example.ali.homeschool.ParentHome;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.widget.Button;
+
 import com.example.ali.homeschool.adapter.ChildrenAdapter;
 import com.example.ali.homeschool.data.CategoryInformation;
 import com.example.ali.homeschool.controller.activities.ChildCourses;
@@ -22,6 +25,16 @@ import com.example.ali.homeschool.RecyclerTouchListener;
 import com.example.ali.homeschool.adapter.CategoryAdapter;
 import com.example.ali.homeschool.data.DataProvider;
 import com.example.ali.homeschool.data.Entry.ChildColumns;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +46,10 @@ public class ParentActivityFragment extends Fragment implements LoaderManager.Lo
     private static final int CURSOR_LOADER_ID = 3;
     ChildrenAdapter childrenAdapter;
     View view;
+    Button addChild;
+    FirebaseAuth auth;
+    FirebaseUser user;
+    DatabaseReference db;
     public ParentActivityFragment() {
     }
     List<CategoryInformation> children;
@@ -41,7 +58,63 @@ public class ParentActivityFragment extends Fragment implements LoaderManager.Lo
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view =  inflater.inflate(R.layout.fragment_parent2, container, false);
-        getLoaderManager().initLoader(0, null, (LoaderManager.LoaderCallbacks<Cursor>) this);
+        db = FirebaseDatabase.getInstance().getReference();
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        addChild = (Button) view.findViewById(R.id.addChild);
+        addChild.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.child("users").child(user.getUid()).child("EnrolledCourses")
+                        .addValueEventListener(
+                                new ValueEventListener() {
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot s : dataSnapshot.getChildren()) {
+                                            Log.v("Test","Outside "+s.toString());
+                                            db.child("courses").addValueEventListener(
+                                                    new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(
+                                                                DataSnapshot dataSnapshot) {
+                                                            Log.v("Test", "Inside " + dataSnapshot
+                                                                    .toString());
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(
+                                                                DatabaseError databaseError) {
+
+                                                        }
+                                                    });
+                                        }
+
+                                        //                db.child("users").orderByChild("email").equalTo("a@go.com").addValueEventListener(
+//                        new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(DataSnapshot dataSnapshot) {
+//                                for(DataSnapshot d : dataSnapshot.getChildren()) {
+//                                    Log.v("Test", "Data" + d.toString());
+//                                    Log.v("Test", "Key" +d.getKey());
+//                                    String childKey = d.getKey();
+//                                    String key =db.child("users").child(d.getKey()).child("childs").push().getKey();
+//                                    db.child("users").child(user.getUid()).child("childs").child(key).setValue("WW");
+//                                }
+//                            }
+//                            @Override
+//                            public void onCancelled(DatabaseError databaseError) {
+//                            }
+//                        });
+                                    }
+                                });
+            }
+        });
+            getLoaderManager().initLoader(0, null, (LoaderManager.LoaderCallbacks<Cursor>) this);
 
         CategoryInformation categoryInformation= new CategoryInformation("Child 1",R.drawable.photoid);
         children = new ArrayList<CategoryInformation>();

@@ -1,4 +1,4 @@
-package com.example.ali.homeschool.controller.activities;
+package com.example.ali.homeschool.ParentHome;
 
 import android.content.OperationApplicationException;
 import android.os.Bundle;
