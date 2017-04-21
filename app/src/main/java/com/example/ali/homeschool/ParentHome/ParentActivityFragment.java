@@ -70,9 +70,7 @@ public class ParentActivityFragment extends Fragment implements LoaderManager.Lo
                                 new ValueEventListener() {
                                     @Override
                                     public void onCancelled(DatabaseError databaseError) {
-
                                     }
-
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         for (DataSnapshot s : dataSnapshot.getChildren()) {
