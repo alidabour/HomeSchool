@@ -1,4 +1,4 @@
-package com.example.ali.homeschool.adapter;
+package com.example.ali.homeschool.childProgress;
 
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.ali.homeschool.ParseXML;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.data.Entry.ChildProgressColumns;
 

@@ -1,4 +1,4 @@
-package com.example.ali.homeschool.controller.activities;
+package com.example.ali.homeschool.childProgress;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +15,7 @@ public class ChildCourses extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_child_courses);
+
 
     }
 

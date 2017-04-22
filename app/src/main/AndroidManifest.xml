@@ -62,7 +62,7 @@
                 android:value="com.example.ali.homeschool.controller.activities.SignInAs"/>
         </activity>
         <activity
-            android:name=".controller.activities.ChildCourses"
+            android:name=".childProgress.ChildCourses"
             android:label="@string/title_activity_child_courses"
             android:parentActivityName=".ParentHome.ParentActivity"
             android:theme="@style/AppTheme">

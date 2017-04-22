@@ -23,6 +23,7 @@ import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.CategoryAdapter;
 import com.example.ali.homeschool.data.DataProvider;
 import com.example.ali.homeschool.data.Entry.CourseColumns;
+import com.example.ali.homeschool.data.firebase.Courses;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +47,7 @@ public class MyCoursesFragment extends Fragment implements LoaderCallbacks<Curso
     FirebaseAuth auth;
     FirebaseUser user;
     DatabaseReference db;
+    ArrayList<Courses> enrolledCourses;
     public MyCoursesFragment() {
         // Required empty public constructor
     }
@@ -77,10 +79,12 @@ public class MyCoursesFragment extends Fragment implements LoaderCallbacks<Curso
                         new ValueEventListener() {
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
+
                             }
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot s : dataSnapshot.getChildren()) {
+                                    enrolledCourses = new ArrayList<Courses>();
                                     Log.v("Fire","Outside "+s.getValue());
                                     db.child("courses").child(s.getValue(String.class)).addValueEventListener(
                                             new ValueEventListener() {
@@ -89,6 +93,8 @@ public class MyCoursesFragment extends Fragment implements LoaderCallbacks<Curso
                                                         DataSnapshot inside) {
                                                     Log.v("Fire", "Inside " + inside
                                                             .toString());
+                                                    Courses course = inside.getValue(Courses.class);
+                                                    enrolledCourses.add(course);
                                                 }
 
                                                 @Override
@@ -115,6 +121,7 @@ public class MyCoursesFragment extends Fragment implements LoaderCallbacks<Curso
 //                            public void onCancelled(DatabaseError databaseError) {
 //                            }
 //                        });
+
                             }
                         });
     }

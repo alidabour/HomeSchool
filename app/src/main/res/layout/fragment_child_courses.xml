@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ali.homeschool.controller.fragments.ChildCoursesFragment"
+    tools:context="com.example.ali.homeschool.childProgress.ChildCoursesFragment"
     tools:showIn="@layout/activity_child_courses">
 
 

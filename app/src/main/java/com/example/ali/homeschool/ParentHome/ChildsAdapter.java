@@ -1,8 +1,69 @@
 package com.example.ali.homeschool.ParentHome;
 
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.example.ali.homeschool.InstructorLessons.LessonModel;
+import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.adapter.ChildrenAdapter;
+
+import java.util.List;
+
 /**
  * Created by Ali on 4/21/2017.
  */
 
-public class ChildsAdapter {
+public class ChildsAdapter extends RecyclerView.Adapter<ChildsAdapter.ChildViewHolder> {
+    public ChildsAdapter(List<ChildModel> childList,
+                         OnClickHandler onClickHandler) {
+        this.childList = childList;
+        this.onClickHandler = onClickHandler;
+    }
+
+    List<ChildModel> childList;
+    OnClickHandler onClickHandler;
+    public interface OnClickHandler {
+        void onClick(ChildModel test);
+    }
+    @Override
+    public ChildViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.children_item_card,parent,false);
+        return new ChildViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(ChildViewHolder holder, int position) {
+        ChildModel childModel = childList.get(position);
+        holder.childName.setText(childModel.getName());
+        holder.childPhoto.setImageResource(R.drawable.photoid);
+
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return childList.size();
+    }
+
+    public class ChildViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private TextView childName;
+        private ImageView childPhoto;
+        public ChildViewHolder(View itemView) {
+            super(itemView);
+            childName= (TextView) itemView.findViewById(R.id.children_textView);
+            childPhoto= (ImageView) itemView.findViewById(R.id.children_imageView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int p = getAdapterPosition();
+            onClickHandler.onClick(childList.get(p));
+        }
+    }
 }
