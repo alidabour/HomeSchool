@@ -11,12 +11,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.controller.activities.CourseDescriptionActivity;
-import com.example.ali.homeschool.data.CategoryInformation;
+import com.example.ali.homeschool.descriptionActivity.CourseDescriptionActivity;
 import com.example.ali.homeschool.data.HeaderRVData;
 import com.example.ali.homeschool.data.firebase.Courses;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,6 +43,7 @@ public class CourseSectionListAdapter extends RecyclerView.Adapter<CourseSection
             public void onClick(Courses course) {
                 Intent intent= new Intent (context, CourseDescriptionActivity.class);
                 intent.putExtra("course",course);
+                Log.v( "onClick: ","ID ___ "+course.course_id);
                 Log.e( "onClick: ",intent.toString()+course );
                 context.startActivity(intent);
             }

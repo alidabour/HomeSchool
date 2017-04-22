@@ -29,10 +29,10 @@
             android:exported="false"
             android:grantUriPermissions="true"/>
 
-        <activity android:name=".controller.activities.ClassActivity"/>
+        <activity android:name=".childClass.ClassActivity"/>
         <activity android:name=".controller.activities.Guest"/>
         <activity
-            android:name=".controller.activities.CourseDescriptionActivity"
+            android:name=".descriptionActivity.CourseDescriptionActivity"
             android:parentActivityName=".controller.activities.StudentHomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -49,7 +49,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".controller.activities.EnrolledCourseActivity"
+            android:name=".childEnrolledCourses.EnrolledCourseActivity"
             android:label="@string/title_activity_enrolled_course"
             android:theme="@style/AppTheme"/>
         <activity

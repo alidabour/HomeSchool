@@ -6,6 +6,11 @@
                  android:orientation="vertical"
     tools:context="com.example.ali.homeschool.InstructorLessons.InstructorLessonsActivity">
     <Button
+        android:layout_margin="8dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        android:padding="6dp"
+        android:background="@color/colorAccent"
         android:id="@+id/addLesson"
         android:text="Add Lesson"
         android:layout_width="wrap_content"

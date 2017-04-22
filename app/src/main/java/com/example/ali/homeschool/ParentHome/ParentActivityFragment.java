@@ -3,6 +3,8 @@ package com.example.ali.homeschool.ParentHome;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -54,6 +56,66 @@ import java.util.List;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_parent2, container, false);
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Enter Email");
+                // Set up the input
+                final EditText input = new EditText(getActivity());
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setHint("Email");
+                builder.setView(input);
+
+                // Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        emailText = input.getText().toString();
+                        db.child("users").orderByChild("email").equalTo(emailText).addValueEventListener(
+                                new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot d : dataSnapshot.getChildren()) {
+                                            Users userHS = new Users();
+                                            for (DataSnapshot x : dataSnapshot.getChildren()) {
+                                                Log.v("Test", "X ______" + x.toString());
+                                                userHS = x.getValue(Users.class);
+                                                Log.v("Test", "USer :" + userHS.getName());
+                                            }
+                                            Log.v("Test", "Data" + d.toString());
+                                            Log.v("Test", "Key" + d.getKey());
+                                            String childKey = d.getKey();
+                                            String key = db.child("users").child(user.getUid())
+                                                    .child("childs").push().getKey();
+                                            db.child("users").child(user.getUid()).child("childs")
+                                                    .child(childKey).child("name")
+                                                    .setValue(userHS.getName());
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+
+
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+            }
+        });
         db = FirebaseDatabase.getInstance().getReference();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();

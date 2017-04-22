@@ -51,11 +51,12 @@ public class LessonModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.name);
-//        dest.writeInt(this.topics.size());
-//        for (Map.Entry<String, TopicModel> entry : this.topics.entrySet()) {
-//            dest.writeString(entry.getKey());
-//            dest.writeParcelable(entry.getValue(), flags);
-//        }
+        dest.writeMap(this.topics);
+        dest.writeInt(this.topics.size());
+        for (Map.Entry<String, TopicModel> entry : this.topics.entrySet()) {
+            dest.writeString(entry.getKey());
+            dest.writeParcelable(entry.getValue(), flags);
+        }
     }
 
     public LessonModel() {

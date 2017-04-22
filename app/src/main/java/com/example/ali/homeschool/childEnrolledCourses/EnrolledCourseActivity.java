@@ -1,4 +1,4 @@
-package com.example.ali.homeschool.controller.activities;
+package com.example.ali.homeschool.childEnrolledCourses;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;

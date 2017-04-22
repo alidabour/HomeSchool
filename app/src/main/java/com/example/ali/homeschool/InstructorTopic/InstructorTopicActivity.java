@@ -105,7 +105,6 @@ public class InstructorTopicActivity extends AppCompatActivity  implements Image
         mainView = (LinearLayout) findViewById(R.id.mainLayout);
         image = (TextView) findViewById(R.id.image);
         sound = (TextView) findViewById(R.id.sound);
-        ims = (ImageView) findViewById(R.id.ims);
 //        Picasso.with(getApplicationContext())
 //                .load(R.drawable.catimage)
 //                .into(ims);
@@ -127,7 +126,7 @@ public class InstructorTopicActivity extends AppCompatActivity  implements Image
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         m_Text = input.getText().toString();
-                        mid = "<ImageView android:layout_weight=\"5\" android:id=\"" + id
+                        mid = "<ImageView android:layout_weight=\"1\" android:id=\"" + id
                                 + "\" android:layout_width=\"match_parent\"" +
                                 " android:layout_height=\"wrap_content\" homeSchool:src=\""+m_Text+"\" />";
                         midLayouts.add(id,mid);
@@ -177,9 +176,9 @@ public class InstructorTopicActivity extends AppCompatActivity  implements Image
                     public void onClick(DialogInterface dialog, int which) {
                         m_Text = input.getText().toString();
                         audioLink = audioIn.getText().toString();
-                        mid =  "<Button android:layout_weight=\"1\" android:id=\""+ id
-                                +"\" android:text=\""+m_Text+"\" android:layout_width=\"0\" " +
-                                "android:layout_height=\"match_parent\"" +
+                        mid =  "<Button android:layout_weight=\"0\" android:id=\""+ id
+                                +"\" android:text=\""+m_Text+"\" android:layout_width=\"match_parent\" " +
+                                "android:layout_height=\"wrap_content\"" +
                                 "homeSchool:audioLink=\""+audioLink+"\" />";
                         midLayouts.add(id,mid);
 

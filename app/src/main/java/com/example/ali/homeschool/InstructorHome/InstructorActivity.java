@@ -89,8 +89,7 @@ public class InstructorActivity extends AppCompatActivity {
                         String key = db.child("users").child(user.getUid()).child("CreatedCourse").push().getKey();
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("id").setValue(key);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("name").setValue(coursName);
-
-                        db.child("courses").child(key).child("description").setValue(description);
+                        db.child("courses").child(key).child("course_id").setValue(key);
                         db.child("courses").child(key).child("name").setValue(coursName);
                         db.child("courses").child(key).child("subjectS").setValue(subjectS);
                         db.child("courses").child(key).child("description").setValue(description);

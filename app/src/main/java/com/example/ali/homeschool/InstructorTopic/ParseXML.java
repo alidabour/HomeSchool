@@ -90,22 +90,24 @@ public class ParseXML {
         float weight = Float.parseFloat(parser.getAttributeValue(ns,"android:layout_weight"));
         final String audioURL = parser.getAttributeValue(ns,"homeSchool:audioLink");
         button.setId(id);
-        final MediaPlayer mediaPlayer =new MediaPlayer();
         button.setOnClickListener(new View.OnClickListener() {
 
 
              MediaPlayer mp ;
-            final MediaPlayer sp = MediaPlayer.create(context, R.raw.catname);
+//            final MediaPlayer sp = MediaPlayer.create(context, R.raw.catname);
             @Override
             public void onClick(View view) {
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 try {
+                    final MediaPlayer mediaPlayer =new MediaPlayer();
+//                    final MediaPlayer sp = MediaPlayer.create(context, R.raw.catname);
+                    mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                     mediaPlayer.setDataSource(audioURL);
                     mediaPlayer.prepare();
+                    mediaPlayer.start();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                mediaPlayer.start();
                 Log.v("Parse","Button id:"+button.getId());
 //                int id =button.getId();
 //                switch (id){

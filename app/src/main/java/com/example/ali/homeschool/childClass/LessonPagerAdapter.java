@@ -1,10 +1,10 @@
-package com.example.ali.homeschool.adapter;
+package com.example.ali.homeschool.childClass;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.ali.homeschool.controller.fragments.LessonFragment;
+import com.example.ali.homeschool.childClass.LessonFragment;
 
 import java.util.ArrayList;
 

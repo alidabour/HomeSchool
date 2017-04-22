@@ -2,41 +2,26 @@ package com.example.ali.homeschool.controller.fragments;
 
 
 import android.app.Fragment;
-import android.content.Intent;
-import android.content.Loader;
-import android.content.OperationApplicationException;
-import android.database.Cursor;
 import android.os.Bundle;
 
 //import android.support.v4.app.LoaderManager;
 //import android.support.v4.app.LoaderManager.LoaderCallbacks;
 //import android.support.v4.content.Loader;
-import android.app.LoaderManager;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
 //import android.support.v4.content.CursorLoader;
-import android.os.RemoteException;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.LoginFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.ali.homeschool.Utils;
 import com.example.ali.homeschool.adapter.CourseSectionListAdapter;
 import com.example.ali.homeschool.data.CategoryInformation;
-import com.example.ali.homeschool.controller.activities.CourseDescriptionActivity;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.RecyclerTouchListener;
 import com.example.ali.homeschool.adapter.CategoryAdapter;
-import com.example.ali.homeschool.data.DataProvider;
-import com.example.ali.homeschool.data.Entry.CourseColumns;
 import com.example.ali.homeschool.data.HeaderRVData;
 import com.example.ali.homeschool.data.firebase.Courses;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,8 +39,8 @@ import java.util.Map;
  * This is the inital fragment for the Student which contains the featured courses as well
  * as the navigation bar for his courses and settings
  */
-public class StudentFeaturedCoursesFragment extends Fragment implements LoaderCallbacks<Cursor> {
-    private static final int CURSOR_LOADER_ID = 0;
+public class StudentFeaturedCoursesFragment extends Fragment {
+//    private static final int CURSOR_LOADER_ID = 0;
     View view;
     List<CategoryInformation> categoryInformationList;
     CategoryAdapter categoryAdapter;
@@ -84,7 +69,7 @@ public class StudentFeaturedCoursesFragment extends Fragment implements LoaderCa
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.courses_fragment_layout, container, false);
 //        initLoader(CURSOR_LOADER_ID, null,g);
-        getLoaderManager().initLoader(0, null, (LoaderManager.LoaderCallbacks<Cursor>) this);
+//        getLoaderManager().initLoader(0, null, (LoaderManager.LoaderCallbacks<Cursor>) this);
         if (savedInstanceState == null) {
 //            try {
 ////                Utils.addDefaultsSubjects(getApplicationContext());
@@ -194,29 +179,29 @@ public class StudentFeaturedCoursesFragment extends Fragment implements LoaderCa
     @Override
     public void onResume() {
         super.onResume();
-        getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
+//        getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
     }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(getActivity(), DataProvider.Course.CONTENT_URI,
-                new String[]{CourseColumns._ID, CourseColumns.COURSE_NAME}, null, null, null);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        if (cursor.moveToFirst()) {
-            Log.v("Test", "Cursor :" + cursor.getString(cursor.getColumnIndex(CourseColumns.COURSE_NAME)));
-        } else {
-            Log.v("Test", "Cursor ");
-        }
-//        categoryAdapter.swapCursor(cursor);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        categoryAdapter.swapCursor(null);
-    }
+//
+//    @Override
+//    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+//        return new CursorLoader(getActivity(), DataProvider.Course.CONTENT_URI,
+//                new String[]{CourseColumns._ID, CourseColumns.COURSE_NAME}, null, null, null);
+//    }
+//
+//    @Override
+//    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+//        if (cursor.moveToFirst()) {
+//            Log.v("Test", "Cursor :" + cursor.getString(cursor.getColumnIndex(CourseColumns.COURSE_NAME)));
+//        } else {
+//            Log.v("Test", "Cursor ");
+//        }
+////        categoryAdapter.swapCursor(cursor);
+//    }
+//
+//    @Override
+//    public void onLoaderReset(Loader<Cursor> loader) {
+//        categoryAdapter.swapCursor(null);
+//    }
 
 //    @Override
 //    public Loader<Cursor> onCreateLoader(int id, Bundle args) {

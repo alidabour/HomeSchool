@@ -1,4 +1,4 @@
-package com.example.ali.homeschool.controller.activities;
+package com.example.ali.homeschool.descriptionActivity;
 
 import android.app.LoaderManager;
 import android.content.ContentValues;
@@ -112,55 +112,17 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
-
+        courseName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                databaseReference.child("users").child(user.getUid()).child("EnrolledCourses").push().setValue(key);
+            }
+        });
         final int type = intent.getIntExtra("type",0);
         enroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 databaseReference.child("users").child(user.getUid()).child("EnrolledCourses").push().setValue(key);
-                ContentValues contentValueCourse = new ContentValues();
-                contentValueCourse.put(CourseColumns.COURSE_NAME,courseName.getText().toString());
-                contentValueCourse.put(CourseColumns.COURSE_RATINGS,courseRatingText.getText().toString());
-                contentValueCourse.put(CourseColumns.COURSE_DES,courseDescription.getText().toString());
-                contentValueCourse.put(CourseColumns.COURSE_TEACHER,courseTeacher.getText().toString());
-                contentValueCourse.put(CourseColumns.SUBJECT_ID,"Test");
-                contentValueCourse.put(CourseColumns.GLOBAL_ID,"1");
-                contentValueCourse.put(CourseColumns.COURSE_IMG,"SS");
-                getContentResolver().insert(DataProvider.Course.CONTENT_URI,contentValueCourse);
-
-                List<ContentValues> contentValues = new ArrayList<ContentValues>();
-                for (Lessons x : lessonses){
-                    ContentValues contentValue = new ContentValues();
-                    contentValue.put(LessonColumns.COURSE_ID,x.getCourse_id());
-                    contentValue.put(LessonColumns.LESSON_NAME,x.getName());
-                    contentValue.put(LessonColumns.LESSON_NUMBER,x.getNumber());
-                    contentValue.put(LessonColumns.LESSON_ID,x.getLesson_id());
-                    contentValues.add(contentValue);
-                }
-                ContentValues[] contArray = new ContentValues[contentValues.size()];
-                contArray = contentValues.toArray(contArray);
-                getContentResolver().bulkInsert(DataProvider.Lesson.CONTENT_URI,contArray);
-                List<ContentValues> contentValuesT = new ArrayList<ContentValues>();
-                for(Topics x : topics){
-                    ContentValues contentValue = new ContentValues();
-                    contentValue.put(TopicColumns.LESSON_ID,x.getLesson_id());
-                    contentValue.put(TopicColumns.TOPIC_LAYOUT,x.getJson_layout());
-                    contentValue.put(TopicColumns.TOPIC_NAME,x.getName());
-                    contentValue.put(TopicColumns.TOPIC_NUMBER,x.getNumber());
-                    // TODO :: Change to REAL ID ! ! ! ! !! !  ! ! !  !
-                    contentValue.put(TopicColumns.TOPIC_ID,x.getNumber());
-                    contentValuesT.add(contentValue);
-                }
-                ContentValues[] contArrayT = new ContentValues[contentValuesT.size()];
-                contArrayT = contentValuesT.toArray(contArrayT);
-                getContentResolver().bulkInsert(DataProvider.Topic.CONTENT_URI,contArrayT);
-                if(type == 0){
-                    Toast.makeText(CourseDescriptionActivity.this, getResources().getString(R.string.youMustSignIn), Toast.LENGTH_SHORT).show();
-                }
-                else if (type == 1 ){
-                    Toast.makeText(CourseDescriptionActivity.this, getResources().getString(R.string.enrollDone), Toast.LENGTH_SHORT).show();
-
-                }
             }
         });
 

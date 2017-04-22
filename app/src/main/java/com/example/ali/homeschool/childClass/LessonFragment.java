@@ -1,4 +1,4 @@
-package com.example.ali.homeschool.controller.fragments;
+package com.example.ali.homeschool.childClass;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,7 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.ali.homeschool.ParseXML;
+import com.example.ali.homeschool.InstructorTopic.ImageClicked;
+import com.example.ali.homeschool.InstructorTopic.ParseXML;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -79,7 +80,12 @@ public class LessonFragment extends Fragment {
         ParseXML parseXML = new ParseXML();
         ParseXML.LinearLayoutX viewX =null;
         try {
-            linearLayout= (LinearLayout) parseXML.parse(stream,getContext());
+            linearLayout= (LinearLayout) parseXML.parse(stream, getContext(), new ImageClicked() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
 
         } catch (XmlPullParserException e) {
             e.printStackTrace();

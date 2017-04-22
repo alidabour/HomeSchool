@@ -13,14 +13,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.SampleCoursesToolbarAdapter;
-import com.example.ali.homeschool.controller.fragments.MyCoursesFragment;
+import com.example.ali.homeschool.childEnrolledCourses.MyCoursesFragment;
 import com.example.ali.homeschool.controller.fragments.StudentFeaturedCoursesFragment;
 
 /*
