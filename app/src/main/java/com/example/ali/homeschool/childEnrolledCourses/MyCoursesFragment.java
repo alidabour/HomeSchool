@@ -71,6 +71,9 @@ public class MyCoursesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        Log.v("REBE","User Email :" + user.getEmail());
+        Log.v("REBE","User Uid :" + user.getUid());
+
         db.child("users").child(user.getUid()).child("EnrolledCourses")
                 .addValueEventListener(new ValueEventListener() {
 //                    enrolledCourses = new ArrayList;
@@ -84,8 +87,10 @@ public class MyCoursesFragment extends Fragment {
                         enrolledCoursesList = new ArrayList<Courses2>();
                         coursesNames = new ArrayList<CourseCreated>();
                         for (DataSnapshot s : dataSnapshot.getChildren()) {
-                            Log.v("Fire", "Outside " + s.getValue());
+                            Log.v("REBE", "Outside " + s);
                             EnrolledCourseModel c = s.getValue(EnrolledCourseModel.class);
+                            Log.v("REBE", "Outside " + c);
+
                             db.child("courses").child(c.getId())
                                     .addValueEventListener(new ValueEventListener() {
                                         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
