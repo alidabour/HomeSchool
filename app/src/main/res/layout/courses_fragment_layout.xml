@@ -23,9 +23,6 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:paddingEnd="16dp">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
        <!-- <TextView-->
 
             <!--android:layout_width="match_parent"-->
