@@ -46,5 +46,7 @@
     <string name="Email">Email</string>
     <string name="Username">Username</string>
     <string name="ratings">Ratings</string>
+    <string name="enter_url">Enter Url</string>
+    <string name="choose_from_gallery">Choose from Gallery</string>
 
 </resources>

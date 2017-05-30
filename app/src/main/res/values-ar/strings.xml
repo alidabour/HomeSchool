@@ -45,4 +45,6 @@
 <string name="Username">اسم المسنخدم</string>
 <string name="topics_description">الدروس</string>
     <string name="ratings">Ratings</string>
+    <string name="enter_url">Enter Url</string>
+    <string name="choose_from_gallery">Choose from Gallery</string>
 </resources>

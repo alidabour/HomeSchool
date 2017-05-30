@@ -23,44 +23,9 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:paddingEnd="16dp">
 
-       <!-- <TextView-->
-
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:paddingBottom="10dp"-->
-            <!--android:text="@string/science"-->
-            <!--android:textSize="16dp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/category_recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false" />
-
-        <!-<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:paddingBottom="10dp"-->
-            <!--android:paddingTop="10dp"-->
-            <!--android:text="@string/math"-->
-            <!--android:textSize="16dp" />-->
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/c22"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false" />
-
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:paddingBottom="10dp"-->
-            <!--android:paddingTop="10dp"-->
-            <!--android:text="@string/economics"-->
-            <!--android:textSize="16dp" />-->
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/c33"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false" />

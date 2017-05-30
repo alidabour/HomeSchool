@@ -37,6 +37,7 @@ public class ParseXML {
     private  float scale;
     ImageClicked loadImage;
     public View parse(InputStream in,Context context,ImageClicked loadImage) throws XmlPullParserException, IOException {
+        Log.v("Parser","InputStream : ");
         this.loadImage=loadImage;
         try {
             this.context=context;
@@ -45,12 +46,14 @@ public class ParseXML {
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in, null);
             parser.nextTag();
+
             return readLayout(parser);
         } finally {
             in.close();
         }
     }
     private View readLayout(XmlPullParser parser) throws XmlPullParserException, IOException {
+            Log.v("Parser","XML ---> " +parser.getText());
             int id= Integer.parseInt(parser.getAttributeValue(ns,"android:id"));
             float weight = Float.parseFloat(parser.getAttributeValue(ns,"android:layout_weight"));
             Log.v("Parse","Weight : " +weight);
