@@ -1,26 +1,47 @@
 package com.example.ali.homeschool.controller.activities;
 
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.ali.homeschool.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class MainActivity extends AppCompatActivity {
 TextView logoname;
     public FirebaseAuth mAuth;
+    public FirebaseAuth.AuthStateListener mAuthListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_activity);
-        mAuth =FirebaseAuth.getInstance();
+        setContentView(R.layout.home_activity);mAuth = FirebaseAuth.getInstance();
+        // Buttons
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    {
+                        Intent intent = new Intent(getApplicationContext(), SignInAs.class);
+                        startActivity(intent);
+                    }
+                    Log.d("onAuthChang:signed_in:","");
+                } else {
+                    // User is signed out
+                    Log.d("onAuthChang:signed_out","");
+                }
+                // ...
+            }
+        };
 //        logoname = (TextView) findViewById(R.id.logoName);
 //        logoname.setTypeface(Typeface.createFromAsset(getAssets(),"Amiri-Bold.ttf"));
         //ImageView imageView = (ImageView) findViewById(R.id.imageView);
@@ -60,4 +81,5 @@ TextView logoname;
             }
         });
     }
+
 }

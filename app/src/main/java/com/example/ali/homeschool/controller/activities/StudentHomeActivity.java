@@ -1,12 +1,12 @@
 package com.example.ali.homeschool.controller.activities;
 
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
-import android.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +21,7 @@ import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.SampleCoursesToolbarAdapter;
 import com.example.ali.homeschool.childEnrolledCourses.MyCoursesFragment;
 import com.example.ali.homeschool.controller.fragments.StudentFeaturedCoursesFragment;
+import com.google.firebase.auth.FirebaseAuth;
 
 /*
     We enter this class from the Student image button as it has more than one fragment
@@ -32,6 +33,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     ViewPager mViewPager;
     CollapsingToolbarLayout collapsingToolbarLayout;
     AppBarLayout appBarLayout;
+    public FirebaseAuth mAuth;
     SampleCoursesToolbarAdapter imageCollapsingToolBarAdapter;
     Intent intent;
     Bundle bundle;
@@ -162,11 +164,20 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         }  else if (id == R.id.settings) {
 
         } else if (id == R.id.signout) {
+            mAuth.getInstance().signOut();
+            signOut101();
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    void signOut101() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("finish", true);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // To clean up all activities
+        startActivity(intent);
+        finish();
     }
 }
