@@ -29,7 +29,7 @@
             android:title="@string/settings" />
         <item
             android:id="@+id/signout"
-            android:icon="@drawable/Logout"
+            android:icon="@drawable/logout"
             android:title="@string/sign_out" />
     </group>
 
