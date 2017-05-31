@@ -2,22 +2,15 @@ package com.example.ali.homeschool.controller.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.R;
-
-
-import android.support.annotation.NonNull;
-import android.text.TextUtils;
-import android.util.Log;
-import android.widget.EditText;
-
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -85,7 +78,7 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
 
 
         // [START sign_in_with_email]
-        mAuth.signInWithEmailAndPassword("a@a.com", "000000")
+        mAuth.signInWithEmailAndPassword(Email.getText().toString().trim(),Password.getText().toString().trim())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -111,10 +104,6 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
         // [END sign_in_with_email]
     }
 
-    private void signOut() {
-        mAuth.signOut();
-        //updateUI(null);
-    }
 
     @Override
     public void onStart() {
