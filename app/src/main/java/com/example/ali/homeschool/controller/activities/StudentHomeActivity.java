@@ -132,14 +132,14 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
                     appBarLayout.setExpanded(false,false);
                 }
             });
-            //mViewPager.removeAllViews();
+            mViewPager.removeAllViews();
 
             Fragment newFragment = new MyCoursesFragment();
+            newFragment.setArguments(bundle);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
             // Replace whatever is in the fragment_container view with this fragment,
             // and add the transaction to the back stack if needed
-
             transaction.replace(R.id.fragment1, newFragment);
             // transaction.addToBackStack(null);
             transaction.commit();
