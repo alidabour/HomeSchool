@@ -59,5 +59,27 @@
         <item>Uranus</item>
         <item>Neptune</item>
     </string-array>
+    <string-array name="color_array">
+        <item>Red</item>
+        <item>Yellow</item>
+        <item>Orange</item>
+        <item>Green</item>
+        <item>Cyan</item>
+        <item>Blue</item>
+        <item>Violet</item>
+    </string-array>
+    <string-array name="text_size_array">
+        <item>Button 14sp CAPS</item>
+        <item>Caption 12sp</item>
+        <item>Body1 14sp</item>
+        <item>Body2 14sp Bold</item>
+        <item>Subheading 16sp</item>
+        <item>Title 20sp</item>
+        <item>Headline 24sp</item>
+        <item>Display1 34sp</item>
+        <item>Display2 45sp</item>
+        <item>Display3 56sp</item>
+        <item>Display4 112sp</item>
 
+    </string-array>
 </resources>

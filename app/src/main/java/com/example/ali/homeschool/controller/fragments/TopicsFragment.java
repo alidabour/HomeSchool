@@ -76,7 +76,6 @@ public class TopicsFragment extends Fragment  implements LoaderManager.LoaderCal
                 Intent intent = new Intent(getActivity(), ClassActivity.class);
                 startActivity(intent);
             }
-
             @Override
             public void onLongItemClick(View view, int position) {
             }

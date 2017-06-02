@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -47,13 +48,49 @@ public class ParseXMLInstructor {
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in, null);
             parser.nextTag();
-
+            Log.v("Test","parser getName :"+parser.getName());
+            if(parser.getName().equals("RelativeLayout")){
+                return readRelativeLayout(parser);
+            }
             return readLayout(parser);
         } finally {
             in.close();
         }
     }
+    private View readRelativeLayout(XmlPullParser parser) throws XmlPullParserException, IOException {
+//        int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
+//        float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
+//        Log.v("Parse", "Weight : " + weight);
+        RelativeLayout relativeLayout = new RelativeLayout(context);
+//        linearLayout.setId(id);
+        String height = parser.getAttributeValue(ns, "android:layout_height");
+        String width = parser.getAttributeValue(ns, "android:layout_width");
+        RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.FILL_PARENT,
+                RelativeLayout.LayoutParams.FILL_PARENT);
 
+//        relativeLayout.setLayoutParams(getLayoutParams(height, width, scale));
+
+//        parser.require(XmlPullParser.START_TAG, ns, "LinearLayout");
+//        while (parser.next() != XmlPullParser.END_TAG) {
+//            if (parser.getEventType() != XmlPullParser.START_TAG) {
+//                continue;
+//            }
+//            String name = parser.getName();
+//            if (name.equals("ImageView")) {
+//                linearLayout.addView(readImageView(parser));
+//            } else if (name.equals("TextView")) {
+//                linearLayout.addView(readTextView(parser));
+//            } else if (name.equals("Button")) {
+//                linearLayout.addView(readButton(parser));
+//            } else if (name.equals("LinearLayout")) {
+//                linearLayout.addView(readLayout(parser));
+//            } else {
+//                skip(parser);
+//            }
+//        }
+        return relativeLayout;
+    }
     private View readLayout(XmlPullParser parser) throws XmlPullParserException, IOException {
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));

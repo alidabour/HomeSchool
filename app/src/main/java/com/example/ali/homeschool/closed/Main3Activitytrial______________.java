@@ -47,7 +47,6 @@ public class Main3Activitytrial______________ extends AppCompatActivity implemen
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         final ViewPager mViewPager = (ViewPager) findViewById(R.id.viewPage_collapsing_toolbar);
         SampleCoursesToolbarAdapter imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(this);
         mViewPager.setAdapter(imageCollapsingToolBarAdapter);
