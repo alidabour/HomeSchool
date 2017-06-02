@@ -1,10 +1,8 @@
 package com.example.ali.homeschool.InstructorTopic;
 
 import android.content.Context;
-import android.media.AudioManager;
-import android.media.Image;
-import android.media.MediaPlayer;
-import android.net.Uri;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.util.Log;
 import android.util.Xml;
 import android.view.View;
@@ -19,14 +17,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.example.ali.homeschool.R;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 /**
  * Created by Dabour on 11/20/2016.
@@ -48,50 +44,58 @@ public class ParseXMLInstructor {
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in, null);
             parser.nextTag();
-            Log.v("Test","parser getName :"+parser.getName());
+            Log.v("Parse","parser getName :"+parser.getName());
             if(parser.getName().equals("RelativeLayout")){
+                Log.v("Parse","parser getName :"+parser.getName());
                 return readRelativeLayout(parser);
+            }else{
+                Log.v("Parse","parser getName :"+parser.getName());
+                return readLinearLayout(parser);
             }
-            return readLayout(parser);
         } finally {
             in.close();
         }
     }
     private View readRelativeLayout(XmlPullParser parser) throws XmlPullParserException, IOException {
+        Log.v("Parse", "readRelativeLayout");
 //        int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
 //        float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
 //        Log.v("Parse", "Weight : " + weight);
+        Log.v("Parse","parser getName :"+parser.getName());
         RelativeLayout relativeLayout = new RelativeLayout(context);
 //        linearLayout.setId(id);
         String height = parser.getAttributeValue(ns, "android:layout_height");
         String width = parser.getAttributeValue(ns, "android:layout_width");
         RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.FILL_PARENT,
-                RelativeLayout.LayoutParams.FILL_PARENT);
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT);
+        relativeLayout.setLayoutParams(rlp);
 
 //        relativeLayout.setLayoutParams(getLayoutParams(height, width, scale));
 
-//        parser.require(XmlPullParser.START_TAG, ns, "LinearLayout");
-//        while (parser.next() != XmlPullParser.END_TAG) {
-//            if (parser.getEventType() != XmlPullParser.START_TAG) {
-//                continue;
-//            }
-//            String name = parser.getName();
-//            if (name.equals("ImageView")) {
-//                linearLayout.addView(readImageView(parser));
-//            } else if (name.equals("TextView")) {
-//                linearLayout.addView(readTextView(parser));
-//            } else if (name.equals("Button")) {
-//                linearLayout.addView(readButton(parser));
-//            } else if (name.equals("LinearLayout")) {
-//                linearLayout.addView(readLayout(parser));
-//            } else {
-//                skip(parser);
-//            }
-//        }
+        parser.require(XmlPullParser.START_TAG, ns, "RelativeLayout");
+        while (parser.next() != XmlPullParser.END_TAG) {
+//            Log.v("Parse","While --> parser getName :"+parser.getName());
+            if (parser.getEventType() != XmlPullParser.START_TAG) {
+                continue;
+            }
+            String name = parser.getName();
+            if (name.equals("ImageView")) {
+                relativeLayout.addView(readImageView(parser));
+            } else if (name.equals("TextView")) {
+                relativeLayout.addView(readTextView(parser));
+            } else if (name.equals("Button")) {
+                relativeLayout.addView(readButton(parser));
+            } else if (name.equals("LinearLayout")) {
+                relativeLayout.addView(readLinearLayout(parser));
+            } else {
+                skip(parser);
+            }
+        }
         return relativeLayout;
     }
-    private View readLayout(XmlPullParser parser) throws XmlPullParserException, IOException {
+    private View readLinearLayout(XmlPullParser parser) throws XmlPullParserException, IOException {
+        Log.v("Parse", "LinearLayout");
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
         Log.v("Parse", "Weight : " + weight);
@@ -100,7 +104,8 @@ public class ParseXMLInstructor {
         String height = parser.getAttributeValue(ns, "android:layout_height");
         String width = parser.getAttributeValue(ns, "android:layout_width");
         String orientation = parser.getAttributeValue(ns, "android:orientation");
-        linearLayout.setLayoutParams(getLayoutParams(height, width, weight, scale));
+        String centerInParent = parser.getAttributeValue(ns, "android:layout_centerInParent");
+        linearLayout.setLayoutParams(getLayoutParams(height, width, weight, scale,centerInParent));
         if (orientation.equals("vertical")) {
             linearLayout.setOrientation(LinearLayout.VERTICAL);
         } else {
@@ -119,7 +124,7 @@ public class ParseXMLInstructor {
             } else if (name.equals("Button")) {
                 linearLayout.addView(readButton(parser));
             } else if (name.equals("LinearLayout")) {
-                linearLayout.addView(readLayout(parser));
+                linearLayout.addView(readLinearLayout(parser));
             } else {
                 skip(parser);
             }
@@ -128,6 +133,7 @@ public class ParseXMLInstructor {
     }
 
     private Button readButton(XmlPullParser parser) throws XmlPullParserException, IOException {
+        Log.v("Parse","readButton");
         final Button button = new Button(context);
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
@@ -152,8 +158,8 @@ public class ParseXMLInstructor {
         return button;
     }
 
-    private ImageView readImageView(
-            XmlPullParser parser) throws XmlPullParserException, IOException {
+    private ImageView readImageView(XmlPullParser parser) throws XmlPullParserException, IOException {
+        Log.v("Parse","readImageView");
         parser.require(XmlPullParser.START_TAG, ns, "ImageView");
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
@@ -197,6 +203,7 @@ public class ParseXMLInstructor {
     }
 
     private TextView readTextView(XmlPullParser parser) throws XmlPullParserException, IOException {
+        Log.v("Parse","readTextView");
         parser.require(XmlPullParser.START_TAG, ns, "TextView");
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
@@ -204,10 +211,12 @@ public class ParseXMLInstructor {
         textView.setId(id);
         textView.setText(parser.getAttributeValue(ns, "android:text"));
         textView.setTextSize(Float.parseFloat(parser.getAttributeValue(ns,"android:textSize")));
+        String color = parser.getAttributeValue(ns,"android:textColor");
+        textView.setTextAppearance(context,getTextAppearance(parser.getAttributeValue(ns, "android:textAppearance")));
+        textView.setTextColor(selectColor(color));
         String height = parser.getAttributeValue(ns, "android:layout_height");
         String width = parser.getAttributeValue(ns, "android:layout_width");
         textView.setLayoutParams(getLayoutParams(height, width, weight, scale));
-
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
@@ -216,7 +225,14 @@ public class ParseXMLInstructor {
         }
         return textView;
     }
+    int getTextAppearance(String textAppearance){
+         return android.R.style.TextAppearance_Material_Display4;
+    }
 
+    private int selectColor(String color){
+        int c=Color.parseColor("#ffcc00");
+        return c;
+    }
     private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
         if (parser.getEventType() != XmlPullParser.START_TAG) {
             throw new IllegalStateException();
@@ -243,6 +259,41 @@ public class ParseXMLInstructor {
         return pixels;
     }
 
+        RelativeLayout.LayoutParams getLayoutParams(String height, String width, float weight,
+                                                    final float scale, String centerInParent) {
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT);
+        lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+        return lp;
+//        if (height.equals("match_parent")) {
+//            if (width.equals("match_parent")) {
+//                return new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
+//                        TableLayout.LayoutParams.MATCH_PARENT, weight);
+//            } else if (width.equals("wrap_content")) {
+//                return new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT,
+//                        TableLayout.LayoutParams.MATCH_PARENT, weight);
+//            } else {
+//
+//                return new TableLayout.LayoutParams(intToPixels(Integer.parseInt(width), scale),
+//                        TableLayout.LayoutParams.MATCH_PARENT, weight);
+//            }
+//        } else if (height.equals("wrap_content")) {
+//            if (width.equals("match_parent")) {
+//                return new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
+//                        TableLayout.LayoutParams.WRAP_CONTENT, weight);
+//            } else if (width.equals("wrap_content")) {
+//                return new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT,
+//                        TableLayout.LayoutParams.WRAP_CONTENT, weight);
+//            } else {
+//                return new TableLayout.LayoutParams(intToPixels(Integer.parseInt(width), scale),
+//                        LinearLayout.LayoutParams.WRAP_CONTENT, weight);
+//            }
+//        } else {
+//            return new TableLayout.LayoutParams(intToPixels(Integer.parseInt(width), scale),
+//                    intToPixels(Integer.parseInt(height), scale), weight);
+//        }
+    }
     TableLayout.LayoutParams getLayoutParams(String height, String width, float weight,
                                              final float scale) {
         if (height.equals("match_parent")) {

@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,12 +69,12 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
     String start = "<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n" + "android:id=\"2\" android:layout_weight=\"0\" "+
             "    android:layout_width=\"match_parent\"\n" +
             "    android:layout_height=\"match_parent\">" +
-            "<LinearLayout " +
+            "<LinearLayout " + "android:layout_centerInParent=\"true\" " +
             "android:orientation=\"vertical\" " +
             "android:layout_weight=\"0\" " +
             "android:id=\"2000\" " +
-            "android:layout_width=\"match_parent\" " +
-            "android:layout_height=\"match_parent\">";
+            "android:layout_width=\"wrap_content\" " +
+            "android:layout_height=\"wrap_content\">";
     String mid = "";
     final String PUTIDHERE = "PUTIDHERE";
     final String PUTACTIONTEXTHERE = "PUTACTIONTEXTHERE";
@@ -94,7 +95,7 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
                     "homeSchool:audioLink=\"PUTLINKHERE\" />";
     String soundText = "PlaceHolder";
 
-    String end = "</LinearLayout>";
+    String end = "</LinearLayout></RelativeLayout>";
     String layout = "<LinearLayout " +
             "android:orientation=\"vertical\" " +
             "android:layout_weight=\"0\" " +
@@ -257,14 +258,14 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
         });
     }
 
-    public LinearLayout parse(String layout) {
+    public RelativeLayout parse(String layout) {
         InputStream stream = null;
         stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
         ParseXMLInstructor parseXMLInstructor = new ParseXMLInstructor();
-        LinearLayout mainLayout = null;
+        RelativeLayout mainLayout = null;
 
         try {
-            mainLayout = (LinearLayout) parseXMLInstructor
+            mainLayout = (RelativeLayout) parseXMLInstructor
                     .parse(stream, getApplicationContext(), this);
             Log.v("ITA", "pass");
         } catch (XmlPullParserException e) {
@@ -414,7 +415,7 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
                 midLayouts.add(id, mid);
 
                 id++;
-                LinearLayout linearLayout = parse(start + midLayouts.toString() + end);
+                RelativeLayout linearLayout = parse(start + midLayouts.toString() + end);
 
 
                 mainView.removeAllViews();
@@ -456,7 +457,7 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
                         " android:layout_height=\"wrap_content\" homeSchool:src=\"" + m_Text + "\" />";
                 midLayouts.add(id, mid);
                 id++;
-                LinearLayout linearLayout = parse(
+                RelativeLayout linearLayout = parse(
                         start + midLayouts.toString() + end);
                 mainView.removeAllViews();
                 mainView.addView(linearLayout);
@@ -515,7 +516,7 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
         layout = layout.replaceAll("PUTSOUNDTEXTHERE", soundText);
         midLayouts.add(id, layout);
         id++;
-        LinearLayout linearLayout = parse(start + midLayouts.toString() + end);
+        RelativeLayout linearLayout = parse(start + midLayouts.toString() + end);
         mainView.removeAllViews();
         mainView.addView(linearLayout);
     }
@@ -523,7 +524,7 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
     private void addLayout(String layout) {
         midLayouts.add(id, layout);
         id++;
-        LinearLayout linearLayout = parse(start + midLayouts.toString() + end);
+        RelativeLayout linearLayout = parse(start + midLayouts.toString() + end);
         mainView.removeAllViews();
         mainView.addView(linearLayout);
     }
@@ -613,7 +614,7 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
                                     " android:layout_height=\"wrap_content\" homeSchool:src=\"" + link + "\" />";
                             midLayouts.add(id, mid);
                             id++;
-                            LinearLayout linearLayout = parse(start + midLayouts.toString() + end);
+                            RelativeLayout linearLayout = parse(start + midLayouts.toString() + end);
                             mainView.removeAllViews();
                             mainView.addView(linearLayout);
                             //and displaying a success toast
