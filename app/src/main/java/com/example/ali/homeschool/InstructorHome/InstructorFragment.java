@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,7 +43,7 @@ import java.util.Map;
 public class InstructorFragment extends Fragment {
 
     View view;
-    Button addCourse;
+   // Button addCourse;
     String coursName;
     String descriptionS;
     String subjectS;
@@ -57,20 +58,21 @@ public class InstructorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.instructor_fragment, container, false);
-        addCourse = (Button) view.findViewById(R.id.addCourse);
+       // addCourse = (Button) view.findViewById(R.id.addCourse);
         coursesList = new ArrayList<>();
         coursesRV = (RecyclerView) view.findViewById(R.id.courses);
         coursesRV.setHasFixedSize(true);
         coursesRV.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
-       // coursesRV.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab2);
+
         FirebaseAuth auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         Log.v("Test", "User Email" + user.getDisplayName());
 //        Log.v("Test","User Email"+ user.getProviderId());
         Log.v("Test", "User Email" + user.getUid());
         db = FirebaseDatabase.getInstance().getReference();
-        addCourse.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -124,9 +126,7 @@ public class InstructorFragment extends Fragment {
                 builder.show();
             }
         });
-
         return view;
-
     }
 
     @Override

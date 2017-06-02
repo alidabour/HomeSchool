@@ -39,15 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InstructorActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    RecyclerView coursesRV;
-    DatabaseReference db;
-    FirebaseUser user;
-    List<CourseCreated> coursesList;
-    CourseCreatedAdapter courseCreatedAdapter;
-    Button addCourse;
-    String coursName;
-    String descriptionS;
-    String subjectS;
+
     AppBarLayout appBarLayout;
 
 

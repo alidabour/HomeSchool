@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-                 android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context="com.example.ali.homeschool.InstructorLessons.InstructorLessonsActivity">
-    <Button
-        android:layout_margin="8dp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical"
-        android:padding="6dp"
-        android:background="@color/colorAccent"
-        android:id="@+id/addLesson"
-        android:text="Add Lesson"
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <!--<Button-->
-        <!--android:id="@+id/addTopic"-->
-        <!--android:text="Add Topic"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"/>-->
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:layout_marginRight="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="13dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:tint="@color/colorPrimary"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lessonsRV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-</LinearLayout>
+</RelativeLayout>

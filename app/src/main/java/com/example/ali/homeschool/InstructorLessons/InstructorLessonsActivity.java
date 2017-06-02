@@ -3,6 +3,7 @@ package com.example.ali.homeschool.InstructorLessons;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -33,16 +34,15 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     String m_Text = "";
     DatabaseReference db;
     CourseCreated courseCreated;
-    Button addTopicB;
     LessonModel lessonModel;
-    Button addLesson;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_lessons);
-//        addTopicB = (Button) findViewById(R.id.addTopic);
-        addLesson = (Button) findViewById(R.id.addLesson);
-        addLesson.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab3);
+
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(InstructorLessonsActivity.this);
@@ -135,6 +135,5 @@ public class InstructorLessonsActivity extends AppCompatActivity {
 
                     }
                 });
-
     }
 }
