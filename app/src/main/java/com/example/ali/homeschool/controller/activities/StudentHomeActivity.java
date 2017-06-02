@@ -129,7 +129,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userModel = dataSnapshot.getValue(UserModel.class);
-                Log.e("onDataChange: ",userModel.getPhoto());
+//                Log.e("onDataChange: ",userModel.getPhoto());
                 UserName.setText(userModel.getName());
                 Glide.with(getApplicationContext()).load(userModel.getPhoto()).into(userPhotoId);
             }
