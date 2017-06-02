@@ -25,6 +25,7 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
     public TopicsAdapter(List<String> names){
         this.names=names;
     }
+
     @Override
     public TopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())

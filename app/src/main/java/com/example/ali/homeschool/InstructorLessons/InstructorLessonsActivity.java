@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -87,7 +88,11 @@ public class InstructorLessonsActivity extends AppCompatActivity {
 //        });
         lessonsRV = (RecyclerView) findViewById(R.id.lessonsRV);
         lessonsRV.setHasFixedSize(true);
-        lessonsRV.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
+        lessonsRV.setLayoutManager(layoutManager);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(lessonsRV.getContext(),layoutManager.getOrientation());
+        lessonsRV.addItemDecoration(dividerItemDecoration);
 
         db = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
@@ -95,7 +100,6 @@ public class InstructorLessonsActivity extends AppCompatActivity {
             courseCreated = intent.getParcelableExtra("course");
             Log.v("Test","Course "+ courseCreated.getName());
         }
-
     }
 
     @Override

@@ -68,7 +68,6 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         navigationView.setNavigationItemSelectedListener(this);
 }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;

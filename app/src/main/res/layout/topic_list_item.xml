@@ -17,9 +17,7 @@
         android:layout_width="30dp"
         android:lines="1"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        />
-
+        android:textSize="20sp" />
 
     <View
         android:id="@+id/view"
@@ -27,8 +25,7 @@
         android:layout_marginEnd="16dp"
         android:layout_width="1dp"
         android:layout_height="50dp"
-        android:background="@android:color/darker_gray"
-       />
+        android:background="@android:color/darker_gray" />
 
     <TextView
         android:id="@+id/topicName"

@@ -1,5 +1,6 @@
 package com.example.ali.homeschool.InstructorLessons;
 
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import java.util.List;
 public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonViewHolder>{
     List<LessonModel> lessonModelList;
     public LessonAdapter.OnClickHandler onClickHandler;
+
     public interface OnClickHandler {
         void onClick(LessonModel test);
     }
@@ -30,7 +32,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
     @Override
     public LessonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.lesson_item_view,parent,false);
+                .inflate(R.layout.topic_list_item,parent,false);
         return new LessonViewHolder(itemView);
     }
 
@@ -38,6 +40,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
     public void onBindViewHolder(LessonViewHolder holder, int position) {
         LessonModel lessonModel = lessonModelList.get(position);
         holder.lessonName.setText(lessonModel.getName());
+        holder.lessonNum.setText(position + 1 +" ");
     }
 
     @Override
@@ -47,10 +50,13 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
 
     public class LessonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView lessonName;
+        protected TextView lessonNum;
+
         public LessonViewHolder(View itemView) {
             super(itemView);
-            lessonName = (TextView) itemView.findViewById(R.id.lessonName);
-            lessonName.setOnClickListener(this);
+            lessonName = (TextView) itemView.findViewById(R.id.topicName);
+            lessonNum = (TextView) itemView.findViewById(R.id.topicNum);
+            itemView.setOnClickListener(this);
         }
 
         @Override
