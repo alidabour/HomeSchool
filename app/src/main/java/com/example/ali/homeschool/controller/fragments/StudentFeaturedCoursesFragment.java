@@ -61,7 +61,10 @@ public class StudentFeaturedCoursesFragment extends Fragment {
         courseSectionRV.setLayoutManager(
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         headerRVDatas = new ArrayList<>();
-
+        if(container !=null){
+            container.removeAllViews();
+        }
+        Log.v("StudentCoursesFragment","Test");
         return view;
     }
 

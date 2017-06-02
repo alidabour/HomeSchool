@@ -42,11 +42,7 @@
             android:name=".controller.activities.StudentHomeActivity"
             android:label="@string/title_activity_main4"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
             android:name=".childEnrolledCourses.EnrolledCourseActivity"
@@ -74,6 +70,8 @@
         <activity android:name=".InstructorLessons.InstructorLessonsActivity">
         </activity>
         <activity android:name=".InstructorTopic.InstructorTopicActivity">
+        </activity>
+        <activity android:name=".exercises.simple.SimpleExercises">
         </activity>
     </application>
 

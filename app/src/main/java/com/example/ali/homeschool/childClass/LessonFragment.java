@@ -1,14 +1,16 @@
 package com.example.ali.homeschool.childClass;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.ali.homeschool.InstructorTopic.ImageClicked;
-import com.example.ali.homeschool.InstructorTopic.ParseXML;
+import com.example.ali.homeschool.InstructorTopic.ParseXMLInstructor;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -21,7 +23,6 @@ import java.nio.charset.Charset;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link LessonFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link LessonFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -77,15 +78,20 @@ public class LessonFragment extends Fragment {
         //View view = inflater.inflate(R.layout.fragment_lesson, container, false);
         InputStream stream = null;
         stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
-        ParseXML parseXML = new ParseXML();
-        ParseXML.LinearLayoutX viewX =null;
+        ParseXMLStudent parseXML = new ParseXMLStudent();
         try {
-            linearLayout= (LinearLayout) parseXML.parse(stream, getContext(), new ImageClicked() {
-                @Override
-                public void onClick(View v) {
+            linearLayout= (LinearLayout) parseXML.parse(stream, getContext(),
+                    new ImageClickedStudent() {
+                        @Override
+                        public void onClick(View v) {
 
-                }
-            });
+                        }
+                    }, new ButtonClicked() {
+                        @Override
+                        public void onButtonClicked(String activity) {
+
+                        }
+                    });
 
         } catch (XmlPullParserException e) {
             e.printStackTrace();
@@ -95,4 +101,12 @@ public class LessonFragment extends Fragment {
         return linearLayout;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.v("LessonFragment", "Result " +requestCode + " , "+ resultCode );
+        if(requestCode==2){
+            Uri result = data.getData();
+            Log.v("LessonFragment", "Result " +result.toString());
+        }
+    }
 }

@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.InstructorTopic.TopicModel;
@@ -42,7 +44,6 @@ public class ClassActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = FirebaseDatabase.getInstance().getReference();
-        layouts=new ArrayList<String>();
         context=getApplicationContext();
         setContentView(R.layout.activity_class_trial);
         pager = (ViewPager) findViewById(R.id.viewPager);
@@ -59,10 +60,11 @@ public class ClassActivity extends AppCompatActivity  {
     protected void onStart() {
         super.onStart();
         Log.v("Test","Coursr id "+ course.getId());
+        layouts=new ArrayList<String>();
+        lessonModelList = new ArrayList<LessonModel>();
         listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                lessonModelList = new ArrayList<LessonModel>();
                 Log.v("Test","ONdaatachange");
                 Log.v("Test","Datasnapshot "+dataSnapshot.toString() );
                 for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
@@ -99,6 +101,25 @@ public class ClassActivity extends AppCompatActivity  {
     protected void onPause() {
         super.onPause();
         db.removeEventListener(listener);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.v("LessonFragment", "Activity Result " +requestCode + " , "+ resultCode );
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Constants.CORRECTANSWER){
+            if (requestCode == Constants.SIMPLE){
+                Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if(resultCode == Constants.WRONGANSWER){
+            if (requestCode == Constants.SIMPLE){
+                Toast.makeText(context, "Result Wrong", Toast.LENGTH_SHORT).show();
+            }
+        }
+        Log.v("LessonFragment", "Activity Result " +requestCode + " , "+ resultCode );
+
     }
 
     @Override

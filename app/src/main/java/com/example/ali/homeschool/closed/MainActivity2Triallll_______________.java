@@ -67,10 +67,10 @@ public class MainActivity2Triallll_______________ extends AppCompatActivity impl
                 "        android:layout_height=\"wrap_content\" />"+
                 "  </LinearLayout>  </LinearLayout>";
 //        stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
-//        ParseXML parseXML = new ParseXML();
-//        List<ParseXML.ViewX> views =  null;
+//        ParseXMLInstructor parseXML = new ParseXMLInstructor();
+//        List<ParseXMLInstructor.ViewX> views =  null;
 //        String id=null;
-//        ParseXML.ViewX viewX ;
+//        ParseXMLInstructor.ViewX viewX ;
 //        try {
 //            viewX=parseXML.parse(stream);
 //
@@ -83,14 +83,14 @@ public class MainActivity2Triallll_______________ extends AppCompatActivity impl
             //Log.v("Test", "Views.Empty: " + views.isEmpty());
             //Log.v("Test", "Views.length: " + views.size());
             //Log.v("Test","Views.get(0).id : "+views.get(0).id);
-            //for (ParseXML.ViewX x : views) {
+            //for (ParseXMLInstructor.ViewX x : views) {
               //  Log.v("Test", "Id : " + x.id);
             //}
 
      //   } else {
            // Log.v("Test", "Views == null");
      //   }
-       // for (ParseXML.ImageViewX x:views){
+       // for (ParseXMLInstructor.ImageViewX x:views){
          //   Log.v("Test","Id : " +x.id);
         //}
 

@@ -55,7 +55,9 @@ public class MyCoursesFragment extends Fragment {
         db = FirebaseDatabase.getInstance().getReference();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        container.removeAllViews();
+        if(container!=null){
+            container.removeAllViews();
+        }
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_courses_fragmetnt, container, false);
 
@@ -65,6 +67,7 @@ public class MyCoursesFragment extends Fragment {
         LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false);
         enrolledRecyclerView.setLayoutManager(categoryLayoutManger);
+        Log.v("Test","MyCoursesFragment");
         return view;
     }
 
@@ -140,8 +143,6 @@ public class MyCoursesFragment extends Fragment {
                                         }
                                     });
                         }
-
-
                         // [END_EXCLUDE]
                     }
 

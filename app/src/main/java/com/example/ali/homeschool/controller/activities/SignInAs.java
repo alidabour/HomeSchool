@@ -3,12 +3,14 @@ package com.example.ali.homeschool.controller.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.ali.homeschool.InstructorHome.InstructorActivity;
 import com.example.ali.homeschool.ParentHome.ParentActivity;
 import com.example.ali.homeschool.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * Created by lenovo on 30/11/2016.
@@ -18,7 +20,6 @@ public class SignInAs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in_as);
-
         //ImageView imageView = (ImageView) findViewById(R.id.imageView);
         ImageButton student = (ImageButton) findViewById(R.id.Student);
         student.setOnClickListener(new View.OnClickListener() {

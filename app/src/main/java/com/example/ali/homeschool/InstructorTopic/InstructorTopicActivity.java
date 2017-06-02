@@ -11,7 +11,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -19,13 +18,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -59,23 +59,41 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
     String m_Text = "";
     String audioLink = "";
     TextView image;
+    TextView question;
     String courseId;
     String lessonModel;
     TextView sound;
     LinearLayout act_main;
     LinearLayout mainView;
-    String start = "<LinearLayout " +
+    String start = "<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n" +
+            "    android:layout_width=\"match_parent\"\n" +
+            "    android:layout_height=\"match_parent\">" +
+            "<LinearLayout " +
             "android:orientation=\"vertical\" " +
             "android:layout_weight=\"0\" " +
             "android:id=\"2000\" " +
             "android:layout_width=\"match_parent\" " +
             "android:layout_height=\"match_parent\">";
     String mid = "";
+    final String PUTIDHERE = "PUTIDHERE";
+    final String PUTACTIONTEXTHERE = "PUTACTIONTEXTHERE";
+    final String PUTSIZEHERE = "PUTSIZEHERE";
+    final String PUTACTIVITYHERE = "PUTACTIVITYHERE";
+    final String actionTextXML = "<TextView\n" +
+            "        android:id=\"PUTIDHERE\"\n" + "android:layout_weight=\"0\""+
+            "        android:text=\"PUTACTIONTEXTHERE\"\n" +
+            "        android:textSize=\"PUTSIZEHERE\"\n" +
+            "        android:layout_width=\"match_parent\"\n" +
+            "        android:layout_height=\"wrap_content\"/>";
+    final String actionButtonXML =  "<Button android:layout_weight=\"0\" android:id=\"PUTIDHERE\" android:text=\"PUTACTIONTEXTHERE\" android:layout_width=\"match_parent\" " +
+            "android:layout_height=\"wrap_content\"" +
+            "homeSchool:activity=\"PUTACTIVITYHERE\" />";
     final String soundXML =
     "<Button android:layout_weight=\"0\" android:id=\"PUTIDHERE\" android:text=\"PUTSOUNDTEXTHERE\" android:layout_width=\"match_parent\" " +
             "android:layout_height=\"wrap_content\"" +
             "homeSchool:audioLink=\"PUTLINKHERE\" />";
     String soundText = "PlaceHolder";
+
     String end = "</LinearLayout>";
     String layout = "<LinearLayout " +
             "android:orientation=\"vertical\" " +
@@ -105,7 +123,7 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
         setContentView(R.layout.activity_instructor_topic);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
-
+        question = (TextView)findViewById(R.id.question);
         submitTV = (TextView) findViewById(R.id.submit);
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("lesson")) {
@@ -114,6 +132,28 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
         if (intent != null && intent.hasExtra("courseID")) {
             courseId = intent.getStringExtra("courseID");
         }
+        question.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(InstructorTopicActivity.this);
+                builder.setTitle("Choose type :");
+                LayoutInflater li = LayoutInflater.from(InstructorTopicActivity.this);
+                LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.question_list, null);
+                final TextView colorQue = (TextView) someLayout.findViewById(R.id.color);
+                builder.setView(someLayout);
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+                colorQue.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                        openColorQuestionDialog();
+
+                    }
+                });
+
+            }
+        });
         submitTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -219,11 +259,12 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
     public LinearLayout parse(String layout) {
         InputStream stream = null;
         stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
-        ParseXML parseXML = new ParseXML();
+        ParseXMLInstructor parseXMLInstructor = new ParseXMLInstructor();
         LinearLayout mainLayout = null;
 
         try {
-            mainLayout = (LinearLayout) parseXML.parse(stream, getApplicationContext(), this);
+            mainLayout = (LinearLayout) parseXMLInstructor
+                    .parse(stream, getApplicationContext(), this);
             Log.v("ITA", "pass");
         } catch (XmlPullParserException e) {
             e.printStackTrace();
@@ -254,6 +295,53 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
         }
 
     }
+    private void openColorQuestionDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(InstructorTopicActivity.this);
+//        builder.setTitle("Title");
+        LayoutInflater li = LayoutInflater.from(InstructorTopicActivity.this);
+        LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.color_question_dialog, null);
+        final EditText questionET = (EditText) someLayout.findViewById(R.id.question);
+        Spinner colorSpiner = (Spinner) someLayout.findViewById(R.id.colors);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.planets_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        colorSpiner.setAdapter(adapter);
+        final String[] selection = {" "};
+        colorSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                selection[0] += (String) adapterView.getItemAtPosition(position);
+                Log.v("ITA","Selected :" + selection[0]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        builder.setView(someLayout);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String questionText = questionET.getText().toString();
+                String questionTV = actionTextXML.replaceAll(PUTACTIONTEXTHERE,questionText);
+                questionTV = questionTV.replaceAll(PUTIDHERE, String.valueOf(id));
+                questionTV = questionTV.replaceAll(PUTSIZEHERE,"40");
+                addLayout(questionTV);
+                String actionButton = actionButtonXML.replaceAll(PUTIDHERE, String.valueOf(id));
+                actionButton = actionButton.replaceAll(PUTACTIVITYHERE,"SimpleExercises");
+                actionButton = actionButton.replaceAll(PUTACTIONTEXTHERE,"Start");
+                addLayout(actionButton);
+                dialogInterface.cancel();
+            }
+        });
+        builder.show();
+
+
+    }
+
     private void openSoundURLDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(InstructorTopicActivity.this);
         builder.setTitle("Sound Button");
@@ -376,12 +464,19 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
         --id;
         Log.v("Test", "mid Layouts " + midLayouts);
     }
-    private void addLayout(String link,String layout){
+    private void addSoundLayout(String link, String layout){
         link = link.replaceAll("&","&amp;");
-//      link = link.replaceAll("&#63;", "?");
+        link = link.replaceAll("\\?", "&#63;");
         layout =layout.replaceAll("PUTLINKHERE",link);
         layout =layout.replaceAll("PUTIDHERE", String.valueOf(id));
         layout = layout.replaceAll("PUTSOUNDTEXTHERE",soundText);
+        midLayouts.add(id, layout);
+        id++;
+        LinearLayout linearLayout = parse(start +midLayouts.toString() + end);
+        mainView.removeAllViews();
+        mainView.addView(linearLayout);
+    }
+    private void addLayout(String layout){
         midLayouts.add(id, layout);
         id++;
         LinearLayout linearLayout = parse(start +midLayouts.toString() + end);
@@ -408,7 +503,7 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
                             progressDialog.dismiss();
                             @SuppressWarnings("VisibleForTests") String link = taskSnapshot
                                     .getDownloadUrl().toString();
-                            addLayout(link,layout);
+                            addSoundLayout(link,layout);
                             //and displaying a success toast
                             Toast.makeText(getApplicationContext(), "File Uploaded",
                                     Toast.LENGTH_LONG).show();

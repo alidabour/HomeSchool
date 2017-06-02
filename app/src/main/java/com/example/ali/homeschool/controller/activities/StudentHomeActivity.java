@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -82,6 +83,12 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
             }
         });
 
+//        Fragment newFragment = new StudentFeaturedCoursesFragment();
+//        newFragment.setArguments(bundle);
+//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//        transaction.replace(R.id.fragment1, newFragment);
+//        transaction.commit();
+
     }
 
     /*
@@ -148,6 +155,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         } else if (id == R.id.featuredCoursesNaV) {
 //            Log.v("Test", "Test");
             //appBarLayout.removeView(cllapsingToolbarLayout);
+            Log.v("Nav","Featured");
             appBarLayout.setExpanded(true);
             mViewPager.setAdapter(imageCollapsingToolBarAdapter);
 
