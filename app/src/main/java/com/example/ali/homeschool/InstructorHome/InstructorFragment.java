@@ -43,7 +43,6 @@ import java.util.Map;
 public class InstructorFragment extends Fragment {
 
     View view;
-   // Button addCourse;
     String coursName;
     String descriptionS;
     String subjectS;
@@ -58,7 +57,7 @@ public class InstructorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.instructor_fragment, container, false);
-       // addCourse = (Button) view.findViewById(R.id.addCourse);
+        // addCourse = (Button) view.findViewById(R.id.addCourse);
         coursesList = new ArrayList<>();
         coursesRV = (RecyclerView) view.findViewById(R.id.courses);
         coursesRV.setHasFixedSize(true);
@@ -82,8 +81,6 @@ public class InstructorFragment extends Fragment {
                 someLayout = (LinearLayout) li.inflate(R.layout.dialog_add_course, null);
 
                 // Set up the input
-//                final EditText input = new EditText(MainActivity.this);
-//                final EditText audioIn = new EditText(MainActivity.this);
                 final EditText input = (EditText) someLayout.findViewById(R.id.courseName);
                 final EditText description = (EditText) someLayout.findViewById(R.id.description);
                 final EditText subject = (EditText) someLayout.findViewById(R.id.subject);
