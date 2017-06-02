@@ -1,10 +1,12 @@
 package com.example.ali.homeschool.InstructorHome;
 
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ali.homeschool.R;
@@ -19,16 +21,18 @@ import java.util.List;
  */
 
 public class CourseCreatedAdapter extends RecyclerView.Adapter<CourseCreatedAdapter.CourseViewHolder>{
+
     List<CourseCreated> courseCreatedList;
     public OnClickHandler onClickHandler;
+
     public interface OnClickHandler {
         void onClick(CourseCreated test);
     }
+
     public CourseCreatedAdapter(List<CourseCreated> courseCreatedList,OnClickHandler onClickHandler) {
         this.courseCreatedList = courseCreatedList;
         this.onClickHandler = onClickHandler;
     }
-
 
     @Override
     public CourseViewHolder onCreateViewHolder(ViewGroup parent,
@@ -51,10 +55,13 @@ public class CourseCreatedAdapter extends RecyclerView.Adapter<CourseCreatedAdap
 
     public class CourseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView courseName;
+        private ImageView courseImage;
+
         public CourseViewHolder(View itemView) {
             super(itemView);
             courseName = (TextView) itemView.findViewById(R.id.courseName);
-            courseName.setOnClickListener(this);
+            courseImage = (ImageView) itemView.findViewById(R.id.courseImage);
+            itemView.setOnClickListener(this);
         }
 
         @Override

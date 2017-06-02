@@ -67,7 +67,6 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
     }
 
 
-
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
         if (!validateForm()) {
@@ -75,7 +74,6 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
         }
 
         //   showProgressDialog();
-
 
         // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(Email.getText().toString().trim(),Password.getText().toString().trim())
