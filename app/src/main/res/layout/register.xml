@@ -127,5 +127,29 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <Button
+        android:id="@+id/UploadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Upload"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/textInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    <ImageView
+        android:id="@+id/PhotoimageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/a"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/UploadButton"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toLeftOf="@+id/textInputLayout" />
+
 
 </android.support.constraint.ConstraintLayout>

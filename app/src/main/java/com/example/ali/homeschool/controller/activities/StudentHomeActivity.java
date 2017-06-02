@@ -17,12 +17,22 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.SampleCoursesToolbarAdapter;
 import com.example.ali.homeschool.childEnrolledCourses.MyCoursesFragment;
 import com.example.ali.homeschool.controller.fragments.StudentFeaturedCoursesFragment;
+import com.example.ali.homeschool.data.firebase.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /*
     We enter this class from the Student image button as it has more than one fragment
@@ -34,15 +44,21 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     ViewPager mViewPager;
     CollapsingToolbarLayout collapsingToolbarLayout;
     AppBarLayout appBarLayout;
-    public FirebaseAuth mAuth;
+    FirebaseAuth mAuth;
+    FirebaseUser user;
+    DatabaseReference databaseReference;
     SampleCoursesToolbarAdapter imageCollapsingToolBarAdapter;
     Intent intent;
     Bundle bundle;
-
+    UserModel userModel;
+    ImageView userPhotoId;
+    TextView UserName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         /*
         setting the Content View
         setting the toolbar and collapsing toolbar
@@ -63,6 +79,11 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        userPhotoId=(ImageView) navigationView.getHeaderView(0).findViewById(R.id.photoid);
+        UserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navigationTextName);
+
 
         mViewPager = (ViewPager) findViewById(R.id.viewPage_collapsing_toolbar);
         imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(this);
@@ -94,6 +115,32 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     /*
      this is used to close the drawer (Navigation Bar)
      */
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        DatabaseReference ref = databaseReference;
+        Log.e("onStart: ", user.getUid());
+     //   photoId.setImageResource(R.drawable.a);
+
+// Attach a listener to read the data at our posts reference
+        databaseReference.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userModel = dataSnapshot.getValue(UserModel.class);
+                Log.e("onDataChange: ",userModel.getPhoto());
+                UserName.setText(userModel.getName());
+                Glide.with(getApplicationContext()).load(userModel.getPhoto()).into(userPhotoId);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

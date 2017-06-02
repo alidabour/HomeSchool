@@ -18,6 +18,7 @@
         android:src="@drawable/photoid" />
 
     <TextView
+        android:id="@+id/navigationTextName"
         android:fitsSystemWindows="true"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
