@@ -3,11 +3,6 @@ package com.example.ali.homeschool.controller.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-
-//import android.support.v4.app.LoaderManager;
-//import android.support.v4.app.LoaderManager.LoaderCallbacks;
-//import android.support.v4.content.Loader;
-//import android.support.v4.content.CursorLoader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,10 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.ali.homeschool.adapter.CourseSectionListAdapter;
-import com.example.ali.homeschool.data.CategoryInformation;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.adapter.CategoryAdapter;
+import com.example.ali.homeschool.adapter.CourseSectionListAdapter;
 import com.example.ali.homeschool.data.HeaderRVData;
 import com.example.ali.homeschool.data.firebase.Courses;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +26,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+//import android.support.v4.app.LoaderManager;
+//import android.support.v4.app.LoaderManager.LoaderCallbacks;
+//import android.support.v4.content.Loader;
+//import android.support.v4.content.CursorLoader;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -113,7 +111,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                             it.remove(); // avoids a ConcurrentModificationException
                         }
                         courseSectionListAdapter = new CourseSectionListAdapter(getActivity(),
-                                headerRVDatas);
+                                headerRVDatas,1);
                         courseSectionRV.setAdapter(courseSectionListAdapter);
                         // [END_EXCLUDE]
                     }

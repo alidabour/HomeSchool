@@ -24,8 +24,10 @@ import java.util.List;
 public class CourseSectionListAdapter extends RecyclerView.Adapter<CourseSectionListAdapter.ItemRowHolder> {
     Context context;
     List<HeaderRVData> headerRVDataList;
-    public CourseSectionListAdapter(Context context,List<HeaderRVData> headerRVDataList){
+    int userViewType;
+    public CourseSectionListAdapter(Context context,List<HeaderRVData> headerRVDataList,int userviewType){
         this.context = context;
+        this.userViewType=userviewType;
         this.headerRVDataList = headerRVDataList;
     }
     @Override
@@ -43,6 +45,8 @@ public class CourseSectionListAdapter extends RecyclerView.Adapter<CourseSection
             public void onClick(Courses course) {
                 Intent intent= new Intent (context, CourseDescriptionActivity.class);
                 intent.putExtra("course",course);
+                intent.putExtra("type",userViewType);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 Log.v( "onClick: ","ID ___ "+course.course_id);
                 Log.e( "onClick: ",intent.toString()+course );
                 context.startActivity(intent);

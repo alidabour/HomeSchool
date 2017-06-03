@@ -112,11 +112,6 @@ public class Main3Activitytrial______________ extends AppCompatActivity implemen
 //                })
 //        );
 
-        RecyclerView c2 = (RecyclerView)findViewById(R.id.c22);
-        c2.setHasFixedSize(true);
-        LinearLayoutManager cm2 = new LinearLayoutManager(Main3Activitytrial______________.this,LinearLayoutManager.HORIZONTAL,false);
-        //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
-        c2.setLayoutManager(cm2);
 //        CategoryAdapter ca = new CategoryAdapter(categoryInformationList, new CategoryAdapter.OnClickHandler() {
 //            @Override
 //            public void onClick(String test) {

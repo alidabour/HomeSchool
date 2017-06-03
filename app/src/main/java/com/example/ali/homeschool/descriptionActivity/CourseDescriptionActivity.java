@@ -1,13 +1,12 @@
 package com.example.ali.homeschool.descriptionActivity;
 
 import android.app.LoaderManager;
-import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -23,10 +22,10 @@ import android.widget.Toast;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.TopicsAdapter;
 import com.example.ali.homeschool.adapter.TopicsFirebaseAdapter;
+import com.example.ali.homeschool.childProgress.EnrolledCourseModel;
 import com.example.ali.homeschool.data.DataProvider;
 import com.example.ali.homeschool.data.Entry.CourseColumns;
 import com.example.ali.homeschool.data.Entry.LessonColumns;
-import com.example.ali.homeschool.data.Entry.TopicColumns;
 import com.example.ali.homeschool.data.firebase.Courses;
 import com.example.ali.homeschool.data.firebase.Lessons;
 import com.example.ali.homeschool.data.firebase.Topics;
@@ -68,7 +67,7 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
     private List<Topics> topics;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
-
+    Courses course;
     private String key;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +91,7 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
        topicsRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         Intent intent = getIntent();
         if (intent.hasExtra("course")){
-            Courses course = intent.getParcelableExtra("course");
+            course = intent.getParcelableExtra("course");
             courseDescription.setText(course.getDescription());
             courseName.setText(course.getName());
             courseTeacher.setText(course.getTeacher());
@@ -119,10 +118,23 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
             }
         });
         final int type = intent.getIntExtra("type",0);
+
         enroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                databaseReference.child("users").child(user.getUid()).child("EnrolledCourses").push().setValue(key);
+                if (type != 0) {
+
+
+                    DatabaseReference myRef = databaseReference;
+                    EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
+                    enrolledCourseModel.setName(course.getName());
+                    enrolledCourseModel.setId(key);
+                    enrolledCourseModel.setProgress("50");
+                    myRef.child("users").child(user.getUid()).child("EnrolledCourses").push().setValue(enrolledCourseModel);
+
+                }
+                else
+                    Toast.makeText(CourseDescriptionActivity.this, "You Need To Sign In", Toast.LENGTH_SHORT).show();
             }
         });
 

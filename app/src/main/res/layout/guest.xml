@@ -1,116 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?><!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:app="http://schemas.android.com/apk/res-auto"--><!--xmlns:tools="http://schemas.android.com/tools"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:fitsSystemWindows="true"--><!--tools:context="com.example.ali.homeschool.Main3Activitytrial______________trial______________">-->
+
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nestedScroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:paddingBottom="16dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    >
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:elevation="4dp"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:layout_height="wrap_content">
-    <android.support.design.widget.CollapsingToolbarLayout
-        app:contentScrim="@color/colorPrimary"
-        android:id="@+id/collapsing_toolbar"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_width="match_parent"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"
-        android:fitsSystemWindows="true"
-        app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
-        android:layout_height="200dp">
-        <!--<android.support.v7.widget.RecyclerView-->
-            <!--android:id="@+id/recycleview_collapsing_toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"/>-->
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPage_collapsing_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <!--<ImageView-->
-            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-            <!--android:src="@drawable/catimage"-->
-            <!--android:scaleType="centerCrop"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent" />-->
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/mToolbar"
-        app:layout_collapseMode="pin"
-        android:fitsSystemWindows="true"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_width="match_parent"/>
-
-    </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
-    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/nestedScroll"
+    <LinearLayout
+        android:id="@+id/activity_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:paddingBottom="16dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingStart="16dp"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:paddingEnd="16dp">
 
-        <LinearLayout
-            android:id="@+id/activity_home"
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/category_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingStart="16dp"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:paddingEnd="16dp">
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false" />
 
-            <TextView
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="@string/science"
-                android:textSize="16dp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/category_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="@string/math"
-                android:textSize="16dp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/c22"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="@string/economics"
-                android:textSize="16dp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/c33"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false" />
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-    </android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
