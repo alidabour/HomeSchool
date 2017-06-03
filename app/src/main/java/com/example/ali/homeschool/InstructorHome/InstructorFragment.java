@@ -51,6 +51,7 @@ public class InstructorFragment extends Fragment {
     DatabaseReference db;
     FirebaseUser user;
     CourseCreatedAdapter courseCreatedAdapter;
+    private static final int PICK_IMAGE_REQUEST = 234;
 
 
     @Override
@@ -84,6 +85,15 @@ public class InstructorFragment extends Fragment {
                 final EditText input = (EditText) someLayout.findViewById(R.id.courseName);
                 final EditText description = (EditText) someLayout.findViewById(R.id.description);
                 final EditText subject = (EditText) someLayout.findViewById(R.id.subject);
+
+                TextView gallery = (TextView) someLayout.findViewById(R.id.choosefromGallery);
+                gallery.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        openImageActivity();
+                    }
+                });
 
 //                input.setHint("Text");
 //                audioIn.setHint("Audio Link");
@@ -126,6 +136,13 @@ public class InstructorFragment extends Fragment {
         return view;
     }
 
+    private void openImageActivity() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"),
+                PICK_IMAGE_REQUEST);
+    }
     @Override
     public void onStart() {
         super.onStart();

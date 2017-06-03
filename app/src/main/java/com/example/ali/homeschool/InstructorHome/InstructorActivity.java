@@ -46,7 +46,7 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout2);
 
-        //setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar); :P
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -56,7 +56,7 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view2);
         navigationView.setNavigationItemSelectedListener(this);
 
-        userPhotoId=(ImageView) navigationView.getHeaderView(0).findViewById(R.id.photoid);
+        userPhotoId =(ImageView) navigationView.getHeaderView(0).findViewById(R.id.photoid);
         UserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navigationTextName);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -73,8 +73,7 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         DatabaseReference ref = databaseReference;
         Log.e("onStart: ", user.getUid());
         //   photoId.setImageResource(R.drawable.a);
-
-// Attach a listener to read the data at our posts reference
+        // Attach a listener to read the data at our posts reference
         databaseReference.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

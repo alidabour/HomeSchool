@@ -11,7 +11,6 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -20,21 +19,20 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
-import java.util.UUID;
 
 /**
  * Created by manar_000 on 6/2/2017.
  */
 
-public class UploadImage  {
+public class UploadFile {
     StorageReference storageReference;
-    String photoString;
-    ImageUploadHelper imageUploadHelper ;
+    String fileString;
+    FileUploadHelper fileUploadHelper;
 
 
-    public UploadImage(Uri filePath , Context context , ImageUploadHelper imageUploadHelper , String storagePath) {
+    public UploadFile(Uri filePath , Context context , FileUploadHelper fileUploadHelper, String storagePath) {
         storageReference = FirebaseStorage.getInstance().getReference();
-        this.imageUploadHelper =imageUploadHelper;
+        this.fileUploadHelper = fileUploadHelper;
         uploadFile(filePath , context , storagePath);
 
     }
@@ -63,9 +61,9 @@ public class UploadImage  {
                             @SuppressWarnings("VisibleForTests") String link = taskSnapshot
                                     .getDownloadUrl().toString();
                             link = link.replaceAll("&", "&amp;");
-                            imageUploadHelper.fileUploaded(link);
+                            fileUploadHelper.fileUploaded(link);
                             //and displaying a success toast
-                            photoString = link;
+                            fileString = link;
 
                             Toast.makeText(context, "File Uploaded",
                                     Toast.LENGTH_LONG).show();
@@ -117,9 +115,7 @@ public class UploadImage  {
             //This will replace white spaces with %20 and also other special characters. This will avoid returning null values on file name with spaces and special characters.
             extension = MimeTypeMap
                     .getFileExtensionFromUrl(Uri.fromFile(new File(uri.getPath())).toString());
-
         }
-
         return extension;
     }
 

@@ -30,6 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
+import com.example.ali.homeschool.UserModelHelper.UploadFile;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -68,6 +70,9 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
     Button openColorPicker;
+
+    UploadFile uploadFileImage;
+    UploadFile uploadFileSound;
     private Uri filePath;
     StorageReference storageReference;
     DatabaseReference databaseReference;
@@ -86,6 +91,7 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
     String mid = "";
     int textColor;
 
+    String end = "</LinearLayout></RelativeLayout>";
     String layout = "<LinearLayout " +
             "android:orientation=\"vertical\" " +
             "android:layout_weight=\"0\" " +
@@ -275,14 +281,39 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
                         "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
                                 .getData().toString());
                 filePath = data.getData();
-                uploadFile();
+                String storagePath = "images/" + courseId + "/" + UUID.randomUUID();
+                uploadFileImage = new UploadFile(filePath, this, new FileUploadHelper() {
+                    @Override
+                    public void fileUploaded(String url) {
+                        mid = "<ImageView android:layout_weight=\"1\" android:id=\"" + id
+                                + "\" android:layout_width=\"match_parent\"" +
+                                " android:layout_height=\"wrap_content\" homeSchool:src=\"" + url + "\" />";
+                        midLayouts.add(id, mid);
+                        id++;
+                        RelativeLayout linearLayout = parse(start + midLayouts.toString() + end);
+                        mainView.removeAllViews();
+                        mainView.addView(linearLayout);
+                        //and displaying a success toast
+                        Toast.makeText(getApplicationContext(), "File Uploaded",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }, storagePath);
             }
             if (requestCode == PICK_SOUND_REQUEST) {
                 Log.v("Instructor",
                         "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
                                 .getData().toString());
                 filePath = data.getData();
-                uploadFile("sounds", filePath, soundXML);
+                String storagePath = "sounds/" + courseId + "/" + UUID.randomUUID();
+                uploadFileSound = new UploadFile(filePath, this, new FileUploadHelper() {
+                    @Override
+                    public void fileUploaded(String url) {
+                        addSoundLayout(url, soundXML);
+                        //and displaying a success toast
+                        Toast.makeText(getApplicationContext(), "File Uploaded",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }, storagePath);
             }
         }
 
@@ -375,8 +406,6 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
             }
         });
         builder.show();
-
-
     }
 
     private void openSoundURLDialog() {
@@ -399,7 +428,6 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
 //                        InputType.TYPE_CLASS_TEXT );
 //                audioIn.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(someLayout);
-
 
         // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -469,7 +497,6 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
             }
         });
         urlBuilder.show();
-
     }
 
     private void openImageActivity() {

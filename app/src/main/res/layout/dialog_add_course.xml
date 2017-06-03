@@ -22,4 +22,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <TextView
+        android:layout_height="wrap_content"
+        android:id="@+id/choosefromGallery"
+        android:text="@string/choose_from_gallery"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent" />
+
 </LinearLayout>

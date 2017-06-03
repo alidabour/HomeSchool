@@ -1,21 +1,16 @@
 package com.example.ali.homeschool.controller.activities;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,12 +18,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.UserModelHelper.ImageUploadHelper;
-import com.example.ali.homeschool.UserModelHelper.UploadImage;
+import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
+import com.example.ali.homeschool.UserModelHelper.UploadFile;
 import com.example.ali.homeschool.data.firebase.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,18 +29,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
 import java.util.UUID;
 
 /**
  * Created by lenovo on 30/11/2016.
  */
 
-public class Register extends AppCompatActivity implements ImageUploadHelper {
+public class Register extends AppCompatActivity implements FileUploadHelper {
     FirebaseAuth mAuth;
     private EditText email;
     private EditText password;
@@ -61,7 +51,7 @@ public class Register extends AppCompatActivity implements ImageUploadHelper {
     static Context context;
     ImageView photoImageView;
     String photoString;
-    UploadImage uploadImage ;
+    UploadFile uploadFile;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -115,7 +105,7 @@ public class Register extends AppCompatActivity implements ImageUploadHelper {
                                 .getData().toString());
                 filePath = data.getData();
                 String storagePath = "images/usersPhoto/"+  UUID.randomUUID();
-                uploadImage = new UploadImage(filePath , Register.this , this ,storagePath );
+                uploadFile = new UploadFile(filePath , Register.this , this ,storagePath );
             }
         }
 
