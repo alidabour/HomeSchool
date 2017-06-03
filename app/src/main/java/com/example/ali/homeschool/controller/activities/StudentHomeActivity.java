@@ -21,18 +21,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.ali.homeschool.CircleTransform;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.UserModelHelper.UserModelFirebase;
+import com.example.ali.homeschool.UserModelHelper.UserModelFirebaseClass;
 import com.example.ali.homeschool.adapter.SampleCoursesToolbarAdapter;
 import com.example.ali.homeschool.childEnrolledCourses.MyCoursesFragment;
 import com.example.ali.homeschool.controller.fragments.StudentFeaturedCoursesFragment;
 import com.example.ali.homeschool.data.firebase.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 /*
     We enter this class from the Student image button as it has more than one fragment
@@ -120,7 +120,14 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     protected void onStart() {
         super.onStart();
 
-        DatabaseReference ref = databaseReference;
+
+        UserModelFirebaseClass userModelFirebaseClass = new UserModelFirebaseClass(new UserModelFirebase() {
+            @Override
+            public void dataRetrieved(UserModel userModel) {
+                Glide.with(getApplicationContext()).load(userModel.getPhoto()).transform(new CircleTransform(getApplicationContext())).into(userPhotoId);
+            }
+        });
+       /* DatabaseReference ref = databaseReference;
         Log.e("onStart: ", user.getUid());
      //   photoId.setImageResource(R.drawable.a);
 
@@ -138,7 +145,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
-        });
+        });*/
     }
 
     @Override

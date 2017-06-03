@@ -10,22 +10,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.ali.homeschool.CircleTransform;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.UserModelHelper.UserModelFirebase;
+import com.example.ali.homeschool.UserModelHelper.UserModelFirebaseClass;
 import com.example.ali.homeschool.controller.activities.MainActivity;
 import com.example.ali.homeschool.data.firebase.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class InstructorActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -46,7 +45,7 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout2);
 
-        //setSupportActionBar(toolbar); :P
+        //setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -56,7 +55,7 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view2);
         navigationView.setNavigationItemSelectedListener(this);
 
-        userPhotoId =(ImageView) navigationView.getHeaderView(0).findViewById(R.id.photoid);
+        userPhotoId=(ImageView) navigationView.getHeaderView(0).findViewById(R.id.photoid);
         UserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navigationTextName);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -70,35 +69,26 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
     protected void onStart() {
         super.onStart();
 
-        DatabaseReference ref = databaseReference;
-        Log.e("onStart: ", user.getUid());
-        //   photoId.setImageResource(R.drawable.a);
-        // Attach a listener to read the data at our posts reference
-        databaseReference.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+        UserModelFirebaseClass userModelFirebaseClass = new UserModelFirebaseClass(new UserModelFirebase() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userModel = dataSnapshot.getValue(UserModel.class);
-        //        Log.e("onDataChange: ",userModel.getPhoto());
-                UserName.setText(userModel.getName());
-                Glide.with(getApplicationContext()).load(userModel.getPhoto()).into(userPhotoId);
-            }
+            public void dataRetrieved(UserModel userModel) {
+                Glide.with(getApplicationContext()).load(userModel.getPhoto()).transform(new CircleTransform(getApplicationContext())).into(userPhotoId);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+
+
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

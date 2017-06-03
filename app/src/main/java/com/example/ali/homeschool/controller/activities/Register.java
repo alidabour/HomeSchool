@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.ali.homeschool.CircleTransform;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
 import com.example.ali.homeschool.UserModelHelper.UploadFile;
@@ -68,20 +69,21 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
         user = mAuth.getCurrentUser();
         Button uploadPhotoButton = (Button) findViewById(R.id.UploadButton);
 
+        photoImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openImageActivity();
+            }
+        });
         uploadPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 openImageActivity();
-
             }
         });
-
-
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 registering(email.getText().toString().trim(), password.getText().toString().trim(), repeated_password.getText().toString().trim());
             }
         });
@@ -183,8 +185,7 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
     public void fileUploaded(String url) {
 
         photoString = url ;
-        Glide.with(getApplicationContext()).load(url).into(photoImageView);
-
+        Glide.with(getApplicationContext()).load(photoString).transform(new CircleTransform(getApplicationContext())).into(photoImageView);
     }
 }
 
