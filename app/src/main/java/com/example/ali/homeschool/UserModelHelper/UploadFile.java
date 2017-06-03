@@ -34,7 +34,6 @@ public class UploadFile {
         storageReference = FirebaseStorage.getInstance().getReference();
         this.fileUploadHelper = fileUploadHelper;
         uploadFile(filePath , context , storagePath);
-
     }
 
     private void uploadFile(Uri filePath , final Context context ,  String storagePath) {

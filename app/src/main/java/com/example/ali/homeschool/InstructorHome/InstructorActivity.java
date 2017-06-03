@@ -64,6 +64,10 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         user = mAuth.getCurrentUser();
 }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     protected void onStart() {
