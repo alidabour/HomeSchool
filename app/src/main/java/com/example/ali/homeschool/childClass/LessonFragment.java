@@ -86,11 +86,6 @@ public class LessonFragment extends Fragment {
                         public void onClick(View v) {
 
                         }
-                    }, new ButtonClicked() {
-                        @Override
-                        public void onButtonClicked(String activity) {
-
-                        }
                     });
 
         } catch (XmlPullParserException e) {

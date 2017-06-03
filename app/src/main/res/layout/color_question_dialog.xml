@@ -26,6 +26,7 @@
             android:layout_margin="8dp"
             android:text="Select Color :"/>
 
+
         <Spinner
             android:id="@+id/colors"
             android:layout_width="match_parent"

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -36,6 +38,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.jrummyapps.android.colorpicker.ColorPickerDialog;
+import com.jrummyapps.android.colorpicker.ColorPickerDialogListener;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -46,12 +50,24 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.UUID;
+import com.example.ali.homeschool.Constants;
 
-public class InstructorTopicActivity extends AppCompatActivity implements ImageClicked {
+import static com.example.ali.homeschool.Constants.PUTACTIONTEXTHERE;
+import static com.example.ali.homeschool.Constants.PUTACTIVITYHERE;
+import static com.example.ali.homeschool.Constants.PUTCOLOR;
+import static com.example.ali.homeschool.Constants.PUTIDHERE;
+import static com.example.ali.homeschool.Constants.PUTSIZEHERE;
+import static com.example.ali.homeschool.Constants.actionButtonXML;
+import static com.example.ali.homeschool.Constants.actionTextXML;
+import static com.example.ali.homeschool.Constants.end;
+import static com.example.ali.homeschool.Constants.soundXML;
+import static com.example.ali.homeschool.Constants.start;
+
+public class InstructorTopicActivity extends AppCompatActivity implements ImageClicked,ColorPickerDialogListener{
     int id = 0;
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
-
+    Button openColorPicker;
     private Uri filePath;
     StorageReference storageReference;
     DatabaseReference databaseReference;
@@ -66,36 +82,10 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
     TextView sound;
     LinearLayout act_main;
     LinearLayout mainView;
-    String start = "<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n" + "android:id=\"2\" android:layout_weight=\"0\" "+
-            "    android:layout_width=\"match_parent\"\n" +
-            "    android:layout_height=\"match_parent\">" +
-            "<LinearLayout " + "android:layout_centerInParent=\"true\" " +
-            "android:orientation=\"vertical\" " +
-            "android:layout_weight=\"0\" " +
-            "android:id=\"2000\" " +
-            "android:layout_width=\"wrap_content\" " +
-            "android:layout_height=\"wrap_content\">";
-    String mid = "";
-    final String PUTIDHERE = "PUTIDHERE";
-    final String PUTACTIONTEXTHERE = "PUTACTIONTEXTHERE";
-    final String PUTSIZEHERE = "PUTSIZEHERE";
-    final String PUTACTIVITYHERE = "PUTACTIVITYHERE";
-    final String actionTextXML = "<TextView\n" +
-            "        android:id=\"PUTIDHERE\"\n" + "android:layout_weight=\"0\"" +
-            "        android:text=\"PUTACTIONTEXTHERE\"\n" +
-            "        android:textSize=\"PUTSIZEHERE\"\n" +
-            "        android:layout_width=\"match_parent\"\n" +
-            "        android:layout_height=\"wrap_content\"/>";
-    final String actionButtonXML = "<Button android:layout_weight=\"0\" android:id=\"PUTIDHERE\" android:text=\"PUTACTIONTEXTHERE\" android:layout_width=\"match_parent\" " +
-            "android:layout_height=\"wrap_content\"" +
-            "homeSchool:activity=\"PUTACTIVITYHERE\" />";
-    final String soundXML =
-            "<Button android:layout_weight=\"0\" android:id=\"PUTIDHERE\" android:text=\"PUTSOUNDTEXTHERE\" android:layout_width=\"match_parent\" " +
-                    "android:layout_height=\"wrap_content\"" +
-                    "homeSchool:audioLink=\"PUTLINKHERE\" />";
     String soundText = "PlaceHolder";
+    String mid = "";
+    int textColor;
 
-    String end = "</LinearLayout></RelativeLayout>";
     String layout = "<LinearLayout " +
             "android:orientation=\"vertical\" " +
             "android:layout_weight=\"0\" " +
@@ -304,23 +294,31 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
         LayoutInflater li = LayoutInflater.from(InstructorTopicActivity.this);
         LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.color_question_dialog, null);
         final EditText questionET = (EditText) someLayout.findViewById(R.id.question);
-        Spinner textColorSpinner = (Spinner) someLayout.findViewById(R.id.textColors);
+//        Spinner textColorSpinner = (Spinner) someLayout.findViewById(R.id.textColors);
         Spinner colorSpinner = (Spinner) someLayout.findViewById(R.id.colors);
         Spinner textSizeSpinner = (Spinner) someLayout.findViewById(R.id.textSizes);
+        openColorPicker = (Button) someLayout.findViewById(R.id.colorsButton);
+        openColorPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               ColorPickerDialog.Builder c= ColorPickerDialog.newBuilder().setColor(0xFF000000);
+                c.show(InstructorTopicActivity.this);
+            }
+        });
         ArrayAdapter<CharSequence> actionColors = ArrayAdapter.createFromResource(this,
                 R.array.color_array, android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> textColors = ArrayAdapter.createFromResource(this,
-                R.array.color_array, android.R.layout.simple_spinner_item);
+//        ArrayAdapter<CharSequence> textColors = ArrayAdapter.createFromResource(this,
+//                R.array.color_array, android.R.layout.simple_spinner_item);
         ArrayAdapter<CharSequence> textSizes = ArrayAdapter.createFromResource(this,
                 R.array.text_size_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         actionColors.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        textColors.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        textSizes   .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        textColors.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        textSizes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Apply the adapter to the spinner
         colorSpinner.setAdapter(actionColors);
-        textColorSpinner.setAdapter(textColors);
+//        textColorSpinner.setAdapter(textColors);
         textSizeSpinner.setAdapter(textSizes);
         final String[] selection = {" "};
         colorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -336,17 +334,17 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
 
             }
         });
-        textColorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.v("ITA", "Selected :" + (String) adapterView.getItemAtPosition(i));
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+//        textColorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                Log.v("ITA", "Selected :" + (String) adapterView.getItemAtPosition(i));
+//
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
         textSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -365,6 +363,7 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
             public void onClick(DialogInterface dialogInterface, int i) {
                 String questionText = questionET.getText().toString();
                 String questionTV = actionTextXML.replaceAll(PUTACTIONTEXTHERE, questionText);
+                questionTV = questionTV.replaceAll(PUTCOLOR, String.valueOf(textColor));
                 questionTV = questionTV.replaceAll(PUTIDHERE, String.valueOf(id));
                 questionTV = questionTV.replaceAll(PUTSIZEHERE, "40");
                 addLayout(questionTV);
@@ -694,5 +693,17 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
             }
         }
         return result;
+    }
+
+    @Override
+    public void onColorSelected(int dialogId, @ColorInt int color) {
+        textColor= color;
+        openColorPicker.setBackgroundColor(color);
+        Toast.makeText(InstructorTopicActivity.this,"oOOColor :"+color,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDialogDismissed(int dialogId) {
+
     }
 }
