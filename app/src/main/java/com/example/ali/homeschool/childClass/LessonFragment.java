@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.ali.homeschool.InstructorTopic.ParseXMLInstructor;
 
@@ -36,7 +37,7 @@ public class LessonFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String layout;
     private String mParam2;
-    LinearLayout linearLayout;
+    RelativeLayout linearLayout;
 
 //    private OnFragmentInteractionListener mListener;
 
@@ -80,7 +81,7 @@ public class LessonFragment extends Fragment {
         stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
         ParseXMLStudent parseXML = new ParseXMLStudent();
         try {
-            linearLayout= (LinearLayout) parseXML.parse(stream, getContext(),
+            linearLayout= (RelativeLayout) parseXML.parse(stream, getContext(),
                     new ImageClickedStudent() {
                         @Override
                         public void onClick(View v) {
