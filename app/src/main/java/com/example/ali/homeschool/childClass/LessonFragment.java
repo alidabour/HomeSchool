@@ -10,8 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.example.ali.homeschool.Constants;
+import com.example.ali.homeschool.InstructorTopic.ImageClicked;
 import com.example.ali.homeschool.InstructorTopic.ParseXMLInstructor;
+import com.example.ali.homeschool.exercises.speech.Speech;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -79,10 +83,10 @@ public class LessonFragment extends Fragment {
         //View view = inflater.inflate(R.layout.fragment_lesson, container, false);
         InputStream stream = null;
         stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
-        ParseXMLStudent parseXML = new ParseXMLStudent();
+        ParseXMLInstructor parseXML = new ParseXMLInstructor();
         try {
-            linearLayout= (RelativeLayout) parseXML.parse(stream, getContext(),
-                    new ImageClickedStudent() {
+            linearLayout= (RelativeLayout) parseXML.parse(this.getActivity(),stream, getContext(),
+                    new ImageClicked() {
                         @Override
                         public void onClick(View v) {
 
@@ -104,5 +108,16 @@ public class LessonFragment extends Fragment {
             Uri result = data.getData();
             Log.v("LessonFragment", "Result " +result.toString());
         }
+//        if(requestCode== Constants.SPEECH){
+//            if(resultCode==Constants.CORRECTANSWER){
+//
+//                Toast.makeText(getActivity(), data.getData().toString() ,  Toast.LENGTH_LONG).show();
+//
+//
+//            }else if (resultCode == Constants.WRONGANSWER){
+//                Toast.makeText(getActivity(), data.getData().toString() ,  Toast.LENGTH_LONG).show();
+//
+//            }
+//        }
     }
 }

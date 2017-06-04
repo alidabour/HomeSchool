@@ -4,7 +4,8 @@
               android:layout_height="wrap_content"
               android:orientation="vertical">
     <LinearLayout
-                  android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:orientation="horizontal">
         <TextView
@@ -27,6 +28,8 @@
         <!--</Spinner>-->
     </LinearLayout>
     <LinearLayout
+        android:layout_margin="16dp"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

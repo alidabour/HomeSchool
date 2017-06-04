@@ -1,7 +1,9 @@
 package com.example.ali.homeschool.childClass;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.speech.RecognizerIntent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -105,9 +107,19 @@ public class ClassActivity extends AppCompatActivity  {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        Log.v("LessonFragment", "Activity Result " +requestCode + " , "+ resultCode );
         super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode== Constants.SPEECH){
+            if(resultCode==Constants.CORRECTANSWER){
+
+                Toast.makeText(this," احسنت \n"+ data.getData().toString() ,  Toast.LENGTH_LONG).show();
+
+
+            }else if (resultCode == Constants.WRONGANSWER){
+                Toast.makeText(this," حاول مرة أخري \n"+ data.getData().toString() ,  Toast.LENGTH_LONG).show();
+
+            }
+        }
+        Log.v("LessonFragment", "Activity Result " +requestCode + " , "+ resultCode );
         if(resultCode == Constants.CORRECTANSWER){
             if (requestCode == Constants.SIMPLE){
                 Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
@@ -116,6 +128,11 @@ public class ClassActivity extends AppCompatActivity  {
         if(resultCode == Constants.WRONGANSWER){
             if (requestCode == Constants.SIMPLE){
                 Toast.makeText(context, "Result Wrong", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == Constants.SPEECH){
+
             }
         }
         Log.v("LessonFragment", "Activity Result " +requestCode + " , "+ resultCode );

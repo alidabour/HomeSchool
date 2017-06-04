@@ -74,6 +74,7 @@
         </activity>
         <activity android:name=".exercises.simple.SimpleExercises">
         </activity>
+        <activity android:name=".exercises.speech.Speech"/>
     </application>
 
 </manifest>

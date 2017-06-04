@@ -12,9 +12,13 @@ import android.net.Uri;
 import android.provider.OpenableColumns;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.InputType;
+import android.text.LoginFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +26,9 @@ import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -32,6 +38,7 @@ import android.widget.Toast;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
 import com.example.ali.homeschool.UserModelHelper.UploadFile;
+import com.example.ali.homeschool.exercises.Answer;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -52,20 +59,29 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.UUID;
+
 import com.example.ali.homeschool.Constants;
 
 import static com.example.ali.homeschool.Constants.PUTACTIONTEXTHERE;
 import static com.example.ali.homeschool.Constants.PUTACTIVITYHERE;
+import static com.example.ali.homeschool.Constants.PUTANSWERHERE;
 import static com.example.ali.homeschool.Constants.PUTCOLOR;
 import static com.example.ali.homeschool.Constants.PUTIDHERE;
 import static com.example.ali.homeschool.Constants.PUTSIZEHERE;
 import static com.example.ali.homeschool.Constants.actionButtonXML;
 import static com.example.ali.homeschool.Constants.actionTextXML;
 import static com.example.ali.homeschool.Constants.end;
+import static com.example.ali.homeschool.Constants.mButton;
+import static com.example.ali.homeschool.Constants.mTextView;
+import static com.example.ali.homeschool.Constants.radioButton;
+import static com.example.ali.homeschool.Constants.radioGroupEnd;
+import static com.example.ali.homeschool.Constants.radioGroupStart;
+import static com.example.ali.homeschool.Constants.setColorButton;
 import static com.example.ali.homeschool.Constants.soundXML;
 import static com.example.ali.homeschool.Constants.start;
+import static com.example.ali.homeschool.Constants.textViewProperties;
 
-public class InstructorTopicActivity extends AppCompatActivity implements ImageClicked,ColorPickerDialogListener{
+public class InstructorTopicActivity extends AppCompatActivity implements ImageClicked, ColorPickerDialogListener {
     int id = 0;
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
@@ -89,30 +105,9 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
     LinearLayout mainView;
     String soundText = "PlaceHolder";
     String mid = "";
-    int textColor;
+    int textColor=-16777216;
 
     String end = "</LinearLayout></RelativeLayout>";
-    String layout = "<LinearLayout " +
-            "android:orientation=\"vertical\" " +
-            "android:layout_weight=\"0\" " +
-            "android:id=\"2000\" " +
-            "android:layout_width=\"match_parent\" " +
-            "android:layout_height=\"match_parent\">" +
-
-            "<ImageView android:layout_weight=\"5\" android:id=\"1\" android:layout_width=\"match_parent\"" +
-            " android:layout_height=\"wrap_content\" />" +
-
-            "<LinearLayout android:orientation=\"horizontal\" android:layout_weight=\"1\" android:id=\"6\" " +
-            "android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\">" +
-
-            "<Button android:layout_weight=\"1\" android:id=\"12\" android:text=\"Meow\" android:layout_width=\"0\" " +
-            "android:layout_height=\"match_parent\" />" +
-
-            "<Button android:layout_weight=\"1\" android:id=\"1\" android:text=\"Cat\" android:layout_width=\"0\" " +
-            "android:layout_height=\"match_parent\" />" +
-
-            "</LinearLayout>" +
-            "</LinearLayout>";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +133,9 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
                 LayoutInflater li = LayoutInflater.from(InstructorTopicActivity.this);
                 LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.question_list, null);
                 final TextView colorQue = (TextView) someLayout.findViewById(R.id.color);
+                final TextView speechQue = (TextView) someLayout.findViewById(R.id.speech);
+                final TextView multiQue = (TextView) someLayout.findViewById(R.id.multipleChoices);
+
                 builder.setView(someLayout);
                 final AlertDialog dialog = builder.create();
                 dialog.show();
@@ -147,6 +145,20 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
                         dialog.cancel();
                         openColorQuestionDialog();
 
+                    }
+                });
+                speechQue.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                        openSpeechQueDialog();
+                    }
+                });
+                multiQue.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                        openMultiQuestionDialog();
                     }
                 });
 
@@ -254,6 +266,89 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
         });
     }
 
+    private void openSpeechQueDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(InstructorTopicActivity.this);
+        builder.setTitle("Questions :");
+        LayoutInflater li = LayoutInflater.from(InstructorTopicActivity.this);
+        final LinearLayout linearLayout = (LinearLayout) li
+                .inflate(R.layout.speech_question_dialog, null);
+        final EditText word = (EditText) linearLayout.findViewById(R.id.word);
+        textViewProperties(linearLayout,InstructorTopicActivity.this);
+        setColorButton(linearLayout,textColor);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                addLayout(mTextView(id,"قول كلمة :","33",textColor));
+                String textview = mTextView(id, word.getText().toString(), "33", textColor);
+                addLayout(textview);
+                Answer answer = new Answer();
+                answer.setAnswer(word.getText().toString());
+                addLayout(mButton(id,"Start","Speech",answer));
+                dialogInterface.cancel();
+            }
+        });
+        builder.setView(linearLayout);
+        builder.show();
+    }
+
+    private void openMultiQuestionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(InstructorTopicActivity.this);
+        builder.setTitle("Questions :");
+        LayoutInflater li = LayoutInflater.from(InstructorTopicActivity.this);
+        final RelativeLayout relativeLT = (RelativeLayout) li
+                .inflate(R.layout.mulit_choice_dialog, null);
+        final EditText question1 = (EditText) relativeLT.findViewById(R.id.questionText);
+        final LinearLayout linearLayout = (LinearLayout) relativeLT.findViewById(R.id.questions);
+        final EditText answer1 = (EditText) linearLayout.findViewById(R.id.answer1ET);
+        FloatingActionButton addQuestion = (FloatingActionButton) relativeLT
+                .findViewById(R.id.addQuestion);
+        addQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater li = LayoutInflater.from(InstructorTopicActivity.this);
+                LinearLayout question = (LinearLayout) li.inflate(R.layout.question_layout, null);
+                linearLayout.addView(question);
+            }
+        });
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                LinearLayout la = (LinearLayout) linearLayout.getChildAt(0);
+                TextInputLayout te = (TextInputLayout) la.getChildAt(0);
+                FrameLayout et = (FrameLayout) te.getChildAt(0);
+                android.support.v7.widget.AppCompatEditText om = (AppCompatEditText) et
+                        .getChildAt(0);
+                ArrayList<String> radioLayout = new ArrayList<String>();
+                String quET = actionTextXML.replaceAll(PUTIDHERE, String.valueOf(id));
+                quET = quET.replaceAll(PUTSIZEHERE, String.valueOf(30));
+                quET = quET.replaceAll(PUTACTIONTEXTHERE, question1.getText().toString());
+                quET = quET.replaceAll(PUTCOLOR, "123");
+                radioLayout.add(quET);
+                radioLayout.add(radioGroupStart);
+
+                for (int count = 0; count < linearLayout.getChildCount(); count++) {
+                    LinearLayout lat = (LinearLayout) linearLayout.getChildAt(count);
+                    TextInputLayout tet = (TextInputLayout) lat.getChildAt(0);
+                    CheckBox checkbox = (CheckBox) lat.getChildAt(1);
+                    Log.v("MultiQue", "Check Box Checked:" + checkbox.isChecked());
+                    FrameLayout ett = (FrameLayout) tet.getChildAt(0);
+                    android.support.v7.widget.AppCompatEditText omm = (AppCompatEditText) ett
+                            .getChildAt(0);
+                    Log.v("MultiQue", "Child 0 Edit text :" + omm.getText());
+                    String r1 = radioButton.replaceAll(PUTIDHERE, String.valueOf(id));
+                    r1 = r1.replaceAll(PUTANSWERHERE, omm.getText().toString());
+                    radioLayout.add(r1);
+
+                }
+
+                radioLayout.add(radioGroupEnd);
+                addLayout(radioLayout.toString());
+            }
+        });
+        builder.setView(relativeLT);
+        builder.show();
+    }
+
     public RelativeLayout parse(String layout) {
         InputStream stream = null;
         stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
@@ -262,7 +357,7 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
 
         try {
             mainLayout = (RelativeLayout) parseXMLInstructor
-                    .parse(stream, getApplicationContext(), this);
+                    .parse(this,stream, getApplicationContext(), this);
             Log.v("ITA", "pass");
         } catch (XmlPullParserException e) {
             e.printStackTrace();
@@ -332,7 +427,7 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
         openColorPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               ColorPickerDialog.Builder c= ColorPickerDialog.newBuilder().setColor(0xFF000000);
+                ColorPickerDialog.Builder c = ColorPickerDialog.newBuilder().setColor(0xFF000000);
                 c.show(InstructorTopicActivity.this);
             }
         });
@@ -556,12 +651,12 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
     }
 
 
-
     @Override
     public void onColorSelected(int dialogId, @ColorInt int color) {
-        textColor= color;
-        openColorPicker.setBackgroundColor(color);
-        Toast.makeText(InstructorTopicActivity.this,"oOOColor :"+color,Toast.LENGTH_SHORT).show();
+        textColor = color;
+//        openColorPicker.setBackgroundColor(color);
+        Toast.makeText(InstructorTopicActivity.this, "oOOColor :" + color, Toast.LENGTH_SHORT)
+                .show();
     }
 
     @Override
