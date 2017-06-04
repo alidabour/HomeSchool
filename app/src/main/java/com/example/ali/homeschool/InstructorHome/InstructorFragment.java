@@ -164,6 +164,7 @@ public class InstructorFragment extends Fragment {
         Log.e("InstructorPhoto",
                 "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
                         .getData().toString());
+
         filePath = data.getData();
 
         String storagePath = "images/coursesPhoto/"+  UUID.randomUUID();

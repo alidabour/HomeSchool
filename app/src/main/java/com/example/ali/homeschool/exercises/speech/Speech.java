@@ -59,7 +59,6 @@ public class Speech extends Activity{
             setResult(Constants.WRONGANSWER,intent);
             finish();
 //            Toast.makeText(this,"حاول مرة أخري", Toast.LENGTH_LONG).show();
-
         }
     }
 

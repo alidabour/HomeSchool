@@ -286,8 +286,12 @@ public class ParseXMLInstructor {
         }
         String color = parser.getAttributeValue(ns, "android:textColor");
         if(parser.getAttributeValue(ns, "android:textAppearance")!=null){
+            Log.v("TEXTAPP","Q " +parser.getAttributeValue(ns, "android:textAppearance"));
+            Log.v("TEXTAPP","A " +String.valueOf(textView.getTextSize()));
             textView.setTextAppearance(context,
-                    getTextAppearance(parser.getAttributeValue(ns, "android:textAppearance")));
+                    Integer.parseInt(parser.getAttributeValue(ns, "android:textAppearance")));
+            Log.v("TEXTAPP","D "+  String.valueOf(textView.getTextSize()));
+
         }
         textView.setTextColor(Integer.parseInt(color));
         String height = parser.getAttributeValue(ns, "android:layout_height");

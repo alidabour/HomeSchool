@@ -213,7 +213,8 @@ public class ParseXMLStudent {
         textView.setText(parser.getAttributeValue(ns, "android:text"));
         textView.setTextSize(Float.parseFloat(parser.getAttributeValue(ns,"android:textSize")));
         String color = parser.getAttributeValue(ns,"android:textColor");
-        textView.setTextAppearance(context,getTextAppearance(parser.getAttributeValue(ns, "android:textAppearance")));
+        textView.setTextAppearance(context,
+                Integer.parseInt(parser.getAttributeValue(ns, "android:textAppearance")));
         Log.v("Test","Color --C-- :"+ color );
         textView.setTextColor(Integer.parseInt(color));
         String height = parser.getAttributeValue(ns, "android:layout_height");

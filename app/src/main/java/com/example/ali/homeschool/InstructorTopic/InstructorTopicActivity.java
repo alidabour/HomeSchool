@@ -79,9 +79,10 @@ import static com.example.ali.homeschool.Constants.radioGroupStart;
 import static com.example.ali.homeschool.Constants.setColorButton;
 import static com.example.ali.homeschool.Constants.soundXML;
 import static com.example.ali.homeschool.Constants.start;
+import static com.example.ali.homeschool.Constants.textAppearance;
 import static com.example.ali.homeschool.Constants.textViewProperties;
 
-public class InstructorTopicActivity extends AppCompatActivity implements ImageClicked, ColorPickerDialogListener {
+public class InstructorTopicActivity extends AppCompatActivity implements ImageClicked, ColorPickerDialogListener, TextAppInterface {
     int id = 0;
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
@@ -105,7 +106,8 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
     LinearLayout mainView;
     String soundText = "PlaceHolder";
     String mid = "";
-    int textColor=-16777216;
+    int textColor=-11177216;
+    int textAppearance = android.R.style.TextAppearance_Material_Body1;
 
     String end = "</LinearLayout></RelativeLayout>";
 
@@ -273,13 +275,14 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
         final LinearLayout linearLayout = (LinearLayout) li
                 .inflate(R.layout.speech_question_dialog, null);
         final EditText word = (EditText) linearLayout.findViewById(R.id.word);
-        textViewProperties(linearLayout,InstructorTopicActivity.this);
+        textViewProperties(linearLayout,InstructorTopicActivity.this,this);
         setColorButton(linearLayout,textColor);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                addLayout(mTextView(id,"قول كلمة :","33",textColor));
-                String textview = mTextView(id, word.getText().toString(), "33", textColor);
+                Log.v("TESTAPP","onClick :"+ textAppearance);
+                addLayout(mTextView(id,"قول كلمة :",textColor,textAppearance));
+                String textview = mTextView(id, word.getText().toString(), textColor,textAppearance);
                 addLayout(textview);
                 Answer answer = new Answer();
                 answer.setAnswer(word.getText().toString());
@@ -662,5 +665,13 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
     @Override
     public void onDialogDismissed(int dialogId) {
 
+    }
+
+    @Override
+    public void onSelected(int i) {
+        Log.v("TEXTAPP"," i : "+ i);
+        Log.v("TEXTAPP"," textapp[i] : "+ Constants.textAppearance[i]);
+
+        textAppearance = Constants.textAppearance[i];
     }
 }

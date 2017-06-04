@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.ali.homeschool.InstructorTopic.InstructorTopicActivity;
+import com.example.ali.homeschool.InstructorTopic.TextAppInterface;
 import com.example.ali.homeschool.exercises.Answer;
 import com.jrummyapps.android.colorpicker.ColorPickerDialog;
 
@@ -29,6 +30,7 @@ public class Constants {
     //Replace all
     public final static String PUTIDHERE = "PUTIDHERE";
     public final  static String PUTACTIONTEXTHERE = "PUTACTIONTEXTHERE";
+    public final static String PUTTEXTAPPEARANCEHERE = "PUTTEXTAPPEARANCEHERE";
     public final  static String PUTSIZEHERE = "PUTSIZEHERE";
     public final static String PUTACTIVITYHERE = "PUTACTIVITYHERE";
     public final static String PUTCOLOR = "PUTCOLOR";
@@ -48,8 +50,9 @@ public class Constants {
             "        android:id=\""+PUTIDHERE+"\"\n" +
             "android:layout_weight=\"0\"" +
             "        android:text=\""+ PUTACTIONTEXTHERE+ "\"\n" +
-            "        android:textSize=\""+PUTSIZEHERE+"\"\n" +
-                    "android:textColor=\""+PUTCOLOR+"\" "+
+//            "        android:textSize=\""+PUTSIZEHERE+"\"\n" +
+                    " android:textColor=\""+PUTCOLOR+"\" "+
+            "android:textAppearance=\""+PUTTEXTAPPEARANCEHERE+"\""+
             "        android:layout_width=\"match_parent\"\n" +
             "        android:layout_height=\"wrap_content\"/>";
 
@@ -83,15 +86,48 @@ public class Constants {
 
 
     //TextView Helper
-    public static String mTextView(int id,String text,String size,int color){
+//     <item>Button 14sp CAPS</item>
+//        <item>Caption 12sp</item>
+//        <item>Body1 14sp</item>
+//        <item>Body2 14sp Bold</item>
+//        <item>Subheading 16sp</item>
+//        <item>Title 20sp</item>
+//        <item>Headline 24sp</item>
+//        <item>Display1 34sp</item>
+//        <item>Display2 45sp</item>
+//        <item>Display3 56sp</item>
+//        <item>Display4 112sp</item>
+    public static int[] textAppearance = {android.R.style.TextAppearance_Material_Button,
+            android.R.style.TextAppearance_Material_Caption,
+            android.R.style.TextAppearance_Material_Body1,
+            android.R.style.TextAppearance_Material_Body2,
+            android.R.style.TextAppearance_Material_Subhead,
+            android.R.style.TextAppearance_Material_Title,
+            android.R.style.TextAppearance_Material_Headline,
+            android.R.style.TextAppearance_Material_Display1,
+            android.R.style.TextAppearance_Material_Display2,
+            android.R.style.TextAppearance_Material_Display3,
+            android.R.style.TextAppearance_Material_Display4
+    };
+    public static String mTextView(int id,String text,int color,int textAppearance){
         String textView = actionTextXML.replaceAll(PUTIDHERE, String.valueOf(id));
         textView = textView.replaceAll(PUTACTIONTEXTHERE,text);
-        textView = textView.replaceAll(PUTSIZEHERE,size);
+//        textView = textView.replaceAll(PUTSIZEHERE,size);
         textView = textView.replaceAll(PUTCOLOR, String.valueOf(color));
+        textView = textView.replaceAll(PUTTEXTAPPEARANCEHERE, String.valueOf(textAppearance));
         return textView;
     }
 
-    public static void textViewProperties(View view, final Activity activity){
+    public static void textViewProperties(View view, final Activity activity, final TextAppInterface textAppInterface){
+        TextAppInterface textAppInterface1 = textAppInterface;
+        Button openColorPicker = (Button) view.findViewById(R.id.colorsButton);
+        openColorPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ColorPickerDialog.Builder c = ColorPickerDialog.newBuilder().setColor(0xFF000000);
+                c.show(activity);
+            }
+        });
         Spinner textSizeSpinner = (Spinner) view.findViewById(R.id.textSizes);
         ArrayAdapter<CharSequence> textSizes = ArrayAdapter.createFromResource(activity,
                 R.array.text_size_array, android.R.layout.simple_spinner_item);
@@ -99,7 +135,7 @@ public class Constants {
         textSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.v("ITA", "Selected :" + (String) adapterView.getItemAtPosition(i));
+               textAppInterface.onSelected(i);
 
             }
 
@@ -109,14 +145,7 @@ public class Constants {
             }
         });
 
-        Button openColorPicker = (Button) view.findViewById(R.id.colorsButton);
-        openColorPicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ColorPickerDialog.Builder c = ColorPickerDialog.newBuilder().setColor(0xFF000000);
-                c.show(activity);
-            }
-        });
+
 
     }
     public static void setColorButton(View view,int color){
