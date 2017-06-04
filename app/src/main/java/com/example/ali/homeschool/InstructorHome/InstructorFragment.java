@@ -117,16 +117,23 @@ public class InstructorFragment extends Fragment {
                         subjectS = subject.getText().toString();
                         descriptionS = description.getText().toString();
                         String key = db.child("users").child(user.getUid()).child("CreatedCourse").push().getKey();
-                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("id").setValue(key);
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("course_id").setValue(descriptionS);
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("descriptionS").setValue(coursName);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("name").setValue(coursName);
-                        db.child("courses").child(key).child("course_id").setValue(key);
-                        db.child("courses").child(key).child("name").setValue(coursName);
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("photo_url").setValue(photoUrl);
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("rate").setValue("5.0");
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("subjectS").setValue(subjectS);
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("teacher_id").setValue(user.getUid());
+                        ;
+
+                      /*  db.child("courses").child(key).child("name").setValue(coursName);
                         db.child("courses").child(key).child("subjectS").setValue(subjectS);
                         db.child("courses").child(key).child("description").setValue(descriptionS);
                         db.child("courses").child(key).child("rate").setValue("5.0");
                         db.child("courses").child(key).child("teacher").setValue(user.getDisplayName());
                         db.child("courses").child(key).child("teacher_id").setValue(user.getUid());
-                        db.child("courses").child(key).child("photo_url").setValue(photoUrl);
+                        db.child("courses").child(key).child("photo_url").setValue(user.getUid());*/
+
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -154,21 +161,19 @@ public class InstructorFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-            Log.e("InstructorPhoto",
-                    "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
-                            .getData().toString());
-            filePath = data.getData();
+        Log.e("InstructorPhoto",
+                "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
+                        .getData().toString());
+        filePath = data.getData();
 
-            String storagePath = "images/coursesPhoto/" + UUID.randomUUID();
-            uploadFile = new UploadFile(filePath, getActivity(), new FileUploadHelper() {
-                @Override
-                public void fileUploaded(String url) {
-                    Log.e("photoUrl", url);
-                    photoUrl = url;
-                }
-            }, storagePath);
-        }
+        String storagePath = "images/coursesPhoto/"+  UUID.randomUUID();
+        uploadFile = new UploadFile(filePath, getActivity(), new FileUploadHelper() {
+            @Override
+            public void fileUploaded(String url) {
+                photoUrl = url ;
+
+            }
+        }, storagePath);
     }
 
     @Override
@@ -177,11 +182,10 @@ public class InstructorFragment extends Fragment {
         db.child("users").child(user.getUid()).child("CreatedCourse").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.v("662", "OnData"+dataSnapshot);
+                Log.v("Test", "OnData");
                 coursesList = new ArrayList<CourseCreated>();
                 for (DataSnapshot x : dataSnapshot.getChildren()) {
                     CourseCreated courseCreated = x.getValue(CourseCreated.class);
-        //            Log.e("URi: ", courseCreated.getPhotoUrl());
                     coursesList.add(courseCreated);
                     Log.v("Test", "Courses Model " + courseCreated.getName());
                     Log.v("Test", "Courses " + x.toString());
@@ -196,7 +200,7 @@ public class InstructorFragment extends Fragment {
                                 intent.putExtra("course", test);
                                 startActivity(intent);
                             }
-                        }, getActivity());
+                        },getContext());
                 coursesRV.setAdapter(courseCreatedAdapter);
             }
 

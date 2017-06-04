@@ -98,13 +98,14 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("course")){
             courseCreated = intent.getParcelableExtra("course");
-            Log.v("Test","Course "+ courseCreated.getName());
+            Log.v("Test","Course "+ courseCreated.getCourse_id());
         }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        Log.v("Test ", ":------------"+courseCreated.getCourse_id());
         db.child("courses").child(String.valueOf(courseCreated.getCourse_id())).child("lessons").addValueEventListener(
                 new ValueEventListener() {
                     List<LessonModel> lessonModelList;
