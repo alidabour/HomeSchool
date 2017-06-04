@@ -107,7 +107,7 @@ public class MyCoursesFragment extends Fragment {
                                                     if(Objects.equals(x.getKey(), "course_id")){
                                                         Log.v("Test","course id " +x.getValue());
 //                                                        courses.setCourse_id(x.getValue().toString());
-                                                        courseCreated.setId(x.getValue().toString());
+                                                        courseCreated.setCourse_id(x.getValue().toString());
                                                     }else if(Objects.equals(x.getKey(), "name")){
                                                         Log.v("Test","Des " +x.getValue());
                                                         courseCreated.setName(x.getValue().toString());

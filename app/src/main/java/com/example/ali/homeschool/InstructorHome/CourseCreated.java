@@ -8,23 +8,29 @@ import android.os.Parcelable;
  */
 
 public class CourseCreated implements Parcelable {
-    String id;
+
+    String course_id;
+    String description;
     String name;
+    String photo_url;
+    String rate;
+    String subjectS;
+    String teacher_id;
 
-    public CourseCreated(String id, String name) {
-        this.id = id;
-        this.name = name;
+    public String getCourse_id() {
+        return course_id;
     }
 
-    public CourseCreated() {
+    public void setCourse_id(String course_id) {
+        this.course_id = course_id;
     }
 
-    public String getId() {
-        return id;
+    public String getDescription() {
+        return description;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getName() {
@@ -35,6 +41,38 @@ public class CourseCreated implements Parcelable {
         this.name = name;
     }
 
+    public String getPhoto_url() {
+        return photo_url;
+    }
+
+    public void setPhoto_url(String photo_url) {
+        this.photo_url = photo_url;
+    }
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+    public String getSubjectS() {
+        return subjectS;
+    }
+
+    public void setSubjectS(String subjectS) {
+        this.subjectS = subjectS;
+    }
+
+    public String getTeacher_id() {
+        return teacher_id;
+    }
+
+    public void setTeacher_id(String teacher_id) {
+        this.teacher_id = teacher_id;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -42,13 +80,26 @@ public class CourseCreated implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
+        dest.writeString(this.course_id);
+        dest.writeString(this.description);
         dest.writeString(this.name);
+        dest.writeString(this.photo_url);
+        dest.writeString(this.rate);
+        dest.writeString(this.subjectS);
+        dest.writeString(this.teacher_id);
+    }
+
+    public CourseCreated() {
     }
 
     protected CourseCreated(Parcel in) {
-        this.id = in.readString();
+        this.course_id = in.readString();
+        this.description = in.readString();
         this.name = in.readString();
+        this.photo_url = in.readString();
+        this.rate = in.readString();
+        this.subjectS = in.readString();
+        this.teacher_id = in.readString();
     }
 
     public static final Parcelable.Creator<CourseCreated> CREATOR = new Parcelable.Creator<CourseCreated>() {

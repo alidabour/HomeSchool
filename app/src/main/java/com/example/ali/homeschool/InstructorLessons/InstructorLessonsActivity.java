@@ -61,11 +61,11 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         m_Text = input.getText().toString();
 //                        Map<String,String> lesson = new HashMap<String, String>();
-                        String key =db.child("courses").child(courseCreated.getId()).child("lessons").push().getKey();
+                        String key =db.child("courses").child(courseCreated.getCourse_id()).child("lessons").push().getKey();
 //                        lesson.put("id",key);
 //                        lesson.put("name",m_Text);
-                        db.child("courses").child(courseCreated.getId()).child("lessons").child(key).child("id").setValue(key);
-                        db.child("courses").child(courseCreated.getId()).child("lessons").child(key).child("name").setValue(m_Text);
+                        db.child("courses").child(courseCreated.getCourse_id()).child("lessons").child(key).child("id").setValue(key);
+                        db.child("courses").child(courseCreated.getCourse_id()).child("lessons").child(key).child("name").setValue(m_Text);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -105,7 +105,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        db.child("courses").child(String.valueOf(courseCreated.getId())).child("lessons").addValueEventListener(
+        db.child("courses").child(String.valueOf(courseCreated.getCourse_id())).child("lessons").addValueEventListener(
                 new ValueEventListener() {
                     List<LessonModel> lessonModelList;
                     @Override
@@ -123,7 +123,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                                     public void onClick(LessonModel test) {
                                         Intent intent = new Intent(getApplicationContext(), InstructorTopicActivity.class);
                                         intent.putExtra("lesson",test.getId());
-                                        intent.putExtra("courseID",courseCreated.getId());
+                                        intent.putExtra("courseID",courseCreated.getCourse_id());
                                         startActivity(intent);
                                     }
                                 });

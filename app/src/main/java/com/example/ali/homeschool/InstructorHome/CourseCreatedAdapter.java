@@ -1,5 +1,6 @@
 package com.example.ali.homeschool.InstructorHome;
 
+import android.content.Context;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.CategoryAdapter;
 import com.example.ali.homeschool.data.DataProvider;
@@ -24,14 +26,16 @@ public class CourseCreatedAdapter extends RecyclerView.Adapter<CourseCreatedAdap
 
     List<CourseCreated> courseCreatedList;
     public OnClickHandler onClickHandler;
+    Context context ;
 
     public interface OnClickHandler {
         void onClick(CourseCreated test);
     }
 
-    public CourseCreatedAdapter(List<CourseCreated> courseCreatedList,OnClickHandler onClickHandler) {
+    public CourseCreatedAdapter(List<CourseCreated> courseCreatedList, OnClickHandler onClickHandler , Context context) {
         this.courseCreatedList = courseCreatedList;
         this.onClickHandler = onClickHandler;
+        this.context = context ;
     }
 
     @Override
@@ -46,6 +50,9 @@ public class CourseCreatedAdapter extends RecyclerView.Adapter<CourseCreatedAdap
     public void onBindViewHolder(CourseViewHolder holder, int position) {
         CourseCreated courseCreated = courseCreatedList.get(position);
         holder.courseName.setText(courseCreated.getName());
+       // Log.e("Photo: ",courseCreated.getPhoto_url() );
+        Glide.with(context).load(courseCreated.getPhoto_url()).into(holder.courseImage);
+
     }
 
     @Override

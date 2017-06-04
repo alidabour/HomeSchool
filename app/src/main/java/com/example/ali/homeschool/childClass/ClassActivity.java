@@ -59,7 +59,7 @@ public class ClassActivity extends AppCompatActivity  {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.v("Test","Coursr id "+ course.getId());
+        Log.v("Test","Coursr id "+ course.getCourse_id());
         layouts=new ArrayList<String>();
         lessonModelList = new ArrayList<LessonModel>();
         listener = new ValueEventListener() {
@@ -94,7 +94,7 @@ public class ClassActivity extends AppCompatActivity  {
 
             }
         };
-        db.child("courses").child(course.getId()).child("lessons").addValueEventListener(listener);
+        db.child("courses").child(course.getCourse_id()).child("lessons").addValueEventListener(listener);
     }
 
     @Override

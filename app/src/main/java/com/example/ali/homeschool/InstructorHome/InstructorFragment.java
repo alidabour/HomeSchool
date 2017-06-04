@@ -1,23 +1,34 @@
 package com.example.ali.homeschool.InstructorHome;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ali.homeschool.InstructorLessons.InstructorLessonsActivity;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
+import com.example.ali.homeschool.UserModelHelper.UploadFile;
+import com.example.ali.homeschool.adapter.CourseSectionListAdapter;
+import com.example.ali.homeschool.data.HeaderRVData;
+import com.example.ali.homeschool.data.firebase.Courses;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,11 +38,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class InstructorFragment extends Fragment {
 
     View view;
+    String photoUrl;
     String coursName;
     String descriptionS;
     String subjectS;
@@ -40,8 +56,9 @@ public class InstructorFragment extends Fragment {
     DatabaseReference db;
     FirebaseUser user;
     CourseCreatedAdapter courseCreatedAdapter;
-    private static final int PICK_IMAGE_REQUEST = 234;
-
+    private static final int PICK_IMAGE_REQUEST = 235;
+    UploadFile uploadFile;
+    private Uri filePath;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,11 +122,11 @@ public class InstructorFragment extends Fragment {
                         db.child("courses").child(key).child("course_id").setValue(key);
                         db.child("courses").child(key).child("name").setValue(coursName);
                         db.child("courses").child(key).child("subjectS").setValue(subjectS);
-                        db.child("courses").child(key).child("description").setValue(description);
+                        db.child("courses").child(key).child("description").setValue(descriptionS);
                         db.child("courses").child(key).child("rate").setValue("5.0");
                         db.child("courses").child(key).child("teacher").setValue(user.getDisplayName());
                         db.child("courses").child(key).child("teacher_id").setValue(user.getUid());
-
+                        db.child("courses").child(key).child("photo_url").setValue(photoUrl);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -131,7 +148,27 @@ public class InstructorFragment extends Fragment {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"),
                 PICK_IMAGE_REQUEST);
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            Log.e("InstructorPhoto",
+                    "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
+                            .getData().toString());
+            filePath = data.getData();
+
+            String storagePath = "images/coursesPhoto/" + UUID.randomUUID();
+            uploadFile = new UploadFile(filePath, getActivity(), new FileUploadHelper() {
+                @Override
+                public void fileUploaded(String url) {
+                    Log.e("photoUrl", url);
+                    photoUrl = url;
+                }
+            }, storagePath);
+        }
     }
 
     @Override
@@ -140,10 +177,11 @@ public class InstructorFragment extends Fragment {
         db.child("users").child(user.getUid()).child("CreatedCourse").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.v("Test", "OnData");
+                Log.v("662", "OnData"+dataSnapshot);
                 coursesList = new ArrayList<CourseCreated>();
                 for (DataSnapshot x : dataSnapshot.getChildren()) {
                     CourseCreated courseCreated = x.getValue(CourseCreated.class);
+        //            Log.e("URi: ", courseCreated.getPhotoUrl());
                     coursesList.add(courseCreated);
                     Log.v("Test", "Courses Model " + courseCreated.getName());
                     Log.v("Test", "Courses " + x.toString());
@@ -158,7 +196,7 @@ public class InstructorFragment extends Fragment {
                                 intent.putExtra("course", test);
                                 startActivity(intent);
                             }
-                        });
+                        }, getActivity());
                 coursesRV.setAdapter(courseCreatedAdapter);
             }
 
