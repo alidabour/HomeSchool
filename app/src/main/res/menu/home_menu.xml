@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <item
-    android:title="@string/SignIn"
-    android:id="@+id/signIn_action"
+    android:title="@string/Sign_up"
+    android:id="@+id/signUp_action"
     android:orderInCategory="1"
     app:showAsAction="always"/>
     <item

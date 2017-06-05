@@ -50,7 +50,7 @@ public class Speech extends Activity{
                 intent.setData(Uri.parse(word));
                 setResult(Constants.CORRECTANSWER,intent);
                 finish();
-//                Toast.makeText(this, word + " أحسنت  ", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, word + " أحسنت  ", Toast.LENGTH_LONG).show();
             }
         }
         if(!isCorrect){
@@ -58,7 +58,8 @@ public class Speech extends Activity{
             intent.setData(Uri.parse(results.toString()));
             setResult(Constants.WRONGANSWER,intent);
             finish();
-//            Toast.makeText(this,"حاول مرة أخري", Toast.LENGTH_LONG).show();
+           Toast.makeText(this,"حاول مرة أخري", Toast.LENGTH_LONG).show();
+
         }
     }
 

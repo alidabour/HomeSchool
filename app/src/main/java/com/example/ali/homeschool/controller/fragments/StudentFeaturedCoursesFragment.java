@@ -127,7 +127,5 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                         // [END_EXCLUDE]
                     }
                 });
-
-
     }
 }

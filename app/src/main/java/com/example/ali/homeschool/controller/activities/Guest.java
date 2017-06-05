@@ -1,11 +1,16 @@
 package com.example.ali.homeschool.controller.activities;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
@@ -29,7 +34,7 @@ import java.util.Map;
 public class Guest extends AppCompatActivity {
     List<CategoryInformation> categoryInformationList;
     Toolbar toolbar;
-
+    CollapsingToolbarLayout collapsingToolbarLayout;
     CourseSectionListAdapter courseSectionListAdapter;
     RecyclerView courseSectionRV;
     private DatabaseReference databaseReference;
@@ -39,7 +44,13 @@ public class Guest extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.guest);
+        setContentView(R.layout.guest_activity);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+
+        setSupportActionBar(toolbar);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         courseSectionRV = (RecyclerView) findViewById(R.id.category_recyclerView);
@@ -97,8 +108,32 @@ public class Guest extends AppCompatActivity {
 //        LinearLayoutManager cm3 = new LinearLayoutManager(Guest.this,LinearLayoutManager.HORIZONTAL,false);
 //        //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
 //        c3.setLayoutManager(cm3);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.signUp_action:
+                        Log.v("Test","Sign IN");
+                        break;
+                    case R.id.search_action:
+                        Log.v("Test","Search");
+                        break;
+                }
+                return true;            }
+        });
 
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+
+        return true;
+    }
+
+
 
     @Override
     protected void onStart() {
