@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.CourseSectionListAdapter;
 import com.example.ali.homeschool.data.HeaderRVData;
-import com.example.ali.homeschool.data.firebase.Courses;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,7 +43,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
     CourseSectionListAdapter courseSectionListAdapter;
     RecyclerView courseSectionRV;
     private DatabaseReference databaseReference;
-    private List<Courses> users;
+    private List<CourseCreated> users;
     private List<HeaderRVData> headerRVDatas;
     public int type;
 
@@ -84,22 +84,22 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                         // [START_EXCLUDE]
                         for (DataSnapshot x : dataSnapshot.getChildren()) {
                             Log.v("Test", "Child : " + x.toString());
-                            Courses c = x.getValue(Courses.class);
+                            CourseCreated c = x.getValue(CourseCreated.class);
                             String key = x.getKey();
                             c.setCourse_id(key);
                             users.add(c);
                             Log.v("Test", "Child : " + users);
                         }
-                        HashMap<String, ArrayList<Courses>> map = new HashMap<>();
-                        for (Courses x : users) {
-                            ArrayList<Courses> c = new ArrayList<Courses>();
-                            if (map.get(x.getSubject()) != null) {
-                                c = map.get(x.getSubject());
+                        HashMap<String, ArrayList<CourseCreated>> map = new HashMap<>();
+                        for (CourseCreated x : users) {
+                            ArrayList<CourseCreated> c = new ArrayList<CourseCreated>();
+                            if (map.get(x.getSubjectS()) != null) {
+                                c = map.get(x.getSubjectS());
                                 c.add(x);
-                                map.put(x.getSubject(), c);
+                                map.put(x.getSubjectS(), c);
                             } else {
                                 c.add(x);
-                                map.put(x.getSubject(), c);
+                                map.put(x.getSubjectS(), c);
                             }
                         }
                         Log.v("Test", "Map :" + map.toString());

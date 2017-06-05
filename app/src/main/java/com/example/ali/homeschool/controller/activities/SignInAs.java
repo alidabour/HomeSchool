@@ -45,8 +45,6 @@ public class SignInAs extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 
     @Override

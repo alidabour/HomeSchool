@@ -10,11 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ali.homeschool.data.CategoryInformation;
+import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.data.DataProvider;
-import com.example.ali.homeschool.data.Entry.CourseColumns;
-import com.example.ali.homeschool.data.firebase.Courses;
 
 import java.util.List;
 
@@ -25,13 +22,13 @@ import java.util.List;
  */
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
-    List<Courses> CourseList ;
+    List<CourseCreated> CourseList ;
     private Cursor mCursor;
     public  OnClickHandler onClickHandler;
     public interface OnClickHandler {
-        void onClick(Courses test);
+        void onClick(CourseCreated test);
     }
-    public CategoryAdapter(List<Courses> CourseList ,OnClickHandler onClickHandler) {
+    public CategoryAdapter(List<CourseCreated> CourseList , OnClickHandler onClickHandler) {
         Log.v("Test","----------------------------------CategoryAdapter");
 
         this.onClickHandler = onClickHandler;
@@ -48,7 +45,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(CategoryAdapter.CategoryViewHolder holder, int position) {
-        Log.v("Test","----------------------------------CategoryAdapter : "+ CourseList.get(position).toString());
+//        Log.v("Test","----------------------------------CategoryAdapter : "+ CourseList.get(position).toString());
 
         holder.categoryImage.setImageResource(R.drawable.earlymath);
         holder.categoryName.setText(CourseList.get(position).getName());
