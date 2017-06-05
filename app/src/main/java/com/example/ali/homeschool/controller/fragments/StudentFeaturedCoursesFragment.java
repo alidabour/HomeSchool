@@ -37,6 +37,7 @@ import java.util.Map;
  * This is the inital fragment for the Student which contains the featured courses as well
  * as the navigation bar for his courses and settings
  */
+
 public class StudentFeaturedCoursesFragment extends Fragment {
     View view;
     CourseSectionListAdapter courseSectionListAdapter;

@@ -2,27 +2,19 @@ package com.example.ali.homeschool.InstructorTopic;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
-import android.provider.OpenableColumns;
+import android.os.Bundle;
 import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.InputType;
-import android.text.LoginFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -35,32 +27,26 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
 import com.example.ali.homeschool.UserModelHelper.UploadFile;
 import com.example.ali.homeschool.exercises.Answer;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.jrummyapps.android.colorpicker.ColorPickerDialog;
 import com.jrummyapps.android.colorpicker.ColorPickerDialogListener;
 
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.UUID;
-
-import com.example.ali.homeschool.Constants;
 
 import static com.example.ali.homeschool.Constants.PUTACTIONTEXTHERE;
 import static com.example.ali.homeschool.Constants.PUTACTIVITYHERE;
@@ -70,7 +56,6 @@ import static com.example.ali.homeschool.Constants.PUTIDHERE;
 import static com.example.ali.homeschool.Constants.PUTSIZEHERE;
 import static com.example.ali.homeschool.Constants.actionButtonXML;
 import static com.example.ali.homeschool.Constants.actionTextXML;
-import static com.example.ali.homeschool.Constants.end;
 import static com.example.ali.homeschool.Constants.mButton;
 import static com.example.ali.homeschool.Constants.mTextView;
 import static com.example.ali.homeschool.Constants.radioButton;
@@ -79,7 +64,6 @@ import static com.example.ali.homeschool.Constants.radioGroupStart;
 import static com.example.ali.homeschool.Constants.setColorButton;
 import static com.example.ali.homeschool.Constants.soundXML;
 import static com.example.ali.homeschool.Constants.start;
-import static com.example.ali.homeschool.Constants.textAppearance;
 import static com.example.ali.homeschool.Constants.textViewProperties;
 
 public class InstructorTopicActivity extends AppCompatActivity implements ImageClicked, ColorPickerDialogListener, TextAppInterface {
@@ -664,14 +648,12 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
 
     @Override
     public void onDialogDismissed(int dialogId) {
-
     }
 
     @Override
     public void onSelected(int i) {
         Log.v("TEXTAPP"," i : "+ i);
         Log.v("TEXTAPP"," textapp[i] : "+ Constants.textAppearance[i]);
-
         textAppearance = Constants.textAppearance[i];
     }
 }

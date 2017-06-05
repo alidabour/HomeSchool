@@ -22,7 +22,7 @@
             android:id="@+id/userIcon"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:paddingTop="15dp"
             app:srcCompat="@drawable/user" />
 
         <android.support.design.widget.TextInputLayout
@@ -49,7 +49,7 @@
             android:id="@+id/emailIcon"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:padding="6dp"
+            android:paddingTop="15dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/mail" />
 
@@ -62,7 +62,8 @@
                 android:id="@+id/EmailRegister"
                 android:layout_width="333dp"
                 android:layout_height="47dp"
-                android:hint="@string/Email" />
+                android:hint="@string/Email"
+                android:inputType="textEmailAddress"/>
 
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
@@ -74,9 +75,9 @@
 
         <ImageView
             android:id="@+id/passwordIcon"
+            android:paddingTop="15dp"
             android:layout_width="49dp"
             android:layout_height="wrap_content"
-            android:padding="6dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/password" />
 
@@ -90,7 +91,8 @@
                 android:id="@+id/PasswordRegister"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:hint="Password" />
+                android:hint="Password"
+                android:inputType="textPassword"/>
 
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
@@ -101,11 +103,11 @@
         android:layout_marginTop="20dp">
 
         <ImageView
-            android:id="@+id/repeatEmailIcon"
+            android:id="@+id/repeatPasswordIcon"
             android:layout_width="52dp"
             android:layout_height="wrap_content"
-            android:padding="6dp"
             android:layout_gravity="center"
+            android:paddingTop="15dp"
             app:srcCompat="@drawable/password" />
 
         <android.support.design.widget.TextInputLayout
@@ -117,7 +119,8 @@
                 android:id="@+id/Repeated_PasswordRegister"
                 android:layout_width="333dp"
                 android:layout_height="46dp"
-                android:hint="Repeat Password" />
+                android:hint="Repeat Password"
+                android:inputType="textPassword" />
 
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
@@ -137,8 +140,6 @@
             android:layout_width="154dp"
             android:layout_height="match_parent"
             android:layout_margin="30dp"
-
-
             android:src="@drawable/photoid" />
 
         <Button

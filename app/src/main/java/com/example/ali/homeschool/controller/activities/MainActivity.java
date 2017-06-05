@@ -13,6 +13,8 @@ import com.example.ali.homeschool.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import static com.example.ali.homeschool.R.id.Signin;
+
 
 public class MainActivity extends AppCompatActivity {
 TextView logoname;
@@ -45,15 +47,15 @@ TextView logoname;
 //        logoname = (TextView) findViewById(R.id.logoName);
 //        logoname.setTypeface(Typeface.createFromAsset(getAssets(),"Amiri-Bold.ttf"));
         //ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        Button Signup = (Button) findViewById(R.id.Signin);
+        Button  signin = (Button) findViewById(Signin);
 
-        Button Signin = (Button) findViewById(R.id.Register);
+        Button register= (Button) findViewById(R.id.Register);
 
-        Button Guest = (Button) findViewById(R.id.Guest);
+        Button guest = (Button) findViewById(R.id.Guest);
 
 
 
-        Signup.setOnClickListener(new View.OnClickListener() {
+        signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -62,7 +64,7 @@ TextView logoname;
             }
         });
 
-        Signin.setOnClickListener(new View.OnClickListener() {
+        register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -70,12 +72,11 @@ TextView logoname;
 
             }
         });
-        Guest.setOnClickListener(new View.OnClickListener() {
+        guest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Guest.class);
                 intent.putExtra("type",0);
-
                 startActivity(intent);
 
             }

@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.data.InternetConnectionChecker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -73,6 +74,7 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
             return;
         }
 
+
         //   showProgressDialog();
 
         // [START sign_in_with_email]
@@ -80,6 +82,7 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        InternetConnectionChecker internetConnectionChecker = new InternetConnectionChecker(getApplicationContext());
                         Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
                         if(task.isSuccessful())
                         {
@@ -87,9 +90,16 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
                             startActivity(intent);
                         }
                         else {
-                            Log.w(TAG, "signInWithEmail:failed", task.getException());
-                            Toast.makeText(Sign_In.this, "auth failed",
-                                    Toast.LENGTH_SHORT).show();
+                            if (internetConnectionChecker.isInternetOn()) {
+                                Log.w(TAG, "signInWithEmail:failed", task.getException());
+                                Toast.makeText(Sign_In.this, "Wrong Username Or Password",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Log.w(TAG, "signInWithEmail:failed", task.getException());
+                                Toast.makeText(Sign_In.this, "Internet Connection Not Available",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
@@ -154,4 +164,5 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
         }
 
     }
+
 }

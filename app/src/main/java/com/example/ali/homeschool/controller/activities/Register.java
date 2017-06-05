@@ -21,6 +21,7 @@ import com.example.ali.homeschool.CircleTransform;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
 import com.example.ali.homeschool.UserModelHelper.UploadFile;
+import com.example.ali.homeschool.data.InternetConnectionChecker;
 import com.example.ali.homeschool.data.firebase.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -122,6 +123,7 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+                            InternetConnectionChecker internetConnectionChecker = new InternetConnectionChecker(getApplicationContext());
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("success", "");
@@ -135,10 +137,13 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
                                 finish();
                                 startActivity(new Intent(getBaseContext(), SignInAs.class));
                             } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("failed", "");
-                                Toast.makeText(Register.this, "Email Either Created or Doesn't exist at all",
-                                        Toast.LENGTH_SHORT).show();
+                                if (internetConnectionChecker.isInternetOn()) {
+                                    Toast.makeText(Register.this, "Email is Either not Created or Doesn't Exist",
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(Register.this, "Internet Connection Not Available",
+                                            Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                             // ...
@@ -179,6 +184,11 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
         }
         return valid;
     }
+
+
+
+
+
 
 
     @Override
