@@ -20,8 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
-import com.example.ali.homeschool.InstructorLessons.LessonAdapter;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
+import com.example.ali.homeschool.InstructorTopic.TopicModel;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.TopicsAdapter;
 import com.example.ali.homeschool.adapter.TopicsFirebaseAdapter;
@@ -29,7 +29,6 @@ import com.example.ali.homeschool.childProgress.EnrolledCourseModel;
 import com.example.ali.homeschool.data.DataProvider;
 import com.example.ali.homeschool.data.Entry.CourseColumns;
 import com.example.ali.homeschool.data.Entry.LessonColumns;
-import com.example.ali.homeschool.data.firebase.Topics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,8 +49,6 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
     ListView topicsListView;
     RecyclerView topicsRecyclerView;
     TopicsAdapter topicsAdapter;
-   // TableLayout topicsTable;
-   // Intent intent;
     Button enroll;
     TopicsFirebaseAdapter topicsFirebaseAdapter;
     private static final int CURSOR_LOADER_ID_DES = 1;
@@ -63,8 +60,6 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
     TextView courseRatingText;
     TextView courseDescription;
     private DatabaseReference databaseReference;
-    private List<String> lessonsID;
-    private List<Topics> topics;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
     private String key;
@@ -74,6 +69,7 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
     boolean courseExists=false;
     DatabaseReference myRef1;
     DatabaseReference myRef2;
+    TopicModel topicModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -193,25 +189,32 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
         // [START post_value_event_listener]DatabaseReference myRef = databaseReference;
         databaseReference.child("courses").child(String.valueOf(courseCreated.getCourse_id())).child("lessons").addValueEventListener(
                 new ValueEventListener() {
-                    List<LessonModel> lessonModelList;
+                    List<TopicModel> lessonModelList;
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        lessonModelList = new ArrayList<LessonModel>();
-                        for (DataSnapshot d : dataSnapshot.getChildren()){
-                            Log.v("Test","Lesson " + d.toString());
-                            lessonModel = d.getValue(LessonModel.class);
-                            lessonModelList.add(lessonModel);
-                            Log.v("Test","LESSON __ "+ lessonModel.toString());
+                        Log.v("Testing","Lesson " + dataSnapshot.toString());
+                        lessonModelList = new ArrayList<TopicModel>();
+                        for (DataSnapshot d1 : dataSnapshot.getChildren()){
+
+                            lessonModel = d1.getValue(LessonModel.class);
+                            for (DataSnapshot d2 : d1.getChildren()){
+                                for (DataSnapshot d3 : d2.getChildren()) {
+                                        Log.e("d2ooool: ", d3.toString());
+                                        topicModel = d3.getValue(TopicModel.class);
+                                        Log.e("Topic Model: ", topicModel.getName() + "");
+                                        lessonModelList.add(topicModel);
+                                }
+                            }
                         }
-                        LessonAdapter lessonAdapter
-                                = new LessonAdapter(lessonModelList,
-                                new LessonAdapter.OnClickHandler() {
+                        TopicsAdapter topicAdapter
+                                = new TopicsAdapter(lessonModelList,
+                                new TopicsAdapter.OnClickHandler() {
                                     @Override
-                                    public void onClick(LessonModel test) {
+                                    public void onClick(TopicModel test) {
 
                                     }
                                 });
-                        topicsRecyclerView.setAdapter(lessonAdapter);
+                        topicsRecyclerView.setAdapter(topicAdapter);
                     }
 
                     @Override
