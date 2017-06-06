@@ -12,14 +12,14 @@ import com.example.ali.homeschool.R;
 import java.util.List;
 
 public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewHolder>{
-    List<TopicModel> lessonModelList;
+    List<TopicModel> topicModelList;
     public TopicsAdapter.OnClickHandler onClickHandler;
 
     public interface OnClickHandler {
         void onClick(TopicModel test);
     }
-    public TopicsAdapter(List<TopicModel> lessonModelList, TopicsAdapter.OnClickHandler onClickHandler) {
-        this.lessonModelList = lessonModelList;
+    public TopicsAdapter(List<TopicModel> topicModelList, TopicsAdapter.OnClickHandler onClickHandler) {
+        this.topicModelList = topicModelList;
         this.onClickHandler = onClickHandler;
     }
 
@@ -32,14 +32,14 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
 
     @Override
     public void onBindViewHolder(TopicViewHolder holder, int position) {
-        TopicModel lessonModel = lessonModelList.get(position);
-        holder.topicName.setText(lessonModel.getName());
+        TopicModel topicModel = topicModelList.get(position);
+        holder.topicName.setText(topicModel.getName());
         holder.topicNum.setText(position + 1 +" ");
     }
 
     @Override
     public int getItemCount() {
-        return lessonModelList.size();
+        return topicModelList.size();
     }
 
     public class TopicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -56,7 +56,7 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
         @Override
         public void onClick(View view) {
             int p = getAdapterPosition();
-            onClickHandler.onClick(lessonModelList.get(p));
+            onClickHandler.onClick(topicModelList.get(p));
         }
     }
 }
