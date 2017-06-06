@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.R;
@@ -28,6 +29,7 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     //  private TextView Detail;
+    private TextView textViewSignup ;
 
     private EditText Email;
     private EditText Password;
@@ -40,7 +42,16 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
 
         Email = (EditText) findViewById(R.id.Email);
         Password = (EditText) findViewById(R.id.Password);
+        textViewSignup = (TextView) findViewById(R.id.textViewSignUp);
 
+        textViewSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(getBaseContext() , Register.class));
+
+            }
+        });
         mAuth = FirebaseAuth.getInstance();
         // Buttons
 

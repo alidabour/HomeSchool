@@ -63,4 +63,15 @@
                 android:inputType="textEmailAddress"/>
         </android.support.design.widget.TextInputLayout>
 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Not have an account ? sign up here"
+        android:textAlignment="center"
+        android:id="@+id/textViewSignUp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

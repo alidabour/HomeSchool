@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -54,6 +55,8 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
     ImageView photoImageView;
     String photoString;
     UploadFile uploadFile;
+    private TextView textViewSignin ;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +72,15 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         Button uploadPhotoButton = (Button) findViewById(R.id.UploadButton);
+
+        textViewSignin = (TextView) findViewById(R.id.textViewSignin);
+        textViewSignin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext() , Sign_In.class));
+
+            }
+        });
 
         photoImageView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,5 +1,6 @@
 package com.example.ali.homeschool.controller.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -49,7 +50,6 @@ public class Guest extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-
         setSupportActionBar(toolbar);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -114,6 +114,8 @@ public class Guest extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.signUp_action:
                         Log.v("Test","Sign IN");
+                        startActivity(new Intent(getBaseContext() , Register.class));
+
                         break;
                     case R.id.search_action:
                         Log.v("Test","Search");
