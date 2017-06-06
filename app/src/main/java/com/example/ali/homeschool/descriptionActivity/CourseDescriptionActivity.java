@@ -70,8 +70,10 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
     private String key;
     LessonModel lessonModel;
     CourseCreated courseCreated;
-
-
+    CourseCreated courseCreated1;
+    boolean courseExists=false;
+    DatabaseReference myRef1;
+    DatabaseReference myRef2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +82,7 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-
+        Toast t;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Animals Vol. 1");
         enroll = (Button) findViewById(R.id.enroll);
@@ -97,10 +99,12 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
             courseCreated = intent.getParcelableExtra("course");
             courseDescription.setText(courseCreated.getDescription());
             courseName.setText(courseCreated.getName());
-            courseTeacher.setText(courseCreated.getTeacher_id());
+            courseTeacher.setText(courseCreated.getTeacher_name());
             courseRatingText.setText(courseCreated.getRate());
+            courseRating.setRating(Float.parseFloat(courseCreated.getRate()));
             key = courseCreated.getCourse_id();
-            Log.v("Test", "Child : " + key);
+            toolbar.setTitle(courseCreated.getName());
+            Log.v("Test", "Child : " + courseCreated.getName());
         }
 
         setSupportActionBar(toolbar);
@@ -126,14 +130,50 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
             @Override
             public void onClick(View view) {
                 if (type != 0) {
+                    {
+                            myRef2 = databaseReference;
+                        myRef2.child("users").child(user.getUid()).child("EnrolledCourses").addValueEventListener(
+                                new ValueEventListener() {
+                                    int count = 0;
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if(!courseExists)
+                                        for (DataSnapshot d : dataSnapshot.getChildren()) {
+                                            count++;
+                                            Log.e("eh el8olb dah ", d + "");
+                                            courseCreated1 = d.getValue(CourseCreated.class);
+                                            Log.e("Etl3e b2a: ", courseCreated.getCourse_id());
+                                            Log.e("Etl3e b2a enta eltani: ", courseCreated1.getCourse_id());
+                                            if (courseCreated.getCourse_id().equals(courseCreated1.getCourse_id())) {
+
+                                                    courseExists = true;
+                                            }
+                                            if (count >= dataSnapshot.getChildrenCount() && !courseExists) {
+                                                myRef1 = databaseReference;
+                                                EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
+                                                enrolledCourseModel.setName(courseCreated.getName());
+                                                enrolledCourseModel.setCourse_id(key);
+                                                enrolledCourseModel.setProgress("50");
+                                                myRef1.child("users").child(user.getUid()).child("EnrolledCourses").push().setValue(enrolledCourseModel);
+
+                                                Toast.makeText(CourseDescriptionActivity.this, "Enrolled Successful", Toast.LENGTH_SHORT).show();
+                                                courseExists=true;
+                                            } else if (count >= dataSnapshot.getChildrenCount())
+                                                Toast.makeText(CourseDescriptionActivity.this, "Already Enrolled", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                        courseExists=false;
+                    }
 
 
-                    DatabaseReference myRef = databaseReference;
-                    EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
-                    enrolledCourseModel.setName(courseCreated.getName());
-                    enrolledCourseModel.setId(key);
-                    enrolledCourseModel.setProgress("50");
-                    myRef.child("users").child(user.getUid()).child("EnrolledCourses").push().setValue(enrolledCourseModel);
+
 
                 }
                 else

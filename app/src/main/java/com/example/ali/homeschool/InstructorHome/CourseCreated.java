@@ -16,6 +16,7 @@ public class CourseCreated implements Parcelable {
     String rate;
     String subjectS;
     String teacher_id;
+    String teacher_name;
 
     public String getCourse_id() {
         return course_id;
@@ -73,6 +74,14 @@ public class CourseCreated implements Parcelable {
         this.teacher_id = teacher_id;
     }
 
+    public String getTeacher_name() {
+        return teacher_name;
+    }
+
+    public void setTeacher_name(String teacher_name) {
+        this.teacher_name = teacher_name;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -87,6 +96,7 @@ public class CourseCreated implements Parcelable {
         dest.writeString(this.rate);
         dest.writeString(this.subjectS);
         dest.writeString(this.teacher_id);
+        dest.writeString(this.teacher_name);
     }
 
     public CourseCreated() {
@@ -100,6 +110,7 @@ public class CourseCreated implements Parcelable {
         this.rate = in.readString();
         this.subjectS = in.readString();
         this.teacher_id = in.readString();
+        this.teacher_name = in.readString();
     }
 
     public static final Parcelable.Creator<CourseCreated> CREATOR = new Parcelable.Creator<CourseCreated>() {

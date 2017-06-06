@@ -94,7 +94,7 @@ public class MyCoursesFragment extends Fragment {
                             EnrolledCourseModel c = s.getValue(EnrolledCourseModel.class);
                             Log.v("REBE", "Outside " + c);
 
-                            db.child("courses").child(c.getId())
+                            db.child("courses").child(c.getCourse_id())
                                     .addValueEventListener(new ValueEventListener() {
                                         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                         @Override

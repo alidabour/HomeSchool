@@ -5,7 +5,17 @@ package com.example.ali.homeschool.childProgress;
  */
 
 public class EnrolledCourseModel {
-    String id;
+    String course_id;
+    String name;
+    String progress;
+
+    public String getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(String course_id) {
+        this.course_id = course_id;
+    }
 
     public String getName() {
         return name;
@@ -13,17 +23,6 @@ public class EnrolledCourseModel {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    String name;
-    String progress;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getProgress() {
