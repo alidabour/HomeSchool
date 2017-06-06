@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,11 +12,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.CourseSectionListAdapter;
+import com.example.ali.homeschool.adapter.SampleCoursesToolbarAdapter;
 import com.example.ali.homeschool.data.CategoryInformation;
 import com.example.ali.homeschool.data.HeaderRVData;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +45,10 @@ public class Guest extends AppCompatActivity {
     private List<CourseCreated> users;
     private List<HeaderRVData> headerRVDatas;
     public int type;
+    ViewPager mViewPager;
+    SampleCoursesToolbarAdapter imageCollapsingToolBarAdapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +65,25 @@ public class Guest extends AppCompatActivity {
         courseSectionRV.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         headerRVDatas = new ArrayList<>();
+        mViewPager = (ViewPager) findViewById(R.id.viewPage_collapsing_toolbar);
+        imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(this);
+        mViewPager.setAdapter(imageCollapsingToolBarAdapter);
+        mViewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                Log.v("Test", "Pager Touch");
+                return false;
+            }
+        });
+
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                mViewPager.getParent().requestDisallowInterceptTouchEvent(true);
+            }
+        });
+
 //        Log.v("StudentCoursesFragment","Test");
 //        categoryInformationList = new ArrayList<CategoryInformation>();
 //        CategoryInformation categoryInformation= new CategoryInformation("Arabic",R.drawable.java);

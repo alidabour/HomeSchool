@@ -42,17 +42,18 @@ import com.google.firebase.database.FirebaseDatabase;
 public class StudentHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public int type;
     ViewPager mViewPager;
-    CollapsingToolbarLayout collapsingToolbarLayout;
     AppBarLayout appBarLayout;
     FirebaseAuth mAuth;
     FirebaseUser user;
     DatabaseReference databaseReference;
     SampleCoursesToolbarAdapter imageCollapsingToolBarAdapter;
+    CollapsingToolbarLayout collapsingToolbarLayout;
     Intent intent;
     Bundle bundle;
     UserModel userModel;
     ImageView userPhotoId;
     TextView UserName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -213,7 +214,8 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
             appBarLayout.setExpanded(true);
             mViewPager.setAdapter(imageCollapsingToolBarAdapter);
 
-            // mViewPager.removeAllViews();
+            //
+            // Pager.removeAllViews();
             Fragment newFragment1 = new StudentFeaturedCoursesFragment();
             newFragment1.setArguments(bundle);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
