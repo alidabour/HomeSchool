@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -173,6 +172,7 @@ public class Guest extends AppCompatActivity {
                         }
                         Log.v("Test", "Map :" + map.toString());
                         Iterator it = map.entrySet().iterator();
+                        headerRVDatas = new ArrayList<HeaderRVData>();
                         while (it.hasNext()) {
                             Map.Entry pair = (Map.Entry) it.next();
                             headerRVDatas.add(new HeaderRVData((String) pair.getKey(),
