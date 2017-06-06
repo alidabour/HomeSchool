@@ -1,11 +1,10 @@
 package com.example.ali.homeschool.descriptionActivity;
 
-import android.app.LoaderManager;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,9 +25,6 @@ import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.TopicsAdapter;
 import com.example.ali.homeschool.adapter.TopicsFirebaseAdapter;
 import com.example.ali.homeschool.childProgress.EnrolledCourseModel;
-import com.example.ali.homeschool.data.DataProvider;
-import com.example.ali.homeschool.data.Entry.CourseColumns;
-import com.example.ali.homeschool.data.Entry.LessonColumns;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,7 +40,7 @@ import java.util.List;
 This is the class which i use to get the description of the course from the click listener
 and supposely later on i would use the data base to fetch this data
  */
-public class CourseDescriptionActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>  {
+public class CourseDescriptionActivity extends AppCompatActivity  {
     Toolbar toolbar;
     ListView topicsListView;
     RecyclerView topicsRecyclerView;
@@ -66,10 +62,13 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
     LessonModel lessonModel;
     CourseCreated courseCreated;
     CourseCreated courseCreated1;
-    boolean courseExists=false;
+    boolean courseExists = false;
     DatabaseReference myRef1;
     DatabaseReference myRef2;
     TopicModel topicModel;
+    FloatingActionButton fab;
+    NestedScrollView nestedScrollView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,19 +78,22 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         Toast t;
+        nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Animals Vol. 1");
         enroll = (Button) findViewById(R.id.enroll);
         courseImage = (ImageView) findViewById(R.id.imageView);
-        courseTeacher  = (TextView) findViewById(R.id.textView);
+        courseTeacher = (TextView) findViewById(R.id.textView);
         courseName = (TextView) findViewById(R.id.textView2);
         courseRating = (RatingBar) findViewById(R.id.ratingBar);
         courseRatingText = (TextView) findViewById(R.id.textView3);
         courseDescription = (TextView) findViewById(R.id.textView5);
+        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.courseDescriptionCoordinatorLayout);
         topicsRecyclerView = (RecyclerView) findViewById(R.id.listViewDes);
         topicsRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         Intent intent = getIntent();
-        if (intent.hasExtra("course")){
+        if (intent.hasExtra("course")) {
             courseCreated = intent.getParcelableExtra("course");
             courseDescription.setText(courseCreated.getDescription());
             courseName.setText(courseCreated.getName());
@@ -107,8 +109,6 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
         // this line supports the back button to go back
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getLoaderManager().initLoader(CURSOR_LOADER_ID_DES, null, (LoaderManager.LoaderCallbacks<Cursor>) this);
-        getLoaderManager().initLoader(CURSOR_LOADER_ID_TOPIC, null, (LoaderManager.LoaderCallbacks<Cursor>) this);
 
         List<String> names = new ArrayList<>();
 
@@ -120,43 +120,44 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
                 databaseReference.child("users").child(user.getUid()).child("EnrolledCourses").push().setValue(key);
             }
         });
-        final int type = intent.getIntExtra("type",0);
+        final int type = intent.getIntExtra("type", 0);
 
         enroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (type != 0) {
                     {
-                            myRef2 = databaseReference;
+                        myRef2 = databaseReference;
                         myRef2.child("users").child(user.getUid()).child("EnrolledCourses").addValueEventListener(
                                 new ValueEventListener() {
                                     int count = 0;
+
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        if(!courseExists)
-                                        for (DataSnapshot d : dataSnapshot.getChildren()) {
-                                            count++;
-                                            Log.e("eh el8olb dah ", d + "");
-                                            courseCreated1 = d.getValue(CourseCreated.class);
-                                            Log.e("Etl3e b2a: ", courseCreated.getCourse_id());
-                                            Log.e("Etl3e b2a enta eltani: ", courseCreated1.getCourse_id());
-                                            if (courseCreated.getCourse_id().equals(courseCreated1.getCourse_id())) {
+                                        if (!courseExists)
+                                            for (DataSnapshot d : dataSnapshot.getChildren()) {
+                                                count++;
+                                                Log.e("eh el8olb dah ", d + "");
+                                                courseCreated1 = d.getValue(CourseCreated.class);
+                                                Log.e("Etl3e b2a: ", courseCreated.getCourse_id());
+                                                Log.e("Etl3e b2a enta eltani: ", courseCreated1.getCourse_id());
+                                                if (courseCreated.getCourse_id().equals(courseCreated1.getCourse_id())) {
 
                                                     courseExists = true;
-                                            }
-                                            if (count >= dataSnapshot.getChildrenCount() && !courseExists) {
-                                                myRef1 = databaseReference;
-                                                EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
-                                                enrolledCourseModel.setName(courseCreated.getName());
-                                                enrolledCourseModel.setCourse_id(key);
-                                                enrolledCourseModel.setProgress("50");
-                                                myRef1.child("users").child(user.getUid()).child("EnrolledCourses").push().setValue(enrolledCourseModel);
+                                                }
+                                                if (count >= dataSnapshot.getChildrenCount() && !courseExists) {
+                                                    myRef1 = databaseReference;
+                                                    EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
+                                                    enrolledCourseModel.setName(courseCreated.getName());
+                                                    enrolledCourseModel.setCourse_id(key);
+                                                    enrolledCourseModel.setProgress("50");
+                                                    myRef1.child("users").child(user.getUid()).child("EnrolledCourses").push().setValue(enrolledCourseModel);
 
-                                                Toast.makeText(CourseDescriptionActivity.this, "Enrolled Successful", Toast.LENGTH_SHORT).show();
-                                                courseExists=true;
-                                            } else if (count >= dataSnapshot.getChildrenCount())
-                                                Toast.makeText(CourseDescriptionActivity.this, "Already Enrolled", Toast.LENGTH_SHORT).show();
-                                        }
+                                                    Toast.makeText(CourseDescriptionActivity.this, "Enrolled Successful", Toast.LENGTH_SHORT).show();
+                                                    courseExists = true;
+                                                } else if (count >= dataSnapshot.getChildrenCount())
+                                                    Toast.makeText(CourseDescriptionActivity.this, "Already Enrolled", Toast.LENGTH_SHORT).show();
+                                            }
                                     }
 
                                     @Override
@@ -165,21 +166,84 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
                                     }
                                 });
 
-                        courseExists=false;
+                        courseExists = false;
                     }
 
 
-
-
-                }
-                else
+                } else
                     Toast.makeText(CourseDescriptionActivity.this, "You Need To Sign In", Toast.LENGTH_SHORT).show();
             }
         });
-        if (intent != null && intent.hasExtra("course")){
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (type != 0) {
+                    {
+                        myRef2 = databaseReference;
+                        myRef2.child("users").child(user.getUid()).child("EnrolledCourses").addValueEventListener(
+                                new ValueEventListener() {
+                                    int count = 0;
+
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (!courseExists)
+                                            for (DataSnapshot d : dataSnapshot.getChildren()) {
+                                                count++;
+                                                Log.e("eh el8olb dah ", d + "");
+                                                courseCreated1 = d.getValue(CourseCreated.class);
+                                                Log.e("Etl3e b2a: ", courseCreated.getCourse_id());
+                                                Log.e("Etl3e b2a enta eltani: ", courseCreated1.getCourse_id());
+                                                if (courseCreated.getCourse_id().equals(courseCreated1.getCourse_id())) {
+
+                                                    courseExists = true;
+                                                }
+                                                if (count >= dataSnapshot.getChildrenCount() && !courseExists) {
+                                                    myRef1 = databaseReference;
+                                                    EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
+                                                    enrolledCourseModel.setName(courseCreated.getName());
+                                                    enrolledCourseModel.setCourse_id(key);
+                                                    enrolledCourseModel.setProgress("50");
+                                                    myRef1.child("users").child(user.getUid()).child("EnrolledCourses").push().setValue(enrolledCourseModel);
+
+                                                    Toast.makeText(CourseDescriptionActivity.this, "Enrolled Successful", Toast.LENGTH_SHORT).show();
+                                                    courseExists = true;
+                                                } else if (count >= dataSnapshot.getChildrenCount())
+                                                    Toast.makeText(CourseDescriptionActivity.this, "Already Enrolled", Toast.LENGTH_SHORT).show();
+                                            }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                        courseExists = false;
+                    }
+
+
+                } else
+                    Toast.makeText(CourseDescriptionActivity.this, "You Need To Sign In", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        if (intent != null && intent.hasExtra("course")) {
             courseCreated = intent.getParcelableExtra("course");
-            Log.v("Test","Course "+ courseCreated.getCourse_id());
+            Log.v("Test", "Course " + courseCreated.getCourse_id());
         }
+
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > oldScrollY) {
+                    fab.show();
+                } else {
+                    fab.hide();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -190,19 +254,20 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
         databaseReference.child("courses").child(String.valueOf(courseCreated.getCourse_id())).child("lessons").addValueEventListener(
                 new ValueEventListener() {
                     List<TopicModel> lessonModelList;
+
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.v("Testing","Lesson " + dataSnapshot.toString());
+                        Log.v("Testing", "Lesson " + dataSnapshot.toString());
                         lessonModelList = new ArrayList<TopicModel>();
-                        for (DataSnapshot d1 : dataSnapshot.getChildren()){
+                        for (DataSnapshot d1 : dataSnapshot.getChildren()) {
 
                             lessonModel = d1.getValue(LessonModel.class);
-                            for (DataSnapshot d2 : d1.getChildren()){
+                            for (DataSnapshot d2 : d1.getChildren()) {
                                 for (DataSnapshot d3 : d2.getChildren()) {
-                                        Log.e("d2ooool: ", d3.toString());
-                                        topicModel = d3.getValue(TopicModel.class);
-                                        Log.e("Topic Model: ", topicModel.getName() + "");
-                                        lessonModelList.add(topicModel);
+                                    Log.e("d2ooool: ", d3.toString());
+                                    topicModel = d3.getValue(TopicModel.class);
+                                    Log.e("Topic Model: ", topicModel.getName() + "");
+                                    lessonModelList.add(topicModel);
                                 }
                             }
                         }
@@ -276,56 +341,8 @@ public class CourseDescriptionActivity extends AppCompatActivity implements Load
 //                });
 
 
-
-
-
-
-    }
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        if(i == CURSOR_LOADER_ID_DES ){
-            //Description
-            CursorLoader loader = new CursorLoader(getApplicationContext(),DataProvider.Course.CONTENT_URI,
-                    new String[]{CourseColumns._ID,CourseColumns.GLOBAL_ID,CourseColumns.COURSE_DES
-                            ,CourseColumns.COURSE_IMG,CourseColumns.COURSE_NAME,CourseColumns.COURSE_RATINGS,
-                    CourseColumns.COURSE_TEACHER}
-            ,null,null,null) ;
-            return loader;
-        }else if(i == CURSOR_LOADER_ID_TOPIC){
-            //Topics
-            CursorLoader loader = new CursorLoader(getApplicationContext(), DataProvider.Lesson.CONTENT_URI,
-                    new String[]{LessonColumns._ID,LessonColumns.LESSON_NAME,LessonColumns.LESSON_NUMBER}
-            ,null,null,null);
-            return loader;
-        }
-        return null;
     }
 
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        if(loader.getId()==CURSOR_LOADER_ID_DES){
-            Log.v("Test","Description Count :" + cursor.getCount());
-//            cursor.moveToFirst();
-//            courseTeacher.setText(cursor.getString(cursor.getColumnIndex(CourseColumns.COURSE_TEACHER)));
-//            courseName.setText(cursor.getString(cursor.getColumnIndex(CourseColumns.COURSE_NAME)));
-//            courseRating.setProgress(cursor.getInt(cursor.getColumnIndex(CourseColumns.COURSE_RATINGS)));
-////            courseRatingText.setText(cursor.getInt(cursor.getColumnIndex(CourseColumns.COURSE_RATINGS))+
-////                    getString(R.string.ratings));
-//            courseRatingText.setText(cursor.getInt(cursor.getColumnIndex(CourseColumns.COURSE_RATINGS))
-//                    +" Ratings");
-//
-//            courseDescription.setText(cursor.getString(cursor.getColumnIndex(CourseColumns.COURSE_DES)));
 
-//        } else if(loader.getId() == CURSOR_LOADER_ID_TOPIC){
-//            Log.v("Test","Topics Count :"+ cursor.getCount());
-//            topicsAdapter.swapCursor(cursor);
-//            topicsRecyclerView.setAdapter(topicsAdapter);
-        }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-    }
 
 }

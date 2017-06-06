@@ -42,6 +42,7 @@ import java.util.UUID;
 
 public class Register extends AppCompatActivity implements FileUploadHelper {
     FirebaseAuth mAuth;
+    private EditText userName;
     private EditText email;
     private EditText password;
     private EditText repeated_password;
@@ -62,6 +63,7 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
+        userName = (EditText) findViewById(R.id.userName);
         email = (EditText) findViewById(R.id.EmailRegister);
         password = (EditText) findViewById(R.id.PasswordRegister);
         repeated_password = (EditText) findViewById(R.id.Repeated_PasswordRegister);
@@ -143,7 +145,7 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
                                 newUser = new UserModel();
                                 newUser.setEmail(email.getText().toString().trim());
                                 newUser.setUid(user.getUid());
-                                newUser.setName("b3den xD ");
+                                newUser.setName(String.valueOf(userName));
                                 newUser.setPhoto(photoString);
                                 myRef.child("users").child(user.getUid()).setValue(newUser);
                                 finish();
@@ -172,6 +174,13 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
     private boolean validateForm() {
         boolean valid = true;
 
+        String UserName = userName.getText().toString();
+        if (TextUtils.isEmpty(UserName)) {
+            userName.setError("Required");
+            valid = false;
+        } else {
+            repeated_password.setError(null);
+        }
         String emailString = email.getText().toString();
         if (TextUtils.isEmpty(emailString)) {
             email.setError("Required.");

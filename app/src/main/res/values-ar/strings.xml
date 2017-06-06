@@ -12,7 +12,7 @@
 <string name="title_activity_main3">Main3Activity</string>
 
 <string name="New">New!</string>
-<string name="signin">Sign in</string>
+<string name="signin">تسجيل دخول</string>
 <string name="category">Category:</string>
 <string name="topVisited">Top Visited</string>
 <string name="guest">Guest</string>
@@ -40,7 +40,6 @@
 <string name="settings">اعدادات</string>
 <string name="sign_out">خروج</string>
 <string name="name_nav">منار مصطفي</string>
-<string name="SignIn">تسجيل دخول</string>
 <string name="Email">البريد الاكترونى</string>
 <string name="Username">اسم المسنخدم</string>
 <string name="topics_description">الدروس</string>

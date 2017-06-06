@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/courseDescriptionCoordinatorLayout"
         tools:context="com.example.ali.homeschool.childProgress.ChildCourses">
 
         <android.support.design.widget.AppBarLayout
@@ -22,7 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/nestedScrollView">
         <!--<LinearLayout-->
         <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
         <!--xmlns:tools="http://schemas.android.com/tools"-->
@@ -42,6 +44,7 @@
         <!--tools:layout_editor_absoluteX="8dp"-->
         <!--android:id="@+id/toolbar1"-->
         <!--/>-->
+
         <RelativeLayout
             android:id="@+id/activity_course_description"
             android:layout_width="match_parent"
@@ -167,9 +170,25 @@
                 android:layout_marginEnd="12dp"
                 android:layout_marginRight="12dp"
                 android:text="Enroll"
+
                 android:background="@color/colorAccent"/>
 
 
         </RelativeLayout>
+
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        app:layout_anchor="@+id/nestedScrollView"
+        android:visibility="invisible"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_anchorGravity="bottom|right"
+        android:tint="@color/colorPrimary"/>
+
 </android.support.design.widget.CoordinatorLayout>
