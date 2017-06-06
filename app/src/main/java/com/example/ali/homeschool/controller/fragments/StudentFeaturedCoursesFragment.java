@@ -104,6 +104,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                         }
                         Log.v("Test", "Map :" + map.toString());
                         Iterator it = map.entrySet().iterator();
+                        headerRVDatas = new ArrayList<HeaderRVData>( );
                         while (it.hasNext()) {
                             Map.Entry pair = (Map.Entry) it.next();
                             headerRVDatas.add(new HeaderRVData((String) pair.getKey(),
@@ -112,6 +113,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                             it.remove(); // avoids a ConcurrentModificationException
                         }
                         courseSectionListAdapter = new CourseSectionListAdapter(getActivity(),
+
                                 headerRVDatas,1);
                         courseSectionRV.setAdapter(courseSectionListAdapter);
                         // [END_EXCLUDE]
