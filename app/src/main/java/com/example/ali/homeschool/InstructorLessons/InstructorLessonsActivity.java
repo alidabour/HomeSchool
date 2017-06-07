@@ -3,19 +3,17 @@ package com.example.ali.homeschool.InstructorLessons;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorTopic.InstructorTopicActivity;
@@ -35,6 +33,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     DatabaseReference db;
     CourseCreated courseCreated;
     LessonModel lessonModel;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +41,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_instructor_lessons);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab3);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar1);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,8 +98,15 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("course")){
             courseCreated = intent.getParcelableExtra("course");
-            Log.v("Test","Course "+ courseCreated.getCourse_id());
+            Log.v("TestingTesting",""+ toolbar);
+           toolbar.setTitle(courseCreated.getName().toString());
+
+
         }
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override

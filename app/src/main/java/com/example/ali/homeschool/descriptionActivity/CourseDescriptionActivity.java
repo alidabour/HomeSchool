@@ -85,7 +85,7 @@ public class CourseDescriptionActivity extends AppCompatActivity  {
         Toast t;
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar1);
         toolbar.setTitle("Animals Vol. 1");
         enroll = (Button) findViewById(R.id.enroll);
         courseImage = (ImageView) findViewById(R.id.imageView);
