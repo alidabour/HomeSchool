@@ -1,8 +1,6 @@
 package com.example.ali.homeschool.InstructorHome;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,25 +8,19 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ali.homeschool.InstructorLessons.InstructorLessonsActivity;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
 import com.example.ali.homeschool.UserModelHelper.UploadFile;
-import com.example.ali.homeschool.adapter.CourseSectionListAdapter;
-import com.example.ali.homeschool.data.HeaderRVData;
-import com.example.ali.homeschool.data.firebase.Courses;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,10 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 public class InstructorFragment extends Fragment {
@@ -117,13 +106,24 @@ public class InstructorFragment extends Fragment {
                         subjectS = subject.getText().toString();
                         descriptionS = description.getText().toString();
                         String key = db.child("users").child(user.getUid()).child("CreatedCourse").push().getKey();
-                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("course_id").setValue(descriptionS);
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("course_id").setValue(key);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("descriptionS").setValue(coursName);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("name").setValue(coursName);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("photo_url").setValue(photoUrl);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("rate").setValue("5.0");
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("subjectS").setValue(subjectS);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("teacher_id").setValue(user.getUid());
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("teacher_name").setValue("Mohamed");
+
+
+                        db.child("courses").child(key).child("course_id").setValue(key);
+                        db.child("courses").child(key).child("descriptionS").setValue(coursName);
+                        db.child("courses").child(key).child("name").setValue(coursName);
+                        db.child("courses").child(key).child("photo_url").setValue(photoUrl);
+                        db.child("courses").child(key).child("rate").setValue("5.0");
+                        db.child("courses").child(key).child("subjectS").setValue(subjectS);
+                        db.child("courses").child(key).child("teacher_id").setValue(user.getUid());
+                        db.child("courses").child(key).child("teacher_name").setValue("Mohamed");
 
 
                       /*  db.child("courses").child(key).child("name").setValue(coursName);
