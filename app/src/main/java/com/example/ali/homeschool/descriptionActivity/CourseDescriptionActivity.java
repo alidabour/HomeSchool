@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -35,6 +37,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.ali.homeschool.R.id.textView;
 
 /*
 This is the class which i use to get the description of the course from the click listener
@@ -68,7 +72,8 @@ public class CourseDescriptionActivity extends AppCompatActivity  {
     TopicModel topicModel;
     FloatingActionButton fab;
     NestedScrollView nestedScrollView;
-
+    boolean flag1 = true;
+    boolean flag2 = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +89,7 @@ public class CourseDescriptionActivity extends AppCompatActivity  {
         toolbar.setTitle("Animals Vol. 1");
         enroll = (Button) findViewById(R.id.enroll);
         courseImage = (ImageView) findViewById(R.id.imageView);
-        courseTeacher = (TextView) findViewById(R.id.textView);
+        courseTeacher = (TextView) findViewById(textView);
         courseName = (TextView) findViewById(R.id.textView2);
         courseRating = (RatingBar) findViewById(R.id.ratingBar);
         courseRatingText = (TextView) findViewById(R.id.textView3);
@@ -104,6 +109,7 @@ public class CourseDescriptionActivity extends AppCompatActivity  {
             toolbar.setTitle(courseCreated.getName());
             Log.v("Test", "Child : " + courseCreated.getName());
         }
+
 
         setSupportActionBar(toolbar);
         // this line supports the back button to go back
@@ -231,19 +237,39 @@ public class CourseDescriptionActivity extends AppCompatActivity  {
         if (intent != null && intent.hasExtra("course")) {
             courseCreated = intent.getParcelableExtra("course");
             Log.v("Test", "Course " + courseCreated.getCourse_id());
-        }
+            nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
-        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY > oldScrollY) {
-                    fab.show();
-                } else {
-                    fab.hide();
+
+                    if (scrollY > oldScrollY) {
+                    /*ObjectAnimator animation = ObjectAnimator.ofFloat(fab, "translationX", 10f);
+                    animation.setDuration(50);
+                    animation.start();*/
+                        // CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
+                        // fab.show();Animation animation = new TranslateAnimation(0, 500,0, 0);
+                        Animation animation = new TranslateAnimation(0, 0, 0, 500);
+
+                        if (flag1) {
+                            animation.setDuration(1000);
+                            animation.setFillAfter(true);
+                            enroll.startAnimation(animation);
+                        }
+                        animation = new TranslateAnimation(0, 0, -500, 0);
+                        if (flag1) {
+                            animation.setDuration(1000);
+                            animation.setFillAfter(true);
+                            fab.startAnimation(animation);
+                        }
+                        flag1 = false;
+                        //fab.animate().translationY(fab.getHeight() + layoutParams.bottomMargin).setInterpolator(new LinearInterpolator()).start();
+                    } else {
+                        fab.hide();
+                    }
                 }
-            }
-        });
+            });
 
+        }
     }
 
     @Override

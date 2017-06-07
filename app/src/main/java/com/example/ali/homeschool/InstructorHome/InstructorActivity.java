@@ -5,14 +5,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,19 +18,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.CircleTransform;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
 import com.example.ali.homeschool.UserModelHelper.UploadFile;
 import com.example.ali.homeschool.UserModelHelper.UserModelFirebase;
 import com.example.ali.homeschool.UserModelHelper.UserModelFirebaseClass;
 import com.example.ali.homeschool.controller.activities.MainActivity;
-import com.example.ali.homeschool.controller.activities.Register;
 import com.example.ali.homeschool.data.firebase.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.UUID;
 
 public class InstructorActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -87,7 +81,7 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
             @Override
             public void dataRetrieved(UserModel userModel) {
                 Glide.with(getApplicationContext()).load(userModel.getPhoto()).transform(new CircleTransform(getApplicationContext())).into(userPhotoId);
-
+                UserName.setText(userModel.getName());
             }
         });
 

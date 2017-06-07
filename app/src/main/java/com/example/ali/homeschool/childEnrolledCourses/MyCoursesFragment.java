@@ -90,7 +90,7 @@ public class MyCoursesFragment extends Fragment {
                         enrolledCoursesList = new ArrayList<Courses2>();
                         coursesNames = new ArrayList<CourseCreated>();
                         for (DataSnapshot s : dataSnapshot.getChildren()) {
-                            Log.v("REBE", "Outside " + s);
+                            Log.v("REBE", "Inside " + s);
                             EnrolledCourseModel c = s.getValue(EnrolledCourseModel.class);
                             Log.v("REBE", "Outside " + c);
 
