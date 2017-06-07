@@ -2,7 +2,7 @@ package com.example.ali.homeschool.controller.fragments;
 
 
 import android.app.Fragment;
-import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.CourseSectionListAdapter;
+import com.example.ali.homeschool.controller.activities.courseInterface;
 import com.example.ali.homeschool.data.HeaderRVData;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,10 +49,12 @@ public class StudentFeaturedCoursesFragment extends Fragment {
     private List<HeaderRVData> headerRVDatas;
     public int type;
     ArrayList<String> subject = new ArrayList<>();
-
+    private courseInterface listener ;
+    ArrayList<CourseCreated> random = new ArrayList<>();
 
     public StudentFeaturedCoursesFragment() {
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,11 +66,26 @@ public class StudentFeaturedCoursesFragment extends Fragment {
         courseSectionRV.setLayoutManager(
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         headerRVDatas = new ArrayList<>();
-        if(container !=null){
+        if (container != null) {
             container.removeAllViews();
         }
-        Log.v("StudentCoursesFragment","Test");
+        listener = (courseInterface) getActivity();
+
+        //temp.setListener(listener);
+        Log.v("StudentCoursesFragment", "Test");
         return view;
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+    }
+
+    @Override
+    public void onDetach() {
+
+        listener = null ;
+        super.onDetach();
     }
 
     @Override
@@ -88,6 +106,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                         // [START_EXCLUDE]
                         for (DataSnapshot x : dataSnapshot.getChildren()) {
                             //Log.v("Test", "Child : " + x.toString());
+
                             CourseCreated c = x.getValue(CourseCreated.class);
                             String key = x.getKey();
                             c.setCourse_id(key);
@@ -96,7 +115,8 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                         }
                         HashMap<String, ArrayList<CourseCreated>> map = new HashMap<>();
                         for (CourseCreated x : users) {
-                           // subject.add(x.getSubjectS());
+                            // subject.add(x.getSubjectS());
+                            random.add(x);
                             ArrayList<CourseCreated> c = new ArrayList<CourseCreated>();
                             if (map.get(x.getSubjectS()) != null) {
                                 c = map.get(x.getSubjectS());
@@ -109,7 +129,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                         }
                         Log.v("Test", "Map :" + map.toString());
                         Iterator it = map.entrySet().iterator();
-                        headerRVDatas = new ArrayList<HeaderRVData>( );
+                        headerRVDatas = new ArrayList<HeaderRVData>();
                         while (it.hasNext()) {
                             Map.Entry pair = (Map.Entry) it.next();
                             headerRVDatas.add(new HeaderRVData((String) pair.getKey(),
@@ -119,9 +139,11 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                             it.remove(); // avoids a ConcurrentModificationException
                         }
                         courseSectionListAdapter = new CourseSectionListAdapter(getActivity(),
-                                headerRVDatas,1,subject);
+                                headerRVDatas, 1, subject);
                         courseSectionRV.setAdapter(courseSectionListAdapter);
                         // [END_EXCLUDE]
+                        listener.onDataFetched(random);
+
                     }
 
                     @Override
@@ -135,4 +157,6 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                     }
                 });
     }
+
 }
+

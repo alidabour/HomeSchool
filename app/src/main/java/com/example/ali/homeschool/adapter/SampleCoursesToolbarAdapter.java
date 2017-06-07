@@ -7,7 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by Ali on 1/23/2017.
@@ -16,16 +21,16 @@ import com.example.ali.homeschool.R;
 
 public class SampleCoursesToolbarAdapter extends PagerAdapter {
     Context mContext;
-    private int[] sliderImagesId = new int[]{
-            R.drawable.earlymath,R.drawable.ic_launcher,R.drawable.earlymath
-    };
-    public SampleCoursesToolbarAdapter(Context mContext) {
+    ArrayList<CourseCreated> random ;
+
+    public SampleCoursesToolbarAdapter(Context mContext , ArrayList random) {
         this.mContext = mContext;
+        this.random = random ;
     }
 
     @Override
     public int getCount() {
-        return sliderImagesId.length;
+        return random.size();
     }
 
     @Override
@@ -37,7 +42,7 @@ public class SampleCoursesToolbarAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView mImageView  = new ImageView(mContext);
         mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        mImageView.setImageResource(sliderImagesId[position]);
+        Glide.with(mContext).load(random.get(position).getPhoto_url()).into(mImageView);
         ((ViewPager) container).addView(mImageView,0);
         return mImageView;
     }

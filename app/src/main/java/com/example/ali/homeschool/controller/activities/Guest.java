@@ -48,7 +48,7 @@ public class Guest extends AppCompatActivity {
     ViewPager mViewPager;
     SampleCoursesToolbarAdapter imageCollapsingToolBarAdapter;
     ArrayList<String> subject = new ArrayList<>();
-
+    ArrayList<CourseCreated> random = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +67,7 @@ public class Guest extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         headerRVDatas = new ArrayList<>();
         mViewPager = (ViewPager) findViewById(R.id.viewPage_collapsing_toolbar);
-        imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(this);
-        mViewPager.setAdapter(imageCollapsingToolBarAdapter);
+
         mViewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -190,6 +189,8 @@ public class Guest extends AppCompatActivity {
                         for (CourseCreated x : users) {
                            // subject.add(x.getSubjectS());
                             //Log.e("Subject", x.getSubjectS());
+
+                            random.add(x);
                             ArrayList<CourseCreated> c = new ArrayList<CourseCreated>();
                             if (map.get(x.getSubjectS()) != null) {
                                 c = map.get(x.getSubjectS());
@@ -215,6 +216,8 @@ public class Guest extends AppCompatActivity {
                             subject.add(pair.getKey().toString());
                             it.remove(); // avoids a ConcurrentModificationException
                         }
+                        imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(getApplicationContext() , random);
+                        mViewPager.setAdapter(imageCollapsingToolBarAdapter);
                         courseSectionListAdapter = new CourseSectionListAdapter(getApplicationContext(),
                                 headerRVDatas,0,subject);
                         courseSectionRV.setAdapter(courseSectionListAdapter);

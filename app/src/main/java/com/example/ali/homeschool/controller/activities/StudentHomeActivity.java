@@ -34,12 +34,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 /*
     We enter this class from the Student image button as it has more than one fragment
     it contains the navigation bar and we use the fragments and replace them
     to get the desired fragment
  */
-public class StudentHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class StudentHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener , courseInterface{
     public int type;
     ViewPager mViewPager;
     AppBarLayout appBarLayout;
@@ -87,23 +89,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
 
 
         mViewPager = (ViewPager) findViewById(R.id.viewPage_collapsing_toolbar);
-        imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(this);
-        mViewPager.setAdapter(imageCollapsingToolBarAdapter);
-        mViewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                v.getParent().requestDisallowInterceptTouchEvent(true);
-//                Log.v("Test", "Pager Touch");
-                return false;
-            }
-        });
 
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                mViewPager.getParent().requestDisallowInterceptTouchEvent(true);
-            }
-        });
 
 //        Fragment newFragment = new StudentFeaturedCoursesFragment();
 //        newFragment.setArguments(bundle);
@@ -246,5 +232,27 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // To clean up all activities
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onDataFetched(ArrayList courses) {
+        imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(this , courses);
+        mViewPager.setAdapter(imageCollapsingToolBarAdapter);
+        mViewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+//                Log.v("Test", "Pager Touch");
+                return false;
+            }
+        });
+
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                mViewPager.getParent().requestDisallowInterceptTouchEvent(true);
+            }
+        });
+
     }
 }
