@@ -161,6 +161,7 @@ public class InstructorFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK)
         Log.e("InstructorPhoto",
                 "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
                         .getData().toString());
