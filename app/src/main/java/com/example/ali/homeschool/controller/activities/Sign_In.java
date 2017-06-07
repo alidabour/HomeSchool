@@ -45,7 +45,7 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
         Email = (EditText) findViewById(R.id.Email);
         Password = (EditText) findViewById(R.id.Password);
         textViewSignup = (TextView) findViewById(R.id.textViewSignUp);
-        progressDialog = new ProgressDialog(getApplicationContext());
+        progressDialog = new ProgressDialog(this);
 
         textViewSignup.setOnClickListener(new View.OnClickListener() {
             @Override
