@@ -1,5 +1,6 @@
 package com.example.ali.homeschool.controller.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,6 +31,7 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth.AuthStateListener mAuthListener;
     //  private TextView Detail;
     private TextView textViewSignup ;
+    private ProgressDialog progressDialog ;
 
     private EditText Email;
     private EditText Password;
@@ -43,6 +45,7 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
         Email = (EditText) findViewById(R.id.Email);
         Password = (EditText) findViewById(R.id.Password);
         textViewSignup = (TextView) findViewById(R.id.textViewSignUp);
+        progressDialog = new ProgressDialog(getApplicationContext());
 
         textViewSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +57,7 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
         });
         mAuth = FirebaseAuth.getInstance();
         // Buttons
+
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -89,6 +93,10 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
         //   showProgressDialog();
 
         // [START sign_in_with_email]
+
+        progressDialog.setMessage("Signin user ...");
+        progressDialog.show();
+
         mAuth.signInWithEmailAndPassword(Email.getText().toString().trim(),Password.getText().toString().trim())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

@@ -15,6 +15,7 @@ import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.data.HeaderRVData;
 import com.example.ali.homeschool.descriptionActivity.CourseDescriptionActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,11 +26,14 @@ public class CourseSectionListAdapter extends RecyclerView.Adapter<CourseSection
     Context context;
     List<HeaderRVData> headerRVDataList;
     int userViewType;
-    public CourseSectionListAdapter(Context context,List<HeaderRVData> headerRVDataList,int userviewType){
+    ArrayList<String> subject ;
+    public CourseSectionListAdapter(Context context, List<HeaderRVData> headerRVDataList, int userviewType , ArrayList subject){
         this.context = context;
         this.userViewType=userviewType;
         this.headerRVDataList = headerRVDataList;
+        this.subject = subject ;
     }
+
     @Override
     public ItemRowHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_section_list_item,null);
@@ -38,7 +42,7 @@ public class CourseSectionListAdapter extends RecyclerView.Adapter<CourseSection
 
     @Override
     public void onBindViewHolder(ItemRowHolder holder, int position) {
-        holder.sectionHeader.setText("Section :"+position);
+        holder.sectionHeader.setText(subject.get(position));
         List list = headerRVDataList.get(position).getCategoryInformations();
         CategoryAdapter itemListDataAdapter = new CategoryAdapter(list, new CategoryAdapter.OnClickHandler() {
             @Override
@@ -56,8 +60,6 @@ public class CourseSectionListAdapter extends RecyclerView.Adapter<CourseSection
         holder.sectionRV.setHasFixedSize(true);
         holder.sectionRV.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.sectionRV.setAdapter(itemListDataAdapter);
-
-
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.ali.homeschool.controller.fragments;
 
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,6 +47,8 @@ public class StudentFeaturedCoursesFragment extends Fragment {
     private List<CourseCreated> users;
     private List<HeaderRVData> headerRVDatas;
     public int type;
+    ArrayList<String> subject = new ArrayList<>();
+
 
     public StudentFeaturedCoursesFragment() {
     }
@@ -72,6 +75,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
         super.onStart();
         // Add value event listener to the post
         // [START post_value_event_listener]DatabaseReference myRef = databaseReference;
+
         DatabaseReference myRef = databaseReference;
         myRef.child("courses").addValueEventListener(
                 new ValueEventListener() {
@@ -83,7 +87,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                         // Get Post object and use the values to update the UI
                         // [START_EXCLUDE]
                         for (DataSnapshot x : dataSnapshot.getChildren()) {
-                            Log.v("Test", "Child : " + x.toString());
+                            //Log.v("Test", "Child : " + x.toString());
                             CourseCreated c = x.getValue(CourseCreated.class);
                             String key = x.getKey();
                             c.setCourse_id(key);
@@ -92,6 +96,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                         }
                         HashMap<String, ArrayList<CourseCreated>> map = new HashMap<>();
                         for (CourseCreated x : users) {
+                           // subject.add(x.getSubjectS());
                             ArrayList<CourseCreated> c = new ArrayList<CourseCreated>();
                             if (map.get(x.getSubjectS()) != null) {
                                 c = map.get(x.getSubjectS());
@@ -110,11 +115,11 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                             headerRVDatas.add(new HeaderRVData((String) pair.getKey(),
                                     (List) pair.getValue()));
                             Log.v("Test", "Map_______" + pair.getKey() + " = " + pair.getValue());
+                            subject.add(pair.getKey().toString());
                             it.remove(); // avoids a ConcurrentModificationException
                         }
                         courseSectionListAdapter = new CourseSectionListAdapter(getActivity(),
-
-                                headerRVDatas,1);
+                                headerRVDatas,1,subject);
                         courseSectionRV.setAdapter(courseSectionListAdapter);
                         // [END_EXCLUDE]
                     }

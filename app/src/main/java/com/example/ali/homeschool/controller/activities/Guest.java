@@ -47,6 +47,7 @@ public class Guest extends AppCompatActivity {
     public int type;
     ViewPager mViewPager;
     SampleCoursesToolbarAdapter imageCollapsingToolBarAdapter;
+    ArrayList<String> subject = new ArrayList<>();
 
 
     @Override
@@ -187,14 +188,20 @@ public class Guest extends AppCompatActivity {
                         }
                         HashMap<String, ArrayList<CourseCreated>> map = new HashMap<>();
                         for (CourseCreated x : users) {
+                           // subject.add(x.getSubjectS());
+                            //Log.e("Subject", x.getSubjectS());
                             ArrayList<CourseCreated> c = new ArrayList<CourseCreated>();
                             if (map.get(x.getSubjectS()) != null) {
                                 c = map.get(x.getSubjectS());
                                 c.add(x);
                                 map.put(x.getSubjectS(), c);
+                                Log.e("Subject1", x.getSubjectS());
+
                             } else {
                                 c.add(x);
                                 map.put(x.getSubjectS(), c);
+                                Log.e("Subject2", x.getSubjectS());
+                                Log.e("Name", x.getName());
                             }
                         }
                         Log.v("Test", "Map :" + map.toString());
@@ -205,10 +212,11 @@ public class Guest extends AppCompatActivity {
                             headerRVDatas.add(new HeaderRVData((String) pair.getKey(),
                                     (List) pair.getValue()));
                             Log.v("Test", "Map_______" + pair.getKey() + " = " + pair.getValue());
+                            subject.add(pair.getKey().toString());
                             it.remove(); // avoids a ConcurrentModificationException
                         }
                         courseSectionListAdapter = new CourseSectionListAdapter(getApplicationContext(),
-                                headerRVDatas,0);
+                                headerRVDatas,0,subject);
                         courseSectionRV.setAdapter(courseSectionListAdapter);
                         // [END_EXCLUDE]
                     }

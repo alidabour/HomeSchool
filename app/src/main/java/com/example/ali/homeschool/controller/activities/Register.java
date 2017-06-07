@@ -1,6 +1,7 @@
 package com.example.ali.homeschool.controller.activities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -57,6 +58,7 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
     String photoString;
     UploadFile uploadFile;
     private TextView textViewSignin ;
+    private ProgressDialog progressDialog ;
 
 
     @Override
@@ -74,6 +76,8 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         Button uploadPhotoButton = (Button) findViewById(R.id.UploadButton);
+
+        progressDialog = new ProgressDialog(getApplicationContext());
 
         textViewSignin = (TextView) findViewById(R.id.textViewSignin);
         textViewSignin.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +136,9 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
         if (!validateForm()) {
             return;
         }
+        progressDialog.setMessage("Registering user ...");
+        progressDialog.show();
+
         if (Password.equals(Repeated_Password)) {
             mAuth.createUserWithEmailAndPassword(Email, Password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
