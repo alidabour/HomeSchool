@@ -8,14 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.InstructorTopic.ImageClicked;
 import com.example.ali.homeschool.InstructorTopic.ParseXMLInstructor;
-import com.example.ali.homeschool.exercises.speech.Speech;
 
 import org.xmlpull.v1.XmlPullParserException;
 

@@ -102,6 +102,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         users = new ArrayList<>();
+                        random= new ArrayList<>();
                         // Get Post object and use the values to update the UI
                         // [START_EXCLUDE]
                         for (DataSnapshot x : dataSnapshot.getChildren()) {

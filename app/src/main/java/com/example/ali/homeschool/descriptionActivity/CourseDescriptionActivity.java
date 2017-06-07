@@ -20,6 +20,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.InstructorTopic.TopicModel;
@@ -85,7 +86,7 @@ public class CourseDescriptionActivity extends AppCompatActivity  {
         Toast t;
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        toolbar = (Toolbar) findViewById(R.id.toolbar1);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Animals Vol. 1");
         enroll = (Button) findViewById(R.id.enroll);
         courseImage = (ImageView) findViewById(R.id.imageView);
@@ -105,6 +106,7 @@ public class CourseDescriptionActivity extends AppCompatActivity  {
             courseTeacher.setText(courseCreated.getTeacher_name());
             courseRatingText.setText(courseCreated.getRate());
             courseRating.setRating(Float.parseFloat(courseCreated.getRate()));
+            Glide.with(getApplicationContext()).load(courseCreated.getPhoto_url()).fitCenter().into(courseImage);
             key = courseCreated.getCourse_id();
             toolbar.setTitle(courseCreated.getName());
             Log.v("Test", "Child : " + courseCreated.getName());

@@ -119,8 +119,8 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == PICK_IMAGE_REQUEST) {
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK)
+        {
                 Log.v("Instructor",
                         "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
                                 .getData().toString());
@@ -130,7 +130,7 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
             }
         }
 
-    }
+
 
     private void registering(String Email, String Password, String Repeated_Password) {
         if (!validateForm()) {

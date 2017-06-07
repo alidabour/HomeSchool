@@ -1,6 +1,7 @@
 package com.example.ali.homeschool.adapter;
 
 
+import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
 
@@ -25,12 +27,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     List<CourseCreated> CourseList ;
     private Cursor mCursor;
     public  OnClickHandler onClickHandler;
+    Context context;
     public interface OnClickHandler {
         void onClick(CourseCreated test);
     }
-    public CategoryAdapter(List<CourseCreated> CourseList , OnClickHandler onClickHandler) {
+    public CategoryAdapter(Context context,List<CourseCreated> CourseList , OnClickHandler onClickHandler) {
         Log.v("Test","----------------------------------CategoryAdapter");
-
+        this.context=context;
         this.onClickHandler = onClickHandler;
         this.CourseList  = CourseList ;
 //        Log.v("Test","Constr."+categoryInformationList.get(0).getCategoryName());
@@ -46,9 +49,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public void onBindViewHolder(CategoryAdapter.CategoryViewHolder holder, int position) {
 //        Log.v("Test","----------------------------------CategoryAdapter : "+ CourseList.get(position).toString());
+        CourseCreated Course = CourseList.get(position);
+        Glide.with(context).load(Course.getPhoto_url()).fitCenter().into(holder.categoryImage);
+        holder.categoryName.setText(Course.getName());
 
-        holder.categoryImage.setImageResource(R.drawable.earlymath);
-        holder.categoryName.setText(CourseList.get(position).getName());
 //        mCursor.moveToPosition(position);
 //        CategoryInformation categoryInformation = categoryInformationList.get(position);
 //        Log.v("Test","test");

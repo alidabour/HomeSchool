@@ -357,8 +357,8 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == PICK_IMAGE_REQUEST) {
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK)
+        {
                 Log.v("Instructor",
                         "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
                                 .getData().toString());
@@ -399,7 +399,7 @@ public class InstructorTopicActivity extends AppCompatActivity implements ImageC
             }
         }
 
-    }
+
 
     private void openColorQuestionDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(InstructorTopicActivity.this);

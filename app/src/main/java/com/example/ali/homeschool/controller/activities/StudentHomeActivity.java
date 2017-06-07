@@ -56,6 +56,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     ImageView userPhotoId;
     TextView UserName;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

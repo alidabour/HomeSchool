@@ -44,7 +44,7 @@ public class CourseSectionListAdapter extends RecyclerView.Adapter<CourseSection
     public void onBindViewHolder(ItemRowHolder holder, int position) {
         holder.sectionHeader.setText(subject.get(position));
         List list = headerRVDataList.get(position).getCategoryInformations();
-        CategoryAdapter itemListDataAdapter = new CategoryAdapter(list, new CategoryAdapter.OnClickHandler() {
+        CategoryAdapter itemListDataAdapter = new CategoryAdapter(context,list, new CategoryAdapter.OnClickHandler() {
             @Override
             public void onClick(CourseCreated course) {
                 Intent intent= new Intent (context, CourseDescriptionActivity.class);
