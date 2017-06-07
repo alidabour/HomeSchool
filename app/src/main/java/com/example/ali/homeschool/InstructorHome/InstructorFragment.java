@@ -48,6 +48,7 @@ public class InstructorFragment extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 235;
     UploadFile uploadFile;
     private Uri filePath;
+    CourseCreated globalCourseCreated;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

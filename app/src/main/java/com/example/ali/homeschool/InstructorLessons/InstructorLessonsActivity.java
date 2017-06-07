@@ -33,6 +33,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     DatabaseReference db;
     CourseCreated courseCreated;
     LessonModel lessonModel;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +41,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_instructor_lessons);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab3);
 
-        Toolbar toolbar;
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        // this line supports the back button to go back
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar = (Toolbar) findViewById(R.id.toolbar1);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,9 +98,15 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("course")){
             courseCreated = intent.getParcelableExtra("course");
-            Log.v("Test","Course "+ courseCreated.getCourse_id());
-            toolbar.setTitle(courseCreated.getName());
+            Log.v("TestingTesting",""+ toolbar);
+           toolbar.setTitle(courseCreated.getName().toString());
+
+
         }
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override
