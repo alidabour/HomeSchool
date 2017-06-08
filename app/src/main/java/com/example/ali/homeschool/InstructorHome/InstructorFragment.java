@@ -22,6 +22,7 @@ import com.example.ali.homeschool.InstructorLessons.InstructorLessonsActivity;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
 import com.example.ali.homeschool.UserModelHelper.UploadFile;
+import com.example.ali.homeschool.adapter.InstructorCoursesCardAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +47,7 @@ public class InstructorFragment extends Fragment {
     DatabaseReference db;
     FirebaseUser user;
     CourseCreatedAdapter courseCreatedAdapter;
+    InstructorCoursesCardAdapter instructorCoursesCardAdapter;
     private static final int PICK_IMAGE_REQUEST = 235;
     UploadFile uploadFile;
     private Uri filePath;
@@ -194,9 +196,7 @@ public class InstructorFragment extends Fragment {
                     Log.v("Test", "Courses Model " + courseCreated.getName());
                     Log.v("Test", "Courses " + x.toString());
                 }
-
-                courseCreatedAdapter = new CourseCreatedAdapter(coursesList,
-                        new CourseCreatedAdapter.OnClickHandler() {
+                instructorCoursesCardAdapter = new InstructorCoursesCardAdapter(coursesList,new InstructorCoursesCardAdapter.OnClickHandler() {
                             @Override
                             public void onClick(CourseCreated test) {
                                 Log.v("Test", "Open Activity");
@@ -206,7 +206,19 @@ public class InstructorFragment extends Fragment {
                                 startActivity(intent);
                             }
                         },getContext());
-                coursesRV.setAdapter(courseCreatedAdapter);
+
+                coursesRV.setAdapter(instructorCoursesCardAdapter);
+//                courseCreatedAdapter = new CourseCreatedAdapter(coursesList,
+//                        new CourseCreatedAdapter.OnClickHandler() {
+//                            @Override
+//                            public void onClick(CourseCreated test) {
+//                                Log.v("Test", "Open Activity");
+//                                Intent intent = new Intent(getContext(),
+//                                        InstructorLessonsActivity.class);
+//                                intent.putExtra("course", test);
+//                                startActivity(intent);
+//                            }
+//                        },getContext());
             }
 
             @Override

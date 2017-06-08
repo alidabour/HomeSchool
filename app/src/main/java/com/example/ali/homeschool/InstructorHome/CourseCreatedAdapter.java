@@ -1,7 +1,6 @@
 package com.example.ali.homeschool.InstructorHome;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,9 +11,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.adapter.CategoryAdapter;
-import com.example.ali.homeschool.data.DataProvider;
-import com.example.ali.homeschool.data.firebase.Courses;
 
 import java.util.List;
 
@@ -48,6 +44,7 @@ public class CourseCreatedAdapter extends RecyclerView.Adapter<CourseCreatedAdap
 
     @Override
     public void onBindViewHolder(CourseViewHolder holder, int position) {
+
         CourseCreated courseCreated = courseCreatedList.get(position);
         holder.courseName.setText(courseCreated.getName());
        // Log.e("Photo: ",courseCreated.getPhoto_url() );
@@ -68,6 +65,7 @@ public class CourseCreatedAdapter extends RecyclerView.Adapter<CourseCreatedAdap
             super(itemView);
             courseName = (TextView) itemView.findViewById(R.id.courseName);
             courseImage = (ImageView) itemView.findViewById(R.id.courseImage);
+
             itemView.setOnClickListener(this);
         }
 
