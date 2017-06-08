@@ -48,15 +48,9 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import static com.example.ali.homeschool.Constants.PUTCOLOR;
-import static com.example.ali.homeschool.Constants.PUTSIZEHERE;
-import static com.example.ali.homeschool.Constants.PUT_ID_HERE;
 import static com.example.ali.homeschool.Constants.PUT_SOUND_LINK_HERE;
-import static com.example.ali.homeschool.Constants.PUT_TEXT_HERE;
-import static com.example.ali.homeschool.Constants.actionTextXML;
 import static com.example.ali.homeschool.Constants.mButton;
 import static com.example.ali.homeschool.Constants.mTextView;
-import static com.example.ali.homeschool.Constants.radioButton;
 import static com.example.ali.homeschool.Constants.radioGroupEnd;
 import static com.example.ali.homeschool.Constants.radioGroupStart;
 import static com.example.ali.homeschool.Constants.setColorButton;
@@ -82,7 +76,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     TextView image;
     TextView question;
     String courseId;
-    String lessonModel;
+    String lessonid;
+    String topicid;
     TextView sound;
     LinearLayout act_main;
     LinearLayout mainView;
@@ -102,11 +97,14 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         question = (TextView) findViewById(R.id.question);
         submitTV = (TextView) findViewById(R.id.submit);
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("lesson")) {
-            lessonModel = intent.getStringExtra("lesson");
+        if (intent != null && intent.hasExtra("lessonid")) {
+            lessonid = intent.getStringExtra("lessonid");
         }
         if (intent != null && intent.hasExtra("courseID")) {
             courseId = intent.getStringExtra("courseID");
+        }
+        if (intent != null && intent.hasExtra("topicid")) {
+            courseId = intent.getStringExtra("topicid");
         }
         question.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +150,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             @Override
             public void onClick(View view) {
                 databaseReference = databaseReference.child("courses").child(courseId)
-                        .child("lessons").child(lessonModel).child("topics");
+                        .child("lessons").child(lessonid).child("topics").child("topicid");
                 String key = databaseReference.push().getKey();
                 TopicModel t = new TopicModel();
                 t.setId(key);

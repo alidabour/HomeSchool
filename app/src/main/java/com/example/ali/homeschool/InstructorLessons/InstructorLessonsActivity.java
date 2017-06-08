@@ -53,7 +53,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                 final EditText input = new EditText(InstructorLessonsActivity.this);
                 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
                 input.setInputType(
-                        InputType.TYPE_CLASS_TEXT );
+                        InputType.TYPE_CLASS_TEXT);
                 builder.setView(input);
 
                 // Set up the buttons
@@ -62,7 +62,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         m_Text = input.getText().toString();
 //                        Map<String,String> lesson = new HashMap<String, String>();
-                        String key =db.child("courses").child(courseCreated.getCourse_id()).child("lessons").push().getKey();
+                        String key = db.child("courses").child(courseCreated.getCourse_id()).child("lessons").push().getKey();
 //                        lesson.put("id",key);
 //                        lesson.put("name",m_Text);
                         db.child("courses").child(courseCreated.getCourse_id()).child("lessons").child(key).child("id").setValue(key);
@@ -89,18 +89,18 @@ public class InstructorLessonsActivity extends AppCompatActivity {
 //        });
         lessonsRV = (RecyclerView) findViewById(R.id.lessonsRV);
         lessonsRV.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         lessonsRV.setLayoutManager(layoutManager);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(lessonsRV.getContext(),layoutManager.getOrientation());
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(lessonsRV.getContext(), layoutManager.getOrientation());
         lessonsRV.addItemDecoration(dividerItemDecoration);
 
         db = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("course")){
+        if (intent != null && intent.hasExtra("course")) {
             courseCreated = intent.getParcelableExtra("course");
-            Log.v("TestingTesting",""+ courseCreated.getName().toString());
-           toolbar.setTitle(courseCreated.getName().toString());
+            Log.v("TestingTesting", "" + courseCreated.getName().toString());
+            toolbar.setTitle(courseCreated.getName().toString());
             courseID = courseCreated.getCourse_id().toString();
 
 
@@ -115,14 +115,15 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.v("Test ", ":------------"+courseCreated.getCourse_id());
+        Log.v("Test ", ":------------" + courseCreated.getCourse_id());
         db.child("courses").child(String.valueOf(courseCreated.getCourse_id())).child("lessons").addValueEventListener(
                 new ValueEventListener() {
                     List<LessonModel> lessonModelList;
+
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         lessonModelList = new ArrayList<LessonModel>();
-                        for (DataSnapshot d : dataSnapshot.getChildren()){
+                        for (DataSnapshot d : dataSnapshot.getChildren()) {
                             lessonModel = d.getValue(LessonModel.class);
                             lessonModelList.add(lessonModel);
                         }
@@ -133,8 +134,11 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                                         // intent from current activity to Next Activity
                                         Intent intent = new Intent(InstructorLessonsActivity.this, InstructorTopicActivity.class);
                                         //Putting extras to get them in the Next Activity
-                                        intent.putExtra("Hello","Hello");
-                                        intent.putExtra("lesson",lessonModel);
+
+
+                                        intent.putExtra("courseid", courseID);
+                                        intent.putExtra("lessonid", lessonModel.getId());
+                                        //     intent.putExtra("lesson",test);
                                         // starting the Activity
                                         startActivity(intent);
                                     }

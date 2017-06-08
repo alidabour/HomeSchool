@@ -86,12 +86,5 @@ public class LessonModel implements Parcelable {
         }
     };
 
-    @Override
-    public String toString() {
-        return "LessonModel{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", topics=" + topics +
-                '}';
-    }
+
 }

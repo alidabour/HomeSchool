@@ -37,6 +37,9 @@ public class InstructorTopicActivity extends AppCompatActivity {
     Toolbar toolbar;
     String courseId;
     LessonModel lessonModel;
+    String lessonid;
+    Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +52,24 @@ public class InstructorTopicActivity extends AppCompatActivity {
 
 
         //Getting intent and checking if it's null
-        Intent intent = getIntent();
-        if(intent!=null)
-        {
-            Log.v("Test","Intent");
+       // Bundle bundle= intent.getBundleExtra("BUNDLE");
+        //    lessonModel = bundle.getParcelable("lesson");
+        if (getIntent().hasExtra("courseid")){
+            courseId = getIntent().getStringExtra("courseid");
+            Log.v("intent Extra :  ", ":------------" + courseId);
         }
-//            Log.v("intent Extra :  ", ":------------" + intent.getStringExtra("Hello"));
+        if (getIntent().hasExtra("lessonid")){
+            lessonid = getIntent().getStringExtra("lessonid");
+            Log.v("intent Extra :  ", ":------------" + lessonid);
+        }
+//        if(intent!=null)
+//        {
+//        }
+//        if(intent!=null)
+//        {
+//            courseId = intent.getString("courseid");
+//            Log.v("intent Extra :  ", ":------------" + courseId);
+//        }
 
 
 
@@ -127,10 +142,10 @@ public class InstructorTopicActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.v("ITA","Course id : " + courseId);
-        Log.v("ITA","Lesson id : " + lessonModel.getId());
 
-        db.child("courses").child(courseId).child("lessons").child(String.valueOf(lessonModel.getId())).addValueEventListener(
+
+
+        db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").addValueEventListener(
                 new ValueEventListener() {
                     List<TopicModel> lessonModelList;
                     @Override
@@ -147,8 +162,9 @@ public class InstructorTopicActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(TopicModel test) {
                                         Intent intent = new Intent(getApplicationContext(), InstructorTopicCreationActivity.class);
-                                        intent.putExtra("lesson",test.getId());
-                                        intent.putExtra("courseID",courseCreated.getCourse_id());
+                                        intent.putExtra("topicid",test.getId());
+                                        intent.putExtra("lessonid",lessonid);
+                                        intent.putExtra("courseID",courseId);
                                         startActivity(intent);
                                     }
                                 });
