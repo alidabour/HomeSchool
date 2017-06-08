@@ -35,13 +35,13 @@ import java.util.Objects;
  * A simple {@link Fragment} subclass.
  */
 public class MyCoursesFragment extends Fragment {
-    EnrolledCoursesAdapter1 enrolledCoursesAdapter;
+   // EnrolledCoursesAdapter1 enrolledCoursesAdapter;
     RecyclerView enrolledRecyclerView;
-    private static final int CURSOR_LOADER_ID = 1;
+   // private static final int CURSOR_LOADER_ID = 1;
     FirebaseAuth auth;
     FirebaseUser user;
     DatabaseReference db;
-    List<Courses2> enrolledCoursesList;
+   // List<Courses2> enrolledCoursesList;
     List<CourseCreated> coursesNames;
 
     public MyCoursesFragment() {
@@ -60,7 +60,6 @@ public class MyCoursesFragment extends Fragment {
         }
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_courses_fragmetnt, container, false);
-
 
         enrolledRecyclerView = (RecyclerView) view.findViewById(R.id.enrolledCourses);
         enrolledRecyclerView.setHasFixedSize(true);
@@ -87,7 +86,7 @@ public class MyCoursesFragment extends Fragment {
 
                     @Override
                     public void onDataChange(final DataSnapshot dataSnapshot) {
-                        enrolledCoursesList = new ArrayList<Courses2>();
+                        //enrolledCoursesList = new ArrayList<Courses2>();
                         coursesNames = new ArrayList<CourseCreated>();
                         for (DataSnapshot s : dataSnapshot.getChildren()) {
                             Log.v("REBE", "Inside " + s);
@@ -113,21 +112,20 @@ public class MyCoursesFragment extends Fragment {
                                                         courseCreated.setName(x.getValue().toString());
 //                                                        courses.setDescription(x.getValue().toString());
                                                     }
-
                                                 }
 //                                                Courses2 course2=null ;
 //                                                course2= inside.getValue(Courses2.class);
     //                                            Log.e("onDataChange: ", course + "");
 //                                                enrolledCoursesList.add(course2);
                                             coursesNames.add(courseCreated);
-                                                Log.v("Test", "Enrolled Size Updated:" + enrolledCoursesList.size());
+                                              //  Log.v("Test", "Enrolled Size Updated:" + enrolledCoursesList.size());
                                                 EnrolledCoursesAdapter1 enrolledCoursesAdapter1 = new EnrolledCoursesAdapter1(
                                                         coursesNames,
                                                         new EnrolledCoursesAdapter1.OnClickHandler() {
                                                             @Override
                                                             public void onClick(CourseCreated test) {
                                                                 Intent intent = new Intent(getActivity(),
-                                                                        ClassActivity.class);
+                                                                        LessonActivity.class);
                                                                 intent.putExtra("course",test);
 //                                                                Log.v("Test","Course Lesson : " + test.getLessons().size());
 //                                                                Set<Map.Entry<String, LessonModel>> entry =test.getLessons().entrySet();
@@ -135,8 +133,8 @@ public class MyCoursesFragment extends Fragment {
                                                                 startActivity(intent);
                                                             }
                                                         });
-                                                Log.v("Test", "Enrolled Size New:" + enrolledCoursesList.size());
-                                            enrolledRecyclerView.setAdapter(enrolledCoursesAdapter1);
+                                               // Log.v("Test", "Enrolled Size New:" + enrolledCoursesList.size());
+                                            enrolledRecyclerView.setAdapter(enrolledCoursesAdapter1 );
                                         }
                                         @Override
                                         public void onCancelled(DatabaseError databaseError) {

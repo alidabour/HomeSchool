@@ -215,7 +215,8 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
             transaction.commit();
 
             // Commit the transaction
-        }  else if (id == R.id.settings) {
+        }  else if (id == R.id.Support) {
+
 
         } else if (id == R.id.signout) {
             mAuth.getInstance().signOut();

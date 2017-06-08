@@ -80,6 +80,7 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         UserModelFirebaseClass userModelFirebaseClass = new UserModelFirebaseClass(new UserModelFirebase() {
             @Override
             public void dataRetrieved(UserModel userModel) {
+
                 Glide.with(getApplicationContext()).load(userModel.getPhoto()).transform(new CircleTransform(getApplicationContext())).into(userPhotoId);
                 UserName.setText(userModel.getName());
             }

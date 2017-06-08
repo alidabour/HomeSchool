@@ -24,9 +24,9 @@
     <group>
 
         <item
-            android:id="@+id/settings"
+            android:id="@+id/Support"
             android:icon="@drawable/ic_menu_share"
-            android:title="@string/settings" />
+            android:title="@string/support" />
         <item
             android:id="@+id/signout"
 

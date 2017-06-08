@@ -33,10 +33,12 @@ public class Courses2 implements Parcelable {
     public String privacy;
     public String description;
     public String course_id;
+    public  String photo_url ;
     ArrayList<LessonModel2> lessons;
 
 
     protected Courses2(Parcel in) {
+        photo_url = in.readString();
         name = in.readString();
         rate = in.readString();
         subject = in.readString();
@@ -67,6 +69,7 @@ public class Courses2 implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(photo_url);
         parcel.writeString(name);
         parcel.writeString(rate);
         parcel.writeString(subject);

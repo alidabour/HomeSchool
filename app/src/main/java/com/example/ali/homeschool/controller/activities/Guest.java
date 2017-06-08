@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -60,12 +61,14 @@ public class Guest extends AppCompatActivity {
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         setSupportActionBar(toolbar);
 
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
         courseSectionRV = (RecyclerView) findViewById(R.id.category_recyclerView);
         courseSectionRV.setHasFixedSize(true);
         courseSectionRV.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         headerRVDatas = new ArrayList<>();
+
         mViewPager = (ViewPager) findViewById(R.id.viewPage_collapsing_toolbar);
 
         mViewPager.setOnTouchListener(new View.OnTouchListener() {
@@ -157,7 +160,20 @@ public class Guest extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.home_menu, menu);
+        MenuItem item = menu.findItem(R.id.search_action);
+        SearchView searchView = (SearchView)item.getActionView();
+        Log.v("Searchview" , searchView+"");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
     }
 

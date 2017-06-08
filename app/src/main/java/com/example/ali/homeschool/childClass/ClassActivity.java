@@ -66,14 +66,15 @@ public class ClassActivity extends AppCompatActivity  {
         lessonModelList = new ArrayList<LessonModel>();
         listener = new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.v("Test","ONdaatachange");
+            public void onDataChange
+                    (DataSnapshot dataSnapshot) {
+                Log.e("Test","ONdaatachange");
                 Log.v("Test","Datasnapshot "+dataSnapshot.toString() );
                 for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
                     Log.v("Test","Data Lesson" + dataSnapshot1.toString());
                     LessonModel lessonModel = dataSnapshot1.getValue(LessonModel.class);
                     lessonModelList.add(lessonModel);
-                    Log.v("Test","Topics "+lessonModel.getTopics().toString());
+                    Log.e("Test","Topics "+lessonModel.getTopics().toString());
                     Log.v("Test","Topics "+lessonModel.getTopics().size());
 
                 }
@@ -81,14 +82,14 @@ public class ClassActivity extends AppCompatActivity  {
                     Map<String,TopicModel> topicModelHashMap =lessonModel.getTopics();
                     for(Map.Entry<String,TopicModel> modelEntry : topicModelHashMap.entrySet()){
                         TopicModel topicModel = modelEntry.getValue();
-                        Log.v("Test","Layouts " +topicModel.getLayout() );
+                        Log.e("Test","Layouts " +topicModel.getLayout() );
                         layouts.add(topicModel.getLayout());
                     }
                 }
-                if (getSupportFragmentManager() != null){
+              //  if (getSupportFragmentManager() != null){
                     pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(),layouts));
 
-                }
+              //  }
             }
 
             @Override
