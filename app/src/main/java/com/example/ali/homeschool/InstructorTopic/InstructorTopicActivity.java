@@ -46,8 +46,6 @@ public class InstructorTopicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_topic2);
 
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab3);
 
 
@@ -72,6 +70,8 @@ public class InstructorTopicActivity extends AppCompatActivity {
 //        }
 
 
+
+        db = FirebaseDatabase.getInstance().getReference();
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
@@ -136,8 +136,6 @@ public class InstructorTopicActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(lessonsRV.getContext(),layoutManager.getOrientation());
         lessonsRV.addItemDecoration(dividerItemDecoration);
 
-        db = FirebaseDatabase.getInstance().getReference();
-
      //   Log.v("Testytesty10001 ", ":------------" + intent.getParcelableExtra("lesson"));
 
 
@@ -151,8 +149,6 @@ public class InstructorTopicActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-
 
         db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").addValueEventListener(
                 new ValueEventListener() {
