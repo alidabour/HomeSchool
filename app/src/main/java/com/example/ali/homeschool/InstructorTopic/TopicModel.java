@@ -6,9 +6,7 @@ import android.os.Parcelable;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Ali on 4/21/2017.
- */
+
 
 public class TopicModel implements Parcelable {
     String id;

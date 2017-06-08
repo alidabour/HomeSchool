@@ -34,6 +34,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     CourseCreated courseCreated;
     LessonModel lessonModel;
     Toolbar toolbar;
+    String courseID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,11 +99,13 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("course")){
             courseCreated = intent.getParcelableExtra("course");
-            Log.v("TestingTesting",""+ toolbar);
+            Log.v("TestingTesting",""+ courseCreated.getName().toString());
            toolbar.setTitle(courseCreated.getName().toString());
+            courseID = courseCreated.getCourse_id().toString();
 
 
         }
+
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -120,18 +123,19 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         lessonModelList = new ArrayList<LessonModel>();
                         for (DataSnapshot d : dataSnapshot.getChildren()){
-                            Log.v("Test","Lesson " + d.toString());
                             lessonModel = d.getValue(LessonModel.class);
                             lessonModelList.add(lessonModel);
-                            Log.v("Test","LESSON __ "+ lessonModel.toString());
                         }
                         LessonAdapter lessonAdapter = new LessonAdapter(lessonModelList,
                                 new LessonAdapter.OnClickHandler() {
                                     @Override
                                     public void onClick(LessonModel test) {
-                                        Intent intent = new Intent(getApplicationContext(), InstructorTopicActivity.class);
-                                        intent.putExtra("lesson",test.getId());
-                                        intent.putExtra("courseID",courseCreated.getCourse_id());
+                                        // intent from current activity to Next Activity
+                                        Intent intent = new Intent(InstructorLessonsActivity.this, InstructorTopicActivity.class);
+                                        //Putting extras to get them in the Next Activity
+                                        intent.putExtra("Hello","Hello");
+                                        intent.putExtra("lesson",lessonModel);
+                                        // starting the Activity
                                         startActivity(intent);
                                     }
                                 });

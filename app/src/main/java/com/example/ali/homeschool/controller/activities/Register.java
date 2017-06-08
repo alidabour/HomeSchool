@@ -59,6 +59,7 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
     UploadFile uploadFile;
     private TextView textViewSignin ;
     private ProgressDialog progressDialog ;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
 
     @Override
@@ -106,6 +107,17 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
                 registering(email.getText().toString().trim(), password.getText().toString().trim(), repeated_password.getText().toString().trim());
             }
         });
+
+        if (user != null) {
+            // User is signed in
+            {
+                Log.v("uid",user.getUid());
+                Intent intent = new Intent(getApplicationContext(), SignInAs.class);
+                startActivity(intent);
+            }
+        } else {
+            // User is signed out
+        }
     }
 
 
@@ -151,10 +163,12 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
                                 DatabaseReference myRef = databaseReference;
                                 newUser = new UserModel();
                                 newUser.setEmail(email.getText().toString().trim());
-                                newUser.setUid(user.getUid());
                                 newUser.setName(String.valueOf(userName));
                                 newUser.setPhoto(photoString);
+                                Log.v("UserID:",user.getUid());
                                 myRef.child("users").child(user.getUid()).setValue(newUser);
+                                String Uid = myRef.child("users").child(user.getUid()).getKey();
+                                myRef.child("users").child(user.getUid()).child("uid").setValue(Uid);
                                 finish();
                                 startActivity(new Intent(getBaseContext(), SignInAs.class));
                             } else {

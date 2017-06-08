@@ -204,7 +204,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
 
             //
             // Pager.removeAllViews();
-            Fragment newFragment1 = new StudentFeaturedCoursesFragment();
+            StudentFeaturedCoursesFragment newFragment1 = new StudentFeaturedCoursesFragment();
             newFragment1.setArguments(bundle);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
 

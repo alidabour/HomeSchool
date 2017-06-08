@@ -1,10 +1,10 @@
 package com.example.ali.homeschool.childEnrolledCourses;
 
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,9 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.childClass.ClassActivity;
 import com.example.ali.homeschool.childProgress.EnrolledCourseModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,7 +22,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +39,8 @@ public class MyCoursesFragment extends Fragment {
     FirebaseUser user;
     DatabaseReference db;
    // List<Courses2> enrolledCoursesList;
-    List<CourseCreated> coursesNames;
+    List<Courses2> enrolledCoursesList;
+    List<Courses2> coursesNames;
 
     public MyCoursesFragment() {
         // Required empty public constructor
@@ -87,7 +85,9 @@ public class MyCoursesFragment extends Fragment {
                     @Override
                     public void onDataChange(final DataSnapshot dataSnapshot) {
                         //enrolledCoursesList = new ArrayList<Courses2>();
-                        coursesNames = new ArrayList<CourseCreated>();
+
+                        enrolledCoursesList = new ArrayList<Courses2>();
+                        coursesNames = new ArrayList<Courses2>();
                         for (DataSnapshot s : dataSnapshot.getChildren()) {
                             Log.v("REBE", "Inside " + s);
                             EnrolledCourseModel c = s.getValue(EnrolledCourseModel.class);
@@ -100,7 +100,7 @@ public class MyCoursesFragment extends Fragment {
                                         public void onDataChange(DataSnapshot inside) {
                                             Log.v("Fire", "Inside " + inside.toString());
                                             Courses courses = new Courses();
-                                            CourseCreated courseCreated = new CourseCreated();
+                                            Courses2 courseCreated = new Courses2();
                                                 for (DataSnapshot x : inside.getChildren()){
                                                     Log.v("Test","Inside Childs "+x.toString() );
                                                     if(Objects.equals(x.getKey(), "course_id")){
@@ -123,7 +123,7 @@ public class MyCoursesFragment extends Fragment {
                                                         coursesNames,
                                                         new EnrolledCoursesAdapter1.OnClickHandler() {
                                                             @Override
-                                                            public void onClick(CourseCreated test) {
+                                                            public void onClick(Courses2 test) {
                                                                 Intent intent = new Intent(getActivity(),
                                                                         LessonActivity.class);
                                                                 intent.putExtra("course",test);

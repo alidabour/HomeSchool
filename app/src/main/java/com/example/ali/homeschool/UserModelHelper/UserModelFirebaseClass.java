@@ -34,6 +34,9 @@ public class UserModelFirebaseClass {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userModel = dataSnapshot.getValue(UserModel.class);
+                if(userModel.getPhoto()==null){
+                    userModel.setPhoto("photoid");
+                }
                 userModelFirebase.dataRetrieved(userModel);
                 //        Log.e("onDataChange: ",userModel.getPhoto());
                // UserName.setText(userModel.getName());

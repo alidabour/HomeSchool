@@ -1,14 +1,12 @@
 package com.example.ali.homeschool;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import com.example.ali.homeschool.InstructorTopic.InstructorTopicActivity;
 import com.example.ali.homeschool.InstructorTopic.TextAppInterface;
 import com.example.ali.homeschool.exercises.Answer;
 import com.jrummyapps.android.colorpicker.ColorPickerDialog;

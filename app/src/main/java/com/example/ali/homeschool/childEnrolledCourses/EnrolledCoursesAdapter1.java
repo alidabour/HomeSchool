@@ -7,9 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.childEnrolledCourses.Courses;
 
 import java.util.List;
 
@@ -18,12 +16,12 @@ import java.util.List;
  */
 
 public class EnrolledCoursesAdapter1 extends RecyclerView.Adapter<EnrolledCoursesAdapter1.LessonViewHolder>{
-    List<CourseCreated> courses;
+    List<Courses2> courses;
     public EnrolledCoursesAdapter1.OnClickHandler onClickHandler;
     public interface OnClickHandler {
-        void onClick(CourseCreated test);
+        void onClick(Courses2 test);
     }
-    public EnrolledCoursesAdapter1(List<CourseCreated> courses, EnrolledCoursesAdapter1.OnClickHandler onClickHandler) {
+    public EnrolledCoursesAdapter1(List<Courses2> courses, EnrolledCoursesAdapter1.OnClickHandler onClickHandler) {
         this.courses = courses;
         this.onClickHandler = onClickHandler;
     }
@@ -37,9 +35,9 @@ public class EnrolledCoursesAdapter1 extends RecyclerView.Adapter<EnrolledCourse
 
     @Override
     public void onBindViewHolder(LessonViewHolder holder, int position) {
-        CourseCreated categoryInformations1 = courses.get(position);
+        Courses2 categoryInformations1 = courses.get(position);
         holder.courseName.setText(categoryInformations1.getName());
-        holder.courseImage.setImageResource(R.drawable.earlymath);
+
     }
 
     @Override
