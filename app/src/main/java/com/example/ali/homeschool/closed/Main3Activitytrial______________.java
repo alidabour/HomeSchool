@@ -176,7 +176,7 @@ public class Main3Activitytrial______________ extends AppCompatActivity implemen
 
         } else if (id == R.id.featuredCoursesNaV) {
 
-        } else if (id == R.id.settings) {
+        } else if (id == R.id.Support) {
 
         } else if (id == R.id.signout) {
 

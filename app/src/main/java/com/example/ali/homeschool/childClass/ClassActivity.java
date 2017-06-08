@@ -40,8 +40,9 @@ public class ClassActivity extends AppCompatActivity  {
     ViewPager pager;
     ArrayList<String> layouts;
     DatabaseReference db;
-    CourseCreated course;
-    List<LessonModel> lessonModelList;
+    LessonModel lesson;
+    String course_id , lesson_id ;
+    ArrayList<TopicModel> TopicModelList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,61 +50,67 @@ public class ClassActivity extends AppCompatActivity  {
         context=getApplicationContext();
         setContentView(R.layout.activity_class_trial);
         pager = (ViewPager) findViewById(R.id.viewPager);
-        Intent intent = getIntent();
-        if (intent!= null && intent.hasExtra("course")){
-            Log.v("Test","Intent Found");
-             course = intent.getParcelableExtra("course");
-            Log.v("Test","Intent Found" +  " Course "+course.getName());
+        Intent iin= getIntent();
+        Bundle b = iin.getExtras();
+        TopicModelList = new ArrayList<TopicModel>();
+        if (b != null) {
 
+            Log.v("Test","Intent Found");
+            course_id = b.getString("courseid");
+            lesson_id = b.getString("lessonid");
+            Log.v("Test","Intent Found" +  " lesson "+course_id + " Course id " + course_id);
         }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.v("Test","Coursr id "+ course.getCourse_id());
-        layouts=new ArrayList<String>();
-        lessonModelList = new ArrayList<LessonModel>();
-        listener = new ValueEventListener() {
+        //Log.v("Test","Coursr id "+ course.getCourse_id());
+        //  lessonModelList = new ArrayList<LessonModel>();
+        db.child("courses").child(course_id).child("lessons").child(lesson_id).child("topics").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange
-                    (DataSnapshot dataSnapshot) {
-                Log.e("Test","ONdaatachange");
-                Log.v("Test","Datasnapshot "+dataSnapshot.toString() );
-                for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
-                    Log.v("Test","Data Lesson" + dataSnapshot1.toString());
-                    LessonModel lessonModel = dataSnapshot1.getValue(LessonModel.class);
-                    lessonModelList.add(lessonModel);
-                    Log.e("Test","Topics "+lessonModel.getTopics().toString());
-                    Log.v("Test","Topics "+lessonModel.getTopics().size());
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.e("TopicsonDataChang", "onDataChang");
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Log.e("TopicsonDataChang", dataSnapshot.toString());
+                    TopicModel topicModel = dataSnapshot1.getValue(TopicModel.class);
+                    Log.e("TopicsonDataChang", topicModel.toString());
+                    TopicModelList.add(topicModel);
+                }
+
+                layouts = new ArrayList<String>();
+
+                for(TopicModel modelEntry : TopicModelList){
+
+                    TopicModel topicModel = modelEntry;
+                    layouts.add(topicModel.getLayout());
 
                 }
-                for (LessonModel lessonModel:lessonModelList){
-                    Map<String,TopicModel> topicModelHashMap =lessonModel.getTopics();
-                    for(Map.Entry<String,TopicModel> modelEntry : topicModelHashMap.entrySet()){
-                        TopicModel topicModel = modelEntry.getValue();
-                        Log.e("Test","Layouts " +topicModel.getLayout() );
-                        layouts.add(topicModel.getLayout());
-                    }
-                }
-              //  if (getSupportFragmentManager() != null){
-                    pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(),layouts));
 
-              //  }
+//                Map<String, TopicModel> topicModelHashMap = lesson.getTopics();
+//                for (Map.Entry<String, TopicModel> modelEntry : topicModelHashMap.entrySet()) {
+//                    TopicModel topicModel = modelEntry.getValue();
+//                    Log.e("Test", "Layouts " + topicModel.getLayout());
+//                    layouts.add(topicModel.getLayout());
+//                    //  }
+//                }
+                //  if (getSupportFragmentManager() != null){
+                pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(), layouts));
+                //layouts = new ArrayList<String>();
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        };
-        db.child("courses").child(course.getCourse_id()).child("lessons").addValueEventListener(listener);
+        });
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        db.removeEventListener(listener);
+      // db.removeEventListener();
     }
 
     @Override

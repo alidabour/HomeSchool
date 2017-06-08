@@ -288,7 +288,7 @@ public class CourseDescriptionActivity extends AppCompatActivity  {
                         Log.v("Testing", "Lesson " + dataSnapshot.toString());
                         lessonModelList = new ArrayList<TopicModel>();
                         for (DataSnapshot d1 : dataSnapshot.getChildren()) {
-
+                            Log.e("datasnapshot: ", d1 +"");
                             lessonModel = d1.getValue(LessonModel.class);
                             for (DataSnapshot d2 : d1.getChildren()) {
                                 for (DataSnapshot d3 : d2.getChildren()) {

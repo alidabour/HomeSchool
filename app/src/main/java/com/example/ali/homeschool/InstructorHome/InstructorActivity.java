@@ -105,15 +105,19 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         int id = item.getItemId();
 
             // Commit the transaction
-         if (id == R.id.settings) {
+         if (id == R.id.Support) {
 
-        } else if (id == R.id.signout) {
+             Intent myWebLink = new Intent(android.content.Intent.ACTION_VIEW);
+             myWebLink.setData(Uri.parse("https://goo.gl/forms/QAK8BHZmvjSYk1fA3"));
+             startActivity(myWebLink);
+
+         } else if (id == R.id.signout) {
             mAuth.getInstance().signOut();
             signOut101();
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

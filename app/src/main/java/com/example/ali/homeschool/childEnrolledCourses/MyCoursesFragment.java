@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.childClass.ClassActivity;
 import com.example.ali.homeschool.childProgress.EnrolledCourseModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,8 +41,8 @@ public class MyCoursesFragment extends Fragment {
     FirebaseUser user;
     DatabaseReference db;
    // List<Courses2> enrolledCoursesList;
-    List<Courses2> enrolledCoursesList;
-    List<Courses2> coursesNames;
+    List<Courses> enrolledCoursesList;
+    List<CourseCreated> coursesNames;
 
     public MyCoursesFragment() {
         // Required empty public constructor
@@ -77,17 +79,15 @@ public class MyCoursesFragment extends Fragment {
         db.child("users").child(user.getUid()).child("EnrolledCourses")
                 .addValueEventListener(new ValueEventListener() {
 //                    enrolledCourses = new ArrayList;
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }
-
                     @Override
                     public void onDataChange(final DataSnapshot dataSnapshot) {
                         //enrolledCoursesList = new ArrayList<Courses2>();
 
-                        enrolledCoursesList = new ArrayList<Courses2>();
-                        coursesNames = new ArrayList<Courses2>();
+                       // enrolledCoursesList = new ArrayList<Courses>();
+                        coursesNames = new ArrayList<CourseCreated>();
                         for (DataSnapshot s : dataSnapshot.getChildren()) {
                             Log.v("REBE", "Inside " + s);
                             EnrolledCourseModel c = s.getValue(EnrolledCourseModel.class);
@@ -98,32 +98,38 @@ public class MyCoursesFragment extends Fragment {
                                         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                         @Override
                                         public void onDataChange(DataSnapshot inside) {
-                                            Log.v("Fire", "Inside " + inside.toString());
-                                            Courses courses = new Courses();
-                                            Courses2 courseCreated = new Courses2();
+                                            Log.e("Fire", "Inside " + inside.toString());
+                                            CourseCreated courses = new CourseCreated();
+                                            //Courses2 courseCreated = new Courses2();
                                                 for (DataSnapshot x : inside.getChildren()){
-                                                    Log.v("Test","Inside Childs "+x.toString() );
-                                                    if(Objects.equals(x.getKey(), "course_id")){
-                                                        Log.v("Test","course id " +x.getValue());
+                                                    Log.e("Test","Inside Childs "+x.toString() );
+//                                                    if(Objects.equals(x.getKey(), "course_id")){
+//                                                        Log.v("Test","course id " +x.getValue());
+////                                                        courses.setCourse_id(x.getValue().toString());
 //                                                        courses.setCourse_id(x.getValue().toString());
-                                                        courseCreated.setCourse_id(x.getValue().toString());
-                                                    }else if(Objects.equals(x.getKey(), "name")){
-                                                        Log.v("Test","Des " +x.getValue());
-                                                        courseCreated.setName(x.getValue().toString());
-//                                                        courses.setDescription(x.getValue().toString());
-                                                    }
+//                                                    }else if(Objects.equals(x.getKey(), "name")){
+//                                                        Log.v("Test","Des " +x.getValue());
+//                                                        courses.setName(x.getValue().toString());
+////                                                        courses.setDescription(x.getValue().toString());
+//                                                    }
+
+                                                    Log.e("myCoursesdatasnapshot: ",x.toString() );
+
+                                                    //courses = x.getValue(Courses.class);
                                                 }
 //                                                Courses2 course2=null ;
-//                                                course2= inside.getValue(Courses2.class);
-    //                                            Log.e("onDataChange: ", course + "");
+                                               courses= inside.getValue(CourseCreated.class);
+                                               // Log.e("mappingcoursesfromfire ", courses.getLessons() + " Description : "
+                                                      //  + courses.getDescription() + " Name : " + courses.getName());
 //                                                enrolledCoursesList.add(course2);
-                                            coursesNames.add(courseCreated);
-                                              //  Log.v("Test", "Enrolled Size Updated:" + enrolledCoursesList.size());
+                                            coursesNames.add(courses);
+
+                                                Log.e("Test", "Enrolled Size Updated:" + coursesNames.size());
                                                 EnrolledCoursesAdapter1 enrolledCoursesAdapter1 = new EnrolledCoursesAdapter1(
                                                         coursesNames,
                                                         new EnrolledCoursesAdapter1.OnClickHandler() {
                                                             @Override
-                                                            public void onClick(Courses2 test) {
+                                                            public void onClick(CourseCreated test) {
                                                                 Intent intent = new Intent(getActivity(),
                                                                         LessonActivity.class);
                                                                 intent.putExtra("course",test);

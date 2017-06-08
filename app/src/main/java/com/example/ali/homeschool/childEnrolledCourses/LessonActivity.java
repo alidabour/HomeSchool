@@ -13,10 +13,14 @@ import com.example.ali.homeschool.InstructorLessons.LessonAdapter;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.InstructorTopic.InstructorTopicActivity;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.childClass.ClassActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LessonActivity extends AppCompatActivity {
@@ -26,6 +30,8 @@ public class LessonActivity extends AppCompatActivity {
     Toolbar toolbar ;
     CourseCreated course;
     ValueEventListener listener;
+    List<LessonModel> lessonModelList;
+    DatabaseReference db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +39,18 @@ public class LessonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lesson);
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
 
-        enrolledRecyclerView = (RecyclerView) findViewById(R.id.enrolledCourses);
+        enrolledRecyclerView = (RecyclerView) findViewById(R.id.lessonsRV2);
         enrolledRecyclerView.setHasFixedSize(true);
         LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.VERTICAL, false);
         enrolledRecyclerView.setLayoutManager(categoryLayoutManger);
-        Log.v("Test","myLessonActivity");
+        Log.e("Test","myLessonActivity");
+        db = FirebaseDatabase.getInstance().getReference();
+        lessonModelList = new ArrayList<LessonModel>();
 
         Intent intent = getIntent();
         course = intent.getParcelableExtra("course");
-
-
+        Log.e("courseinLessonActivity",course.toString());
 
     }
 
@@ -53,19 +60,30 @@ public class LessonActivity extends AppCompatActivity {
         listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                lessonModelList = new ArrayList<LessonModel>();
+                    Log.e("Test","ONdaatachange");
+                    Log.v("Test","Datasnapshot "+dataSnapshot.toString() );
+                    for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
+                        Log.v("Test","Data Lesson" + dataSnapshot1.toString());
+                        LessonModel lessonModel = dataSnapshot1.getValue(LessonModel.class);
+                        Log.e("Test","Topics "+lessonModel.getTopics().toString());
+                        Log.v("Test","Topics "+lessonModel.getTopics().size());
+                        lessonModelList.add(lessonModel);
+                    }
 
-//                LessonAdapter lessonAdapter = new LessonAdapter(course.ge,
-//                        new LessonAdapter.OnClickHandler() {
-//                            @Override
-//                            public void onClick(LessonModel test) {
-//                                Intent intent = new Intent(getApplicationContext(), InstructorTopicActivity.class);
-//                                intent.putExtra("lesson",test.getId());
-//                                intent.putExtra("courseID",CourseCreated.getCourse_id());
-//                                startActivity(intent);
-//                            }
-//                        });
-             //   enrolledRecyclerView.setAdapter(lessonAdapter);
+                    LessonAdapter lessonAdapter = new LessonAdapter(lessonModelList, new LessonAdapter.OnClickHandler() {
+                        @Override
+                        public void onClick(LessonModel test) {
+                            Intent intent = new Intent(getApplicationContext(),
+                                    ClassActivity.class);
+                            intent.putExtra("courseid",course.getCourse_id() );
+                            intent.putExtra("lessonid", test.getId());
 
+                            startActivity(intent);
+                        }
+                    });
+//
+                enrolledRecyclerView.setAdapter(lessonAdapter);
             }
 
             @Override
@@ -74,5 +92,7 @@ public class LessonActivity extends AppCompatActivity {
             }
 
         };
+        db.child("courses").child(course.getCourse_id()).child("lessons").addValueEventListener(listener);
+
     }
 }

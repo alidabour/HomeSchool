@@ -3,6 +3,7 @@ package com.example.ali.homeschool.controller.activities;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -202,7 +203,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
             appBarLayout.setExpanded(true);
             mViewPager.setAdapter(imageCollapsingToolBarAdapter);
 
-            //
+
             // Pager.removeAllViews();
             StudentFeaturedCoursesFragment newFragment1 = new StudentFeaturedCoursesFragment();
             newFragment1.setArguments(bundle);
@@ -217,6 +218,9 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
             // Commit the transaction
         }  else if (id == R.id.Support) {
 
+            Intent myWebLink = new Intent(android.content.Intent.ACTION_VIEW);
+            myWebLink.setData(Uri.parse("https://goo.gl/forms/QAK8BHZmvjSYk1fA3"));
+            startActivity(myWebLink);
 
         } else if (id == R.id.signout) {
             mAuth.getInstance().signOut();
