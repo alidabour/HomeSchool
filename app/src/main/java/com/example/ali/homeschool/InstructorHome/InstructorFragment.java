@@ -22,7 +22,6 @@ import com.example.ali.homeschool.InstructorLessons.InstructorLessonsActivity;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
 import com.example.ali.homeschool.UserModelHelper.UploadFile;
-import com.example.ali.homeschool.adapter.InstructorCoursesCardAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

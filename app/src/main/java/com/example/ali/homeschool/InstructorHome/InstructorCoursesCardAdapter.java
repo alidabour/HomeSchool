@@ -1,4 +1,4 @@
-package com.example.ali.homeschool.adapter;
+package com.example.ali.homeschool.InstructorHome;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorLessons.InstructorLessonsActivity;
 import com.example.ali.homeschool.R;
 
@@ -63,11 +62,14 @@ public class InstructorCoursesCardAdapter extends RecyclerView.Adapter<Instructo
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
-                                case R.id.Preview:
-                                    //handle menu1 click
+                                case R.id.Preview:{
+                                    Intent intent = new Intent(context,
+                                            Classroom.class);
+                                    intent.putExtra("courseid", courseCreated.getCourse_id());
+                                    context.startActivity(intent);
+                            }
                                     break;
                                 case R.id.EditCourse: {
-                                    Log.v("Test", "Open Activity");
                                     Intent intent = new Intent(context,
                                             InstructorLessonsActivity.class);
                                     intent.putExtra("course", courseCreated);

@@ -42,7 +42,7 @@
         <activity
             android:name=".controller.activities.StudentHomeActivity"
             android:label="@string/title_activity_main4"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".childEnrolledCourses.EnrolledCourseActivity"
             android:label="@string/title_activity_enrolled_course"
@@ -66,11 +66,12 @@
                 android:value="com.example.ali.homeschool.ParentHome.ParentActivity" />
         </activity>
         <activity android:name=".InstructorHome.InstructorActivity" />
-        <activity android:name=".InstructorLessons.InstructorLessonsActivity"></activity>
-        <activity android:name=".InstructorTopic.InstructorTopicCreationActivity"></activity>
-        <activity android:name=".exercises.simple.SimpleExercises"></activity>
+        <activity android:name=".InstructorLessons.InstructorLessonsActivity" />
+        <activity android:name=".InstructorTopic.InstructorTopicCreationActivity" />
+        <activity android:name=".exercises.simple.SimpleExercises" />
         <activity android:name=".exercises.speech.Speech" />
-        <activity android:name=".InstructorTopic.InstructorTopicActivity"></activity>
+        <activity android:name=".InstructorTopic.InstructorTopicActivity" />
+        <activity android:name=".InstructorHome.Classroom"></activity>
     </application>
 
 </manifest>
