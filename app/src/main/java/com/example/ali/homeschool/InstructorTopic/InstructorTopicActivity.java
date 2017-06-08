@@ -102,6 +102,8 @@ public class InstructorTopicActivity extends AppCompatActivity {
                         db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(key).child("layout").setValue("");
                         String topicid=key;
                         Intent intent = new Intent(getApplicationContext(), InstructorTopicCreationActivity.class);
+
+                        intent.putExtra("topicname",m_Text);
                         intent.putExtra("topicid",topicid);
                         intent.putExtra("lessonid",lessonid);
                         intent.putExtra("courseID",courseId);
@@ -171,6 +173,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(TopicModel test) {
                                         Intent intent = new Intent(getApplicationContext(), InstructorTopicCreationActivity.class);
+                                        intent.putExtra("topicname",test.getName());
                                         intent.putExtra("topicid",test.getId());
                                         intent.putExtra("lessonid",lessonid);
                                         intent.putExtra("courseID",courseId);

@@ -79,6 +79,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     String courseId;
     String lessonid;
     String topicid;
+    String topicname;
     TextView sound;
     LinearLayout act_main;
     LinearLayout mainView;
@@ -106,6 +107,9 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         }
         if (intent != null && intent.hasExtra("topicid")) {
             topicid = intent.getStringExtra("topicid");
+        }
+        if (intent != null && intent.hasExtra("topicname")) {
+            topicname = intent.getStringExtra("topicname");
         }
         question.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,6 +159,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 databaseReference = databaseReference.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(topicid);
                 TopicModel t = new TopicModel();
                 t.setLayout(start + midLayouts.toString() + end);
+                t.setName(topicname);
+                t.setId(topicid);
                 databaseReference.updateChildren(t.toMap());
                 finish();
             }
