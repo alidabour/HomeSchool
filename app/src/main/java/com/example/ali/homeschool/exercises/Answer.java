@@ -7,6 +7,12 @@ package com.example.ali.homeschool.exercises;
 public class Answer {
     String answer;
 
+    public Answer(){}
+
+    public Answer(String answer) {
+        this.answer = answer;
+    }
+
     public String getAnswer() {
         return answer;
     }

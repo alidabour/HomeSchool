@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
 import android.util.Xml;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -68,25 +69,14 @@ public class ParseXMLInstructor {
 
     private View readRelativeLayout(
             XmlPullParser parser) throws XmlPullParserException, IOException {
-        Log.v("Parse", "readRelativeLayout");
-//        int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
-//        float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
-//        Log.v("Parse", "Weight : " + weight);
-        Log.v("Parse", "parser getName :" + parser.getName());
         RelativeLayout relativeLayout = new RelativeLayout(context);
-//        linearLayout.setId(id);
-        String height = parser.getAttributeValue(ns, "android:layout_height");
-        String width = parser.getAttributeValue(ns, "android:layout_width");
         RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT);
         relativeLayout.setLayoutParams(rlp);
-
-//        relativeLayout.setLayoutParams(getLayoutParams(height, width, scale));
-
+        relativeLayout.setPadding(8,8,8,8);
         parser.require(XmlPullParser.START_TAG, ns, "RelativeLayout");
         while (parser.next() != XmlPullParser.END_TAG) {
-//            Log.v("Parse","While --> parser getName :"+parser.getName());
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -94,10 +84,8 @@ public class ParseXMLInstructor {
             if (name.equals("ImageView")) {
                 relativeLayout.addView(readImageView(parser));
             } else if (name.equals("RadioGroup")) {
-                Log.v("Parse", "RadioGroup");
                 relativeLayout.addView(readRadioGroup(parser));
             } else if (name.equals("RadioButton")) {
-                Log.v("Parse", "->RadioButton");
             } else if (name.equals("TextView")) {
                 relativeLayout.addView(readTextView(parser));
             } else if (name.equals("Button")) {
@@ -284,13 +272,15 @@ public class ParseXMLInstructor {
             textView.setTextSize(
                     Float.parseFloat(parser.getAttributeValue(ns, "android:textSize")));
         }
+        textView.setGravity(Gravity.CENTER_HORIZONTAL   );
         String color = parser.getAttributeValue(ns, "android:textColor");
         if(parser.getAttributeValue(ns, "android:textAppearance")!=null){
-            Log.v("TEXTAPP","Q " +parser.getAttributeValue(ns, "android:textAppearance"));
-            Log.v("TEXTAPP","A " +String.valueOf(textView.getTextSize()));
+            Log.v("ITA"," TextAppearance " +parser.getAttributeValue(ns, "android:textAppearance"));
+//            Log.v("TEXTAPP","A " +String.valueOf(textView.getTextSize()));
+//            textView.setTextAppearance(context,android.R.style.TextAppearance_Material_Display4);
             textView.setTextAppearance(context,
                     Integer.parseInt(parser.getAttributeValue(ns, "android:textAppearance")));
-            Log.v("TEXTAPP","D "+  String.valueOf(textView.getTextSize()));
+            Log.v("ITA","Size"+  String.valueOf(textView.getTextSize()));
 
         }
         textView.setTextColor(Integer.parseInt(color));
@@ -345,8 +335,8 @@ public class ParseXMLInstructor {
                                                 final float scale, String centerInParent) {
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.MATCH_PARENT);
-        lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        lp.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
         return lp;
 //        if (height.equals("match_parent")) {
 //            if (width.equals("match_parent")) {

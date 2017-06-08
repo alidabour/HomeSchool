@@ -51,7 +51,10 @@ public class InstructorTopicActivity extends AppCompatActivity {
         //Getting intent and checking if it's null
         Intent intent = getIntent();
         if(intent!=null)
-            Log.v("intent Extra :  ", ":------------" + intent.getStringExtra("Hello"));
+        {
+            Log.v("Test","Intent");
+        }
+//            Log.v("intent Extra :  ", ":------------" + intent.getStringExtra("Hello"));
 
 
 
@@ -124,6 +127,9 @@ public class InstructorTopicActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.v("ITA","Course id : " + courseId);
+        Log.v("ITA","Lesson id : " + lessonModel.getId());
+
         db.child("courses").child(courseId).child("lessons").child(String.valueOf(lessonModel.getId())).addValueEventListener(
                 new ValueEventListener() {
                     List<TopicModel> lessonModelList;

@@ -26,75 +26,63 @@ public class Constants {
     public static final int SPEECH = 300;
 
     //Replace all
-    public final static String PUTIDHERE = "PUTIDHERE";
-    public final  static String PUTACTIONTEXTHERE = "PUTACTIONTEXTHERE";
+    public final static String PUT_ID_HERE = "PUTIDHERE";
+    public final  static String PUT_TEXT_HERE = "PUTTEXTHERE";
     public final static String PUTTEXTAPPEARANCEHERE = "PUTTEXTAPPEARANCEHERE";
     public final  static String PUTSIZEHERE = "PUTSIZEHERE";
-    public final static String PUTACTIVITYHERE = "PUTACTIVITYHERE";
+    public final static String PUT_ACTIVITY_HERE = "PUTACTIVITYHERE";
     public final static String PUTCOLOR = "PUTCOLOR";
-    public final static String PUTANSWERHERE ="PUTANSWERHERE";
+    public final static String PUT_ANSWER_HERE ="PUTANSWERHERE";
     //XML 'S
     public final static String radioGroupStart = "<RadioGroup android:layout_width=\"match_parent\"\n" +
             "        android:layout_height=\"wrap_content\"\n" +
-            "        android:id=\""+PUTIDHERE+"\" >" ;
+            "        android:id=\""+ PUT_ID_HERE +"\" >" ;
     public final static String radioGroupEnd = "</RadioGroup>";
     public final static String radioButton = "<RadioButton\n" +
             "            android:layout_width=\"match_parent\"\n" +
             "            android:layout_height=\"wrap_content\"\n" +
-            "            android:text=\""+PUTANSWERHERE+"\"\n" +
-            "            android:id=\""+PUTIDHERE+"\"/>";
+            "            android:text=\""+ PUT_ANSWER_HERE +"\"\n" +
+            "            android:id=\""+ PUT_ID_HERE +"\"/>";
 
-    public final static String actionTextXML = "<TextView\n" +
-            "        android:id=\""+PUTIDHERE+"\"\n" +
-            "android:layout_weight=\"0\"" +
-            "        android:text=\""+ PUTACTIONTEXTHERE+ "\"\n" +
+    public final static String actionTextXML = "<TextView " +
+            " android:id=\""+ PUT_ID_HERE +"\" " +
+            "android:layout_weight=\"0\" " +
+            " android:text=\""+ PUT_TEXT_HERE + "\" " +
 //            "        android:textSize=\""+PUTSIZEHERE+"\"\n" +
                     " android:textColor=\""+PUTCOLOR+"\" "+
-            "android:textAppearance=\""+PUTTEXTAPPEARANCEHERE+"\""+
-            "        android:layout_width=\"match_parent\"\n" +
-            "        android:layout_height=\"wrap_content\"/>";
+            " android:textAppearance=\""+PUTTEXTAPPEARANCEHERE+"\" "+
+            " android:layout_width=\"match_parent\" " +
+            " android:layout_height=\"wrap_content\" />";
 
 
 
-    public final static String actionButtonXML = "<Button" +
-            " android:layout_weight=\"0\"" +
-            " android:id=\""+PUTIDHERE+"\" " +
-            "android:text=\""+PUTACTIONTEXTHERE+"\" " +
-            "android:layout_width=\"match_parent\" " +
-            "android:layout_height=\"wrap_content\"" +
-            "homeSchool:activity=\""+PUTACTIVITYHERE+"\" " +
-            "homeSchool:answer=\""+PUTANSWERHERE+"\"" +
-            "/>";
     public final static String soundXML =
-            "<Button android:layout_weight=\"0\" android:id=\"PUTIDHERE\" android:text=\"PUTSOUNDTEXTHERE\" android:layout_width=\"match_parent\" " +
+            "<Button " +
+                    "android:layout_weight=\"0\"" +
+                    " android:id=\"PUT_ID_HERE\" " +
+                    "android:text=\"PUTSOUNDTEXTHERE\" " +
+                    "android:layout_width=\"match_parent\" " +
                     "android:layout_height=\"wrap_content\"" +
                     "homeSchool:audioLink=\"PUTLINKHERE\" />";
 
     public final static String end = "</LinearLayout></RelativeLayout>";
 
-    public final static String start = "<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n" + "android:id=\"2\" android:layout_weight=\"0\" "+
-            "    android:layout_width=\"match_parent\"\n" +
-            "    android:layout_height=\"match_parent\">" +
-            "<LinearLayout " + "android:layout_centerInParent=\"true\" " +
+    public final static String start = "<RelativeLayout " +
+            "xmlns:android=\"http://schemas.android.com/apk/res/android\"\n" +
+            "android:id=\"2\"" +
+            " android:layout_weight=\"0\" "+
+            "android:layout_width=\"match_parent\"\n" +
+            "android:layout_height=\"match_parent\">" +
+            "<LinearLayout " +
+            "android:layout_centerInParent=\"true\" " +
             "android:orientation=\"vertical\" " +
             "android:layout_weight=\"0\" " +
             "android:id=\"2000\" " +
-            "android:layout_width=\"wrap_content\" " +
+            "android:layout_width=\"match_parent\" " +
             "android:layout_height=\"wrap_content\">";
 
 
     //TextView Helper
-//     <item>Button 14sp CAPS</item>
-//        <item>Caption 12sp</item>
-//        <item>Body1 14sp</item>
-//        <item>Body2 14sp Bold</item>
-//        <item>Subheading 16sp</item>
-//        <item>Title 20sp</item>
-//        <item>Headline 24sp</item>
-//        <item>Display1 34sp</item>
-//        <item>Display2 45sp</item>
-//        <item>Display3 56sp</item>
-//        <item>Display4 112sp</item>
     public static int[] textAppearance = {android.R.style.TextAppearance_Material_Button,
             android.R.style.TextAppearance_Material_Caption,
             android.R.style.TextAppearance_Material_Body1,
@@ -108,8 +96,8 @@ public class Constants {
             android.R.style.TextAppearance_Material_Display4
     };
     public static String mTextView(int id,String text,int color,int textAppearance){
-        String textView = actionTextXML.replaceAll(PUTIDHERE, String.valueOf(id));
-        textView = textView.replaceAll(PUTACTIONTEXTHERE,text);
+        String textView = actionTextXML.replaceAll(PUT_ID_HERE, String.valueOf(id));
+        textView = textView.replaceAll(PUT_TEXT_HERE,text);
 //        textView = textView.replaceAll(PUTSIZEHERE,size);
         textView = textView.replaceAll(PUTCOLOR, String.valueOf(color));
         textView = textView.replaceAll(PUTTEXTAPPEARANCEHERE, String.valueOf(textAppearance));
@@ -134,13 +122,9 @@ public class Constants {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                textAppInterface.onSelected(i);
-
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
 
@@ -151,15 +135,47 @@ public class Constants {
         openColorPicker.setBackgroundColor(color);
     }
 
-    //Button helper
-    public static String mButton(int id, String text, String activity, Answer answer){
-        String button =actionButtonXML.replaceAll(PUTIDHERE, String.valueOf(id));
-        button = button.replaceAll(PUTACTIONTEXTHERE,text);
-        button = button.replaceAll(PUTACTIVITYHERE,activity);
-        button = button.replaceAll(PUTANSWERHERE,answer.getAnswer());
+    /*Button helper
+    *
+    *
+     */
+    public final static String PUT_SOUND_LINK_HERE = "PUTSOUNDLINKHERE";
+    public final static String BUTTON_HOLDER = "<Button" +
+            " android:layout_weight=\"0\"" +
+            " android:id=\""+ PUT_ID_HERE +"\" " +
+            "android:text=\""+ PUT_TEXT_HERE +"\" " +
+            "android:layout_width=\"match_parent\" " +
+            "android:layout_height=\"wrap_content\"" +
+            "homeSchool:audioLink=\""+ PUT_SOUND_LINK_HERE +"\""+
+            "homeSchool:activity=\""+ PUT_ACTIVITY_HERE +"\" " +
+            "homeSchool:answer=\""+ PUT_ANSWER_HERE +"\"" +
+            "/>";
+    public static String mButton(int id, String text, String activity, Answer answer,String soundLink){
+        soundLink = soundLink.replaceAll("&", "&amp;");
+        soundLink = soundLink.replaceAll("\\?", "&#63;");
+        String button = BUTTON_HOLDER.replaceAll(PUT_ID_HERE, String.valueOf(id));
+        button = button.replaceAll(PUT_TEXT_HERE,text);
+        button = button.replaceAll(PUT_ACTIVITY_HERE,activity);
+        button = button.replaceAll(PUT_ANSWER_HERE,answer.getAnswer());
+        button = button.replaceAll(PUT_SOUND_LINK_HERE,soundLink);
         return button;
     }
-
-
+    /*Image Helper
+    *
+    *
+    *
+     */
+    public final static String PUT_IMAGE_URL_HERE = "PUTIMAGEURLHERE";
+    public final static String IMAGE_VIEW_HOLDER = "<ImageView " +
+            "android:layout_weight=\"1\" " +
+            "android:id=\""+ PUT_ID_HERE +"\" " +
+            "android:layout_width=\"match_parent\" " +
+            "android:layout_height=\"wrap_content\" " +
+            "homeSchool:src=\""+ PUT_IMAGE_URL_HERE +"\" />";
+    public static String mImageView(int id,String url){
+        String imageView = IMAGE_VIEW_HOLDER.replace(PUT_ID_HERE,String.valueOf(id));
+        imageView = imageView.replace(PUT_IMAGE_URL_HERE,url);
+        return imageView;
+    }
 
 }

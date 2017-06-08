@@ -49,4 +49,12 @@
         android:text="Multiple Choice"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
+    <TextView
+        android:text="Text Detection"
+        android:id="@+id/textDetection"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
+
 </LinearLayout>

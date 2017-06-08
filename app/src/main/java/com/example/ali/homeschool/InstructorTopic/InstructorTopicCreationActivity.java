@@ -48,13 +48,11 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import static com.example.ali.homeschool.Constants.PUTACTIONTEXTHERE;
-import static com.example.ali.homeschool.Constants.PUTACTIVITYHERE;
-import static com.example.ali.homeschool.Constants.PUTANSWERHERE;
 import static com.example.ali.homeschool.Constants.PUTCOLOR;
-import static com.example.ali.homeschool.Constants.PUTIDHERE;
 import static com.example.ali.homeschool.Constants.PUTSIZEHERE;
-import static com.example.ali.homeschool.Constants.actionButtonXML;
+import static com.example.ali.homeschool.Constants.PUT_ID_HERE;
+import static com.example.ali.homeschool.Constants.PUT_SOUND_LINK_HERE;
+import static com.example.ali.homeschool.Constants.PUT_TEXT_HERE;
 import static com.example.ali.homeschool.Constants.actionTextXML;
 import static com.example.ali.homeschool.Constants.mButton;
 import static com.example.ali.homeschool.Constants.mTextView;
@@ -105,7 +103,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         submitTV = (TextView) findViewById(R.id.submit);
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("lesson")) {
-            lessonModel = intent.getParcelableExtra("lesson");
+            lessonModel = intent.getStringExtra("lesson");
         }
         if (intent != null && intent.hasExtra("courseID")) {
             courseId = intent.getStringExtra("courseID");
@@ -270,7 +268,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 addLayout(textview);
                 Answer answer = new Answer();
                 answer.setAnswer(word.getText().toString());
-                addLayout(mButton(id,"Start","Speech",answer));
+                addLayout(mButton(id,"Start","Speech",answer,PUT_SOUND_LINK_HERE));
                 dialogInterface.cancel();
             }
         });
@@ -306,11 +304,11 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 android.support.v7.widget.AppCompatEditText om = (AppCompatEditText) et
                         .getChildAt(0);
                 ArrayList<String> radioLayout = new ArrayList<String>();
-                String quET = actionTextXML.replaceAll(PUTIDHERE, String.valueOf(id));
-                quET = quET.replaceAll(PUTSIZEHERE, String.valueOf(30));
-                quET = quET.replaceAll(PUTACTIONTEXTHERE, question1.getText().toString());
-                quET = quET.replaceAll(PUTCOLOR, "123");
-                radioLayout.add(quET);
+//                String quET = actionTextXML.replaceAll(PU, String.valueOf(id));
+//                quET = quET.replaceAll(PUTSIZEHERE, String.valueOf(30));
+//                quET = quET.replaceAll(PUTACTIONTEXTHERE, question1.getText().toString());
+//                quET = quET.replaceAll(PUTCOLOR, "123");
+//                radioLayout.add(quET);
                 radioLayout.add(radioGroupStart);
 
                 for (int count = 0; count < linearLayout.getChildCount(); count++) {
@@ -322,9 +320,9 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                     android.support.v7.widget.AppCompatEditText omm = (AppCompatEditText) ett
                             .getChildAt(0);
                     Log.v("MultiQue", "Child 0 Edit text :" + omm.getText());
-                    String r1 = radioButton.replaceAll(PUTIDHERE, String.valueOf(id));
-                    r1 = r1.replaceAll(PUTANSWERHERE, omm.getText().toString());
-                    radioLayout.add(r1);
+//                    String r1 = radioButton.replaceAll(PUTIDHERE, String.valueOf(id));
+//                    r1 = r1.replaceAll(PUTANSWERHERE, omm.getText().toString());
+//                    radioLayout.add(r1);
 
                 }
 
@@ -359,45 +357,45 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK)
         {
-                Log.v("Instructor",
-                        "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
-                                .getData().toString());
-                filePath = data.getData();
-                String storagePath = "images/" + courseId + "/" + UUID.randomUUID();
-                uploadFileImage = new UploadFile(filePath, this, new FileUploadHelper() {
-                    @Override
-                    public void fileUploaded(String url) {
-                        mid = "<ImageView android:layout_weight=\"1\" android:id=\"" + id
-                                + "\" android:layout_width=\"match_parent\"" +
-                                " android:layout_height=\"wrap_content\" homeSchool:src=\"" + url + "\" />";
-                        midLayouts.add(id, mid);
-                        id++;
-                        RelativeLayout linearLayout = parse(start + midLayouts.toString() + end);
-                        mainView.removeAllViews();
-                        mainView.addView(linearLayout);
-                        //and displaying a success toast
-                        Toast.makeText(getApplicationContext(), "File Uploaded",
-                                Toast.LENGTH_LONG).show();
-                    }
-                }, storagePath);
-            }
-            if (requestCode == PICK_SOUND_REQUEST) {
-                Log.v("Instructor",
-                        "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
-                                .getData().toString());
-                filePath = data.getData();
-                String storagePath = "sounds/" + courseId + "/" + UUID.randomUUID();
-                uploadFileSound = new UploadFile(filePath, this, new FileUploadHelper() {
-                    @Override
-                    public void fileUploaded(String url) {
-                        addSoundLayout(url, soundXML);
-                        //and displaying a success toast
-                        Toast.makeText(getApplicationContext(), "File Uploaded",
-                                Toast.LENGTH_LONG).show();
-                    }
-                }, storagePath);
-            }
+            Log.v("Instructor",
+                    "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
+                            .getData().toString());
+            filePath = data.getData();
+            String storagePath = "images/" + courseId + "/" + UUID.randomUUID();
+            uploadFileImage = new UploadFile(filePath, this, new FileUploadHelper() {
+                @Override
+                public void fileUploaded(String url) {
+                    mid = "<ImageView android:layout_weight=\"1\" android:id=\"" + id
+                            + "\" android:layout_width=\"match_parent\"" +
+                            " android:layout_height=\"wrap_content\" homeSchool:src=\"" + url + "\" />";
+                    midLayouts.add(id, mid);
+                    id++;
+                    RelativeLayout linearLayout = parse(start + midLayouts.toString() + end);
+                    mainView.removeAllViews();
+                    mainView.addView(linearLayout);
+                    //and displaying a success toast
+                    Toast.makeText(getApplicationContext(), "File Uploaded",
+                            Toast.LENGTH_LONG).show();
+                }
+            }, storagePath);
         }
+        if (requestCode == PICK_SOUND_REQUEST) {
+            Log.v("Instructor",
+                    "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
+                            .getData().toString());
+            filePath = data.getData();
+            String storagePath = "sounds/" + courseId + "/" + UUID.randomUUID();
+            uploadFileSound = new UploadFile(filePath, this, new FileUploadHelper() {
+                @Override
+                public void fileUploaded(String url) {
+                    addSoundLayout(url, soundXML);
+                    //and displaying a success toast
+                    Toast.makeText(getApplicationContext(), "File Uploaded",
+                            Toast.LENGTH_LONG).show();
+                }
+            }, storagePath);
+        }
+    }
 
 
 
@@ -475,15 +473,15 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String questionText = questionET.getText().toString();
-                String questionTV = actionTextXML.replaceAll(PUTACTIONTEXTHERE, questionText);
-                questionTV = questionTV.replaceAll(PUTCOLOR, String.valueOf(textColor));
-                questionTV = questionTV.replaceAll(PUTIDHERE, String.valueOf(id));
-                questionTV = questionTV.replaceAll(PUTSIZEHERE, "40");
-                addLayout(questionTV);
-                String actionButton = actionButtonXML.replaceAll(PUTIDHERE, String.valueOf(id));
-                actionButton = actionButton.replaceAll(PUTACTIVITYHERE, "SimpleExercises");
-                actionButton = actionButton.replaceAll(PUTACTIONTEXTHERE, "Start");
-                addLayout(actionButton);
+//                String questionTV = actionTextXML.replaceAll(PUTACTIONTEXTHERE, questionText);
+//                questionTV = questionTV.replaceAll(PUTCOLOR, String.valueOf(textColor));
+//                questionTV = questionTV.replaceAll(PUTIDHERE, String.valueOf(id));
+//                questionTV = questionTV.replaceAll(PUTSIZEHERE, "40");
+//                addLayout(questionTV);
+//                String actionButton = .replaceAll(PUT_ID_HERE, String.valueOf(id));
+//                actionButton = actionButton.replaceAll(PUT_SOUND_LINK_HERE, "SimpleExercises");
+//                actionButton = actionButton.replaceAll(PUT_TEXT_HERE, "Start");
+//                addLayout(actionButton);
                 dialogInterface.cancel();
             }
         });

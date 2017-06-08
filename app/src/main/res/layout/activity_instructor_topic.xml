@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/activiy_main"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activiy_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
-        android:background="@color/colorAccent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
         android:orientation="horizontal">
 
         <TextView
@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:text="Image"
             android:gravity="center_horizontal"
+            android:text="Image"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
         <TextView
@@ -30,35 +30,37 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:text="Sound"
-            android:gravity="center_horizontal"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
+
         <TextView
-            android:text="Question"
             android:id="@+id/question"
-            android:gravity="center_horizontal"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Question"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
+
         <TextView
             android:id="@+id/submit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="8dp"
-            android:text="Submit Topic"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
+            android:text="Submit Topic"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         />
 
 </LinearLayout>
