@@ -1,6 +1,7 @@
 package com.example.ali.homeschool.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
+import com.example.ali.homeschool.InstructorLessons.InstructorLessonsActivity;
 import com.example.ali.homeschool.R;
 
 import java.util.List;
@@ -47,13 +49,13 @@ public class InstructorCoursesCardAdapter extends RecyclerView.Adapter<Instructo
 
         @Override
         public void onBindViewHolder(final CourseViewHolder holder, int position) {
-
+            final CourseCreated courseCreated = courseCreatedList.get(position);
             holder.buttonViewOption.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     //creating a popup menu
-                    PopupMenu popup = new PopupMenu(context,holder.buttonViewOption);
+                    final PopupMenu popup = new PopupMenu(context,holder.buttonViewOption);
                     //inflating menu from xml resource
                     popup.inflate(R.menu.instructor_course_menu);
                     //adding click listener
@@ -64,8 +66,13 @@ public class InstructorCoursesCardAdapter extends RecyclerView.Adapter<Instructo
                                 case R.id.Preview:
                                     //handle menu1 click
                                     break;
-                                case R.id.EditCourse:
-                                    //handle menu2 click
+                                case R.id.EditCourse: {
+                                    Log.v("Test", "Open Activity");
+                                    Intent intent = new Intent(context,
+                                            InstructorLessonsActivity.class);
+                                    intent.putExtra("course", courseCreated);
+                                    context.startActivity(intent);
+                                }
                                     break;
                             }
                             return false;
@@ -76,7 +83,7 @@ public class InstructorCoursesCardAdapter extends RecyclerView.Adapter<Instructo
 
                 }
             });
-            CourseCreated courseCreated = courseCreatedList.get(position);
+
             holder.courseName.setText(courseCreated.getName());
             // Log.e("Photo: ",courseCreated.getPhoto_url() );
             Glide.with(context).load(courseCreated.getPhoto_url()).fitCenter().into(holder.courseImage);
