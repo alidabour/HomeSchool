@@ -56,8 +56,6 @@ public class InstructorTopicActivity extends AppCompatActivity {
 
 
 
-
-
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

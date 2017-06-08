@@ -194,6 +194,7 @@ public class InstructorFragment extends Fragment {
                     Log.v("Test", "Courses Model " + courseCreated.getName());
                     Log.v("Test", "Courses " + x.toString());
                 }
+
                 courseCreatedAdapter = new CourseCreatedAdapter(coursesList,
                         new CourseCreatedAdapter.OnClickHandler() {
                             @Override
