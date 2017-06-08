@@ -94,11 +94,11 @@ public class InstructorTopicActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         m_Text = input.getText().toString();
 //                        Map<String,String> lesson = new HashMap<String, String>();
-                        String key =db.child("courses").child(courseId).child("lessons").push().getKey();
+                        String key =db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").getKey();
 //                        lesson.put("id",key);
 //                        lesson.put("name",m_Text);
-                        db.child("courses").child(courseId).child("lessons").child(key).child("id").setValue(key);
-                        db.child("courses").child(courseId).child("lessons").child(key).child("name").setValue(m_Text);
+                        db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child("id").setValue(key);
+                        db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child("name").setValue(m_Text);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -129,6 +129,8 @@ public class InstructorTopicActivity extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance().getReference();
 
+     //   Log.v("Testytesty10001 ", ":------------" + intent.getParcelableExtra("lesson"));
+
 
 
 
@@ -149,6 +151,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         lessonModelList = new ArrayList<TopicModel>();
+                        Log.e("dataSnapShot",dataSnapshot+"");
                         for (DataSnapshot d : dataSnapshot.getChildren()){
                             Log.v("Testytesty101","Lesson " + d.toString());
                             topicModel = d.getValue(TopicModel.class);
@@ -159,14 +162,12 @@ public class InstructorTopicActivity extends AppCompatActivity {
                                 new TopicsAdapter.OnClickHandler() {
                                     @Override
                                     public void onClick(TopicModel test) {
-
                                         Intent intent = new Intent(getApplicationContext(), InstructorTopicCreationActivity.class);
                                         intent.putExtra("topicid",test.getId());
                                         intent.putExtra("lessonid",lessonid);
                                         intent.putExtra("courseID",courseId);
                                         startActivity(intent);
                                     }
-
                                 });
                         lessonsRV.setAdapter(lessonAdapter);
                     }

@@ -25,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class InstructorLessonsActivity extends AppCompatActivity {
     RecyclerView lessonsRV;
@@ -102,8 +101,6 @@ public class InstructorLessonsActivity extends AppCompatActivity {
             Log.v("TestingTesting", "" + courseCreated.getName().toString());
             toolbar.setTitle(courseCreated.getName().toString());
             courseID = courseCreated.getCourse_id().toString();
-
-
         }
 
 
@@ -115,15 +112,14 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.v("Test ", ":------------" + courseCreated.getCourse_id());
         db.child("courses").child(String.valueOf(courseCreated.getCourse_id())).child("lessons").addValueEventListener(
                 new ValueEventListener() {
-                    List<LessonModel> lessonModelList;
-
+                    ArrayList<LessonModel> lessonModelList;
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        lessonModelList = new ArrayList<LessonModel>();
+                        lessonModelList = new ArrayList<>();
                         for (DataSnapshot d : dataSnapshot.getChildren()) {
+                            Log.e("dataSnapShot",d+"");
                             lessonModel = d.getValue(LessonModel.class);
                             lessonModelList.add(lessonModel);
                         }
@@ -137,7 +133,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
 
 
                                         intent.putExtra("courseid", courseID);
-                                        intent.putExtra("lessonid", lessonModel.getId());
+                                        intent.putExtra("lessonid", test.getId());
                                         //     intent.putExtra("lesson",test);
                                         // starting the Activity
                                         startActivity(intent);

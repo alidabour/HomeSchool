@@ -36,7 +36,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.jrummyapps.android.colorpicker.ColorPickerDialog;
 import com.jrummyapps.android.colorpicker.ColorPickerDialogListener;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -57,7 +56,6 @@ import static com.example.ali.homeschool.Constants.mTextView;
 import static com.example.ali.homeschool.Constants.radioGroupEnd;
 import static com.example.ali.homeschool.Constants.radioGroupStart;
 import static com.example.ali.homeschool.Constants.setColorButton;
-import static com.example.ali.homeschool.Constants.soundXML;
 import static com.example.ali.homeschool.Constants.start;
 import static com.example.ali.homeschool.Constants.textViewProperties;
 
@@ -107,7 +105,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             courseId = intent.getStringExtra("courseID");
         }
         if (intent != null && intent.hasExtra("topicid")) {
-            courseId = intent.getStringExtra("topicid");
+            topicid = intent.getStringExtra("topicid");
         }
         question.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +151,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             @Override
             public void onClick(View view) {
                 databaseReference = databaseReference.child("courses").child(courseId)
-                        .child("lessons").child(lessonid).child("topics").child("topicid");
+                        .child("lessons").child(lessonid).child("topics").child(topicid);
                 String key = databaseReference.push().getKey();
                 TopicModel t = new TopicModel();
                 t.setId(key);
