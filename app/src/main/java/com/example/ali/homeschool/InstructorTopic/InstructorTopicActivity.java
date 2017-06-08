@@ -94,11 +94,18 @@ public class InstructorTopicActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         m_Text = input.getText().toString();
 //                        Map<String,String> lesson = new HashMap<String, String>();
-                        String key =db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").getKey();
+                        String key =db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").push().getKey();
 //                        lesson.put("id",key);
 //                        lesson.put("name",m_Text);
-                        db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child("id").setValue(key);
-                        db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child("name").setValue(m_Text);
+                        db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(key).child("id").setValue(key);
+                        db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(key).child("name").setValue(m_Text);
+                        db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(key).child("layout").setValue("");
+                        String topicid=key;
+                        Intent intent = new Intent(getApplicationContext(), InstructorTopicCreationActivity.class);
+                        intent.putExtra("topicid",topicid);
+                        intent.putExtra("lessonid",lessonid);
+                        intent.putExtra("courseID",courseId);
+                        startActivity(intent);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -155,6 +162,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
                         for (DataSnapshot d : dataSnapshot.getChildren()){
                             Log.v("Testytesty101","Lesson " + d.toString());
                             topicModel = d.getValue(TopicModel.class);
+                            if(!(topicModel.getLayout()==null))
                             lessonModelList.add(topicModel);
                             Log.v("Test","LESSON __ "+ topicModel.toString());
                         }

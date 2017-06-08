@@ -150,14 +150,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         submitTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                databaseReference = databaseReference.child("courses").child(courseId)
-                        .child("lessons").child(lessonid).child("topics").child(topicid);
-                String key = databaseReference.push().getKey();
+                Log.v("Course"+courseId,"lessons"+lessonid);
+                Log.v("topics",topicid);
+                databaseReference = databaseReference.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(topicid);
                 TopicModel t = new TopicModel();
-                t.setId(key);
-                t.setName("Name");
                 t.setLayout(start + midLayouts.toString() + end);
-                databaseReference.child(key).updateChildren(t.toMap());
+                databaseReference.updateChildren(t.toMap());
                 finish();
             }
         });
