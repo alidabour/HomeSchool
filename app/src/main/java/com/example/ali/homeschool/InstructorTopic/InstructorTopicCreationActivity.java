@@ -48,8 +48,11 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import static com.example.ali.homeschool.Constants.PUT_ACTIVITY_HERE;
+import static com.example.ali.homeschool.Constants.PUT_ANSWER_HERE;
 import static com.example.ali.homeschool.Constants.PUT_SOUND_LINK_HERE;
 import static com.example.ali.homeschool.Constants.mButton;
+import static com.example.ali.homeschool.Constants.mImageView;
 import static com.example.ali.homeschool.Constants.mTextView;
 import static com.example.ali.homeschool.Constants.radioGroupEnd;
 import static com.example.ali.homeschool.Constants.radioGroupStart;
@@ -83,7 +86,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     LinearLayout mainView;
     String soundText = "PlaceHolder";
     String mid = "";
-    int textColor=-11177216;
+    int textColor = -11177216;
     int textAppearance = android.R.style.TextAppearance_Material_Body1;
 
     String end = "</LinearLayout></RelativeLayout>";
@@ -249,24 +252,26 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     }
 
     private void openSpeechQueDialog() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(InstructorTopicCreationActivity.this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(
+                InstructorTopicCreationActivity.this);
         builder.setTitle("Questions :");
         LayoutInflater li = LayoutInflater.from(InstructorTopicCreationActivity.this);
         final LinearLayout linearLayout = (LinearLayout) li
                 .inflate(R.layout.speech_question_dialog, null);
         final EditText word = (EditText) linearLayout.findViewById(R.id.word);
-        textViewProperties(linearLayout,InstructorTopicCreationActivity.this,this);
-        setColorButton(linearLayout,textColor);
+        textViewProperties(linearLayout, InstructorTopicCreationActivity.this, this);
+        setColorButton(linearLayout, textColor);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Log.v("TESTAPP","onClick :"+ textAppearance);
-                addLayout(mTextView(id,"قول كلمة :",textColor,textAppearance));
-                String textview = mTextView(id, word.getText().toString(), textColor,textAppearance);
+                Log.v("TESTAPP", "onClick :" + textAppearance);
+                addLayout(mTextView(id, "قول كلمة :", textColor, textAppearance));
+                String textview = mTextView(id, word.getText().toString(), textColor,
+                        textAppearance);
                 addLayout(textview);
                 Answer answer = new Answer();
                 answer.setAnswer(word.getText().toString());
-                addLayout(mButton(id,"Start","Speech",answer,PUT_SOUND_LINK_HERE));
+                addLayout(mButton(id, "Start", "Speech", answer, PUT_SOUND_LINK_HERE));
                 dialogInterface.cancel();
             }
         });
@@ -340,7 +345,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
         try {
             mainLayout = (RelativeLayout) parseXMLInstructor
-                    .parse(this,stream, getApplicationContext(), this);
+                    .parse(this, stream, getApplicationContext(), this);
             Log.v("ITA", "pass");
         } catch (XmlPullParserException e) {
             e.printStackTrace();
@@ -353,40 +358,26 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK)
-        {
-            Log.v("Instructor",
-                    "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
-                            .getData().toString());
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
             filePath = data.getData();
             String storagePath = "images/" + courseId + "/" + UUID.randomUUID();
             uploadFileImage = new UploadFile(filePath, this, new FileUploadHelper() {
                 @Override
                 public void fileUploaded(String url) {
-                    mid = "<ImageView android:layout_weight=\"1\" android:id=\"" + id
-                            + "\" android:layout_width=\"match_parent\"" +
-                            " android:layout_height=\"wrap_content\" homeSchool:src=\"" + url + "\" />";
-                    midLayouts.add(id, mid);
-                    id++;
-                    RelativeLayout linearLayout = parse(start + midLayouts.toString() + end);
-                    mainView.removeAllViews();
-                    mainView.addView(linearLayout);
+                    addLayout(mImageView(id,url));
                     //and displaying a success toast
                     Toast.makeText(getApplicationContext(), "File Uploaded",
                             Toast.LENGTH_LONG).show();
                 }
             }, storagePath);
         }
-        if (requestCode == PICK_SOUND_REQUEST) {
-            Log.v("Instructor",
-                    "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
-                            .getData().toString());
+        if (requestCode == PICK_SOUND_REQUEST && resultCode == Activity.RESULT_OK) {
             filePath = data.getData();
             String storagePath = "sounds/" + courseId + "/" + UUID.randomUUID();
             uploadFileSound = new UploadFile(filePath, this, new FileUploadHelper() {
                 @Override
                 public void fileUploaded(String url) {
-                    addSoundLayout(url, soundXML);
+                    addLayout(mButton(id,"Start",PUT_ACTIVITY_HERE,new Answer(PUT_ANSWER_HERE),url));
                     //and displaying a success toast
                     Toast.makeText(getApplicationContext(), "File Uploaded",
                             Toast.LENGTH_LONG).show();
@@ -396,39 +387,20 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     }
 
 
-
     private void openColorQuestionDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(InstructorTopicCreationActivity.this);
 //        builder.setTitle("Title");
         LayoutInflater li = LayoutInflater.from(InstructorTopicCreationActivity.this);
         LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.color_question_dialog, null);
         final EditText questionET = (EditText) someLayout.findViewById(R.id.question);
-//        Spinner textColorSpinner = (Spinner) someLayout.findViewById(R.id.textColors);
+        textViewProperties(someLayout,this,this);
         Spinner colorSpinner = (Spinner) someLayout.findViewById(R.id.colors);
-        Spinner textSizeSpinner = (Spinner) someLayout.findViewById(R.id.textSizes);
-        openColorPicker = (Button) someLayout.findViewById(R.id.colorsButton);
-        openColorPicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ColorPickerDialog.Builder c = ColorPickerDialog.newBuilder().setColor(0xFF000000);
-                c.show(InstructorTopicCreationActivity.this);
-            }
-        });
         ArrayAdapter<CharSequence> actionColors = ArrayAdapter.createFromResource(this,
                 R.array.color_array, android.R.layout.simple_spinner_item);
-//        ArrayAdapter<CharSequence> textColors = ArrayAdapter.createFromResource(this,
-//                R.array.color_array, android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> textSizes = ArrayAdapter.createFromResource(this,
-                R.array.text_size_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
         actionColors.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        textColors.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        textSizes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Apply the adapter to the spinner
         colorSpinner.setAdapter(actionColors);
-//        textColorSpinner.setAdapter(textColors);
-        textSizeSpinner.setAdapter(textSizes);
         final String[] selection = {" "};
         colorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -443,43 +415,13 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
             }
         });
-//        textColorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                Log.v("ITA", "Selected :" + (String) adapterView.getItemAtPosition(i));
-//
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
-        textSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.v("ITA", "Selected :" + (String) adapterView.getItemAtPosition(i));
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
         builder.setView(someLayout);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String questionText = questionET.getText().toString();
-//                String questionTV = actionTextXML.replaceAll(PUTACTIONTEXTHERE, questionText);
-//                questionTV = questionTV.replaceAll(PUTCOLOR, String.valueOf(textColor));
-//                questionTV = questionTV.replaceAll(PUTIDHERE, String.valueOf(id));
-//                questionTV = questionTV.replaceAll(PUTSIZEHERE, "40");
-//                addLayout(questionTV);
-//                String actionButton = .replaceAll(PUT_ID_HERE, String.valueOf(id));
-//                actionButton = actionButton.replaceAll(PUT_SOUND_LINK_HERE, "SimpleExercises");
-//                actionButton = actionButton.replaceAll(PUT_TEXT_HERE, "Start");
-//                addLayout(actionButton);
+                addLayout(mButton(id, questionText, PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
+                        PUT_SOUND_LINK_HERE));
                 dialogInterface.cancel();
             }
         });
@@ -494,37 +436,15 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         someLayout = (LinearLayout) li.inflate(R.layout.dialog_button, null);
 
         // Set up the input
-//                final EditText input = new EditText(MainActivity.this);
-//                final EditText audioIn = new EditText(MainActivity.this);
-        final EditText input = (EditText) someLayout.findViewById(R.id.text);
         final EditText audioIn = (EditText) someLayout.findViewById(R.id.audio);
-
-//                input.setHint("Text");
-//                audioIn.setHint("Audio Link");
-//                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-//                input.setInputType(
-//                        InputType.TYPE_CLASS_TEXT );
-//                audioIn.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(someLayout);
 
         // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                m_Text = input.getText().toString();
                 audioLink = audioIn.getText().toString();
-                mid = "<Button android:layout_weight=\"0\" android:id=\"" + id
-                        + "\" android:text=\"" + soundText + "\" android:layout_width=\"match_parent\" " +
-                        "android:layout_height=\"wrap_content\"" +
-                        "homeSchool:audioLink=\"" + audioLink + "\" />";
-                midLayouts.add(id, mid);
-
-                id++;
-                RelativeLayout linearLayout = parse(start + midLayouts.toString() + end);
-
-
-                mainView.removeAllViews();
-                mainView.addView(linearLayout);
+                addLayout(mButton(id,soundText,PUT_ACTIVITY_HERE,new Answer(PUT_ANSWER_HERE),audioLink));
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -557,15 +477,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 m_Text = input.getText().toString();
-                mid = "<ImageView android:layout_weight=\"1\" android:id=\"" + id
-                        + "\" android:layout_width=\"match_parent\"" +
-                        " android:layout_height=\"wrap_content\" homeSchool:src=\"" + m_Text + "\" />";
-                midLayouts.add(id, mid);
-                id++;
-                RelativeLayout linearLayout = parse(
-                        start + midLayouts.toString() + end);
-                mainView.removeAllViews();
-                mainView.addView(linearLayout);
+                addLayout(mImageView(id,m_Text));
             }
         });
         urlBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -587,42 +499,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
     @Override
     public void onClick(View v) {
-        Log.v("Test", "COUNT BF " + mainView.getChildCount());
-        Log.v("Test", "id " + v.getId());
-//        v.setVisibility(View.INVISIBLE);
-        mainView.removeView(v);
-        int mainId = v.getId();
-        Log.v("Test", "Main ID :" + v.getId());
-        LinearLayout v0 = (LinearLayout) mainView.getChildAt(0);
-        Log.v("Test", "V0 id " + v0.getId());
-        v0.removeView(v);
-//        LinearLayout view =(LinearLayout) mainView.findViewById(2000);
-//        view.removeView(v);
-//        mainView.removeView((View) view.getParent());
-//        mainView.removeViewInLayout(view);
-
-        act_main.removeView(v);
-//        mainView.removeViewAt(v.getInd);
-        mid = "";
-        mainView.invalidate();
-        Log.v("Test", "COUNT AF " + mainView.getChildCount());
-//        midLayouts.get(v.getId());
-        midLayouts.remove(v.getId());
-        --id;
-        Log.v("Test", "mid Layouts " + midLayouts);
-    }
-
-    private void addSoundLayout(String link, String layout) {
-        link = link.replaceAll("&", "&amp;");
-        link = link.replaceAll("\\?", "&#63;");
-        layout = layout.replaceAll("PUTLINKHERE", link);
-        layout = layout.replaceAll("PUTIDHERE", String.valueOf(id));
-        layout = layout.replaceAll("PUTSOUNDTEXTHERE", soundText);
-        midLayouts.add(id, layout);
-        id++;
-        RelativeLayout linearLayout = parse(start + midLayouts.toString() + end);
-        mainView.removeAllViews();
-        mainView.addView(linearLayout);
+        Toast.makeText(this, "OnClick ITCA", Toast.LENGTH_SHORT).show();
     }
 
     private void addLayout(String layout) {
@@ -638,7 +515,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     public void onColorSelected(int dialogId, @ColorInt int color) {
         textColor = color;
 //        openColorPicker.setBackgroundColor(color);
-        Toast.makeText(InstructorTopicCreationActivity.this, "oOOColor :" + color, Toast.LENGTH_SHORT)
+        Toast.makeText(InstructorTopicCreationActivity.this, "oOOColor :" + color,
+                Toast.LENGTH_SHORT)
                 .show();
     }
 
@@ -648,8 +526,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
     @Override
     public void onSelected(int i) {
-        Log.v("TEXTAPP"," i : "+ i);
-        Log.v("TEXTAPP"," textapp[i] : "+ Constants.textAppearance[i]);
         textAppearance = Constants.textAppearance[i];
     }
 }
