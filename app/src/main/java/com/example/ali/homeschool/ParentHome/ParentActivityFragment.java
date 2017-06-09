@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.example.ali.homeschool.adapter.ChildrenAdapter;
 import com.example.ali.homeschool.data.CategoryInformation;
@@ -46,6 +47,7 @@ import java.util.List;
     String emailText;
     ChildsAdapter childAdapter;
     RecyclerView parentRecycleView;
+    ProgressBar progressBar ;
     public ParentActivityFragment() {
     }
 
@@ -56,6 +58,7 @@ import java.util.List;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_parent2, container, false);
+        progressBar=(ProgressBar)view.findViewById(R.id.parent_progressbar);
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,16 +86,26 @@ import java.util.List;
                                             for (DataSnapshot x : dataSnapshot.getChildren()) {
                                                 Log.v("Test", "X ______" + x.toString());
                                                 userHS = x.getValue(Users.class);
-                                                Log.v("Test", "USer :" + userHS.getName());
+                                                Log.v("Test", "USer :" + userHS);
+                                                Log.v("Test", "User" + userHS.getPhoto());
                                             }
+
                                             Log.v("Test", "Data" + d.toString());
                                             Log.v("Test", "Key" + d.getKey());
                                             String childKey = d.getKey();
+                                            Log.v("Test", "userid" + childKey);
                                             String key = db.child("users").child(user.getUid())
                                                     .child("childs").push().getKey();
                                             db.child("users").child(user.getUid()).child("childs")
+                                                    .child(childKey).child("id")
+                                                    .setValue(childKey);
+                                            db.child("users").child(user.getUid()).child("childs")
                                                     .child(childKey).child("name")
                                                     .setValue(userHS.getName());
+                                            db.child("users").child(user.getUid()).child("childs")
+                                                    .child(childKey).child("photo")
+                                                    .setValue(userHS.getPhoto());
+
                                         }
                                     }
 
@@ -128,6 +141,7 @@ import java.util.List;
     @Override
     public void onStart() {
         super.onStart();
+        progressBar.setVisibility(View.VISIBLE);
         db.child("users").child(user.getUid()).child("childs").addValueEventListener(
                 new ValueEventListener() {
                     @Override
@@ -136,10 +150,10 @@ import java.util.List;
                         final List<ChildModel> childModels = new ArrayList<ChildModel>();
                         for(DataSnapshot ds:dataSnapshot.getChildren()){
                             childModels.add(ds.getValue(ChildModel.class));
-
-                            Log.v("Test","NAme" +ds.getValue(ChildModel.class).getName());
+                            Log.v("Test","NAme " +ds.getValue(ChildModel.class).toString());
+                            Log.v("Test","NAme " +ds.getValue(ChildModel.class).getPhoto());
                         }
-                        childAdapter = new ChildsAdapter(childModels,
+                        childAdapter = new ChildsAdapter(childModels,getActivity() ,
                                 new ChildsAdapter.OnClickHandler() {
                                     @Override
                                     public void onClick(ChildModel test) {
@@ -153,6 +167,7 @@ import java.util.List;
                         parentRecycleView.setHasFixedSize(true);
                         parentRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
                         parentRecycleView.setAdapter(childAdapter);
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
 
                     @Override

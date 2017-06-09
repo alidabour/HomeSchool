@@ -70,7 +70,7 @@ public class Classroom extends AppCompatActivity {
                                 childModelList.add(childModel);
                             }
                         }
-                        childAdapter = new ChildsAdapter(childModelList,
+                        childAdapter = new ChildsAdapter(childModelList,getApplicationContext(),
                                 new ChildsAdapter.OnClickHandler() {
                                     @Override
                                     public void onClick(ChildModel test) {

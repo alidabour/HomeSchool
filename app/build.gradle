@@ -6,7 +6,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.example.ali.homeschool"
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -29,8 +29,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-
-
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'net.simonvt.schematic:schematic:0.6.3'

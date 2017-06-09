@@ -52,6 +52,15 @@ public class Users {
 
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String photo ;
     public String name;
     public String address;
     public String age;

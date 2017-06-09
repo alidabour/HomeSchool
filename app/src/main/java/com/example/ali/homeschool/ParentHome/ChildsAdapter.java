@@ -1,5 +1,6 @@
 package com.example.ali.homeschool.ParentHome;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.example.ali.homeschool.CircleTransform;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.ChildrenAdapter;
@@ -18,12 +21,13 @@ import java.util.List;
  */
 
 public class ChildsAdapter extends RecyclerView.Adapter<ChildsAdapter.ChildViewHolder> {
-    public ChildsAdapter(List<ChildModel> childList,
+    public ChildsAdapter(List<ChildModel> childList,Context context ,
                          OnClickHandler onClickHandler) {
         this.childList = childList;
         this.onClickHandler = onClickHandler;
+        this.context = context ;
     }
-
+    Context context ;
     List<ChildModel> childList;
     OnClickHandler onClickHandler;
     public interface OnClickHandler {
@@ -40,8 +44,8 @@ public class ChildsAdapter extends RecyclerView.Adapter<ChildsAdapter.ChildViewH
     public void onBindViewHolder(ChildViewHolder holder, int position) {
         ChildModel childModel = childList.get(position);
         holder.childName.setText(childModel.getName());
-        holder.childPhoto.setImageResource(R.drawable.photoid);
-
+        //holder.childPhoto.setImageResource(R.drawable.photoid);
+        Glide.with(context).load(childModel.getPhoto()).into(holder.childPhoto);
 
     }
 

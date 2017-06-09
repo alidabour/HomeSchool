@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -41,14 +42,12 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
     UploadFile uploadFile;
     private Uri filePath;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.instructor_drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout2);
-
         //setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

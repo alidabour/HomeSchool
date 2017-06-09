@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.ali.homeschool.InstructorLessons.InstructorLessonsActivity;
@@ -51,12 +52,16 @@ public class InstructorFragment extends Fragment {
     UploadFile uploadFile;
     private Uri filePath;
     CourseCreated globalCourseCreated;
+    ProgressBar progressBar;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.instructor_fragment, container, false);
         // addCourse = (Button) view.findViewById(R.id.addCourse);
+        progressBar = (ProgressBar) view.findViewById(R.id.instructor_progressbas);
+
         coursesList = new ArrayList<>();
         coursesRV = (RecyclerView) view.findViewById(R.id.courses);
         coursesRV.setHasFixedSize(true);
@@ -184,6 +189,7 @@ public class InstructorFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        progressBar.setVisibility(View.VISIBLE);
         db.child("users").child(user.getUid()).child("CreatedCourse").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -207,6 +213,7 @@ public class InstructorFragment extends Fragment {
                         },getContext());
 
                 coursesRV.setAdapter(instructorCoursesCardAdapter);
+                progressBar.setVisibility(View.INVISIBLE);
 //                courseCreatedAdapter = new CourseCreatedAdapter(coursesList,
 //                        new CourseCreatedAdapter.OnClickHandler() {
 //                            @Override

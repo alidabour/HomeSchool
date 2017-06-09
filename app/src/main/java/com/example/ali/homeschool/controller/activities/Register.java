@@ -188,8 +188,6 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
             Toast.makeText(this, "Passwords didn't match", Toast.LENGTH_SHORT).show();
             repeated_password.setError("Doesn't Match.");
         }
-
-
     }
 
     private boolean validateForm() {

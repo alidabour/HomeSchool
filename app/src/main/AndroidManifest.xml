@@ -8,7 +8,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/a4"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -66,8 +66,11 @@
                 android:value="com.example.ali.homeschool.ParentHome.ParentActivity" />
         </activity>
         <activity android:name=".InstructorHome.InstructorActivity" />
-        <activity android:name=".InstructorLessons.InstructorLessonsActivity" />
-        <activity android:name=".InstructorTopic.InstructorTopicCreationActivity" />
+        <activity android:name=".InstructorLessons.InstructorLessonsActivity"
+            android:parentActivityName=".InstructorHome.InstructorActivity">
+
+        </activity>
+        <activity android:name=".InstructorTopic.InstructorTopicCreationActivity"/> >
         <activity android:name=".exercises.simple.SimpleExercises" />
         <activity android:name=".childEnrolledCourses.LessonActivity" />
         <activity android:name=".exercises.speech.Speech" />

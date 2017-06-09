@@ -8,10 +8,6 @@ import android.os.Parcelable;
  */
 
 public class ChildModel implements Parcelable {
-    String id;
-    String name;
-
-
     public String getName() {
         return name;
     }
@@ -20,13 +16,18 @@ public class ChildModel implements Parcelable {
         this.name = name;
     }
 
-    public String getId() {
-        return id;
+    String id;
+    String name;
+
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
+
+    String photo ;
 
     @Override
     public int describeContents() {
@@ -37,6 +38,7 @@ public class ChildModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.name);
+        dest.writeString(this.photo);
     }
 
     public ChildModel() {
@@ -45,6 +47,7 @@ public class ChildModel implements Parcelable {
     protected ChildModel(Parcel in) {
         this.id = in.readString();
         this.name = in.readString();
+        this.photo = in.readString();
     }
 
     public static final Parcelable.Creator<ChildModel> CREATOR = new Parcelable.Creator<ChildModel>() {
@@ -58,4 +61,12 @@ public class ChildModel implements Parcelable {
             return new ChildModel[size];
         }
     };
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
@@ -50,17 +51,17 @@ public class Guest extends AppCompatActivity {
     SampleCoursesToolbarAdapter imageCollapsingToolBarAdapter;
     ArrayList<String> subject = new ArrayList<>();
     ArrayList<CourseCreated> random = new ArrayList<>();
-
+    ProgressBar progressBar ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.guest_activity);
 
+        progressBar = (ProgressBar) findViewById(R.id.guest_progressbar);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         setSupportActionBar(toolbar);
-
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         courseSectionRV = (RecyclerView) findViewById(R.id.category_recyclerView);
@@ -183,6 +184,7 @@ public class Guest extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        progressBar.setVisibility(View.VISIBLE);
         DatabaseReference myRef = databaseReference;
         myRef.child("courses").addValueEventListener(
                 new ValueEventListener() {
@@ -238,6 +240,8 @@ public class Guest extends AppCompatActivity {
                                 headerRVDatas,0,subject);
                         courseSectionRV.setAdapter(courseSectionListAdapter);
                         // [END_EXCLUDE]
+                        progressBar.setVisibility(View.INVISIBLE);
+
                     }
 
                     @Override

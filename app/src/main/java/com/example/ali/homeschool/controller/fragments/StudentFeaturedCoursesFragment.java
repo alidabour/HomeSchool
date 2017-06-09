@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
@@ -51,6 +52,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
     ArrayList<String> subject = new ArrayList<>();
     private courseInterface listener ;
     ArrayList<CourseCreated> random = new ArrayList<>();
+    ProgressBar progressBar ;
 
     public StudentFeaturedCoursesFragment() {
     }
@@ -61,6 +63,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.courses_fragment_layout, container, false);
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        progressBar = (ProgressBar) view.findViewById(R.id.indeterminateBar);
         courseSectionRV = (RecyclerView) view.findViewById(R.id.category_recyclerView);
         courseSectionRV.setHasFixedSize(true);
         courseSectionRV.setLayoutManager(
@@ -94,6 +97,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
         // Add value event listener to the post
         // [START post_value_event_listener]DatabaseReference myRef = databaseReference;
 
+        progressBar.setVisibility(View.VISIBLE);
         DatabaseReference myRef = databaseReference;
         myRef.child("courses").addValueEventListener(
                 new ValueEventListener() {
@@ -145,6 +149,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                         // [END_EXCLUDE]
                         listener.onDataFetched(random);
 
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
 
                     @Override
