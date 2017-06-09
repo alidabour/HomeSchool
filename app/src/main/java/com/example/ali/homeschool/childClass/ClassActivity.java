@@ -3,6 +3,8 @@ package com.example.ali.homeschool.childClass;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.CountDownTimer;
 import android.speech.RecognizerIntent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -118,6 +120,20 @@ public class ClassActivity extends AppCompatActivity  {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode== Constants.SPEECH){
             if(resultCode==Constants.CORRECTANSWER){
+
+                Log.e( "ارنب", " Rabbit");
+                MediaPlayer mediaPlayer= MediaPlayer.create(this,R.raw.yay);
+                mediaPlayer.start();
+
+                new CountDownTimer(4000, 1000) {
+                    public void onFinish() {
+                        finish();
+                    }
+
+                    public void onTick(long millisUntilFinished) {
+                    }
+
+                }.start();
 
                 Toast.makeText(this," احسنت \n"+ data.getData().toString() ,  Toast.LENGTH_LONG).show();
 

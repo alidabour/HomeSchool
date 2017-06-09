@@ -1,6 +1,7 @@
 package com.example.ali.homeschool.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.descriptionActivity.CourseDescriptionActivity;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -23,7 +25,8 @@ public class SampleCoursesToolbarAdapter extends PagerAdapter {
     Context mContext;
     ArrayList<CourseCreated> random ;
 
-    public SampleCoursesToolbarAdapter(Context mContext , ArrayList random) {
+
+    public SampleCoursesToolbarAdapter(Context mContext , ArrayList random ) {
         this.mContext = mContext;
         this.random = random ;
     }
@@ -39,11 +42,20 @@ public class SampleCoursesToolbarAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         ImageView mImageView  = new ImageView(mContext);
         mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         Glide.with(mContext).load(random.get(position).getPhoto_url()).into(mImageView);
         ((ViewPager) container).addView(mImageView,0);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext,
+                        CourseDescriptionActivity.class);
+                intent.putExtra("course",random.get(position));
+                mContext.startActivity(intent);
+            }
+        });
         return mImageView;
     }
 

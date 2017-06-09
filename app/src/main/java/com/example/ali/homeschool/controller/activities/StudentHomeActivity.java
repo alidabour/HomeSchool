@@ -23,13 +23,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.CircleTransform;
+import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.UserModelFirebase;
 import com.example.ali.homeschool.UserModelHelper.UserModelFirebaseClass;
 import com.example.ali.homeschool.adapter.SampleCoursesToolbarAdapter;
+import com.example.ali.homeschool.childEnrolledCourses.LessonActivity;
 import com.example.ali.homeschool.childEnrolledCourses.MyCoursesFragment;
 import com.example.ali.homeschool.controller.fragments.StudentFeaturedCoursesFragment;
 import com.example.ali.homeschool.data.firebase.UserModel;
+import com.example.ali.homeschool.descriptionActivity.CourseDescriptionActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -56,7 +59,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     UserModel userModel;
     ImageView userPhotoId;
     TextView UserName;
-
+    ArrayList<CourseCreated> courseList ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -242,23 +245,42 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
 
     @Override
     public void onDataFetched(ArrayList courses) {
-        imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(this , courses);
+        courseList = courses ;
+        imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(this , courses );
         mViewPager.setAdapter(imageCollapsingToolBarAdapter);
         mViewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 v.getParent().requestDisallowInterceptTouchEvent(true);
-//                Log.v("Test", "Pager Touch");
+
+                    switch(event.getAction()){
+                        case MotionEvent.ACTION_MOVE:
+
+                            Log.e("viewPager" ,mViewPager.getCurrentItem() +"");
+
+                            return false; //This is important, if you return TRUE the action of swipe will not take place.
+
+                    }
                 return false;
             }
         });
+
 
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 mViewPager.getParent().requestDisallowInterceptTouchEvent(true);
             }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                Log.e("viewPager" , position+"");
+
+            }
         });
+
+
 
     }
 }
