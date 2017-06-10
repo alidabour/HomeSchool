@@ -48,6 +48,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.UUID;
+import edu.sfsu.cs.orange.ocr.CaptureActivity;
 
 import static com.example.ali.homeschool.Constants.PUT_ACTIVITY_HERE;
 import static com.example.ali.homeschool.Constants.PUT_ANSWER_HERE;
@@ -554,7 +555,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     @Override
     public void openActivity(String activity, String answer) {
         if(activity.equals("ColorActivity")){
-            Intent intent = new Intent(this, ColorActivity.class);
+            Intent intent = new Intent(this, edu.sfsu.cs.orange.ocr.CaptureActivity.class);
             intent.putExtra("Answer",answer);
             startActivityForResult(intent,Color_Request);
         }

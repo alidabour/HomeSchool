@@ -46,6 +46,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
     compile project(path: ':openCVLibrary249')
+    compile project(path: ':OCRTest')
 }
 
 apply plugin: 'com.google.gms.google-services'
