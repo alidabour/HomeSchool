@@ -107,6 +107,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
                         intent.putExtra("topicid",topicid);
                         intent.putExtra("lessonid",lessonid);
                         intent.putExtra("courseID",courseId);
+
                         startActivity(intent);
                     }
                 });
@@ -173,6 +174,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
                                         intent.putExtra("topicid",test.getId());
                                         intent.putExtra("lessonid",lessonid);
                                         intent.putExtra("courseID",courseId);
+                                        intent.putExtra("layout",test.getLayout());
                                         startActivity(intent);
                                     }
                                 });
