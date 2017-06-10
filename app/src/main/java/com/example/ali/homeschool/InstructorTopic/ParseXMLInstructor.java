@@ -41,7 +41,7 @@ public class ParseXMLInstructor {
     XMLClick xmlClick;
     Activity activity;
 
-    public View parse(final Activity activity,InputStream in, Context context,
+    public View parse(final Activity activity, InputStream in, Context context,
                       XMLClick xmlClick) throws XmlPullParserException, IOException {
         this.xmlClick = xmlClick;
         try {
@@ -72,7 +72,7 @@ public class ParseXMLInstructor {
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT);
         relativeLayout.setLayoutParams(rlp);
-        relativeLayout.setPadding(8,8,8,8);
+        relativeLayout.setPadding(8, 8, 8, 8);
         parser.require(XmlPullParser.START_TAG, ns, "RelativeLayout");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -108,7 +108,7 @@ public class ParseXMLInstructor {
                 continue;
             }
             String name = parser.getName();
-            if (name.equals("RadioButton")){
+            if (name.equals("RadioButton")) {
                 Log.v("Parse", "RadioButton");
                 radioGroup.addView(readRadioButton(parser));
             } else {
@@ -167,20 +167,20 @@ public class ParseXMLInstructor {
 
     private Button readButton(XmlPullParser parser) throws XmlPullParserException, IOException {
         Log.v("Parse", "readButton");
-        String activityString="null";
+        String activityString = "null";
         String answer = null;
         String audioURL = null;
         final Button button = new Button(context);
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
-        if (parser.getAttributeValue(ns, "homeSchool:audioLink")!= null) {
+        if (parser.getAttributeValue(ns, "homeSchool:audioLink") != null) {
             audioURL = parser.getAttributeValue(ns, "homeSchool:audioLink");
         }
-        if (parser.getAttributeValue(ns, "homeSchool:activity")!=null) {
+        if (parser.getAttributeValue(ns, "homeSchool:activity") != null) {
             activityString = parser.getAttributeValue(ns, "homeSchool:activity");
         }
-        if(parser.getAttributeValue(ns,"homeSchool:answer")!=null){
-            answer = parser.getAttributeValue(ns,"homeSchool:answer");
+        if (parser.getAttributeValue(ns, "homeSchool:answer") != null) {
+            answer = parser.getAttributeValue(ns, "homeSchool:answer");
 
         }
         button.setId(id);
@@ -191,18 +191,20 @@ public class ParseXMLInstructor {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!finalActivity.equals("null")){
-                    if(finalActivity.equals("Speech")){
+                if (!finalActivity.equals("null")) {
+                    if (finalActivity.equals("Speech")) {
                         Intent intent = new Intent(context, Speech.class);
                         intent.putExtra("Answer", finalAnswer);
                         activity.startActivityForResult(intent, Constants.SPEECH);
 //                        Speech speech = new Speech(activity);
 //                        speech.setWord(answer)
-                    }else if (finalActivity.equals("ColorActivity")){
+                    } else if (finalActivity.equals("ColorActivity")) {
                         xmlClick.openActivity("ColorActivity", finalAnswer1);
+                    } else if (finalActivity.equals("TextDetection")) {
+                        xmlClick.openActivity("TextDetection", finalAnswer1);
                     }
                 }
-                if(finalAudioURL != null && finalAudioURL != Constants.PUT_SOUND_LINK_HERE){
+                if (finalAudioURL != null && finalAudioURL != Constants.PUT_SOUND_LINK_HERE) {
                     xmlClick.playSound(finalAudioURL);
                 }
             }
@@ -278,15 +280,16 @@ public class ParseXMLInstructor {
             textView.setTextSize(
                     Float.parseFloat(parser.getAttributeValue(ns, "android:textSize")));
         }
-        textView.setGravity(Gravity.CENTER_HORIZONTAL   );
+        textView.setGravity(Gravity.CENTER_HORIZONTAL);
         String color = parser.getAttributeValue(ns, "android:textColor");
-        if(parser.getAttributeValue(ns, "android:textAppearance")!=null){
-            Log.v("ITA"," TextAppearance " +parser.getAttributeValue(ns, "android:textAppearance"));
+        if (parser.getAttributeValue(ns, "android:textAppearance") != null) {
+            Log.v("ITA",
+                    " TextAppearance " + parser.getAttributeValue(ns, "android:textAppearance"));
 //            Log.v("TEXTAPP","A " +String.valueOf(textView.getTextSize()));
 //            textView.setTextAppearance(context,android.R.style.TextAppearance_Material_Display4);
             textView.setTextAppearance(context,
                     Integer.parseInt(parser.getAttributeValue(ns, "android:textAppearance")));
-            Log.v("ITA","Size"+  String.valueOf(textView.getTextSize()));
+            Log.v("ITA", "Size" + String.valueOf(textView.getTextSize()));
 
         }
         textView.setTextColor(Integer.parseInt(color));
@@ -342,7 +345,7 @@ public class ParseXMLInstructor {
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        lp.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
+        lp.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         return lp;
 //        if (height.equals("match_parent")) {
 //            if (width.equals("match_parent")) {

@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import com.example.ali.homeschool.InstructorTopic.ImageClicked;
 import com.example.ali.homeschool.InstructorTopic.ParseXMLInstructor;
 import com.example.ali.homeschool.InstructorTopic.XMLClick;
+import com.example.ali.homeschool.exercises.color.ColorActivity;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -22,6 +23,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
+import static com.example.ali.homeschool.Constants.Color_Request;
+import static com.example.ali.homeschool.Constants.Text_Detection;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -96,7 +99,15 @@ public class LessonFragment extends Fragment {
 
                         @Override
                         public void openActivity(String activity, String answer) {
-
+                            if (activity.equals("ColorActivity")) {
+                                Intent intent = new Intent(getActivity(), ColorActivity.class);
+                                intent.putExtra("Answer", answer);
+                                startActivityForResult(intent, Color_Request);
+                            } else if (activity.equals("TextDetection")) {
+                                Intent intent = new Intent(getActivity(), edu.sfsu.cs.orange.ocr.CaptureActivity.class);
+                                intent.putExtra("Answer", answer);
+                                startActivityForResult(intent, Text_Detection);
+                            }
                         }
 
                         @Override
