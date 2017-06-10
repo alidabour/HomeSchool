@@ -103,7 +103,6 @@ public class InstructorLessonsActivity extends AppCompatActivity {
             courseID = courseCreated.getCourse_id().toString();
         }
 
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
