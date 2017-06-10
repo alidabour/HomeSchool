@@ -54,10 +54,12 @@ import edu.sfsu.cs.orange.ocr.CaptureActivity;
 
 import static com.example.ali.homeschool.Constants.PUT_ACTIVITY_HERE;
 import static com.example.ali.homeschool.Constants.PUT_ANSWER_HERE;
+import static com.example.ali.homeschool.Constants.PUT_ID_HERE;
 import static com.example.ali.homeschool.Constants.PUT_SOUND_LINK_HERE;
 import static com.example.ali.homeschool.Constants.mButton;
 import static com.example.ali.homeschool.Constants.mImageView;
 import static com.example.ali.homeschool.Constants.mTextView;
+import static com.example.ali.homeschool.Constants.radioButton;
 import static com.example.ali.homeschool.Constants.radioGroupEnd;
 import static com.example.ali.homeschool.Constants.radioGroupStart;
 import static com.example.ali.homeschool.Constants.setColorButton;
@@ -97,7 +99,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     String mid = "";
     int textColor = -11177216;
     int textAppearance = android.R.style.TextAppearance_Material_Body1;
-    String layout ;
+
     String end = "</LinearLayout></RelativeLayout>";
 
     @Override
@@ -109,10 +111,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         question = (TextView) findViewById(R.id.question);
         submitTV = (TextView) findViewById(R.id.submit);
         midLayouts = new ArrayList<>();
-        act_main = (LinearLayout) findViewById(R.id.activiy_main);
         mainView = (LinearLayout) findViewById(R.id.mainLayout);
-        image = (TextView) findViewById(R.id.image);
-        sound = (TextView) findViewById(R.id.sound);
+
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("lessonid")) {
             lessonid = intent.getStringExtra("lessonid");
@@ -127,9 +127,11 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             topicname = intent.getStringExtra("topicname");
         }
         if (intent != null && intent.hasExtra("layout")) {
-            layout = intent.getStringExtra("layout");
+            String layout = intent.getStringExtra("layout");
+            layout = layout.replaceAll(start," ");
+            layout = layout.replaceAll(end," ");
+            addLayout(layout);
         }
-        addLayout(layout);
         question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,13 +190,20 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 databaseReference = databaseReference.child("courses").child(courseId)
                         .child("lessons").child(lessonid).child("topics").child(topicid);
                 TopicModel t = new TopicModel();
-                t.setLayout(start + midLayouts.toString() + end);
+                String layouts = " ";
+                for (String layout : midLayouts){
+                    layouts += layout;
+                }
+                t.setLayout(start + layouts + end);
                 t.setName(topicname);
                 t.setId(topicid);
                 databaseReference.updateChildren(t.toMap());
                 finish();
             }
         });
+        act_main = (LinearLayout) findViewById(R.id.activiy_main);
+        image = (TextView) findViewById(R.id.image);
+        sound = (TextView) findViewById(R.id.sound);
 
         image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,8 +245,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         sound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 final AlertDialog.Builder builder = new AlertDialog.Builder(
                         InstructorTopicCreationActivity.this);
                 builder.setTitle("Select sound file");
@@ -291,9 +298,13 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                addLayout(mTextView(id,questionStart.getText().toString().trim(),textColor,textAppearance));
-                addLayout(mTextView(id,word.getText().toString().trim(),textColor,textAppearance));
-                addLayout(mButton(id,"Start","TextDetection",new Answer(word.getText().toString()),PUT_SOUND_LINK_HERE));
+                addLayout(mTextView(id, questionStart.getText().toString().trim(), textColor,
+                        textAppearance));
+                addLayout(
+                        mTextView(id, word.getText().toString().trim(), textColor, textAppearance));
+                addLayout(
+                        mButton(id, "Start", "TextDetection", new Answer(word.getText().toString()),
+                                PUT_SOUND_LINK_HERE));
                 dialogInterface.cancel();
             }
         });
@@ -363,7 +374,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 //                quET = quET.replaceAll(PUTACTIONTEXTHERE, question1.getText().toString());
 //                quET = quET.replaceAll(PUTCOLOR, "123");
 //                radioLayout.add(quET);
-                radioLayout.add(radioGroupStart);
+                radioLayout.add(radioGroupStart.replace(PUT_ID_HERE, String.valueOf(id++)));
+//                addRadio(radioGroupStart.replace(PUT_ID_HERE,String.valueOf(++id)));
 
                 for (int count = 0; count < linearLayout.getChildCount(); count++) {
                     LinearLayout lat = (LinearLayout) linearLayout.getChildAt(count);
@@ -374,14 +386,20 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                     android.support.v7.widget.AppCompatEditText omm = (AppCompatEditText) ett
                             .getChildAt(0);
                     Log.v("MultiQue", "Child 0 Edit text :" + omm.getText());
-//                    String r1 = radioButton.replaceAll(PUTIDHERE, String.valueOf(id));
-//                    r1 = r1.replaceAll(PUTANSWERHERE, omm.getText().toString());
-//                    radioLayout.add(r1);
-
+                    String r1 = radioButton.replaceAll(PUT_ID_HERE, String.valueOf(++id));
+                    r1 = r1.replaceAll(PUT_ANSWER_HERE, omm.getText().toString());
+                    radioLayout.add(r1);
+//                    addLayout(r1);
                 }
-
                 radioLayout.add(radioGroupEnd);
-                addLayout(radioLayout.toString());
+//                addLayout(radioGroupEnd);
+                addRadio(radioLayout.toString());
+//                for(String x:radioLayout){
+//                    Log.v("Parser","ITA Radio Layout :" + x);
+//                }
+                Log.v("Parser", "ITA Radio Layout :" + radioLayout.toString());
+
+//                addLayout(radioLayout.toString());
             }
         });
         builder.setView(relativeLT);
@@ -561,9 +579,14 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         String layouts = "";
         for (String lay : midLayouts) {
             layouts += lay;
-    }
-        Log.e("Layout " , layouts);
+        }
         RelativeLayout linearLayout = parse(start + layouts + end);
+        mainView.removeAllViews();
+        mainView.addView(linearLayout);
+    }
+
+    private void addRadio(String layout) {
+        RelativeLayout linearLayout = parse(start + layout + end);
         mainView.removeAllViews();
         mainView.addView(linearLayout);
     }

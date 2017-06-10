@@ -39,7 +39,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
     LessonModel lessonModel;
     String lessonid;
     Intent intent;
-
+    ValueEventListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +107,6 @@ public class InstructorTopicActivity extends AppCompatActivity {
                         intent.putExtra("topicid",topicid);
                         intent.putExtra("lessonid",lessonid);
                         intent.putExtra("courseID",courseId);
-
                         startActivity(intent);
                     }
                 });
@@ -150,41 +149,57 @@ public class InstructorTopicActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        listener =  new ValueEventListener() {
+            List<TopicModel> lessonModelList;
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                lessonModelList = new ArrayList<TopicModel>();
+                Log.e("dataSnapShot",dataSnapshot+"");
+                for (DataSnapshot d : dataSnapshot.getChildren()){
+                    Log.v("Testytesty101","Lesson " + d.toString());
+                    topicModel = d.getValue(TopicModel.class);
+                    if(!(topicModel.getLayout()==null))
+                        lessonModelList.add(topicModel);
+                    Log.v("Test","LESSON __ "+ topicModel.toString());
+                }
+                TopicsAdapter lessonAdapter = new TopicsAdapter(lessonModelList,
+                        new TopicsAdapter.OnClickHandler() {
+                            @Override
+                            public void onClick(TopicModel test) {
+                                Intent intent = new Intent(getApplicationContext(), InstructorTopicCreationActivity.class);
+                                intent.putExtra("topicname",test.getName());
+                                intent.putExtra("topicid",test.getId());
+                                intent.putExtra("lessonid",lessonid);
+                                intent.putExtra("courseID",courseId);
+                                intent.putExtra("layout",test.getLayout());
+                                startActivity(intent);
+                            }
+                        });
+                lessonsRV.setAdapter(lessonAdapter);
+            }
 
-        db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").addValueEventListener(
-                new ValueEventListener() {
-                    List<TopicModel> lessonModelList;
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        lessonModelList = new ArrayList<TopicModel>();
-                        Log.e("dataSnapShot",dataSnapshot+"");
-                        for (DataSnapshot d : dataSnapshot.getChildren()){
-                            Log.v("Testytesty101","Lesson " + d.toString());
-                            topicModel = d.getValue(TopicModel.class);
-                            if(!(topicModel.getLayout()==null))
-                            lessonModelList.add(topicModel);
-                            Log.v("Test","LESSON __ "+ topicModel.toString());
-                        }
-                        TopicsAdapter lessonAdapter = new TopicsAdapter(lessonModelList,
-                                new TopicsAdapter.OnClickHandler() {
-                                    @Override
-                                    public void onClick(TopicModel test) {
-                                        Intent intent = new Intent(getApplicationContext(), InstructorTopicCreationActivity.class);
-                                        intent.putExtra("topicname",test.getName());
-                                        intent.putExtra("topicid",test.getId());
-                                        intent.putExtra("lessonid",lessonid);
-                                        intent.putExtra("courseID",courseId);
-                                        intent.putExtra("layout",test.getLayout());
-                                        startActivity(intent);
-                                    }
-                                });
-                        lessonsRV.setAdapter(lessonAdapter);
-                    }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").addValueEventListener(listener);
 
-                    }
-                });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(listener != null){
+            db.removeEventListener(listener);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        if(listener == null){
+//            db.addValueEventListener(listener);
+//        }
     }
 }

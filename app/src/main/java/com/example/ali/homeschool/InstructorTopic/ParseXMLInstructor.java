@@ -84,6 +84,7 @@ public class ParseXMLInstructor {
             } else if (name.equals("RadioGroup")) {
                 relativeLayout.addView(readRadioGroup(parser));
             } else if (name.equals("RadioButton")) {
+                //
             } else if (name.equals("TextView")) {
                 relativeLayout.addView(readTextView(parser));
             } else if (name.equals("Button")) {
@@ -98,6 +99,7 @@ public class ParseXMLInstructor {
     }
 
     private View readRadioGroup(XmlPullParser parser) throws IOException, XmlPullParserException {
+        Log.v("Parse", "RadioGroup :" + parser.toString());
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
 //        float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
         RadioGroup radioGroup = new RadioGroup(context);
@@ -109,9 +111,10 @@ public class ParseXMLInstructor {
             }
             String name = parser.getName();
             if (name.equals("RadioButton")) {
-                Log.v("Parse", "RadioButton");
+                Log.v("Parse", "RadioButton :" + parser.toString());
                 radioGroup.addView(readRadioButton(parser));
             } else {
+                Log.v("Parse", "Error RadioButton :" + parser.toString());
                 skip(parser);
             }
         }
