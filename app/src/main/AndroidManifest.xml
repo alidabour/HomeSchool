@@ -4,7 +4,16 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.screen.landscape"/>
+
+
 
     <application
         android:allowBackup="true"
@@ -23,6 +32,15 @@
         <activity android:name=".controller.activities.Sign_In" />
         <activity android:name=".controller.activities.SignInAs" />
         <activity android:name=".closed.Guesttrial______________" />
+
+        <activity android:name=".exercises.textdetection.CaptureActivity"
+                  android:screenOrientation="landscape"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                  android:windowSoftInputMode="stateAlwaysHidden"
+            />
+
+        <activity android:name="com.example.ali.homeschool.exercises.textdetection.PreferencesActivity" />
 
         <provider
             android:name=".data.generated.DataProvider"
@@ -76,6 +94,7 @@
         <activity android:name=".exercises.speech.Speech" />
         <activity android:name=".InstructorTopic.InstructorTopicActivity" />
         <activity android:name=".InstructorHome.Classroom"></activity>
+        <activity android:name=".exercises.color.ColorActivity"/>
     </application>
 
 </manifest>

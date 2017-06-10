@@ -3,9 +3,7 @@ package com.example.ali.homeschool.InstructorTopic;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.speech.SpeechRecognizer;
 import android.util.Log;
 import android.util.Xml;
 import android.view.Gravity;
@@ -40,12 +38,12 @@ public class ParseXMLInstructor {
     private static final String ns = null;
     private static Context context;
     private float scale;
-    ImageClicked loadImage;
+    XMLClick xmlClick;
     Activity activity;
 
     public View parse(final Activity activity,InputStream in, Context context,
-                      ImageClicked loadImage) throws XmlPullParserException, IOException {
-        this.loadImage = loadImage;
+                      XMLClick xmlClick) throws XmlPullParserException, IOException {
+        this.xmlClick = xmlClick;
         try {
             this.activity = activity;
             this.context = context;
@@ -110,7 +108,7 @@ public class ParseXMLInstructor {
                 continue;
             }
             String name = parser.getName();
-            if (name.equals("RadioButton")) {
+            if (name.equals("RadioButton")){
                 Log.v("Parse", "RadioButton");
                 radioGroup.addView(readRadioButton(parser));
             } else {
@@ -171,11 +169,12 @@ public class ParseXMLInstructor {
         Log.v("Parse", "readButton");
         String activityString="null";
         String answer = null;
+        String audioURL = null;
         final Button button = new Button(context);
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
         if (parser.getAttributeValue(ns, "homeSchool:audioLink")!= null) {
-            final String audioURL = parser.getAttributeValue(ns, "homeSchool:audioLink");
+            audioURL = parser.getAttributeValue(ns, "homeSchool:audioLink");
         }
         if (parser.getAttributeValue(ns, "homeSchool:activity")!=null) {
             activityString = parser.getAttributeValue(ns, "homeSchool:activity");
@@ -187,6 +186,8 @@ public class ParseXMLInstructor {
         button.setId(id);
         final String finalActivity = activityString;
         final String finalAnswer = answer;
+        final String finalAnswer1 = answer;
+        final String finalAudioURL = audioURL;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -197,7 +198,12 @@ public class ParseXMLInstructor {
                         activity.startActivityForResult(intent, Constants.SPEECH);
 //                        Speech speech = new Speech(activity);
 //                        speech.setWord(answer)
+                    }else if (finalActivity.equals("ColorActivity")){
+                        xmlClick.openActivity("ColorActivity", finalAnswer1);
                     }
+                }
+                if(finalAudioURL != null && finalAudioURL != Constants.PUT_SOUND_LINK_HERE){
+                    xmlClick.playSound(finalAudioURL);
                 }
             }
         });
@@ -248,7 +254,7 @@ public class ParseXMLInstructor {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadImage.onClick(imageView);
+                xmlClick.onImageClick(imageView);
             }
         });
         while (parser.next() != XmlPullParser.END_TAG) {

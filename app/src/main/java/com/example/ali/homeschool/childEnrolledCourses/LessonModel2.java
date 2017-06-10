@@ -6,8 +6,6 @@ import android.os.Parcelable;
 import com.example.ali.homeschool.InstructorTopic.TopicModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Ali on 4/21/2017.

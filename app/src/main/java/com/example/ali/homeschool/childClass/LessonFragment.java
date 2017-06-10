@@ -1,6 +1,7 @@
 package com.example.ali.homeschool.childClass;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.example.ali.homeschool.InstructorTopic.ImageClicked;
 import com.example.ali.homeschool.InstructorTopic.ParseXMLInstructor;
+import com.example.ali.homeschool.InstructorTopic.XMLClick;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -38,7 +40,7 @@ public class LessonFragment extends Fragment {
     private String layout;
     private String mParam2;
     RelativeLayout linearLayout;
-
+    MediaPlayer mediaPlayer;
 //    private OnFragmentInteractionListener mListener;
 
     public LessonFragment() {
@@ -81,10 +83,24 @@ public class LessonFragment extends Fragment {
         stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
         ParseXMLInstructor parseXML = new ParseXMLInstructor();
         try {
-            linearLayout= (RelativeLayout) parseXML.parse(this.getActivity(),stream, getContext(),
-                    new ImageClicked() {
+            linearLayout= (RelativeLayout) parseXML.parse(this.getActivity(), stream, getContext(),
+                    new XMLClick() {
                         @Override
-                        public void onClick(View v) {
+                        public void playSound(String url) {
+                            try {
+                                playAudio(url);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void openActivity(String activity, String answer) {
+
+                        }
+
+                        @Override
+                        public void onImageClick(View imageView) {
 
                         }
                     });
@@ -115,5 +131,26 @@ public class LessonFragment extends Fragment {
 //
 //            }
 //        }
+    }
+
+    private void playAudio(String url) throws Exception
+    {
+        killMediaPlayer();
+
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setDataSource(url);
+        mediaPlayer.prepare();
+        mediaPlayer.start();
+    }
+
+    private void killMediaPlayer() {
+        if(mediaPlayer!=null) {
+            try {
+                mediaPlayer.release();
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

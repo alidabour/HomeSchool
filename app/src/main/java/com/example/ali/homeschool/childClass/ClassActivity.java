@@ -122,7 +122,7 @@ public class ClassActivity extends AppCompatActivity  {
             if(resultCode==Constants.CORRECTANSWER){
 
                 Log.e( "ارنب", " Rabbit");
-                MediaPlayer mediaPlayer= MediaPlayer.create(this,R.raw.yay);
+                MediaPlayer mediaPlayer= MediaPlayer.create(this,R.raw.dogname);
                 mediaPlayer.start();
 
                 new CountDownTimer(4000, 1000) {

@@ -11,7 +11,6 @@ import android.util.Log;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorLessons.LessonAdapter;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
-import com.example.ali.homeschool.InstructorTopic.InstructorTopicActivity;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.childClass.ClassActivity;
 import com.google.firebase.database.DataSnapshot;

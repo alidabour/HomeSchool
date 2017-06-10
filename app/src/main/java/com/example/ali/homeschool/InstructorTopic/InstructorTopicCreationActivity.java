@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -26,12 +28,12 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
 import com.example.ali.homeschool.UserModelHelper.UploadFile;
 import com.example.ali.homeschool.exercises.Answer;
+import com.example.ali.homeschool.exercises.color.ColorActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -59,11 +61,13 @@ import static com.example.ali.homeschool.Constants.setColorButton;
 import static com.example.ali.homeschool.Constants.start;
 import static com.example.ali.homeschool.Constants.textViewProperties;
 
-public class InstructorTopicCreationActivity extends AppCompatActivity implements ImageClicked, ColorPickerDialogListener, TextAppInterface {
+public class InstructorTopicCreationActivity extends AppCompatActivity implements XMLClick, ImageClicked, ColorPickerDialogListener, TextAppInterface {
     int id = 0;
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
+    private static final int Color_Request = 122;
     Button openColorPicker;
+    private MediaPlayer mediaPlayer;
 
     UploadFile uploadFileImage;
     UploadFile uploadFileSound;
@@ -422,7 +426,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String questionText = questionET.getText().toString();
-                addLayout(mButton(id, questionText, PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
+                addLayout(mButton(id, questionText, "ColorActivity", new Answer(selection[0]),
                         PUT_SOUND_LINK_HERE));
                 dialogInterface.cancel();
             }
@@ -507,7 +511,11 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     private void addLayout(String layout) {
         midLayouts.add(id, layout);
         id++;
-        RelativeLayout linearLayout = parse(start + midLayouts.toString() + end);
+        String layouts= "";
+        for (String lay: midLayouts){
+            layouts += lay;
+        }
+        RelativeLayout linearLayout = parse(start + layouts + end);
         mainView.removeAllViews();
         mainView.addView(linearLayout);
     }
@@ -529,5 +537,56 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     @Override
     public void onSelected(int i) {
         textAppearance = Constants.textAppearance[i];
+    }
+
+    @Override
+    public void playSound(String url) {
+        Log.v("SoundHS", "Start");
+        try {
+            playAudio(url);
+        } catch (Exception e) {
+            Log.v("SoundHS", "Error " + e.getMessage());
+
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void openActivity(String activity, String answer) {
+        if(activity.equals("ColorActivity")){
+            Intent intent = new Intent(this, ColorActivity.class);
+            intent.putExtra("Answer",answer);
+            startActivityForResult(intent,Color_Request);
+        }
+    }
+
+    @Override
+    public void onImageClick(View imageView) {
+
+    }
+
+    private void playAudio(String url) throws Exception
+    {
+        Log.v("SoundHS","URL : " + url);
+        killMediaPlayer();
+
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setDataSource(url);
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.prepare();
+        mediaPlayer.start();
+    }
+
+    private void killMediaPlayer() {
+        if(mediaPlayer!=null) {
+            try {
+                Log.v("SoundHS", "Release");
+                mediaPlayer.release();
+            }
+            catch(Exception e) {
+                Log.v("SoundHS", "Error Release : "+ e.getMessage());
+                e.printStackTrace();
+            }
+        }
     }
 }

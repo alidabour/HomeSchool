@@ -160,6 +160,15 @@ public class Constants {
         button = button.replaceAll(PUT_SOUND_LINK_HERE,soundLink);
         return button;
     }
+    //Sound
+    public static String mButton(int id, String text,String soundLink){
+        soundLink = soundLink.replaceAll("&", "&amp;");
+        soundLink = soundLink.replaceAll("\\?", "&#63;");
+        String button = BUTTON_HOLDER.replaceAll(PUT_ID_HERE, String.valueOf(id));
+        button = button.replaceAll(PUT_TEXT_HERE,text);
+        button = button.replaceAll(PUT_SOUND_LINK_HERE,soundLink);
+        return button;
+    }
     /*Image Helper
     *
     *

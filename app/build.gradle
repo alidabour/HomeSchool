@@ -45,6 +45,7 @@ dependencies {
     compile 'com.jrummyapps:colorpicker:2.1.6'
     testCompile 'junit:junit:4.12'
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
+    compile project(path: ':openCVLibrary249')
 }
 
 apply plugin: 'com.google.gms.google-services'
