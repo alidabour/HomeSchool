@@ -97,7 +97,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     String mid = "";
     int textColor = -11177216;
     int textAppearance = android.R.style.TextAppearance_Material_Body1;
-
+    String layout ;
     String end = "</LinearLayout></RelativeLayout>";
 
     @Override
@@ -108,6 +108,11 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         storageReference = FirebaseStorage.getInstance().getReference();
         question = (TextView) findViewById(R.id.question);
         submitTV = (TextView) findViewById(R.id.submit);
+        midLayouts = new ArrayList<>();
+        act_main = (LinearLayout) findViewById(R.id.activiy_main);
+        mainView = (LinearLayout) findViewById(R.id.mainLayout);
+        image = (TextView) findViewById(R.id.image);
+        sound = (TextView) findViewById(R.id.sound);
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("lessonid")) {
             lessonid = intent.getStringExtra("lessonid");
@@ -121,6 +126,10 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         if (intent != null && intent.hasExtra("topicname")) {
             topicname = intent.getStringExtra("topicname");
         }
+        if (intent != null && intent.hasExtra("layout")) {
+            layout = intent.getStringExtra("layout");
+        }
+        addLayout(layout);
         question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -186,11 +195,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 finish();
             }
         });
-        midLayouts = new ArrayList<>();
-        act_main = (LinearLayout) findViewById(R.id.activiy_main);
-        mainView = (LinearLayout) findViewById(R.id.mainLayout);
-        image = (TextView) findViewById(R.id.image);
-        sound = (TextView) findViewById(R.id.sound);
 
         image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -558,6 +562,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         for (String lay : midLayouts) {
             layouts += lay;
     }
+        Log.e("Layout " , layouts);
         RelativeLayout linearLayout = parse(start + layouts + end);
         mainView.removeAllViews();
         mainView.addView(linearLayout);
