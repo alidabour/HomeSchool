@@ -106,6 +106,7 @@ public class LessonFragment extends Fragment {
                             } else if (activity.equals("TextDetection")) {
                                 Intent intent = new Intent(getActivity(), edu.sfsu.cs.orange.ocr.CaptureActivity.class);
                                 intent.putExtra("Answer", answer);
+                                //Comment
                                 startActivityForResult(intent, Text_Detection);
                             }
                         }
