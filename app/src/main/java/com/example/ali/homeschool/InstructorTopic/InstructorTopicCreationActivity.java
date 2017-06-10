@@ -28,6 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
@@ -48,6 +49,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.UUID;
+
 import edu.sfsu.cs.orange.ocr.CaptureActivity;
 
 import static com.example.ali.homeschool.Constants.PUT_ACTIVITY_HERE;
@@ -60,13 +62,16 @@ import static com.example.ali.homeschool.Constants.radioGroupEnd;
 import static com.example.ali.homeschool.Constants.radioGroupStart;
 import static com.example.ali.homeschool.Constants.setColorButton;
 import static com.example.ali.homeschool.Constants.start;
+import static com.example.ali.homeschool.Constants.textAppearance;
 import static com.example.ali.homeschool.Constants.textViewProperties;
+import static com.example.ali.homeschool.Constants.Color_Request;
+import static com.example.ali.homeschool.Constants.Text_Detection;
 
 public class InstructorTopicCreationActivity extends AppCompatActivity implements XMLClick, ImageClicked, ColorPickerDialogListener, TextAppInterface {
     int id = 0;
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
-    private static final int Color_Request = 122;
+
     Button openColorPicker;
     private MediaPlayer mediaPlayer;
 
@@ -127,6 +132,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 final TextView colorQue = (TextView) someLayout.findViewById(R.id.color);
                 final TextView speechQue = (TextView) someLayout.findViewById(R.id.speech);
                 final TextView multiQue = (TextView) someLayout.findViewById(R.id.multipleChoices);
+                final TextView textDetection = (TextView) someLayout
+                        .findViewById(R.id.textDetection);
 
                 builder.setView(someLayout);
                 final AlertDialog dialog = builder.create();
@@ -154,14 +161,23 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                     }
                 });
 
+                textDetection.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                        openTextDetectionDialog();
+                    }
+                });
+
             }
         });
         submitTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v("Course"+courseId,"lessons"+lessonid);
-                Log.v("topics",topicid);
-                databaseReference = databaseReference.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(topicid);
+                Log.v("Course" + courseId, "lessons" + lessonid);
+                Log.v("topics", topicid);
+                databaseReference = databaseReference.child("courses").child(courseId)
+                        .child("lessons").child(lessonid).child("topics").child(topicid);
                 TopicModel t = new TopicModel();
                 t.setLayout(start + midLayouts.toString() + end);
                 t.setName(topicname);
@@ -256,6 +272,30 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
             }
         });
+    }
+
+    private void openTextDetectionDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(
+                InstructorTopicCreationActivity.this);
+        builder.setTitle("Questions :");
+        LayoutInflater li = LayoutInflater.from(InstructorTopicCreationActivity.this);
+        final LinearLayout linearLayout = (LinearLayout) li
+                .inflate(R.layout.text_detection_dialog, null);
+        final EditText word = (EditText) linearLayout.findViewById(R.id.word);
+        final EditText questionStart = (EditText) linearLayout.findViewById(R.id.questionStart);
+        textViewProperties(linearLayout, InstructorTopicCreationActivity.this, this);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                addLayout(mTextView(id,questionStart.getText().toString().trim(),textColor,textAppearance));
+                addLayout(mTextView(id,word.getText().toString().trim(),textColor,textAppearance));
+                addLayout(mButton(id,"Start","TextDetection",new Answer(word.getText().toString()),PUT_SOUND_LINK_HERE));
+                dialogInterface.cancel();
+            }
+        });
+        builder.setView(linearLayout);
+        builder.show();
+
     }
 
     private void openSpeechQueDialog() {
@@ -371,7 +411,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             uploadFileImage = new UploadFile(filePath, this, new FileUploadHelper() {
                 @Override
                 public void fileUploaded(String url) {
-                    addLayout(mImageView(id,url));
+                    addLayout(mImageView(id, url));
                     //and displaying a success toast
                     Toast.makeText(getApplicationContext(), "File Uploaded",
                             Toast.LENGTH_LONG).show();
@@ -384,7 +424,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             uploadFileSound = new UploadFile(filePath, this, new FileUploadHelper() {
                 @Override
                 public void fileUploaded(String url) {
-                    addLayout(mButton(id,"Start",PUT_ACTIVITY_HERE,new Answer(PUT_ANSWER_HERE),url));
+                    addLayout(mButton(id, "Start", PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
+                            url));
                     //and displaying a success toast
                     Toast.makeText(getApplicationContext(), "File Uploaded",
                             Toast.LENGTH_LONG).show();
@@ -400,7 +441,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         LayoutInflater li = LayoutInflater.from(InstructorTopicCreationActivity.this);
         LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.color_question_dialog, null);
         final EditText questionET = (EditText) someLayout.findViewById(R.id.question);
-        textViewProperties(someLayout,this,this);
+        textViewProperties(someLayout, this, this);
         Spinner colorSpinner = (Spinner) someLayout.findViewById(R.id.colors);
         ArrayAdapter<CharSequence> actionColors = ArrayAdapter.createFromResource(this,
                 R.array.color_array, android.R.layout.simple_spinner_item);
@@ -451,7 +492,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 audioLink = audioIn.getText().toString();
-                addLayout(mButton(id,soundText,PUT_ACTIVITY_HERE,new Answer(PUT_ANSWER_HERE),audioLink));
+                addLayout(mButton(id, soundText, PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
+                        audioLink));
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -484,7 +526,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 m_Text = input.getText().toString();
-                addLayout(mImageView(id,m_Text));
+                addLayout(mImageView(id, m_Text));
             }
         });
         urlBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -512,10 +554,10 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     private void addLayout(String layout) {
         midLayouts.add(id, layout);
         id++;
-        String layouts= "";
-        for (String lay: midLayouts){
+        String layouts = "";
+        for (String lay : midLayouts) {
             layouts += lay;
-        }
+    }
         RelativeLayout linearLayout = parse(start + layouts + end);
         mainView.removeAllViews();
         mainView.addView(linearLayout);
@@ -554,10 +596,14 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
     @Override
     public void openActivity(String activity, String answer) {
-        if(activity.equals("ColorActivity")){
+        if (activity.equals("ColorActivity")) {
+            Intent intent = new Intent(this, ColorActivity.class);
+            intent.putExtra("Answer", answer);
+            startActivityForResult(intent, Color_Request);
+        } else if (activity.equals("TextDetection")) {
             Intent intent = new Intent(this, edu.sfsu.cs.orange.ocr.CaptureActivity.class);
-            intent.putExtra("Answer",answer);
-            startActivityForResult(intent,Color_Request);
+            intent.putExtra("Answer", answer);
+            startActivityForResult(intent, Text_Detection);
         }
     }
 
@@ -566,9 +612,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
     }
 
-    private void playAudio(String url) throws Exception
-    {
-        Log.v("SoundHS","URL : " + url);
+    private void playAudio(String url) throws Exception {
+        Log.v("SoundHS", "URL : " + url);
         killMediaPlayer();
 
         mediaPlayer = new MediaPlayer();
@@ -579,13 +624,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     }
 
     private void killMediaPlayer() {
-        if(mediaPlayer!=null) {
+        if (mediaPlayer != null) {
             try {
                 Log.v("SoundHS", "Release");
                 mediaPlayer.release();
-            }
-            catch(Exception e) {
-                Log.v("SoundHS", "Error Release : "+ e.getMessage());
+            } catch (Exception e) {
+                Log.v("SoundHS", "Error Release : " + e.getMessage());
                 e.printStackTrace();
             }
         }

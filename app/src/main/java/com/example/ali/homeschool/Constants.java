@@ -24,6 +24,8 @@ public class Constants {
     public static final int COLOR = 100;
     public static final int SIMPLE = 200;
     public static final int SPEECH = 300;
+    public static final int Color_Request = 122;
+    public static final int Text_Detection = 123;
 
     //Replace all
     public final static String PUT_ID_HERE = "PUTIDHERE";
