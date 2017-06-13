@@ -50,7 +50,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(CategoryAdapter.CategoryViewHolder holder, int position) {
 //        Log.v("Test","----------------------------------CategoryAdapter : "+ CourseList.get(position).toString());
         CourseCreated Course = CourseList.get(position);
-        Glide.with(context).load(Course.getPhoto_url()).fitCenter().into(holder.categoryImage);
+        Glide.with(context).load(Course.getPhoto_url()).fitCenter().override(600, 500).into(holder.categoryImage);
         Log.v("Trailers101",holder.categoryImage.getScaleType()+"");
         holder.categoryName.setText(Course.getName());
 

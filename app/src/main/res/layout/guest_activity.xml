@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,13 +8,11 @@
     tools:context="com.example.ali.homeschool.controller.activities.Guest">
 
 
-
-    <include layout="@layout/guest" />
-
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/appBarLayout3">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
@@ -25,7 +23,6 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false" >
-
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewPage_collapsing_toolbar"
@@ -41,12 +38,7 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/guest_progressbar"
-        android:layout_centerInParent="true"
-        />
+    <include layout="@layout/guest"/>
 
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

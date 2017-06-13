@@ -234,7 +234,7 @@ public class Guest extends AppCompatActivity {
                             subject.add(pair.getKey().toString());
                             it.remove(); // avoids a ConcurrentModificationException
                         }
-                        imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(getApplicationContext() , random);
+                        imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(Guest.this  , random);
                         mViewPager.setAdapter(imageCollapsingToolBarAdapter);
                         courseSectionListAdapter = new CourseSectionListAdapter(getApplicationContext(),
                                 headerRVDatas,0,subject);
