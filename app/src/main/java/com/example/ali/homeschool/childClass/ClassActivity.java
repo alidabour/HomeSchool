@@ -37,7 +37,6 @@ public class ClassActivity extends AppCompatActivity  {
     //RelativeLayout relativeLayout;
     View linearLayout;
     ImageView imageView;
-    ValueEventListener listener;
     Context context;
     ViewPager pager;
     ArrayList<String> layouts;
@@ -45,6 +44,8 @@ public class ClassActivity extends AppCompatActivity  {
     LessonModel lesson;
     String course_id , lesson_id ;
     ArrayList<TopicModel> TopicModelList;
+    ValueEventListener listener ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,16 +61,17 @@ public class ClassActivity extends AppCompatActivity  {
             Log.v("Test","Intent Found");
             course_id = b.getString("courseid");
             lesson_id = b.getString("lessonid");
-            Log.v("Test","Intent Found" +  " lesson "+course_id + " Course id " + course_id);
+            Log.v("Test","Intent Found" +  " lesson "+lesson_id + " Course id " + course_id);
         }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        //Log.v("Test","Coursr id "+ course.getCourse_id());
+        Log.v("Test","Coursr id "+ "OnStart bta3t topic");
+//        Log.v("Test","Listener ahu "+ listener.toString());
         //  lessonModelList = new ArrayList<LessonModel>();
-        db.child("courses").child(course_id).child("lessons").child(lesson_id).child("topics").addValueEventListener(new ValueEventListener() {
+        listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.e("TopicsonDataChang", "onDataChang");
@@ -82,7 +84,7 @@ public class ClassActivity extends AppCompatActivity  {
 
                 layouts = new ArrayList<String>();
 
-                for(TopicModel modelEntry : TopicModelList){
+                for (TopicModel modelEntry : TopicModelList) {
 
                     TopicModel topicModel = modelEntry;
                     layouts.add(topicModel.getLayout());
@@ -100,19 +102,23 @@ public class ClassActivity extends AppCompatActivity  {
                 pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(), layouts));
                 //layouts = new ArrayList<String>();
 
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+        db.child("courses").child(course_id).child("lessons").child(lesson_id).child("topics").addValueEventListener(listener);
+
     }
 
     @Override
     protected void onPause() {
+        if(listener != null)
+        db.removeEventListener(listener);
         super.onPause();
-      // db.removeEventListener();
     }
 
     @Override

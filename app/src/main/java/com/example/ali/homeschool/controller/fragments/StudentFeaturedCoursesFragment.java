@@ -30,6 +30,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static android.content.ContentValues.TAG;
+
 //import android.support.v4.app.LoaderManager;
 //import android.support.v4.app.LoaderManager.LoaderCallbacks;
 //import android.support.v4.content.Loader;
@@ -50,9 +52,11 @@ public class StudentFeaturedCoursesFragment extends Fragment {
     private List<HeaderRVData> headerRVDatas;
     public int type;
     ArrayList<String> subject = new ArrayList<>();
-    private courseInterface listener ;
+    private courseInterface listener;
     ArrayList<CourseCreated> random = new ArrayList<>();
-    ProgressBar progressBar ;
+    ProgressBar progressBar;
+    ValueEventListener queryListener;
+    DatabaseReference myRef ;
 
     public StudentFeaturedCoursesFragment() {
     }
@@ -78,6 +82,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
         Log.v("StudentCoursesFragment", "Test");
         return view;
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -87,7 +92,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
     @Override
     public void onDetach() {
 
-        listener = null ;
+        listener = null;
         super.onDetach();
     }
 
@@ -98,70 +103,69 @@ public class StudentFeaturedCoursesFragment extends Fragment {
         // [START post_value_event_listener]DatabaseReference myRef = databaseReference;
 
         progressBar.setVisibility(View.VISIBLE);
-        DatabaseReference myRef = databaseReference;
-        myRef.child("courses").addValueEventListener(
-                new ValueEventListener() {
-                    public static final String TAG = "EmailPassword";
+        myRef = databaseReference;
+        queryListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        users = new ArrayList<>();
-                        random= new ArrayList<>();
-                        // Get Post object and use the values to update the UI
-                        // [START_EXCLUDE]
-                        for (DataSnapshot x : dataSnapshot.getChildren()) {
-                            //Log.v("Test", "Child : " + x.toString());
+                users = new ArrayList<>();
+                random = new ArrayList<>();
+                // Get Post object and use the values to update the UI
+                // [START_EXCLUDE]
+                for (DataSnapshot x : dataSnapshot.getChildren()) {
+                    //Log.v("Test", "Child : " + x.toString());
 
-                            CourseCreated c = x.getValue(CourseCreated.class);
-                            String key = x.getKey();
-                            c.setCourse_id(key);
-                            users.add(c);
-                            Log.v("Test", "Child : " + users);
-                        }
-                        HashMap<String, ArrayList<CourseCreated>> map = new HashMap<>();
-                        for (CourseCreated x : users) {
-                            // subject.add(x.getSubjectS());
-                            random.add(x);
-                            ArrayList<CourseCreated> c = new ArrayList<CourseCreated>();
-                            if (map.get(x.getSubjectS()) != null) {
-                                c = map.get(x.getSubjectS());
-                                c.add(x);
-                                map.put(x.getSubjectS(), c);
-                            } else {
-                                c.add(x);
-                                map.put(x.getSubjectS(), c);
-                            }
-                        }
-                        Log.v("Test", "Map :" + map.toString());
-                        Iterator it = map.entrySet().iterator();
-                        headerRVDatas = new ArrayList<HeaderRVData>();
-                        while (it.hasNext()) {
-                            Map.Entry pair = (Map.Entry) it.next();
-                            headerRVDatas.add(new HeaderRVData((String) pair.getKey(),
-                                    (List) pair.getValue()));
-                            Log.v("Test", "Map_______" + pair.getKey() + " = " + pair.getValue());
-                            subject.add(pair.getKey().toString());
-                            it.remove(); // avoids a ConcurrentModificationException
-                        }
-                        courseSectionListAdapter = new CourseSectionListAdapter(getActivity(),
-                                headerRVDatas, 1, subject);
-                        courseSectionRV.setAdapter(courseSectionListAdapter);
-                        // [END_EXCLUDE]
-                        listener.onDataFetched(random);
-
-                        progressBar.setVisibility(View.INVISIBLE);
+                    CourseCreated c = x.getValue(CourseCreated.class);
+                    String key = x.getKey();
+                    c.setCourse_id(key);
+                    users.add(c);
+                    Log.v("Test", "Child : " + users);
+                }
+                HashMap<String, ArrayList<CourseCreated>> map = new HashMap<>();
+                for (CourseCreated x : users) {
+                    // subject.add(x.getSubjectS());
+                    random.add(x);
+                    ArrayList<CourseCreated> c = new ArrayList<CourseCreated>();
+                    if (map.get(x.getSubjectS()) != null) {
+                        c = map.get(x.getSubjectS());
+                        c.add(x);
+                        map.put(x.getSubjectS(), c);
+                    } else {
+                        c.add(x);
+                        map.put(x.getSubjectS(), c);
                     }
+                }
+                Log.v("Test", "Map :" + map.toString());
+                Iterator it = map.entrySet().iterator();
+                headerRVDatas = new ArrayList<HeaderRVData>();
+                while (it.hasNext()) {
+                    Map.Entry pair = (Map.Entry) it.next();
+                    headerRVDatas.add(new HeaderRVData((String) pair.getKey(),
+                            (List) pair.getValue()));
+                    Log.v("Test", "Map_______" + pair.getKey() + " = " + pair.getValue());
+                    subject.add(pair.getKey().toString());
+                    it.remove(); // avoids a ConcurrentModificationException
+                }
+                courseSectionListAdapter = new CourseSectionListAdapter(getActivity(),
+                        headerRVDatas, 1, subject);
+                courseSectionRV.setAdapter(courseSectionListAdapter);
+                // [END_EXCLUDE]
+                listener.onDataFetched(random);
+                progressBar.setVisibility(View.INVISIBLE);
+            }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        // Getting Post failed, log a message
-                        Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                        // [START_EXCLUDE]
-                        Toast.makeText(getActivity(), "Failed to load post.",
-                                Toast.LENGTH_SHORT).show();
-                        // [END_EXCLUDE]
-                    }
-                });
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // [START_EXCLUDE]
+                Toast.makeText(getActivity(), "Failed to load post.",
+                        Toast.LENGTH_SHORT).show();
+                // [END_EXCLUDE]
+
+            }
+        };
+        myRef.child("courses").addValueEventListener(queryListener);
     }
 
 }

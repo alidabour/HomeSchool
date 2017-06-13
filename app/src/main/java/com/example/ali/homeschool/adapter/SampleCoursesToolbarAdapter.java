@@ -53,6 +53,7 @@ public class SampleCoursesToolbarAdapter extends PagerAdapter {
                 Intent intent = new Intent(mContext,
                         CourseDescriptionActivity.class);
                 intent.putExtra("course",random.get(position));
+                intent.putExtra("FLAG_ACTIVITY_NEW_TASK" , true );
                 mContext.startActivity(intent);
             }
         });

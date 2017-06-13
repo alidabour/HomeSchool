@@ -9,7 +9,7 @@
     android:paddingBottom="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/activity_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,5 +29,10 @@
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false" />
 
-    </LinearLayout>
+        <ProgressBar
+            android:id="@+id/guest_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>
