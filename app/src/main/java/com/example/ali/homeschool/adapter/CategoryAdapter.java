@@ -31,6 +31,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public interface OnClickHandler {
         void onClick(CourseCreated test);
     }
+
     public CategoryAdapter(Context context,List<CourseCreated> CourseList , OnClickHandler onClickHandler) {
         Log.v("Test","----------------------------------CategoryAdapter");
         this.context=context;
@@ -50,7 +51,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(CategoryAdapter.CategoryViewHolder holder, int position) {
 //        Log.v("Test","----------------------------------CategoryAdapter : "+ CourseList.get(position).toString());
         CourseCreated Course = CourseList.get(position);
-        Glide.with(context).load(Course.getPhoto_url()).fitCenter().override(600, 500).into(holder.categoryImage);
+        Glide.with(context).load(Course.getPhoto_url()).fitCenter().into(holder.categoryImage);
         Log.v("Trailers101",holder.categoryImage.getScaleType()+"");
         holder.categoryName.setText(Course.getName());
 

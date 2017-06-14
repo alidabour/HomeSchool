@@ -50,12 +50,12 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import edu.sfsu.cs.orange.ocr.CaptureActivity;
-
+import static com.example.ali.homeschool.Constants.Color_Request;
 import static com.example.ali.homeschool.Constants.PUT_ACTIVITY_HERE;
 import static com.example.ali.homeschool.Constants.PUT_ANSWER_HERE;
 import static com.example.ali.homeschool.Constants.PUT_ID_HERE;
 import static com.example.ali.homeschool.Constants.PUT_SOUND_LINK_HERE;
+import static com.example.ali.homeschool.Constants.Text_Detection;
 import static com.example.ali.homeschool.Constants.mButton;
 import static com.example.ali.homeschool.Constants.mImageView;
 import static com.example.ali.homeschool.Constants.mTextView;
@@ -64,10 +64,7 @@ import static com.example.ali.homeschool.Constants.radioGroupEnd;
 import static com.example.ali.homeschool.Constants.radioGroupStart;
 import static com.example.ali.homeschool.Constants.setColorButton;
 import static com.example.ali.homeschool.Constants.start;
-import static com.example.ali.homeschool.Constants.textAppearance;
 import static com.example.ali.homeschool.Constants.textViewProperties;
-import static com.example.ali.homeschool.Constants.Color_Request;
-import static com.example.ali.homeschool.Constants.Text_Detection;
 
 public class InstructorTopicCreationActivity extends AppCompatActivity implements XMLClick, ImageClicked, ColorPickerDialogListener, TextAppInterface {
     int id = 0;
@@ -174,7 +171,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
                 textDetection.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
+                    public void onClick(View view)   {
                         dialog.cancel();
                         openTextDetectionDialog();
                     }
