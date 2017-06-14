@@ -71,6 +71,7 @@ import static com.example.ali.homeschool.Constants.Text_Detection;
 
 public class InstructorTopicCreationActivity extends AppCompatActivity implements XMLClick, ImageClicked, ColorPickerDialogListener, TextAppInterface {
     int id = 0;
+    int radioButtonId = 0 ;
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
 
@@ -374,7 +375,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 //                quET = quET.replaceAll(PUTACTIONTEXTHERE, question1.getText().toString());
 //                quET = quET.replaceAll(PUTCOLOR, "123");
 //                radioLayout.add(quET);
-                radioLayout.add(radioGroupStart.replace(PUT_ID_HERE, String.valueOf(id++)));
+                radioLayout.add(radioGroupStart.replace(PUT_ID_HERE, String.valueOf(radioButtonId)));
 //                addRadio(radioGroupStart.replace(PUT_ID_HERE,String.valueOf(++id)));
 
                 for (int count = 0; count < linearLayout.getChildCount(); count++) {
@@ -386,20 +387,20 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                     android.support.v7.widget.AppCompatEditText omm = (AppCompatEditText) ett
                             .getChildAt(0);
                     Log.v("MultiQue", "Child 0 Edit text :" + omm.getText());
-                    String r1 = radioButton.replaceAll(PUT_ID_HERE, String.valueOf(++id));
+                    String r1 = radioButton.replaceAll(PUT_ID_HERE, String.valueOf(++radioButtonId));
                     r1 = r1.replaceAll(PUT_ANSWER_HERE, omm.getText().toString());
                     radioLayout.add(r1);
 //                    addLayout(r1);
                 }
                 radioLayout.add(radioGroupEnd);
 //                addLayout(radioGroupEnd);
-                addRadio(radioLayout.toString());
+      //          addRadio(radioLayout.toString());
 //                for(String x:radioLayout){
 //                    Log.v("Parser","ITA Radio Layout :" + x);
 //                }
                 Log.v("Parser", "ITA Radio Layout :" + radioLayout.toString());
 
-//                addLayout(radioLayout.toString());
+                addLayout(radioLayout.toString());
             }
         });
         builder.setView(relativeLT);
