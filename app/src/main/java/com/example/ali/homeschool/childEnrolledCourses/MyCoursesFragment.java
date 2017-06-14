@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.childClass.ClassActivity;
 import com.example.ali.homeschool.childProgress.EnrolledCourseModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,7 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 /**
@@ -36,6 +34,7 @@ import java.util.Objects;
 public class MyCoursesFragment extends Fragment {
    // EnrolledCoursesAdapter1 enrolledCoursesAdapter;
     RecyclerView enrolledRecyclerView;
+
    // private static final int CURSOR_LOADER_ID = 1;
     FirebaseAuth auth;
     FirebaseUser user;

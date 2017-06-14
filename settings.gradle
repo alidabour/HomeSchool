@@ -1,2 +1,2 @@
-include ':app', ':OCRTest'
+include ':app', ':OCRTest', ':mylibrary'
 include ':openCVLibrary249'
