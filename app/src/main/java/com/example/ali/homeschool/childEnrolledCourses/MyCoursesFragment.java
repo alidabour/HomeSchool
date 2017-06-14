@@ -85,7 +85,6 @@ public class MyCoursesFragment extends Fragment {
                     @Override
                     public void onDataChange(final DataSnapshot dataSnapshot) {
                         //enrolledCoursesList = new ArrayList<Courses2>();
-
                        // enrolledCoursesList = new ArrayList<Courses>();
                         coursesNames = new ArrayList<CourseCreated>();
                         for (DataSnapshot s : dataSnapshot.getChildren()) {
