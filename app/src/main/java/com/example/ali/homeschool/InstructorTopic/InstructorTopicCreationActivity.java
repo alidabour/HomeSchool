@@ -399,7 +399,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 //                    Log.v("Parser","ITA Radio Layout :" + x);
 //                }
                 Log.v("Parser", "ITA Radio Layout :" + radioLayout.toString());
-//
+
                 addLayout(radioLayout.toString());
             }
         });
