@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.childClass.ClassActivity;
 import com.example.ali.homeschool.childProgress.EnrolledCourseModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,7 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 /**
@@ -40,6 +38,7 @@ public class MyCoursesFragment extends Fragment {
     FirebaseAuth auth;
     FirebaseUser user;
     DatabaseReference db;
+
    // List<Courses2> enrolledCoursesList;
     List<Courses> enrolledCoursesList;
     List<CourseCreated> coursesNames;
@@ -58,6 +57,7 @@ public class MyCoursesFragment extends Fragment {
         if(container!=null){
             container.removeAllViews();
         }
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_courses_fragmetnt, container, false);
 

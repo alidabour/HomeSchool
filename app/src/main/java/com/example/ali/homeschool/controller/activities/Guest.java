@@ -87,57 +87,6 @@ public class Guest extends AppCompatActivity {
                 mViewPager.getParent().requestDisallowInterceptTouchEvent(true);
             }
         });
-
-//        Log.v("StudentCoursesFragment","Test");
-//        categoryInformationList = new ArrayList<CategoryInformation>();
-//        CategoryInformation categoryInformation= new CategoryInformation("Arabic",R.drawable.java);
-//        categoryInformationList.add(categoryInformation);
-//        categoryInformation = new  CategoryInformation("English",R.drawable.java);
-//        categoryInformationList.add(categoryInformation);
-//        categoryInformation = new  CategoryInformation("Math",R.drawable.java);
-//        categoryInformationList.add(categoryInformation);
-//        categoryInformation = new  CategoryInformation("Math",R.drawable.java);
-//        categoryInformationList.add(categoryInformation);
-//        categoryInformation = new  CategoryInformation("Math",R.drawable.java);
-//        categoryInformationList.add(categoryInformation);
-//        categoryInformation = new  CategoryInformation("Math",R.drawable.java);
-//        categoryInformationList.add(categoryInformation);
-//        categoryInformation = new  CategoryInformation("Math",R.drawable.java);
-//        categoryInformationList.add(categoryInformation);
-//        categoryInformation = new  CategoryInformation("Math",R.drawable.java);
-//        categoryInformationList.add(categoryInformation);
-//        toolbar= (Toolbar)findViewById(R.id.mToolbar);
-//        toolbar.inflateMenu(R.menu.home_menu);
-//        Log.v("Test","Inf :"+categoryInformation.getCategoryName());
-//        for (CategoryInformation x : categoryInformationList){
-//            Log.v("Test","Inf"+x.getCategoryName());
-//        }
-//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                switch (item.getItemId()){
-//                    case R.id.signIn_action:
-//                        Log.v("Test","Sign IN");
-//                        break;
-//                    case R.id.search_action:
-//                        Log.v("Test","Search");
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-//
-//        RecyclerView categoryRecycleView = (RecyclerView)findViewById(R.id.category_recyclerView);
-//        categoryRecycleView.setHasFixedSize(true);
-//        LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(Guest.this,LinearLayoutManager.HORIZONTAL,false);
-////        categoryLayoutManger.setOrientation(LinearLayoutManager.HORIZONTAL);
-//        categoryRecycleView.setLayoutManager(categoryLayoutManger);
-//
-//        RecyclerView c3= (RecyclerView)findViewById(R.id.c33);
-//        c3.setHasFixedSize(true);
-//        LinearLayoutManager cm3 = new LinearLayoutManager(Guest.this,LinearLayoutManager.HORIZONTAL,false);
-//        //cm2.setOrientation(LinearLayoutManager.HORIZONTAL);
-//        c3.setLayoutManager(cm3);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
