@@ -38,6 +38,7 @@ public class MyCoursesFragment extends Fragment {
     FirebaseAuth auth;
     FirebaseUser user;
     DatabaseReference db;
+
    // List<Courses2> enrolledCoursesList;
     List<Courses> enrolledCoursesList;
     List<CourseCreated> coursesNames;
@@ -56,6 +57,7 @@ public class MyCoursesFragment extends Fragment {
         if(container!=null){
             container.removeAllViews();
         }
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_courses_fragmetnt, container, false);
 
