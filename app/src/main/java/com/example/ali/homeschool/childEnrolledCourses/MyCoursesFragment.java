@@ -34,7 +34,6 @@ import java.util.List;
 public class MyCoursesFragment extends Fragment {
    // EnrolledCoursesAdapter1 enrolledCoursesAdapter;
     RecyclerView enrolledRecyclerView;
-
    // private static final int CURSOR_LOADER_ID = 1;
     FirebaseAuth auth;
     FirebaseUser user;
