@@ -106,6 +106,7 @@ public class ParseXMLInstructor {
 //        float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
         RadioGroup radioGroup = new RadioGroup(context);
         radioGroup.setOrientation(RadioGroup.VERTICAL);
+        radioGroup.setId(id);
         parser.require(XmlPullParser.START_TAG, ns, "RadioGroup");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {

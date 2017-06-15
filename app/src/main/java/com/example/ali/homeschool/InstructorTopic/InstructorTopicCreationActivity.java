@@ -24,8 +24,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -70,7 +68,7 @@ import static com.example.ali.homeschool.Constants.textViewProperties;
 
 public class InstructorTopicCreationActivity extends AppCompatActivity implements XMLClick, ImageClicked, ColorPickerDialogListener, TextAppInterface {
     int id = 0;
-    int radioButtonId = 0 ;
+    int radioButtonId = 0;
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
 
@@ -103,11 +101,19 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     String end = "</LinearLayout></RelativeLayout>";
 
 
+    RelativeLayout view1;
+    LinearLayout view2;
+    View.OnClickListener[] listeners;
+    View.OnLongClickListener[] Longlisteners;
+    ArrayList<View> views;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_topic);
 
+        views = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
         question = (TextView) findViewById(R.id.question);
@@ -133,8 +139,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         }
         if (intent != null && intent.hasExtra("layout")) {
             String layout = intent.getStringExtra("layout");
-            layout = layout.replaceAll(start," ");
-            layout = layout.replaceAll(end," ");
+            layout = layout.replaceAll(start, " ");
+            layout = layout.replaceAll(end, " ");
             addLayout(layout);
         }
 
@@ -180,7 +186,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
                 textDetection.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view)   {
+                    public void onClick(View view) {
                         dialog.cancel();
                         openTextDetectionDialog();
                     }
@@ -197,7 +203,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                         .child("lessons").child(lessonid).child("topics").child(topicid);
                 TopicModel t = new TopicModel();
                 String layouts = " ";
-                for (String layout : midLayouts){
+                for (String layout : midLayouts) {
                     layouts += layout;
                 }
                 t.setLayout(start + layouts + end);
@@ -282,10 +288,120 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                         openSoundURLDialog();
                     }
                 });
-
-
             }
         });
+
+
+
+
+        for (View view : views) {
+           /* view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Log.v("ViewShoooortPress ", v + "");
+                }
+            });*/
+           view.setOnLongClickListener(new View.OnLongClickListener() {
+               @Override
+               public boolean onLongClick(View v) {
+                   String x = v.toString();
+                  /* if (x.contains("RadioGroup")) {
+                       final AlertDialog.Builder builder = new AlertDialog.Builder(
+                               InstructorTopicCreationActivity.this);
+                       builder.setTitle("Edit Your Choices");
+                       LayoutInflater li = LayoutInflater.from(InstructorTopicCreationActivity.this);
+                       LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.sound_dialog, null);
+                       final EditText soundET = (EditText) someLayout.findViewById(R.id.soundtext);
+                       builder.setView(someLayout);
+                       builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                               dialog.cancel();
+                           }
+                       });
+                       final AlertDialog dialog = builder.create();
+                       dialog.show();
+                       TextView gallery = (TextView) someLayout.findViewById(R.id.choosefromGallery);
+                       gallery.setOnClickListener(new View.OnClickListener() {
+                           @Override
+                           public void onClick(View view) {
+                               dialog.cancel();
+                               soundText = soundET.getText().toString();
+                               openSoundActivity();
+                           }
+                       });
+
+                   }*/
+
+                   return false;
+               }
+           });
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    String x = v.toString();
+                    if (x.contains("TextView")) {
+                        final TextView textView = (TextView) v;
+                        views.indexOf(v);
+                        final EditText input = new EditText(InstructorTopicCreationActivity.this);
+                        input.setInputType(
+                                InputType.TYPE_CLASS_TEXT);
+                        input.setText(textView.getText().toString());
+                        final AlertDialog.Builder textBuilder = new AlertDialog.Builder(
+                                InstructorTopicCreationActivity.this);
+                        textBuilder.setTitle("Title");
+                        textBuilder.setView(input);
+                        textBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                for (String lay : midLayouts) {
+                                    String temp1;
+                                    if (lay.contains(textView.getText().toString())) {
+                                        temp1 = lay.replaceAll(textView.getText().toString(), input.getText().toString());
+                                        midLayouts.set(midLayouts.indexOf(lay), temp1);
+                                    }
+
+                                }
+                                textView.setText(input.getText().toString());
+                                views.set(views.indexOf(v), textView);
+
+                            }
+                        });
+                        textBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        final AlertDialog dialog = textBuilder.create();
+                        dialog.show();
+                    }
+                }
+            });
+        }
+
+    }
+    private void addLayout(String layout) {
+        views = new ArrayList<>();
+        midLayouts.add(id, layout);
+        id++;
+        String layouts = "";
+        for (String lay : midLayouts) {
+            layouts += lay;
+        }
+        Log.v("radioButtonId ", radioButtonId+"");
+        Log.v("radioButtonId ", id+"");
+        RelativeLayout linearLayout = parse(start + layouts + end);
+        mainView.removeAllViews();
+        mainView.addView(linearLayout);
+        view1 = (RelativeLayout) mainView.getChildAt(0);
+        view2 = (LinearLayout) view1.getChildAt(0);
+        for (int i = 0; i < view2.getChildCount(); i++) {
+            views.add(view2.getChildAt(i));
+        }
+
     }
 
     private void openTextDetectionDialog() {
@@ -377,7 +493,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 //                quET = quET.replaceAll(PUTACTIONTEXTHERE, question1.getText().toString());
 //                quET = quET.replaceAll(PUTCOLOR, "123");
 //                radioLayout.add(quET);
-                radioLayout.add(radioGroupStart.replace(PUT_ID_HERE, String.valueOf(radioButtonId)));
+                radioLayout.add(radioGroupStart.replace(PUT_ID_HERE, String.valueOf(id)));
 //                addRadio(radioGroupStart.replace(PUT_ID_HERE,String.valueOf(++id)));
 
                 for (int count = 0; count < linearLayout.getChildCount(); count++) {
@@ -393,11 +509,11 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                     r1 = r1.replaceAll(PUT_ANSWER_HERE, omm.getText().toString());
                     Log.v("MultiQue", "radio " + r1);
                     radioLayout.add(r1);
-                   // addLayout(r1);
+                    // addLayout(r1);
                 }
                 radioLayout.add(radioGroupEnd);
 //                addLayout(radioGroupEnd);
-      //          addRadio(radioLayout.toString());
+                //          addRadio(radioLayout.toString());
 //                for(String x:radioLayout){
 //                    Log.v("Parser","ITA Radio Layout :" + x);
 //                }
@@ -577,18 +693,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         Toast.makeText(this, "OnClick ITCA", Toast.LENGTH_SHORT).show();
     }
 
-    private void addLayout(String layout) {
-        midLayouts.add(id, layout);
-        id++;
-        String layouts = "";
-        for (String lay : midLayouts) {
-            layouts += lay;
-        }
-        Log.v("RadioButtonLayout " , start + layouts + end);
-        RelativeLayout linearLayout = parse(start + layouts + end);
-        mainView.removeAllViews();
-        mainView.addView(linearLayout);
-    }
 
     private void addRadio(String layout) {
         RelativeLayout linearLayout = parse(start + layout + end);
