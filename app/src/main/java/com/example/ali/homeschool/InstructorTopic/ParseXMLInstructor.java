@@ -54,10 +54,10 @@ public class ParseXMLInstructor {
             parser.nextTag();
             Log.v("Parse", "parser getName :" + parser.getName());
             if (parser.getName().equals("RelativeLayout")) {
-                Log.v("Parse", "parser getName :" + parser.getName());
+                Log.v("Parse", "parser getName Relative:" + parser.getName());
                 return readRelativeLayout(parser);
             } else {
-                Log.v("Parse", "parser getName :" + parser.getName());
+                Log.v("Parse", "parser getName Linear:" + parser.getName());
                 return readLinearLayout(parser);
             }
         } finally {
@@ -84,7 +84,7 @@ public class ParseXMLInstructor {
             } else if (name.equals("RadioGroup")) {
                 relativeLayout.addView(readRadioGroup(parser));
             } else if (name.equals("RadioButton")) {
-                //
+
             } else if (name.equals("TextView")) {
                 relativeLayout.addView(readTextView(parser));
             } else if (name.equals("Button")) {
@@ -100,16 +100,20 @@ public class ParseXMLInstructor {
 
     private View readRadioGroup(XmlPullParser parser) throws IOException, XmlPullParserException {
         Log.v("Parse", "RadioGroup :" + parser.toString());
+        //Log.v("Parse", "ns  :" + ns);
+
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
 //        float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
         RadioGroup radioGroup = new RadioGroup(context);
         radioGroup.setOrientation(RadioGroup.VERTICAL);
-        parser.require(XmlPullParser.START_TAG, ns, "RadioButton");
+        parser.require(XmlPullParser.START_TAG, ns, "RadioGroup");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
+            Log.v("Parser.next" , parser.next()+"");
             String name = parser.getName();
+            Log.v("Parse", "RadioButton :" + name);
             if (name.equals("RadioButton")) {
                 Log.v("Parse", "RadioButton :" + parser.toString());
                 radioGroup.addView(readRadioButton(parser));
@@ -159,6 +163,8 @@ public class ParseXMLInstructor {
                 linearLayout.addView(readTextView(parser));
             } else if (name.equals("Button")) {
                 linearLayout.addView(readButton(parser));
+            } else if (name.equals("RadioGroup")) {
+                linearLayout.addView(readRadioGroup(parser));
             } else if (name.equals("LinearLayout")) {
                 linearLayout.addView(readLinearLayout(parser));
             } else {

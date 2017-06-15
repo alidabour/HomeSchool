@@ -24,6 +24,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -100,16 +102,21 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
     String end = "</LinearLayout></RelativeLayout>";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_topic);
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
         question = (TextView) findViewById(R.id.question);
         submitTV = (TextView) findViewById(R.id.submit);
         midLayouts = new ArrayList<>();
         mainView = (LinearLayout) findViewById(R.id.mainLayout);
+        act_main = (LinearLayout) findViewById(R.id.activiy_main);
+        image = (TextView) findViewById(R.id.image);
+        sound = (TextView) findViewById(R.id.sound);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("lessonid")) {
@@ -130,6 +137,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             layout = layout.replaceAll(end," ");
             addLayout(layout);
         }
+
         question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -199,9 +207,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 finish();
             }
         });
-        act_main = (LinearLayout) findViewById(R.id.activiy_main);
-        image = (TextView) findViewById(R.id.image);
-        sound = (TextView) findViewById(R.id.sound);
 
         image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -386,8 +391,9 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                     Log.v("MultiQue", "Child 0 Edit text :" + omm.getText());
                     String r1 = radioButton.replaceAll(PUT_ID_HERE, String.valueOf(++radioButtonId));
                     r1 = r1.replaceAll(PUT_ANSWER_HERE, omm.getText().toString());
+                    Log.v("MultiQue", "radio " + r1);
                     radioLayout.add(r1);
-//                    addLayout(r1);
+                   // addLayout(r1);
                 }
                 radioLayout.add(radioGroupEnd);
 //                addLayout(radioGroupEnd);
@@ -578,6 +584,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         for (String lay : midLayouts) {
             layouts += lay;
         }
+        Log.v("RadioButtonLayout " , start + layouts + end);
         RelativeLayout linearLayout = parse(start + layouts + end);
         mainView.removeAllViews();
         mainView.addView(linearLayout);
