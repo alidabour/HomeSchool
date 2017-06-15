@@ -30,6 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
@@ -49,6 +50,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.UUID;
 
 import static com.example.ali.homeschool.Constants.Color_Request;
@@ -98,6 +101,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     String mid = "";
     int textColor = -11177216;
     int textAppearance = android.R.style.TextAppearance_Material_Body1;
+    Observable observable;
+    Observer observer;
 
     String end = "</LinearLayout></RelativeLayout>";
 
@@ -108,11 +113,20 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     View.OnLongClickListener[] Longlisteners;
     ArrayList<View> views;
     Boolean Flag = true;
+    ObservedObject watched;
+    ObservableDemo watcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_topic);
+        globalURL = "";
+        observable = new Observable();
+
+// create watched and watcher objects
+        watched = new ObservedObject(globalURL);
+
+
 
         views = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -305,41 +319,41 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 @Override
                 public boolean onLongClick(final View v) {
                     String x = v.toString();
-                   if (x.contains("Button")) {
-                       final Button button = (Button) v;
-                       views.indexOf(v);
-                       final EditText input = new EditText(InstructorTopicCreationActivity.this);
-                       input.setInputType(
-                               InputType.TYPE_CLASS_TEXT);
-                       input.setText(button.getText().toString());
-                       final AlertDialog.Builder textBuilder = new AlertDialog.Builder(
-                               InstructorTopicCreationActivity.this);
-                       textBuilder.setTitle("Title");
-                       textBuilder.setView(input);
-                       textBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                           @Override
-                           public void onClick(DialogInterface dialog, int which) {
-                               for (String lay : midLayouts) {
-                                   String temp1;
-                                   if (lay.contains(button.getText().toString())) {
-                                       temp1 = lay.replaceAll(button.getText().toString(), input.getText().toString());
-                                       midLayouts.set(midLayouts.indexOf(lay), temp1);
-                                       Log.v ("ButtonTryouts",temp1);
-                                   }
-                               }
-                               button.setText(input.getText().toString());
-                               views.set(views.indexOf(v), button);
-                           }
-                       });
-                       textBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                           @Override
-                           public void onClick(DialogInterface dialog, int which) {
-                               dialog.cancel();
-                           }
-                       });
-                       final AlertDialog dialog = textBuilder.create();
-                       dialog.show();
-                   }
+                    if (x.contains("Button")) {
+                        final Button button = (Button) v;
+                        views.indexOf(v);
+                        final EditText input = new EditText(InstructorTopicCreationActivity.this);
+                        input.setInputType(
+                                InputType.TYPE_CLASS_TEXT);
+                        input.setText(button.getText().toString());
+                        final AlertDialog.Builder textBuilder = new AlertDialog.Builder(
+                                InstructorTopicCreationActivity.this);
+                        textBuilder.setTitle("Title");
+                        textBuilder.setView(input);
+                        textBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                for (String lay : midLayouts) {
+                                    String temp1;
+                                    if (lay.contains(button.getText().toString())) {
+                                        temp1 = lay.replaceAll(button.getText().toString(), input.getText().toString());
+                                        midLayouts.set(midLayouts.indexOf(lay), temp1);
+                                        Log.v("ButtonTryouts", temp1);
+                                    }
+                                }
+                                button.setText(input.getText().toString());
+                                views.set(views.indexOf(v), button);
+                            }
+                        });
+                        textBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        final AlertDialog dialog = textBuilder.create();
+                        dialog.show();
+                    }
 
                     return false;
                 }
@@ -351,7 +365,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                     String x = v.toString();
                     if (x.contains("TextView")) {
                         final TextView textView = (TextView) v;
-                        views.indexOf(v);
                         final EditText input = new EditText(InstructorTopicCreationActivity.this);
                         input.setInputType(
                                 InputType.TYPE_CLASS_TEXT);
@@ -385,8 +398,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                         dialog.show();
                     } else if (x.contains("ImageView")) {
                         Flag = false;
-                        ImageView imageView = (ImageView) v;
-                        views.indexOf(v);
+                        final ImageView imageView = (ImageView) v;
                         String substr = "";
                         //   Log.v("SubString",substr.substring(x.lastIndexOf('h'),x.lastIndexOf('>')));
                         String xx = "";
@@ -424,16 +436,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                             public void onClick(View view) {
                                 dialog.cancel();
                                 openImageActivity();
-                                    for (String lay : midLayouts) {
-                                        String temp1;
-                                        Log.v("finalXx", finalXx);
-                                        if (lay.contains(finalXx)) {
-                                            temp1 = lay.replaceAll(finalXx, globalURL);
-                                            //midLayouts.set(midLayouts.indexOf(lay), temp1);
-                                            Log.v("Temp1", temp1);
-                                        }
-                                    }
-
                             }
                         });
                         TextView urlTV = (TextView) someLayout.findViewById(R.id.imageUrl);
@@ -444,6 +446,25 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                                 openImageURLDialog();
                             }
                         });
+                        //   globalURL.S
+                        watched.addObserver(new Observer() {
+                            @Override
+                            public void update(Observable o, Object arg) {
+                                for (String lay : midLayouts) {
+                                    String temp1;
+                                    temp1 = lay.replaceAll(finalXx, globalURL);
+                                    midLayouts.set(midLayouts.indexOf(lay), temp1);
+                                        views.set(views.indexOf(v), imageView);
+                                    Log.v("temp1",temp1);
+                                    Log.v("Views",views.get(views.indexOf(v))+"");
+                                    Log.v("midLayouts", midLayouts.get(midLayouts.indexOf(lay)));
+                                    Glide.with(InstructorTopicCreationActivity.this)
+                                            .load(globalURL).fitCenter().into(imageView);
+                                }
+
+                            }
+                        });
+
                         Flag = true;
                     }
                 }
@@ -622,11 +643,13 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             uploadFileImage = new UploadFile(filePath, this, new FileUploadHelper() {
                 @Override
                 public void fileUploaded(String url) {
-                    if (Flag)
+                    if (!Flag)
                         addLayout(mImageView(id, url));
                     else {
                         flagTrial = true;
                         globalURL = url;
+                        Log.v("GlobalURL", globalURL);
+                        watched.setValue(globalURL);
                     }
                     //and displaying a success toast
                     Toast.makeText(getApplicationContext(), "File Uploaded",
