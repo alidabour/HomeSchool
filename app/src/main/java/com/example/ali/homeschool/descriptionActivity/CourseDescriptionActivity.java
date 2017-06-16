@@ -158,7 +158,7 @@ public class CourseDescriptionActivity extends AppCompatActivity  {
                                                     EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
                                                     enrolledCourseModel.setName(courseCreated.getName());
                                                     enrolledCourseModel.setCourse_id(key);
-                                                    enrolledCourseModel.setProgress("50");
+                                                    enrolledCourseModel.setProgress("0");
                                                     myRef1.child("users").child(user.getUid()).child("EnrolledCourses").push().setValue(enrolledCourseModel);
 
                                                     Toast.makeText(CourseDescriptionActivity.this, "Enrolled Successful", Toast.LENGTH_SHORT).show();

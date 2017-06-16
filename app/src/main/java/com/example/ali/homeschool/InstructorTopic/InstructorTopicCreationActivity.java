@@ -32,13 +32,16 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.Constants;
+import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
 import com.example.ali.homeschool.UserModelHelper.UploadFile;
-import com.example.ali.homeschool.exercises.Answer;
 import com.example.ali.homeschool.exercises.color.ColorActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.jrummyapps.android.colorpicker.ColorPickerDialogListener;
@@ -53,6 +56,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
+
+import edu.sfsu.cs.orange.ocr.Answer;
 
 import static com.example.ali.homeschool.Constants.Color_Request;
 import static com.example.ali.homeschool.Constants.PUT_ACTIVITY_HERE;
@@ -73,6 +78,7 @@ import static com.example.ali.homeschool.Constants.textViewProperties;
 public class InstructorTopicCreationActivity extends AppCompatActivity implements XMLClick, ImageClicked, ColorPickerDialogListener, TextAppInterface {
     int id = 0;
     int radioButtonId = 0;
+    CourseCreated courseCreated;
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
     Boolean flagTrial = false;
@@ -101,6 +107,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     String mid = "";
     int textColor = -11177216;
     int textAppearance = android.R.style.TextAppearance_Material_Body1;
+
+    public static String selectlanguageString="";
 
     String end = "</LinearLayout></RelativeLayout>";
 
@@ -212,6 +220,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             public void onClick(View view) {
                 Log.v("Course" + courseId, "lessons" + lessonid);
                 Log.v("topics", topicid);
+                DatabaseReference coursesDatabaseReference = databaseReference.child("courses").child(courseId);
                 databaseReference = databaseReference.child("courses").child(courseId)
                         .child("lessons").child(lessonid).child("topics").child(topicid);
                 TopicModel t = new TopicModel();
@@ -223,6 +232,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 t.setName(topicname);
                 t.setId(topicid);
                 databaseReference.updateChildren(t.toMap());
+
+             //   coursesDatabaseReference.child("questions").setValue(courseCreated.getQuestions());
                 finish();
             }
         });
@@ -587,16 +598,64 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 .inflate(R.layout.text_detection_dialog, null);
         final EditText word = (EditText) linearLayout.findViewById(R.id.word);
         final EditText questionStart = (EditText) linearLayout.findViewById(R.id.questionStart);
+        final Spinner selectLanguage= (Spinner) linearLayout.findViewById(R.id.textLan);
+
+        ArrayAdapter<CharSequence> textSizes = ArrayAdapter.createFromResource(InstructorTopicCreationActivity.this,
+                R.array.text_lan_array, android.R.layout.simple_spinner_item);
+
+        selectLanguage.setAdapter(textSizes);
+        selectLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            if(i==0){selectlanguageString="eng";}
+                else if(i==1){selectlanguageString="ara";}
+                Log.v("Moooo",""+i);
+                Log.v("Moooo",""+selectlanguageString);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
         textViewProperties(linearLayout, InstructorTopicCreationActivity.this, this);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
+                databaseReference.child("courses").child(courseId).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        CourseCreated c = dataSnapshot.getValue(CourseCreated.class);
+                        int Number =Integer.parseInt(c.getQuestions());
+                        Number++;
+                        Log.v("Number++",Number+"");
+                        DatabaseReference db2 = databaseReference.child("courses").child(courseId);
+                        c.setQuestions(""+Number);
+                        courseCreated = c;
+                        Log.v("Number++",c.getName()+"");
+                        Log.v("Number++",c.getCourse_id()+"");
+                        Log.v("Number++",c.getDescription()+"");
+                        Log.v("Number++",c.getPhoto_url()+"");
+                        Log.v("Number++",c.getQuestions()+"");
+                        Log.v("Number++",c.getSubjectS()+"");
+                        Log.v("Number++",c.getRate()+"");
+                        Log.v("Number++",c.getTeacher_id()+"");
+                        Log.v("Number++",c.getTeacher_name()+"");
+                     //   databaseReference.updateChildren((Map<String, Object>) c);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
                 addLayout(mTextView(id, questionStart.getText().toString().trim(), textColor,
                         textAppearance));
                 addLayout(
                         mTextView(id, word.getText().toString().trim(), textColor, textAppearance));
                 addLayout(
-                        mButton(id, "Start", "TextDetection", new Answer(word.getText().toString()),
+                        mButton(id, "Start", "TextDetection", new Answer(word.getText().toString(),selectlanguageString),
                                 PUT_SOUND_LINK_HERE));
                 dialogInterface.cancel();
             }
@@ -925,14 +984,16 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     }
 
     @Override
-    public void openActivity(String activity, String answer) {
+    public void openActivity(String activity, Answer answer) {
         if (activity.equals("ColorActivity")) {
             Intent intent = new Intent(this, ColorActivity.class);
             intent.putExtra("Answer", answer);
             startActivityForResult(intent, Color_Request);
         } else if (activity.equals("TextDetection")) {
             Intent intent = new Intent(this, edu.sfsu.cs.orange.ocr.CaptureActivity.class);
+            Log.v("Parser","Answer :"+answer.getAnswer());
             intent.putExtra("Answer", answer);
+            intent.putExtra("lan", "eng");
             startActivityForResult(intent, Text_Detection);
         }
     }

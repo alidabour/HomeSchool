@@ -28,6 +28,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -63,6 +64,7 @@ import java.util.ArrayList;
 import edu.sfsu.cs.orange.ocr.camera.CameraManager;
 import edu.sfsu.cs.orange.ocr.camera.ShutterButton;
 import edu.sfsu.cs.orange.ocr.language.LanguageCodeHelper;
+
 //import edu.sfsu.cs.orange.ocr.language.TranslateAsyncTask;
 
 /**
@@ -220,6 +222,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     private boolean isPaused;
     private static boolean isFirstLaunch; // True if this is the first time the app is being run
 
+
+    public static final int CORRECTANSWER = 10;
+    public static final int WRONGANSWER = -10;
+
     public ArrayList<String> word = new ArrayList<>() ;
 
     Handler getHandler() {
@@ -239,14 +245,13 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         super.onCreate(icicle);
         Intent intent = getIntent();
         if (intent != null) {
-//
-            if(intent.hasExtra("lan")){
-                DEFAULT_SOURCE_LANGUAGE_CODE=intent.getStringExtra("lan");
-                Log.v("Helloooooooooooooooz","Wooooorld");
-            }
+
             if(intent.hasExtra("Answer")){
-                word.add(intent.getStringExtra("Answer"));
-                Log.v("Helloooooooooooooooz","Wooooorld");
+                Answer answer = intent.getParcelableExtra("Answer");
+                DEFAULT_SOURCE_LANGUAGE_CODE=answer.getLan();
+                word.add(answer.getAnswer());
+                Log.v("Helloooooooooooooooz",answer.getAnswer());
+
             }
         }
 
@@ -795,6 +800,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
                 Toast.makeText(getApplicationContext(), "نجحت", Toast.LENGTH_SHORT).show();
                 Log.v("ass", ocrResult.getText());
                 b=true;
+                Intent intent = new Intent();
+                intent.setData(Uri.parse(String.valueOf(b)));
+                setResult(CORRECTANSWER,intent);
+                finish();
             }
 
         }
@@ -803,6 +812,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             Log.v("Word.eq", "Failed");
             Toast.makeText(getApplicationContext(), "فشلت", Toast.LENGTH_SHORT).show();
             Log.v("ass", ocrResult.getText());
+
+            Intent intent = new Intent();
+            intent.setData(Uri.parse(String.valueOf(b)));
+            setResult(WRONGANSWER,intent);
+            finish();
 
         }
 

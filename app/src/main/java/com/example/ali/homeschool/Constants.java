@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.ali.homeschool.InstructorTopic.TextAppInterface;
-import com.example.ali.homeschool.exercises.Answer;
+import edu.sfsu.cs.orange.ocr.Answer;
 import com.jrummyapps.android.colorpicker.ColorPickerDialog;
 
 /**
@@ -20,6 +20,7 @@ public class Constants {
     public static final int CORRECTANSWER = 10;
     public static final int WRONGANSWER = -10;
 
+    public static String language ="eng" ;
     //Request Code
     public static final int COLOR = 100;
     public static final int SIMPLE = 200;
@@ -35,6 +36,8 @@ public class Constants {
     public final static String PUT_ACTIVITY_HERE = "PUTACTIVITYHERE";
     public final static String PUTCOLOR = "PUTCOLOR";
     public final static String PUT_ANSWER_HERE ="PUTANSWERHERE";
+    public final static String PUT_LAN_HERE ="PUTLANHERE";
+
     //XML 'S
     public final static String radioGroupStart = "<RadioGroup android:layout_width=\"match_parent\"\n" +
             "        android:layout_height=\"wrap_content\"\n" +
@@ -119,11 +122,13 @@ public class Constants {
         Spinner textSizeSpinner = (Spinner) view.findViewById(R.id.textSizes);
         ArrayAdapter<CharSequence> textSizes = ArrayAdapter.createFromResource(activity,
                 R.array.text_size_array, android.R.layout.simple_spinner_item);
+
         textSizeSpinner.setAdapter(textSizes);
         textSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-               textAppInterface.onSelected(i);
+                textAppInterface.onSelected(i);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
@@ -151,6 +156,7 @@ public class Constants {
             "homeSchool:audioLink=\""+ PUT_SOUND_LINK_HERE +"\""+
             "homeSchool:activity=\""+ PUT_ACTIVITY_HERE +"\" " +
             "homeSchool:answer=\""+ PUT_ANSWER_HERE +"\"" +
+            "homeSchool:lan=\""+PUT_LAN_HERE+"\"" +
             "/>";
     public static String mButton(int id, String text, String activity, Answer answer,String soundLink){
         soundLink = soundLink.replaceAll("&", "&amp;");
@@ -160,6 +166,7 @@ public class Constants {
         button = button.replaceAll(PUT_ACTIVITY_HERE,activity);
         button = button.replaceAll(PUT_ANSWER_HERE,answer.getAnswer());
         button = button.replaceAll(PUT_SOUND_LINK_HERE,soundLink);
+        button = button.replaceAll(PUT_LAN_HERE,answer.getLan());
         return button;
     }
     //Sound

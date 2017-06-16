@@ -4,18 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.speech.RecognizerIntent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.Constants;
-import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.InstructorTopic.TopicModel;
 import com.example.ali.homeschool.R;
@@ -26,8 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /*
     This class is for advanced level later on as it is designed to get the images like the cat image and the voice
@@ -126,6 +122,7 @@ public class ClassActivity extends AppCompatActivity  {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode== Constants.SPEECH){
             if(resultCode==Constants.CORRECTANSWER){
+                Log.v("talayabni",data.getData().toString());
 
                 Log.e( "ارنب", " Rabbit");
                 MediaPlayer mediaPlayer= MediaPlayer.create(this,R.raw.yay);
@@ -145,6 +142,7 @@ public class ClassActivity extends AppCompatActivity  {
 
 
             }else if (resultCode == Constants.WRONGANSWER){
+                Log.v("t3alayabni","etnyl t3ala");
                 Toast.makeText(this," حاول مرة أخري \n"+ data.getData().toString() ,  Toast.LENGTH_LONG).show();
 
             }
@@ -166,7 +164,21 @@ public class ClassActivity extends AppCompatActivity  {
             }
         }
         Log.v("LessonFragment", "Activity Result " +requestCode + " , "+ resultCode );
+        if(resultCode == Constants.CORRECTANSWER){
+            if (requestCode == Constants.Text_Detection){
+                Log.v("t3ala yabni","etnyl t3ala enta eltani");
+                Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
+            }
+        }
 
+        Log.v("ezhr w ban ",resultCode+"");
+        Log.v("ezhr w ban ",requestCode+"");
+        if(resultCode == Constants.WRONGANSWER){
+            if (requestCode == Constants.Text_Detection){
+                Log.v("t3ala yabni","etnyl t3ala");
+                Toast.makeText(context, "Result Incorrect", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override

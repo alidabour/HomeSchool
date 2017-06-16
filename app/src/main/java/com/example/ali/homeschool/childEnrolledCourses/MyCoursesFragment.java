@@ -109,7 +109,7 @@ public class MyCoursesFragment extends Fragment {
 //                                                    }else if(Objects.equals(x.getKey(), "name")){
 //                                                        Log.v("Test","Des " +x.getValue());
 //                                                        courses.setName(x.getValue().toString());
-////                                                        courses.setDescription(x.getValue().toString());
+//                                                        courses.setDescription(x.getValue().toString());
 //                                                    }
 
                                                     Log.e("myCoursesdatasnapshot: ",x.toString() );

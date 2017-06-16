@@ -84,4 +84,8 @@
         <item>Display4 112sp</item>
 
     </string-array>
+    <string-array name="text_lan_array">
+        <item>English</item>
+        <item>Arabic</item>
+    </string-array>
 </resources>

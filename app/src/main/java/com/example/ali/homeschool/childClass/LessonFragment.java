@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
-import com.example.ali.homeschool.InstructorTopic.ImageClicked;
+import com.example.ali.homeschool.Constants;
+import com.example.ali.homeschool.InstructorTopic.InstructorTopicCreationActivity;
 import com.example.ali.homeschool.InstructorTopic.ParseXMLInstructor;
 import com.example.ali.homeschool.InstructorTopic.XMLClick;
 import com.example.ali.homeschool.exercises.color.ColorActivity;
@@ -22,6 +24,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+
+import edu.sfsu.cs.orange.ocr.Answer;
 
 import static com.example.ali.homeschool.Constants.Color_Request;
 import static com.example.ali.homeschool.Constants.Text_Detection;
@@ -98,7 +102,7 @@ public class LessonFragment extends Fragment {
                         }
 
                         @Override
-                        public void openActivity(String activity, String answer) {
+                        public void openActivity(String activity, Answer answer) {
                             if (activity.equals("ColorActivity")) {
                                 Intent intent = new Intent(getActivity(), ColorActivity.class);
                                 intent.putExtra("Answer", answer);
@@ -106,6 +110,7 @@ public class LessonFragment extends Fragment {
                             } else if (activity.equals("TextDetection")) {
                                 Intent intent = new Intent(getActivity(), edu.sfsu.cs.orange.ocr.CaptureActivity.class);
                                 intent.putExtra("Answer", answer);
+                                intent.putExtra("lan", InstructorTopicCreationActivity.selectlanguageString);
                                 //Comment
                                 startActivityForResult(intent, Text_Detection);
                             }
@@ -131,6 +136,22 @@ public class LessonFragment extends Fragment {
         if(requestCode==2){
             Uri result = data.getData();
             Log.v("LessonFragment", "Result " +result.toString());
+        }
+        Log.v("LessonFragment", "Activity Result " +requestCode + " , "+ resultCode );
+        if(resultCode == Constants.CORRECTANSWER){
+            if (requestCode == Constants.Text_Detection){
+                Log.v("t3ala yabni","etnyl t3ala enta eltani");
+                Toast.makeText(getActivity(), "Result Correct", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        Log.v("ezhr w ban ",resultCode+"");
+        Log.v("ezhr w ban ",requestCode+"");
+        if(resultCode == Constants.WRONGANSWER){
+            if (requestCode == Constants.Text_Detection){
+                Log.v("t3ala yabni","etnyl t3ala");
+                Toast.makeText(getActivity(), "Result Incorrect", Toast.LENGTH_SHORT).show();
+            }
         }
 //        if(requestCode== Constants.SPEECH){
 //            if(resultCode==Constants.CORRECTANSWER){

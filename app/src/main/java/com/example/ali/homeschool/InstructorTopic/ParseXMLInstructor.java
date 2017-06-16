@@ -30,6 +30,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import edu.sfsu.cs.orange.ocr.Answer;
+
 /**
  * Created by Dabour on 11/20/2016.
  */
@@ -180,6 +182,7 @@ public class ParseXMLInstructor {
         String activityString = "null";
         String answer = null;
         String audioURL = null;
+        String lan = null;
         final Button button = new Button(context);
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
@@ -193,28 +196,34 @@ public class ParseXMLInstructor {
             answer = parser.getAttributeValue(ns, "homeSchool:answer");
 
         }
+        if (parser.getAttributeValue(ns, "homeSchool:lan") != null) {
+            lan = parser.getAttributeValue(ns, "homeSchool:lan");
+
+        }
         button.setId(id);
         final String finalActivity = activityString;
         final String finalAnswer = answer;
         final String finalAnswer1 = answer;
         final String finalAudioURL = audioURL;
+        final Answer answer1 = new Answer(answer,lan);
+        Log.v("Parser","Answer "+answer1.getAnswer());
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!finalActivity.equals("null")) {
                     if (finalActivity.equals("Speech")) {
                         Intent intent = new Intent(context, Speech.class);
-                        intent.putExtra("Answer", finalAnswer);
+                        intent.putExtra("Answer", answer1);
                         activity.startActivityForResult(intent, Constants.SPEECH);
 //                        Speech speech = new Speech(activity);
 //                        speech.setWord(answer)
                     } else if (finalActivity.equals("ColorActivity")) {
-                        xmlClick.openActivity("ColorActivity", finalAnswer1);
+                        xmlClick.openActivity("ColorActivity", answer1);
                     } else if (finalActivity.equals("TextDetection")) {
-                        xmlClick.openActivity("TextDetection", finalAnswer1);
+                        xmlClick.openActivity("TextDetection", answer1);
                     }
                 }
-                if (finalAudioURL != null && finalAudioURL != Constants.PUT_SOUND_LINK_HERE) {
+                if (finalAudioURL != null && !finalAudioURL.equals(Constants.PUT_SOUND_LINK_HERE) ) {
                     xmlClick.playSound(finalAudioURL);
                 }
             }

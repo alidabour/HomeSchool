@@ -25,7 +25,18 @@ TextView logoname;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);mAuth = FirebaseAuth.getInstance();
         // Buttons
-
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            {
+                Intent intent = new Intent(getApplicationContext(), SignInAs.class);
+                startActivity(intent);
+            }
+            Log.d("onAuthChang:signed_in:","");
+        } else {
+            // User is signed out
+            Log.d("onAuthChang:signed_out","");
+        }
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -83,4 +94,8 @@ TextView logoname;
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

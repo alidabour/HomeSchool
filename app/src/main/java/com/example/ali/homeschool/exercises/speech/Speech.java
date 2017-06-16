@@ -6,12 +6,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.Constants;
-import com.example.ali.homeschool.exercises.Answer;
 
 import java.util.ArrayList;
+
+import edu.sfsu.cs.orange.ocr.Answer;
 
 /**
  * Created by Ali on 6/4/2017.
@@ -26,7 +28,8 @@ public class Speech extends Activity{
         answer = new Answer();
         Intent intent = getIntent();
         if(intent !=null){
-            answer.setAnswer(intent.getStringExtra("Answer"));
+            Answer answer = intent.getParcelableExtra("Answer");
+            answer.setAnswer(answer.getAnswer());
         }
         start();
     }
@@ -50,6 +53,7 @@ public class Speech extends Activity{
                 intent.setData(Uri.parse(word));
                 setResult(Constants.CORRECTANSWER,intent);
                 finish();
+                Log.v("talayabni","t3ala ya nela");
                 Toast.makeText(this, word + " أحسنت  ", Toast.LENGTH_LONG).show();
             }
         }

@@ -2,15 +2,15 @@ package com.example.ali.homeschool.exercises.color;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.ali.homeschool.R;
+import edu.sfsu.cs.orange.ocr.Answer;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
@@ -89,8 +89,8 @@ public class ColorActivity extends AppCompatActivity implements CameraBridgeView
 
         Intent intent= getIntent();
         if(intent != null){
-            Log.v("Ali",intent.getStringExtra("Answer"));
-            detectcolor(intent.getStringExtra("Answer"));
+            Answer answer = intent.getParcelableExtra("Answer");
+            detectcolor(answer.getAnswer());
 
         }
 //        Bundle b = iin.getExtras();
