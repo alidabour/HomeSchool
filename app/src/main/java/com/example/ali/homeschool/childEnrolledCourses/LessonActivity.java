@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorLessons.LessonAdapter;
@@ -83,6 +84,17 @@ public class LessonActivity extends AppCompatActivity {
                     });
 //
                 enrolledRecyclerView.setAdapter(lessonAdapter);
+
+                enrolledRecyclerView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+
+
+
+                        return false;
+                    }
+                });
+
             }
 
             @Override

@@ -188,5 +188,4 @@ public class Constants {
         imageView = imageView.replace(PUT_IMAGE_URL_HERE,url);
         return imageView;
     }
-
 }

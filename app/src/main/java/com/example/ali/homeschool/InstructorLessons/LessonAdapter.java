@@ -24,7 +24,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
     public interface OnClickHandler {
         void onClick(LessonModel test);
     }
-    public LessonAdapter(List<LessonModel> lessonModelList,LessonAdapter.OnClickHandler onClickHandler) {
+    public LessonAdapter(List<LessonModel> lessonModelList,LessonAdapter.OnClickHandler onClickHandler ) {
         this.lessonModelList = lessonModelList;
         this.onClickHandler = onClickHandler;
     }
