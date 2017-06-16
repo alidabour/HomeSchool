@@ -347,7 +347,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                             dialog.show();
                         } else {
                             String buttonTitle = "";
-                            String id="";
+
                             soundFlag=false;
                             linkPath = linkPath.replaceAll("\" /> ", "");
                             linkPath = linkPath.trim();
@@ -421,10 +421,14 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                                             Log.v("midLayouts", midLayouts.indexOf(lay) + "");
                                         }
                                     }
+
                                 }
                             });
+
                             soundFlag = true;
                         }
+
+
                     } else if (x.contains("ImageView")) {
                         imageFlag = false;
                         final ImageView imageView = (ImageView) v;
@@ -741,13 +745,13 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 @Override
                 public void fileUploaded(String url) {
                     if (soundFlag)
-                        addLayout(mButton(id, soundText, PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
+                        addLayout(mButton(id, "Start", PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
                                 url));
                     else {
                         flagTrial = true;
-                        globalSoundUrl = url;
-                        Log.v("GlobalURL", globalSoundUrl);
-                        watchSoundUrl.setValue(globalSoundUrl);
+                        globalImageUrl = url;
+                        Log.v("GlobalURL", globalImageUrl);
+                        watchImageUrl.setValue(globalImageUrl);
                     }
 
                     //and displaying a success toast
