@@ -504,16 +504,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
                         imageFlag = true;
                     }
-
-                    return false;
-                }
-            });
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    String x = v.toString();
-                    if (x.contains("TextView")) {
+                    else if (x.contains("TextView")) {
                         final TextView textView = (TextView) v;
                         final EditText input = new EditText(InstructorTopicCreationActivity.this);
                         input.setInputType(
@@ -546,7 +537,19 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                         });
                         final AlertDialog dialog = textBuilder.create();
                         dialog.show();
+                    } else if (x.contains("Button")) {
+                        final Button button = (Button) v;
+                        views.indexOf(v);
+                        String linkPath = "";
+                        for (String lay : midLayouts)
+                            if (lay.contains("<Button")) {
+                                linkPath = linkPath + lay.substring(lay.indexOf("https:"));
+                                linkPath = linkPath.trim();
+                                break;
+                            }
                     }
+
+                    return false;
                 }
             });
         }
