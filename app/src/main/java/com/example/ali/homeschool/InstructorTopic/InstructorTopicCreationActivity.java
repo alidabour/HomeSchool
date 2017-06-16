@@ -78,7 +78,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     Boolean flagTrial = false;
     Button openColorPicker;
     private MediaPlayer mediaPlayer;
-    String globalURL;
+    String globalImageUrl;
     UploadFile uploadFileImage;
     UploadFile uploadFileSound;
     private Uri filePath;
@@ -101,31 +101,29 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     String mid = "";
     int textColor = -11177216;
     int textAppearance = android.R.style.TextAppearance_Material_Body1;
-    Observable observable;
-    Observer observer;
 
     String end = "</LinearLayout></RelativeLayout>";
 
 
     RelativeLayout view1;
     LinearLayout view2;
-    View.OnClickListener[] listeners;
-    View.OnLongClickListener[] Longlisteners;
     ArrayList<View> views;
-    Boolean Flag = true;
-    ObservedObject watched;
-    ObservableDemo watcher;
+    Boolean imageFlag = true;
+    Boolean soundFlag = true;
+    ObservedObject watchImageUrl;
+    ObservedObject watchSoundUrl;
+    String globalSoundUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_topic);
-        globalURL = "";
-        observable = new Observable();
+        globalImageUrl = "";
+        globalSoundUrl = "";
 
-// create watched and watcher objects
-        watched = new ObservedObject(globalURL);
-
+        // create watched and watcher objects
+        watchImageUrl = new ObservedObject(globalImageUrl);
+        watchSoundUrl = new ObservedObject(globalSoundUrl);
 
 
         views = new ArrayList<>();
@@ -308,13 +306,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
 
         for (View view : views) {
-           /* view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Log.v("ViewShoooortPress ", v + "");
-                }
-            });*/
             view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(final View v) {
@@ -322,39 +313,120 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                     if (x.contains("Button")) {
                         final Button button = (Button) v;
                         views.indexOf(v);
-                        final EditText input = new EditText(InstructorTopicCreationActivity.this);
-                        input.setInputType(
-                                InputType.TYPE_CLASS_TEXT);
-                        input.setText(button.getText().toString());
-                        final AlertDialog.Builder textBuilder = new AlertDialog.Builder(
-                                InstructorTopicCreationActivity.this);
-                        textBuilder.setTitle("Title");
-                        textBuilder.setView(input);
-                        textBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                for (String lay : midLayouts) {
-                                    String temp1;
-                                    if (lay.contains(button.getText().toString())) {
-                                        temp1 = lay.replaceAll(button.getText().toString(), input.getText().toString());
-                                        midLayouts.set(midLayouts.indexOf(lay), temp1);
-                                        Log.v("ButtonTryouts", temp1);
+                        String linkPath = "";
+                        for (String lay : midLayouts)
+                            if (lay.contains("<Button")) {
+                                linkPath = linkPath + lay.substring(lay.indexOf("https:"));
+                                linkPath = linkPath.trim();
+                                break;
+                            }
+                        if (!linkPath.contains("http")) {
+                            final EditText input = new EditText(InstructorTopicCreationActivity.this);
+                            input.setInputType(
+                                    InputType.TYPE_CLASS_TEXT);
+                            input.setText(button.getText().toString());
+                            final AlertDialog.Builder textBuilder = new AlertDialog.Builder(
+                                    InstructorTopicCreationActivity.this);
+                            textBuilder.setTitle("Title");
+                            textBuilder.setView(input);
+                            textBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    button.setText(input.getText().toString());
+                                    views.set(views.indexOf(v), button);
+                                }
+                            });
+                            textBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            final AlertDialog dialog = textBuilder.create();
+                            dialog.show();
+                        } else {
+                            String buttonTitle = "";
+                            String id="";
+                            soundFlag=false;
+                            linkPath = linkPath.replaceAll("\" /> ", "");
+                            linkPath = linkPath.trim();
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(
+                                    InstructorTopicCreationActivity.this);
+                            builder.setTitle("Select sound file");
+                            LayoutInflater li = LayoutInflater.from(InstructorTopicCreationActivity.this);
+                            LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.sound_dialog, null);
+                            final EditText soundET = (EditText) someLayout.findViewById(R.id.soundtext);
+                            builder.setView(someLayout);
+                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    for (String lay : midLayouts) {
+                                        String temp1;
+                                        Log.v("ButtonTryouts", button.getText().toString().trim());
+                                        if (lay.contains(button.getText().toString().trim())) {
+                                            temp1 = lay.replace(button.getText().toString(), soundET.getText().toString());
+                                            midLayouts.set(midLayouts.indexOf(lay), temp1);
+                                            Log.v("ButtonTryouts", temp1);
+                                        }
+                                        Log.v("ButtonTryouts", "Nope");
+                                    }
+                                    button.setText(soundET.getText().toString());
+                                    views.set(views.indexOf(v), button);
+                                    dialog.cancel();
+                                }
+                            });
+                            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            final AlertDialog dialog = builder.create();
+                            dialog.show();
+                            TextView gallery = (TextView) someLayout.findViewById(R.id.choosefromGallery);
+                            gallery.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dialog.cancel();
+                                    soundText = soundET.getText().toString();
+                                    openSoundActivity();
+                                }
+                            });
+
+                            TextView urlTV = (TextView) someLayout.findViewById(R.id.imageUrl);
+                            urlTV.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dialog.cancel();
+                                    soundText = soundET.getText().toString();
+                                    openSoundURLDialog();
+                                }
+                            });
+                            final String finalLinkPath = linkPath;
+                            watchSoundUrl.addObserver(new Observer() {
+                                @Override
+                                public void update(Observable o, Object arg) {
+                                    for (String lay : midLayouts) {
+                                        Log.v("finalLinkPath :", finalLinkPath);
+                                        Log.v("globalImageUrl", globalSoundUrl);
+                                        Log.v("temp1", lay);
+                                        if (lay.contains(finalLinkPath)) {
+                                            String temp1 = "";
+                                            temp1 = lay.replace(finalLinkPath, globalSoundUrl);
+                                            midLayouts.set(midLayouts.indexOf(lay), temp1);
+                                            views.set(views.indexOf(v), button);
+                                            Log.v("temp2", lay);
+                                            Log.v("Views", views.get(views.indexOf(v)) + "");
+                                            Log.v("midLayouts", midLayouts.indexOf(lay) + "");
+                                        }
                                     }
                                 }
-                                button.setText(input.getText().toString());
-                                views.set(views.indexOf(v), button);
-                            }
-                        });
-                        textBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                        final AlertDialog dialog = textBuilder.create();
-                        dialog.show();
-                    }else if (x.contains("ImageView")) {
-                        Flag = false;
+                            });
+                            soundFlag = true;
+                        }
+                    } else if (x.contains("ImageView")) {
+                        imageFlag = false;
                         final ImageView imageView = (ImageView) v;
                         String substr = "";
                         //   Log.v("SubString",substr.substring(x.lastIndexOf('h'),x.lastIndexOf('>')));
@@ -365,8 +437,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                                 break;
                             }
                         linkPath = linkPath.replaceAll("\" /> ", "");
-                        linkPath=linkPath.trim();
-                        Log.v("xxxxxxxx",linkPath.trim());
+                        linkPath = linkPath.trim();
                         final EditText input = new EditText(InstructorTopicCreationActivity.this);
                         input.setInputType(
                                 InputType.TYPE_CLASS_TEXT);
@@ -402,32 +473,32 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                                 openImageURLDialog();
                             }
                         });
-                        //   globalURL.S
+                        //   globalImageUrl.S
                         final String finalLinkPath = linkPath;
-                        watched.addObserver(new Observer() {
+                        watchImageUrl.addObserver(new Observer() {
                             @Override
                             public void update(Observable o, Object arg) {
                                 for (String lay : midLayouts) {
                                     Log.v("finalLinkPath :", finalLinkPath);
-                                    Log.v("globalURL",globalURL);
-                                    Log.v("temp1",lay);
-                                    if(lay.contains(finalLinkPath)) {
-                                        String temp1="";
-                                        temp1 = lay.replace(finalLinkPath, globalURL);
+                                    Log.v("globalImageUrl", globalImageUrl);
+                                    Log.v("temp1", lay);
+                                    if (lay.contains(finalLinkPath)) {
+                                        String temp1 = "";
+                                        temp1 = lay.replace(finalLinkPath, globalImageUrl);
                                         midLayouts.set(midLayouts.indexOf(lay), temp1);
                                         views.set(views.indexOf(v), imageView);
                                         Log.v("temp2", lay);
                                         Log.v("Views", views.get(views.indexOf(v)) + "");
-                                        Log.v("midLayouts", midLayouts.indexOf(lay)+"");
+                                        Log.v("midLayouts", midLayouts.indexOf(lay) + "");
                                         Glide.with(InstructorTopicCreationActivity.this)
-                                                .load(globalURL).fitCenter().into(imageView);
+                                                .load(globalImageUrl).fitCenter().into(imageView);
                                     }
                                 }
 
                             }
                         });
 
-                        Flag = true;
+                        imageFlag = true;
                     }
 
                     return false;
@@ -485,6 +556,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         String layouts = "";
         for (String lay : midLayouts) {
             layouts += lay;
+            Log.v("radioButtonId ", lay + "");
         }
         Log.v("radioButtonId ", radioButtonId + "");
         Log.v("radioButtonId ", id + "");
@@ -648,13 +720,13 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             uploadFileImage = new UploadFile(filePath, this, new FileUploadHelper() {
                 @Override
                 public void fileUploaded(String url) {
-                    if (!Flag)
+                    if (imageFlag)
                         addLayout(mImageView(id, url));
                     else {
                         flagTrial = true;
-                        globalURL = url;
-                        Log.v("GlobalURL", globalURL);
-                        watched.setValue(globalURL);
+                        globalImageUrl = url;
+                        Log.v("GlobalURL", globalImageUrl);
+                        watchImageUrl.setValue(globalImageUrl);
                     }
                     //and displaying a success toast
                     Toast.makeText(getApplicationContext(), "File Uploaded",
@@ -668,8 +740,16 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             uploadFileSound = new UploadFile(filePath, this, new FileUploadHelper() {
                 @Override
                 public void fileUploaded(String url) {
-                    addLayout(mButton(id, "Start", PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
-                            url));
+                    if (soundFlag)
+                        addLayout(mButton(id, soundText, PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
+                                url));
+                    else {
+                        flagTrial = true;
+                        globalSoundUrl = url;
+                        Log.v("GlobalURL", globalSoundUrl);
+                        watchSoundUrl.setValue(globalSoundUrl);
+                    }
+
                     //and displaying a success toast
                     Toast.makeText(getApplicationContext(), "File Uploaded",
                             Toast.LENGTH_LONG).show();
@@ -736,8 +816,9 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 audioLink = audioIn.getText().toString();
-                addLayout(mButton(id, soundText, PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
-                        audioLink));
+                if (soundFlag)
+                    addLayout(mButton(id, soundText, PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
+                            audioLink));
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -770,7 +851,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 m_Text = input.getText().toString();
-                if (Flag)
+                Log.v("m_Text", m_Text);
+                if (imageFlag)
                     addLayout(mImageView(id, m_Text));
             }
         });
