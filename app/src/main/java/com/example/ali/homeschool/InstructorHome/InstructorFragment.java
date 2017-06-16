@@ -77,7 +77,8 @@ public class InstructorFragment extends Fragment {
         db = FirebaseDatabase.getInstance().getReference();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Add Course");
                 LayoutInflater li = LayoutInflater.from(getActivity());
@@ -133,7 +134,7 @@ public class InstructorFragment extends Fragment {
                         db.child("courses").child(key).child("teacher_id").setValue(user.getUid());
                         db.child("courses").child(key).child("teacher_name").setValue("Mohamed");
 
-
+                     //   view.findViewById(R.id.no_course).setVisibility(View.INVISIBLE);
                       /*  db.child("courses").child(key).child("name").setValue(coursName);
                         db.child("courses").child(key).child("subjectS").setValue(subjectS);
                         db.child("courses").child(key).child("description").setValue(descriptionS);
@@ -144,6 +145,7 @@ public class InstructorFragment extends Fragment {
 
                     }
                 });
+
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -212,8 +214,13 @@ public class InstructorFragment extends Fragment {
                             }
                         },getContext());
 
+                if(coursesList.size()<=0){
+                    Log.v("mfesh Course" , "toz fek");
+                    view.findViewById(R.id.no_course).setVisibility(View.VISIBLE);
+                }
                 coursesRV.setAdapter(instructorCoursesCardAdapter);
                 progressBar.setVisibility(View.INVISIBLE);
+
 //                courseCreatedAdapter = new CourseCreatedAdapter(coursesList,
 //                        new CourseCreatedAdapter.OnClickHandler() {
 //                            @Override

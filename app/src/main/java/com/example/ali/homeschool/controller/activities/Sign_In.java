@@ -80,6 +80,8 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
         findViewById(R.id.SigninButton).setOnClickListener(this);
         Log.e(TAG, "" + mAuth);
 
+
+
     }
 
 
@@ -96,6 +98,7 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
 
         progressDialog.setMessage("Signin user ...");
         progressDialog.show();
+        progressDialog.setCancelable(false);
 
         mAuth.signInWithEmailAndPassword(Email.getText().toString().trim(),Password.getText().toString().trim())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -111,10 +114,12 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
                         else {
                             if (internetConnectionChecker.isInternetOn()) {
                                 Log.w(TAG, "signInWithEmail:failed", task.getException());
+                                progressDialog.dismiss();
                                 Toast.makeText(Sign_In.this, "Wrong Username Or Password",
                                         Toast.LENGTH_SHORT).show();
                             }
                             else {
+                                progressDialog.dismiss();
                                 Log.w(TAG, "signInWithEmail:failed", task.getException());
                                 Toast.makeText(Sign_In.this, "Internet Connection Not Available",
                                         Toast.LENGTH_SHORT).show();
@@ -129,6 +134,7 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
                     }
                 });
         // [END sign_in_with_email]
+
     }
 
 
