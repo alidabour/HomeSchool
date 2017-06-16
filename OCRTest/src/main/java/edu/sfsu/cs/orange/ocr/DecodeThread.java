@@ -17,9 +17,9 @@
 
 package edu.sfsu.cs.orange.ocr;
 
-import edu.sfsu.cs.orange.ocr.CaptureActivity;
 import android.os.Handler;
 import android.os.Looper;
+
 import java.util.concurrent.CountDownLatch;
 
 /**

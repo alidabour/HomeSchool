@@ -15,11 +15,10 @@
  */
 package edu.sfsu.cs.orange.ocr;
 
-import java.util.List;
-
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.widget.Toast;
+
+import java.util.List;
 
 /**
  * Encapsulates text and its character/word coordinates resulting from OCR.
@@ -68,10 +67,7 @@ public final class OcrResultText {
     return wordConfidences;
   }
 
-  public int getMeanConfidence() {
-    return meanConfidence;
-  }
-  
+
   public List<Rect> getRegionBoundingBoxes() {
     return regionBoundingBoxes;
   }
@@ -88,10 +84,7 @@ public final class OcrResultText {
     return wordBoundingBoxes;
   }
   
-  public List<Rect> getCharacterBoundingBoxes() {
-    return characterBoundingBoxes;
-  }
-  
+
   @Override
   public String toString() {
     return text + " " + meanConfidence;

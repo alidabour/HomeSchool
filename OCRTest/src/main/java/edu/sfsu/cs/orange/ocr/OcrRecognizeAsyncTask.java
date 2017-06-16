@@ -15,13 +15,9 @@
  */
 package edu.sfsu.cs.orange.ocr;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -30,6 +26,9 @@ import com.googlecode.leptonica.android.ReadFile;
 import com.googlecode.tesseract.android.ResultIterator;
 import com.googlecode.tesseract.android.TessBaseAPI;
 import com.googlecode.tesseract.android.TessBaseAPI.PageIteratorLevel;
+
+import java.util.ArrayList;
+
 /**
  * Class to send OCR requests to the OCR engine in a separate thread, send a success/failure message,
  * and dismiss the indeterminate progress dialog box. Used for non-continuous mode OCR only.
@@ -61,22 +60,6 @@ final class OcrRecognizeAsyncTask extends AsyncTask<Void, Void, Boolean> {
     long start = System.currentTimeMillis();
     Bitmap bitmap = activity.getCameraManager().buildLuminanceSource(data, width, height).renderCroppedGreyscaleBitmap();
     String textResult;
-
-    //      if (PERFORM_FISHER_THRESHOLDING) {
-    //        Pix thresholdedImage = Thresholder.fisherAdaptiveThreshold(ReadFile.readBitmap(bitmap), 48, 48, 0.1F, 2.5F);
-    //        Log.e("OcrRecognizeAsyncTask", "thresholding completed. converting to bmp. size:" + bitmap.getWidth() + "x" + bitmap.getHeight());
-    //        bitmap = WriteFile.writeBitmap(thresholdedImage);
-    //      }
-    //      if (PERFORM_OTSU_THRESHOLDING) {
-    //        Pix thresholdedImage = Binarize.otsuAdaptiveThreshold(ReadFile.readBitmap(bitmap), 48, 48, 9, 9, 0.1F);
-    //        Log.e("OcrRecognizeAsyncTask", "thresholding completed. converting to bmp. size:" + bitmap.getWidth() + "x" + bitmap.getHeight());
-    //        bitmap = WriteFile.writeBitmap(thresholdedImage);
-    //      }
-    //      if (PERFORM_SOBEL_THRESHOLDING) {
-    //        Pix thresholdedImage = Thresholder.sobelEdgeThreshold(ReadFile.readBitmap(bitmap), 64);
-    //        Log.e("OcrRecognizeAsyncTask", "thresholding completed. converting to bmp. size:" + bitmap.getWidth() + "x" + bitmap.getHeight());
-    //        bitmap = WriteFile.writeBitmap(thresholdedImage);
-    //      }
 
     try {     
       baseApi.setImage(ReadFile.readBitmap(bitmap));

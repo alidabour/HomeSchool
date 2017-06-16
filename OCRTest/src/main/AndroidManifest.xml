@@ -40,20 +40,7 @@
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
               android:windowSoftInputMode="stateAlwaysHidden"              
               >
-      <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.MAIN"/>-->
-        <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-      <!--</intent-filter>-->
       </activity>
-    <!--<activity android:name=".HelpActivity"-->
-              <!--android:screenOrientation="user">-->
-      <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.VIEW"/>-->
-        <!--<category android:name="android.intent.category.DEFAULT"/>-->
-      <!--</intent-filter>-->
-    <!--</activity>-->
-    <!---->
-    <activity android:name=".PreferencesActivity" />
   </application>
   <uses-permission android:name="android.permission.CAMERA"/>
   <uses-permission android:name="android.permission.INTERNET"/>

@@ -19,17 +19,15 @@ package edu.sfsu.cs.orange.ocr;
 
 //import edu.sfsu.cs.orange.ocr.BeepManager;
 
-import com.googlecode.leptonica.android.Pixa;
-import com.googlecode.leptonica.android.ReadFile;
-import com.googlecode.tesseract.android.TessBaseAPI;
-
-import edu.sfsu.cs.orange.ocr.CaptureActivity;
-import edu.sfsu.cs.orange.ocr.R;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+
+import com.googlecode.leptonica.android.Pixa;
+import com.googlecode.leptonica.android.ReadFile;
+import com.googlecode.tesseract.android.TessBaseAPI;
 
 /**
  * Class to send bitmap data for OCR.

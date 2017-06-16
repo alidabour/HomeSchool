@@ -16,16 +16,13 @@
  */
 package edu.sfsu.cs.orange.ocr;
 
-import edu.sfsu.cs.orange.ocr.CaptureActivity;
-import edu.sfsu.cs.orange.ocr.R;
-import edu.sfsu.cs.orange.ocr.camera.CameraManager;
-import edu.sfsu.cs.orange.ocr.OcrResult;
-
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
+
+import edu.sfsu.cs.orange.ocr.camera.CameraManager;
 
 /**
  * This class handles all the messaging which comprises the state machine for capture.
@@ -116,8 +113,7 @@ final class CaptureActivityHandler extends Handler {
     } else if (message.what == R.id.ocr_decode_failed) {
       state = State.PREVIEW;
       activity.setShutterButtonClickable(true);
-      Toast toast = Toast.makeText(activity.getBaseContext(), "OCR failed. Please try again.",
-              Toast.LENGTH_SHORT);
+      Toast toast = Toast.makeText(activity.getBaseContext(), "OCR failed. Please try again.\n خطأ حاول مرة اخري", Toast.LENGTH_SHORT);
       toast.setGravity(Gravity.TOP, 0, 0);
       toast.show();
 

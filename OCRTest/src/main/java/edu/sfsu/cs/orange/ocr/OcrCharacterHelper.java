@@ -197,12 +197,13 @@ public class OcrCharacterHelper {
       throw new IllegalArgumentException();
     }
   }
-  
+
   public static String getDefaultWhitelist(String languageCode) {
     if (languageCode.equals("afr")) { return ""; } // Afrikaans
     else if (languageCode.equals("sqi")) { return ""; } // Albanian
-//    else if (languageCode.equals("ara")) { return "اب ت ث ج ح خ دذرزس ش ص ض ط ظ ع غ ف ق ك ل م ن و ي ة"; } // Arabic
-    else if (languageCode.equals("ara")) { return""; } // Arabic
+//    else if (languageCode.equals("ara")) { return "ا لب   بـ ـة  أ ت ث ج ح خ دذرزس ش ص ض ط ظ ع غ ف ق ك ل م ن و ي ة"; } // Arabic
+//    else if (languageCode.equals("ara")) { return""; } // Arabic
+    else if (languageCode.equals("ara")) { return" ء آ أ ؤ إ ئ ب ة ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ  ع غ ف ق ك ل م ن ه و ى ي بم بى بي تم ثم فى في لج لح لخ لم لى لي نم نى ني يم يى يي بر بن تر تن تى تي ير ين بج بح بخ به تج تح تخ ته جم حم خم سم عم غم له مج مح مخ مم نج نح نخ هم يج يح يخ شم لمج لمح لمخ لا لآ لأ لإ اﹰ لاﹰ ءﹰ "; } // Arabic
     else if (languageCode.equals("aze")) { return ""; } // Azeri
     else if (languageCode.equals("eus")) { return ""; } // Basque
     else if (languageCode.equals("bel")) { return ""; } // Belarusian

@@ -15,14 +15,14 @@
  */
 package edu.sfsu.cs.orange.ocr;
 
-import java.util.List;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Point;
 import android.graphics.Rect;
+
+import java.util.List;
 
 /**
  * Encapsulates the result of OCR.
@@ -37,7 +37,7 @@ public class OcrResult {
   private List<Rect> regionBoundingBoxes;
   private List<Rect> textlineBoundingBoxes;
   private List<Rect> wordBoundingBoxes;
-  private List<Rect> stripBoundingBoxes;  
+  private List<Rect> stripBoundingBoxes;
   private List<Rect> characterBoundingBoxes;
 
   private long timestamp;
@@ -91,17 +91,7 @@ public class OcrResult {
       Rect r = wordBoundingBoxes.get(i);
       canvas.drawRect(r, paint);
     }    
-    
-//    // Draw bounding boxes around each character
-//    for (int i = 0; i < characterBoundingBoxes.size(); i++) {
-//      paint.setAlpha(0xA0);
-//      paint.setColor(0xFF00FF00);
-//      paint.setStyle(Style.STROKE);
-//      paint.setStrokeWidth(3);
-//      Rect r = characterBoundingBoxes.get(i);
-//      canvas.drawRect(r, paint);
-//    }
-    
+
     return bitmap;
   }
   
@@ -122,7 +112,7 @@ public class OcrResult {
   }
 
   public Point getBitmapDimensions() {
-    return new Point(bitmap.getWidth(), bitmap.getHeight()); 
+    return new Point(bitmap.getWidth(), bitmap.getHeight());
   }
   
   public List<Rect> getRegionBoundingBoxes() {

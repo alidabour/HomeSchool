@@ -31,10 +31,7 @@ public final class OcrResultFailure {
     return timeRequired;
   }
   
-  public long getTimestamp() {
-    return timestamp;
-  }
-  
+
   @Override
   public String toString() {
     return timeRequired + " " + timestamp;
