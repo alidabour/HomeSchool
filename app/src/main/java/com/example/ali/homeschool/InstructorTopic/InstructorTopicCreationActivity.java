@@ -358,15 +358,15 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                         final ImageView imageView = (ImageView) v;
                         String substr = "";
                         //   Log.v("SubString",substr.substring(x.lastIndexOf('h'),x.lastIndexOf('>')));
-                        String xx = "";
+                        String linkPath = "";
                         for (String lay : midLayouts)
                             if (lay.contains("<ImageView")) {
-                                xx = xx + lay.substring(lay.indexOf("https:"));
+                                linkPath = linkPath + lay.substring(lay.indexOf("https:"));
                                 break;
                             }
-                        xx = xx.replaceAll("\" /> ", "");
-                        xx=xx.trim();
-                        Log.v("xxxxxxxx",xx.trim());
+                        linkPath = linkPath.replaceAll("\" /> ", "");
+                        linkPath=linkPath.trim();
+                        Log.v("xxxxxxxx",linkPath.trim());
                         final EditText input = new EditText(InstructorTopicCreationActivity.this);
                         input.setInputType(
                                 InputType.TYPE_CLASS_TEXT);
@@ -403,20 +403,17 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                             }
                         });
                         //   globalURL.S
-                        final String finalXx = xx;
+                        final String finalLinkPath = linkPath;
                         watched.addObserver(new Observer() {
                             @Override
                             public void update(Observable o, Object arg) {
-                                int count =0;
-
                                 for (String lay : midLayouts) {
-                                    Log.v("finalXx :", finalXx);
+                                    Log.v("finalLinkPath :", finalLinkPath);
                                     Log.v("globalURL",globalURL);
                                     Log.v("temp1",lay);
-                                    if(lay.contains(finalXx)) {
+                                    if(lay.contains(finalLinkPath)) {
                                         String temp1="";
-                                        count++;
-                                        temp1 = lay.replace(finalXx, globalURL);
+                                        temp1 = lay.replace(finalLinkPath, globalURL);
                                         midLayouts.set(midLayouts.indexOf(lay), temp1);
                                         views.set(views.indexOf(v), imageView);
                                         Log.v("temp2", lay);
