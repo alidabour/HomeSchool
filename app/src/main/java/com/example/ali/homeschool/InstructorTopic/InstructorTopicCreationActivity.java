@@ -353,6 +353,84 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                         });
                         final AlertDialog dialog = textBuilder.create();
                         dialog.show();
+                    }else if (x.contains("ImageView")) {
+                        Flag = false;
+                        final ImageView imageView = (ImageView) v;
+                        String substr = "";
+                        //   Log.v("SubString",substr.substring(x.lastIndexOf('h'),x.lastIndexOf('>')));
+                        String xx = "";
+                        for (String lay : midLayouts)
+                            if (lay.contains("<ImageView")) {
+                                xx = xx + lay.substring(lay.indexOf("https:"));
+                                break;
+                            }
+                        xx = xx.replaceAll("\" /> ", "");
+                        xx=xx.trim();
+                        Log.v("xxxxxxxx",xx.trim());
+                        final EditText input = new EditText(InstructorTopicCreationActivity.this);
+                        input.setInputType(
+                                InputType.TYPE_CLASS_TEXT);
+
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(
+                                InstructorTopicCreationActivity.this);
+                        builder.setTitle("Select image");
+                        builder.setView(input);
+                        LayoutInflater li = LayoutInflater.from(InstructorTopicCreationActivity.this);
+                        LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.image_dialog, null);
+                        builder.setView(someLayout);
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        final AlertDialog dialog = builder.create();
+                        dialog.show();
+                        TextView gallery = (TextView) someLayout.findViewById(R.id.choosefromGallery);
+                        gallery.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialog.cancel();
+                                openImageActivity();
+                            }
+                        });
+                        TextView urlTV = (TextView) someLayout.findViewById(R.id.imageUrl);
+                        urlTV.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialog.cancel();
+                                openImageURLDialog();
+                            }
+                        });
+                        //   globalURL.S
+                        final String finalXx = xx;
+                        watched.addObserver(new Observer() {
+                            @Override
+                            public void update(Observable o, Object arg) {
+                                int count =0;
+
+                                for (String lay : midLayouts) {
+                                    Log.v("finalXx :", finalXx);
+                                    Log.v("globalURL",globalURL);
+                                    Log.v("temp1",lay);
+                                    if(lay.contains(finalXx)) {
+                                        String temp1="";
+                                        count++;
+                                        temp1 = lay.replace(finalXx, globalURL);
+                                        midLayouts.set(midLayouts.indexOf(lay), temp1);
+                                        views.set(views.indexOf(v), imageView);
+                                        Log.v("temp2", lay);
+                                        Log.v("Views", views.get(views.indexOf(v)) + "");
+                                        Log.v("midLayouts", midLayouts.indexOf(lay)+"");
+                                        Glide.with(InstructorTopicCreationActivity.this)
+                                                .load(globalURL).fitCenter().into(imageView);
+                                    }
+                                }
+
+                            }
+                        });
+
+                        Flag = true;
                     }
 
                     return false;
@@ -396,76 +474,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                         });
                         final AlertDialog dialog = textBuilder.create();
                         dialog.show();
-                    } else if (x.contains("ImageView")) {
-                        Flag = false;
-                        final ImageView imageView = (ImageView) v;
-                        String substr = "";
-                        //   Log.v("SubString",substr.substring(x.lastIndexOf('h'),x.lastIndexOf('>')));
-                        String xx = "";
-                        String gg = "";
-                        for (String lay : midLayouts)
-                            if (lay.contains("<ImageView")) {
-                                xx = xx + lay.substring(lay.indexOf("https:"));
-                                break;
-                            }
-                        xx = xx.replaceAll("\" /> ", "");
-
-                        final EditText input = new EditText(InstructorTopicCreationActivity.this);
-                        input.setInputType(
-                                InputType.TYPE_CLASS_TEXT);
-
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(
-                                InstructorTopicCreationActivity.this);
-                        builder.setTitle("Select image");
-                        builder.setView(input);
-                        LayoutInflater li = LayoutInflater.from(InstructorTopicCreationActivity.this);
-                        LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.image_dialog, null);
-                        builder.setView(someLayout);
-                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                        final AlertDialog dialog = builder.create();
-                        dialog.show();
-                        TextView gallery = (TextView) someLayout.findViewById(R.id.choosefromGallery);
-                        final String finalXx = xx;
-                        gallery.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                dialog.cancel();
-                                openImageActivity();
-                            }
-                        });
-                        TextView urlTV = (TextView) someLayout.findViewById(R.id.imageUrl);
-                        urlTV.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                dialog.cancel();
-                                openImageURLDialog();
-                            }
-                        });
-                        //   globalURL.S
-                        watched.addObserver(new Observer() {
-                            @Override
-                            public void update(Observable o, Object arg) {
-                                for (String lay : midLayouts) {
-                                    String temp1;
-                                    temp1 = lay.replaceAll(finalXx, globalURL);
-                                    midLayouts.set(midLayouts.indexOf(lay), temp1);
-                                        views.set(views.indexOf(v), imageView);
-                                    Log.v("temp1",temp1);
-                                    Log.v("Views",views.get(views.indexOf(v))+"");
-                                    Log.v("midLayouts", midLayouts.get(midLayouts.indexOf(lay)));
-                                    Glide.with(InstructorTopicCreationActivity.this)
-                                            .load(globalURL).fitCenter().into(imageView);
-                                }
-
-                            }
-                        });
-
-                        Flag = true;
                     }
                 }
             });
