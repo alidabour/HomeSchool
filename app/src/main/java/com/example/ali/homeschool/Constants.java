@@ -38,6 +38,7 @@ public class Constants {
     public final static String PUT_ANSWER_HERE ="PUTANSWERHERE";
     public final static String PUT_LAN_HERE ="PUTLANHERE";
 
+    public final static String ARRANGE = "ARR4444ANGE";
     //XML 'S
     public final static String radioGroupStart = "<RadioGroup android:layout_width=\"match_parent\"\n" +
             "        android:layout_height=\"wrap_content\"\n" +
@@ -84,7 +85,7 @@ public class Constants {
             "android:layout_weight=\"0\" " +
             "android:id=\"2000\" " +
             "android:layout_width=\"match_parent\" " +
-            "android:layout_height=\"wrap_content\">";
+            "android:layout_height=\"wrap_content\">"+ARRANGE;
 
 
     //TextView Helper
@@ -106,6 +107,7 @@ public class Constants {
 //        textView = textView.replaceAll(PUTSIZEHERE,size);
         textView = textView.replaceAll(PUTCOLOR, String.valueOf(color));
         textView = textView.replaceAll(PUTTEXTAPPEARANCEHERE, String.valueOf(textAppearance));
+        textView+=ARRANGE;
         return textView;
     }
 
@@ -167,6 +169,7 @@ public class Constants {
         button = button.replaceAll(PUT_ANSWER_HERE,answer.getAnswer());
         button = button.replaceAll(PUT_SOUND_LINK_HERE,soundLink);
         button = button.replaceAll(PUT_LAN_HERE,answer.getLan());
+        button+=ARRANGE;
         return button;
     }
     //Sound
@@ -176,6 +179,7 @@ public class Constants {
         String button = BUTTON_HOLDER.replaceAll(PUT_ID_HERE, String.valueOf(id));
         button = button.replaceAll(PUT_TEXT_HERE,text);
         button = button.replaceAll(PUT_SOUND_LINK_HERE,soundLink);
+        button+=ARRANGE;
         return button;
     }
     /*Image Helper
@@ -193,6 +197,7 @@ public class Constants {
     public static String mImageView(int id,String url){
         String imageView = IMAGE_VIEW_HOLDER.replace(PUT_ID_HERE,String.valueOf(id));
         imageView = imageView.replace(PUT_IMAGE_URL_HERE,url);
+        imageView += ARRANGE;
         return imageView;
     }
 }

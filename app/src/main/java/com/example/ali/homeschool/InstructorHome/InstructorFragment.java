@@ -217,6 +217,8 @@ public class InstructorFragment extends Fragment {
                 if(coursesList.size()<=0){
                     Log.v("mfesh Course" , "toz fek");
                     view.findViewById(R.id.no_course).setVisibility(View.VISIBLE);
+                }else{
+                    view.findViewById(R.id.no_course).setVisibility(View.GONE);
                 }
                 coursesRV.setAdapter(instructorCoursesCardAdapter);
                 progressBar.setVisibility(View.INVISIBLE);

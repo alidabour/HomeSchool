@@ -58,9 +58,21 @@ public class ParseXMLInstructor {
             if (parser.getName().equals("RelativeLayout")) {
                 Log.v("Parse", "parser getName Relative:" + parser.getName());
                 return readRelativeLayout(parser);
-            } else {
+            } else if(parser.getName().equals("LinearLayout")){
                 Log.v("Parse", "parser getName Linear:" + parser.getName());
                 return readLinearLayout(parser);
+            }else if(parser.getName().equals("TextView")){
+                return readTextView(parser);
+            }else if(parser.getName().equals("ImageView")) {
+                Log.v("Test", "parser getName :" + parser.getName());
+                return readImageView(parser);
+            }else if (parser.getName().equals("RadioGroup")){
+                return readRadioGroup(parser);
+            }else if(parser.getName().equals("Button")){
+                return readButton(parser);
+            }
+            else{
+                return null;
             }
         } finally {
             in.close();
@@ -245,6 +257,8 @@ public class ParseXMLInstructor {
     private ImageView readImageView(
             XmlPullParser parser) throws XmlPullParserException, IOException {
         Log.v("Parse", "readImageView");
+        Log.v("Test", "readImageView----Ordering");
+
         parser.require(XmlPullParser.START_TAG, ns, "ImageView");
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
@@ -260,6 +274,7 @@ public class ParseXMLInstructor {
                     public boolean onException(Exception e, String model,
                                                Target<GlideDrawable> target,
                                                boolean isFirstResource) {
+                        Log.v("Test","Parser OnException : +"+e.getMessage());
                         return false;
                     }
 
@@ -268,6 +283,7 @@ public class ParseXMLInstructor {
                                                    Target<GlideDrawable> target,
                                                    boolean isFromMemoryCache,
                                                    boolean isFirstResource) {
+                        Log.v("Test","Parser Model : +"+model);
                         return false;
                     }
                 }).into(imageView);

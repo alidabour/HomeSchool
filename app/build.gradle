@@ -24,13 +24,14 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
-    compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
     compile 'com.android.support:support-v4:25.3.1'
+    compile project(path: ':OCRTest')
+    compile project(':openCVLibrary249')
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'net.simonvt.schematic:schematic:0.6.3'
     compile 'com.android.support:recyclerview-v7:25.3.1'
@@ -45,8 +46,6 @@ dependencies {
     compile 'com.jrummyapps:colorpicker:2.1.6'
     testCompile 'junit:junit:4.12'
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
-    compile project(path: ':openCVLibrary249')
-    compile project(path: ':OCRTest')
 }
 
 apply plugin: 'com.google.gms.google-services'

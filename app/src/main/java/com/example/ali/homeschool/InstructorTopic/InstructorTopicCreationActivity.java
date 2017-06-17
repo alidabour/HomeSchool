@@ -81,6 +81,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     CourseCreated courseCreated;
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
+    private  static final  int REORDER = 236;
     Boolean flagTrial = false;
     Button openColorPicker;
     private MediaPlayer mediaPlayer;
@@ -144,7 +145,23 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         act_main = (LinearLayout) findViewById(R.id.activiy_main);
         image = (TextView) findViewById(R.id.image);
         sound = (TextView) findViewById(R.id.sound);
+        findViewById(R.id.reorder).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),OrderingActivity.class);
+                Log.v("Orderings","\n\nOnClick : midLayouts"+ midLayouts.toString() + "\n\n");
+                String layouts = "";
 
+                for (String x:midLayouts){
+                    layouts+=x;
+                }
+                layouts=layouts.replace(start," ");
+                layouts= layouts.replace(end, " ");
+                intent.putExtra("Layout",layouts);
+                Log.v("Orderings","\n\nOnClick :" + layouts+ "\n\n");
+                startActivityForResult(intent,REORDER);
+            }
+        });
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("lessonid")) {
             lessonid = intent.getStringExtra("lessonid");
@@ -569,13 +586,17 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
     private void addLayout(String layout) {
         views = new ArrayList<>();
-        midLayouts.add(id, layout);
-        id++;
+//        midLayouts.add(id, layout);
+        midLayouts.add(layout);
+
+//        id++;
         String layouts = "";
         for (String lay : midLayouts) {
             layouts += lay;
             Log.v("radioButtonId ", lay + "");
         }
+        Log.v("Orderings","\n\naddLayout :" + layouts+ "\n\n");
+
         Log.v("radioButtonId ", radioButtonId + "");
         Log.v("radioButtonId ", id + "");
         RelativeLayout linearLayout = parse(start + layouts + end);
@@ -651,10 +672,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
 
                 addLayout(mTextView(id, questionStart.getText().toString().trim(), textColor,
+                addLayout(mTextView(++id, questionStart.getText().toString().trim(), textColor,
                         textAppearance));
                 addLayout(
-                        mTextView(id, word.getText().toString().trim(), textColor, textAppearance));
+                        mTextView(++id, word.getText().toString().trim(), textColor, textAppearance));
                 addLayout(
+                        mButton(++id, "Start", "TextDetection", new Answer(word.getText().toString()),
                         mButton(id, "Start", "TextDetection", new Answer(word.getText().toString(),selectlanguageString),
                                 PUT_SOUND_LINK_HERE));
                 dialogInterface.cancel();
@@ -679,13 +702,13 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Log.v("TESTAPP", "onClick :" + textAppearance);
-                addLayout(mTextView(id, "قول كلمة :", textColor, textAppearance));
-                String textview = mTextView(id, word.getText().toString(), textColor,
+                addLayout(mTextView(++id, "قول كلمة :", textColor, textAppearance));
+                String textview = mTextView(++id, word.getText().toString(), textColor,
                         textAppearance);
                 addLayout(textview);
                 Answer answer = new Answer();
                 answer.setAnswer(word.getText().toString());
-                addLayout(mButton(id, "Start", "Speech", answer, PUT_SOUND_LINK_HERE));
+                addLayout(mButton(++id, "Start", "Speech", answer, PUT_SOUND_LINK_HERE));
                 dialogInterface.cancel();
             }
         });
@@ -726,7 +749,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 //                quET = quET.replaceAll(PUTACTIONTEXTHERE, question1.getText().toString());
 //                quET = quET.replaceAll(PUTCOLOR, "123");
 //                radioLayout.add(quET);
-                radioLayout.add(radioGroupStart.replace(PUT_ID_HERE, String.valueOf(id)));
+                radioLayout.add(radioGroupStart.replace(PUT_ID_HERE, String.valueOf(++id)));
 //                addRadio(radioGroupStart.replace(PUT_ID_HERE,String.valueOf(++id)));
 
                 for (int count = 0; count < linearLayout.getChildCount(); count++) {
@@ -751,7 +774,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 //                    Log.v("Parser","ITA Radio Layout :" + x);
 //                }
                 Log.v("Parser", "ITA Radio Layout :" + radioLayout.toString());
-
                 addLayout(radioLayout.toString());
             }
         });
@@ -787,7 +809,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 @Override
                 public void fileUploaded(String url) {
                     if (imageFlag)
-                        addLayout(mImageView(id, url));
+                        addLayout(mImageView(++id, url));
                     else {
                         flagTrial = true;
                         globalImageUrl = url;
@@ -821,6 +843,25 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                             Toast.LENGTH_LONG).show();
                 }
             }, storagePath);
+        }
+        if(requestCode== REORDER && resultCode == Activity.RESULT_OK){
+            String layouts = String.valueOf(data.getData());
+            Log.v("Layouts" , layouts);
+            for (int i = 0; i <midLayouts.size() ; i++) {
+                midLayouts.remove(i);
+            }
+            Log.v("AfterForLoop" ,"\n\nOnActivityResult :\n\n : midLayouts"+ midLayouts.toString()+ "\n\n");
+            midLayouts.clear();
+            Log.v("AfterForLoop" ,"\nClear\nOnActivityResult :\n\n : midLayouts"+ midLayouts.toString()+ "\n\n");
+
+//            id=1;
+            Log.v("Orderings" ,"\n\nOnActivityResult :"+ layouts+ "\n\n");
+            RelativeLayout linearLayout = parse(start + layouts + end);
+            mainView.removeAllViews();
+            mainView.addView(linearLayout);
+            Log.v("Orderings" ,"\n\nOnActivityResult :\n\n : midLayouts"+ midLayouts.toString()+ "\n\n");
+
+//            addLayout(layouts);
         }
     }
 
@@ -858,7 +899,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String questionText = questionET.getText().toString();
-                addLayout(mButton(id, questionText, "ColorActivity", new Answer(selection[0]),
+                addLayout(mButton(++id, questionText, "ColorActivity", new Answer(selection[0]),
                         PUT_SOUND_LINK_HERE));
                 dialogInterface.cancel();
             }
@@ -883,7 +924,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             public void onClick(DialogInterface dialog, int which) {
                 audioLink = audioIn.getText().toString();
                 if (soundFlag)
-                    addLayout(mButton(id, soundText, PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
+                    addLayout(mButton(++id, soundText, PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
                             audioLink));
             }
         });
@@ -919,7 +960,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 m_Text = input.getText().toString();
                 Log.v("m_Text", m_Text);
                 if (imageFlag)
-                    addLayout(mImageView(id, m_Text));
+                    addLayout(mImageView(++id, m_Text));
             }
         });
         urlBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
