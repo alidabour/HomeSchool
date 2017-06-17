@@ -64,7 +64,7 @@ public class ChildCoursesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        db.child("users").child(c.getId()).child("EnrolledCourses").addValueEventListener(
+        db.child("users").child(c.getId()).child("enrolledcourses").addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

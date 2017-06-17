@@ -165,7 +165,9 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
                                 newUser.setEmail(email.getText().toString().trim());
                                 newUser.setName(String.valueOf(userName));
                                 newUser.setPhoto(photoString);
-                                Log.v("UserID:",user.getUid());
+
+                                user = mAuth.getCurrentUser();
+
                                 myRef.child("users").child(user.getUid()).setValue(newUser);
                                 String Uid = myRef.child("users").child(user.getUid()).getKey();
                                 myRef.child("users").child(user.getUid()).child("uid").setValue(Uid);

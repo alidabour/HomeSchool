@@ -43,11 +43,8 @@ import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
 import com.example.ali.homeschool.UserModelHelper.UploadFile;
 import com.example.ali.homeschool.exercises.color.ColorActivity;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.jrummyapps.android.colorpicker.ColorPickerDialogListener;
@@ -723,36 +720,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                databaseReference.child("courses").child(courseId)
-                        .addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                CourseCreated c = dataSnapshot.getValue(CourseCreated.class);
-                                int Number = Integer.parseInt(c.getQuestions());
-                                Number++;
-                                Log.v("Number++", Number + "");
-                                DatabaseReference db2 = databaseReference.child("courses")
-                                        .child(courseId);
-                                c.setQuestions("" + Number);
-                                courseCreated = c;
-                                Log.v("Number++", c.getName() + "");
-                                Log.v("Number++", c.getCourse_id() + "");
-                                Log.v("Number++", c.getDescription() + "");
-                                Log.v("Number++", c.getPhoto_url() + "");
-                                Log.v("Number++", c.getQuestions() + "");
-                                Log.v("Number++", c.getSubjectS() + "");
-                                Log.v("Number++", c.getRate() + "");
-                                Log.v("Number++", c.getTeacher_id() + "");
-                                Log.v("Number++", c.getTeacher_name() + "");
-                                //   databaseReference.updateChildren((Map<String, Object>) c);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-
 
 //                addLayout(mTextView(id, questionStart.getText().toString().trim(), textColor, textAppearance));
                 addLayout(mTextView(++id, questionStart.getText().toString().trim(), textColor,
@@ -873,9 +840,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         try {
             mainLayout = (RelativeLayout) parseXMLInstructor
                     .parse(this, stream, getApplicationContext(), this);
+            Log.v("ITA", "pass");
         } catch (XmlPullParserException e) {
             e.printStackTrace();
+            Log.v("ITA", "XML ERROR :" + e);
         } catch (IOException e) {
+            Log.v("ITA", "XML IO ERROR :" + e);
         }
         return mainLayout;
     }

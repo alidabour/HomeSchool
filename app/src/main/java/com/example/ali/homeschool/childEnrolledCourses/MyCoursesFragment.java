@@ -73,10 +73,7 @@ public class MyCoursesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.v("REBE","User Email :" + user.getEmail());
-        Log.v("REBE","User Uid :" + user.getUid());
-
-        db.child("users").child(user.getUid()).child("EnrolledCourses")
+        db.child("users").child(user.getUid()).child("enrolledcourses")
                 .addValueEventListener(new ValueEventListener() {
 //                    enrolledCourses = new ArrayList;
                     @Override

@@ -41,7 +41,7 @@ public class ChildProgressAdapter1 extends RecyclerView.Adapter<ChildProgressAda
                                  int position) {
         EnrolledCourseModel enrolledCourseModel= enrolledCourseModels.get(position);
         holder.courseName.setText(enrolledCourseModel.getName());
-        holder.progressBar.setProgress(Integer.parseInt(enrolledCourseModel.progress));
+        holder.progressBar.setProgress(5);
     }
 
     @Override
