@@ -50,6 +50,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import edu.sfsu.cs.orange.ocr.Answer;
+
 
 /**
  * Simple RecyclerView.Adapter that implements {@link ItemTouchHelperAdapter} to respond to move and
@@ -129,7 +131,7 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
                 }
 
                 @Override
-                public void openActivity(String activity, String answer) {
+                public void openActivity(String activity, Answer answer) {
 
                 }
 

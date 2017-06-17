@@ -81,7 +81,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     CourseCreated courseCreated;
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
-    private  static final  int REORDER = 236;
+    private static final int REORDER = 236;
     Boolean flagTrial = false;
     Button openColorPicker;
     private MediaPlayer mediaPlayer;
@@ -109,7 +109,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     int textColor = -11177216;
     int textAppearance = android.R.style.TextAppearance_Material_Body1;
 
-    public static String selectlanguageString="";
+    public static String selectlanguageString = "";
 
     String end = "</LinearLayout></RelativeLayout>";
 
@@ -148,18 +148,18 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         findViewById(R.id.reorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),OrderingActivity.class);
-                Log.v("Orderings","\n\nOnClick : midLayouts"+ midLayouts.toString() + "\n\n");
+                Intent intent = new Intent(getApplicationContext(), OrderingActivity.class);
+                Log.v("Orderings", "\n\nOnClick : midLayouts" + midLayouts.toString() + "\n\n");
                 String layouts = "";
 
-                for (String x:midLayouts){
-                    layouts+=x;
+                for (String x : midLayouts) {
+                    layouts += x;
                 }
-                layouts=layouts.replace(start," ");
-                layouts= layouts.replace(end, " ");
-                intent.putExtra("Layout",layouts);
-                Log.v("Orderings","\n\nOnClick :" + layouts+ "\n\n");
-                startActivityForResult(intent,REORDER);
+                layouts = layouts.replace(start, " ");
+                layouts = layouts.replace(end, " ");
+                intent.putExtra("Layout", layouts);
+                Log.v("Orderings", "\n\nOnClick :" + layouts + "\n\n");
+                startActivityForResult(intent, REORDER);
             }
         });
         Intent intent = getIntent();
@@ -237,7 +237,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             public void onClick(View view) {
                 Log.v("Course" + courseId, "lessons" + lessonid);
                 Log.v("topics", topicid);
-                DatabaseReference coursesDatabaseReference = databaseReference.child("courses").child(courseId);
+                DatabaseReference coursesDatabaseReference = databaseReference.child("courses")
+                        .child(courseId);
                 databaseReference = databaseReference.child("courses").child(courseId)
                         .child("lessons").child(lessonid).child("topics").child(topicid);
                 TopicModel t = new TopicModel();
@@ -250,7 +251,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 t.setId(topicid);
                 databaseReference.updateChildren(t.toMap());
 
-             //   coursesDatabaseReference.child("questions").setValue(courseCreated.getQuestions());
+                //   coursesDatabaseReference.child("questions").setValue(courseCreated.getQuestions());
                 finish();
             }
         });
@@ -349,7 +350,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                                 break;
                             }
                         if (!linkPath.contains("http")) {
-                            final EditText input = new EditText(InstructorTopicCreationActivity.this);
+                            final EditText input = new EditText(
+                                    InstructorTopicCreationActivity.this);
                             input.setInputType(
                                     InputType.TYPE_CLASS_TEXT);
                             input.setText(button.getText().toString());
@@ -357,34 +359,39 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                                     InstructorTopicCreationActivity.this);
                             textBuilder.setTitle("Title");
                             textBuilder.setView(input);
-                            textBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                            textBuilder
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
 
-                                    button.setText(input.getText().toString());
-                                    views.set(views.indexOf(v), button);
-                                }
-                            });
-                            textBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            });
+                                            button.setText(input.getText().toString());
+                                            views.set(views.indexOf(v), button);
+                                        }
+                                    });
+                            textBuilder.setNegativeButton("Cancel",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.cancel();
+                                        }
+                                    });
                             final AlertDialog dialog = textBuilder.create();
                             dialog.show();
                         } else {
                             String buttonTitle = "";
 
-                            soundFlag=false;
+                            soundFlag = false;
                             linkPath = linkPath.replaceAll("\" /> ", "");
                             linkPath = linkPath.trim();
                             final AlertDialog.Builder builder = new AlertDialog.Builder(
                                     InstructorTopicCreationActivity.this);
                             builder.setTitle("Select sound file");
-                            LayoutInflater li = LayoutInflater.from(InstructorTopicCreationActivity.this);
-                            LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.sound_dialog, null);
-                            final EditText soundET = (EditText) someLayout.findViewById(R.id.soundtext);
+                            LayoutInflater li = LayoutInflater
+                                    .from(InstructorTopicCreationActivity.this);
+                            LinearLayout someLayout = (LinearLayout) li
+                                    .inflate(R.layout.sound_dialog, null);
+                            final EditText soundET = (EditText) someLayout
+                                    .findViewById(R.id.soundtext);
                             builder.setView(someLayout);
                             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
@@ -393,7 +400,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                                         String temp1;
                                         Log.v("ButtonTryouts", button.getText().toString().trim());
                                         if (lay.contains(button.getText().toString().trim())) {
-                                            temp1 = lay.replace(button.getText().toString(), soundET.getText().toString());
+                                            temp1 = lay.replace(button.getText().toString(),
+                                                    soundET.getText().toString());
                                             midLayouts.set(midLayouts.indexOf(lay), temp1);
                                             Log.v("ButtonTryouts", temp1);
                                         }
@@ -404,15 +412,17 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                                     dialog.cancel();
                                 }
                             });
-                            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            });
+                            builder.setNegativeButton("Cancel",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.cancel();
+                                        }
+                                    });
                             final AlertDialog dialog = builder.create();
                             dialog.show();
-                            TextView gallery = (TextView) someLayout.findViewById(R.id.choosefromGallery);
+                            TextView gallery = (TextView) someLayout
+                                    .findViewById(R.id.choosefromGallery);
                             gallery.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -478,8 +488,10 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                                 InstructorTopicCreationActivity.this);
                         builder.setTitle("Select image");
                         builder.setView(input);
-                        LayoutInflater li = LayoutInflater.from(InstructorTopicCreationActivity.this);
-                        LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.image_dialog, null);
+                        LayoutInflater li = LayoutInflater
+                                .from(InstructorTopicCreationActivity.this);
+                        LinearLayout someLayout = (LinearLayout) li
+                                .inflate(R.layout.image_dialog, null);
                         builder.setView(someLayout);
                         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
@@ -489,7 +501,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                         });
                         final AlertDialog dialog = builder.create();
                         dialog.show();
-                        TextView gallery = (TextView) someLayout.findViewById(R.id.choosefromGallery);
+                        TextView gallery = (TextView) someLayout
+                                .findViewById(R.id.choosefromGallery);
                         gallery.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -531,8 +544,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                         });
 
                         imageFlag = true;
-                    }
-                    else if (x.contains("TextView")) {
+                    } else if (x.contains("TextView")) {
                         final TextView textView = (TextView) v;
                         final EditText input = new EditText(InstructorTopicCreationActivity.this);
                         input.setInputType(
@@ -548,7 +560,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                                 for (String lay : midLayouts) {
                                     String temp1;
                                     if (lay.contains(textView.getText().toString())) {
-                                        temp1 = lay.replaceAll(textView.getText().toString(), input.getText().toString());
+                                        temp1 = lay.replaceAll(textView.getText().toString(),
+                                                input.getText().toString());
                                         midLayouts.set(midLayouts.indexOf(lay), temp1);
                                     }
                                 }
@@ -557,12 +570,13 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
                             }
                         });
-                        textBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
+                        textBuilder
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
                         final AlertDialog dialog = textBuilder.create();
                         dialog.show();
                     } else if (x.contains("Button")) {
@@ -595,7 +609,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             layouts += lay;
             Log.v("radioButtonId ", lay + "");
         }
-        Log.v("Orderings","\n\naddLayout :" + layouts+ "\n\n");
+        Log.v("Orderings", "\n\naddLayout :" + layouts + "\n\n");
 
         Log.v("radioButtonId ", radioButtonId + "");
         Log.v("radioButtonId ", id + "");
@@ -619,67 +633,71 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 .inflate(R.layout.text_detection_dialog, null);
         final EditText word = (EditText) linearLayout.findViewById(R.id.word);
         final EditText questionStart = (EditText) linearLayout.findViewById(R.id.questionStart);
-        final Spinner selectLanguage= (Spinner) linearLayout.findViewById(R.id.textLan);
+        final Spinner selectLanguage = (Spinner) linearLayout.findViewById(R.id.textLan);
 
-        ArrayAdapter<CharSequence> textSizes = ArrayAdapter.createFromResource(InstructorTopicCreationActivity.this,
-                R.array.text_lan_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> textSizes = ArrayAdapter
+                .createFromResource(InstructorTopicCreationActivity.this,
+                        R.array.text_lan_array, android.R.layout.simple_spinner_item);
 
         selectLanguage.setAdapter(textSizes);
         selectLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            if(i==0){selectlanguageString="eng";}
-                else if(i==1){selectlanguageString="ara";}
-                Log.v("Moooo",""+i);
-                Log.v("Moooo",""+selectlanguageString);
+                if (i == 0) {
+                    selectlanguageString = "eng";
+                } else if (i == 1) {
+                    selectlanguageString = "ara";
+                }
+                Log.v("Moooo", "" + i);
+                Log.v("Moooo", "" + selectlanguageString);
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
         });
         textViewProperties(linearLayout, InstructorTopicCreationActivity.this, this);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                databaseReference.child("courses").child(courseId).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        CourseCreated c = dataSnapshot.getValue(CourseCreated.class);
-                        int Number =Integer.parseInt(c.getQuestions());
-                        Number++;
-                        Log.v("Number++",Number+"");
-                        DatabaseReference db2 = databaseReference.child("courses").child(courseId);
-                        c.setQuestions(""+Number);
-                        courseCreated = c;
-                        Log.v("Number++",c.getName()+"");
-                        Log.v("Number++",c.getCourse_id()+"");
-                        Log.v("Number++",c.getDescription()+"");
-                        Log.v("Number++",c.getPhoto_url()+"");
-                        Log.v("Number++",c.getQuestions()+"");
-                        Log.v("Number++",c.getSubjectS()+"");
-                        Log.v("Number++",c.getRate()+"");
-                        Log.v("Number++",c.getTeacher_id()+"");
-                        Log.v("Number++",c.getTeacher_name()+"");
-                     //   databaseReference.updateChildren((Map<String, Object>) c);
-                    }
+                databaseReference.child("courses").child(courseId)
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                CourseCreated c = dataSnapshot.getValue(CourseCreated.class);
+                                int Number = Integer.parseInt(c.getQuestions());
+                                Number++;
+                                Log.v("Number++", Number + "");
+                                DatabaseReference db2 = databaseReference.child("courses")
+                                        .child(courseId);
+                                c.setQuestions("" + Number);
+                                courseCreated = c;
+                                Log.v("Number++", c.getName() + "");
+                                Log.v("Number++", c.getCourse_id() + "");
+                                Log.v("Number++", c.getDescription() + "");
+                                Log.v("Number++", c.getPhoto_url() + "");
+                                Log.v("Number++", c.getQuestions() + "");
+                                Log.v("Number++", c.getSubjectS() + "");
+                                Log.v("Number++", c.getRate() + "");
+                                Log.v("Number++", c.getTeacher_id() + "");
+                                Log.v("Number++", c.getTeacher_name() + "");
+                                //   databaseReference.updateChildren((Map<String, Object>) c);
+                            }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
+                            }
+                        });
 
 
-                addLayout(mTextView(id, questionStart.getText().toString().trim(), textColor,
-                addLayout(mTextView(++id, questionStart.getText().toString().trim(), textColor,
-                        textAppearance));
-                addLayout(
-                        mTextView(++id, word.getText().toString().trim(), textColor, textAppearance));
-                addLayout(
-                        mButton(++id, "Start", "TextDetection", new Answer(word.getText().toString()),
-                        mButton(id, "Start", "TextDetection", new Answer(word.getText().toString(),selectlanguageString),
-                                PUT_SOUND_LINK_HERE));
+//                addLayout(mTextView(id, questionStart.getText().toString().trim(), textColor, textAppearance));
+                addLayout(mTextView(++id, questionStart.getText().toString().trim(), textColor, textAppearance));
+                addLayout(mTextView(++id, word.getText().toString().trim(), textColor, textAppearance));
+                addLayout(mButton(++id, "Start", "TextDetection", new Answer(word.getText().toString(),selectlanguageString),PUT_SOUND_LINK_HERE));
+
                 dialogInterface.cancel();
             }
         });
@@ -761,7 +779,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                     android.support.v7.widget.AppCompatEditText omm = (AppCompatEditText) ett
                             .getChildAt(0);
                     Log.v("MultiQue", "Child 0 Edit text :" + omm.getText());
-                    String r1 = radioButton.replaceAll(PUT_ID_HERE, String.valueOf(++radioButtonId));
+                    String r1 = radioButton
+                            .replaceAll(PUT_ID_HERE, String.valueOf(++radioButtonId));
                     r1 = r1.replaceAll(PUT_ANSWER_HERE, omm.getText().toString());
                     Log.v("MultiQue", "radio " + r1);
                     radioLayout.add(r1);
@@ -829,8 +848,9 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 @Override
                 public void fileUploaded(String url) {
                     if (soundFlag)
-                        addLayout(mButton(id, "Start", PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
-                                url));
+                        addLayout(
+                                mButton(id, "Start", PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
+                                        url));
                     else {
                         flagTrial = true;
                         globalImageUrl = url;
@@ -844,22 +864,25 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 }
             }, storagePath);
         }
-        if(requestCode== REORDER && resultCode == Activity.RESULT_OK){
+        if (requestCode == REORDER && resultCode == Activity.RESULT_OK) {
             String layouts = String.valueOf(data.getData());
-            Log.v("Layouts" , layouts);
-            for (int i = 0; i <midLayouts.size() ; i++) {
+            Log.v("Layouts", layouts);
+            for (int i = 0; i < midLayouts.size(); i++) {
                 midLayouts.remove(i);
             }
-            Log.v("AfterForLoop" ,"\n\nOnActivityResult :\n\n : midLayouts"+ midLayouts.toString()+ "\n\n");
+            Log.v("AfterForLoop",
+                    "\n\nOnActivityResult :\n\n : midLayouts" + midLayouts.toString() + "\n\n");
             midLayouts.clear();
-            Log.v("AfterForLoop" ,"\nClear\nOnActivityResult :\n\n : midLayouts"+ midLayouts.toString()+ "\n\n");
+            Log.v("AfterForLoop", "\nClear\nOnActivityResult :\n\n : midLayouts" + midLayouts
+                    .toString() + "\n\n");
 
 //            id=1;
-            Log.v("Orderings" ,"\n\nOnActivityResult :"+ layouts+ "\n\n");
+            Log.v("Orderings", "\n\nOnActivityResult :" + layouts + "\n\n");
             RelativeLayout linearLayout = parse(start + layouts + end);
             mainView.removeAllViews();
             mainView.addView(linearLayout);
-            Log.v("Orderings" ,"\n\nOnActivityResult :\n\n : midLayouts"+ midLayouts.toString()+ "\n\n");
+            Log.v("Orderings",
+                    "\n\nOnActivityResult :\n\n : midLayouts" + midLayouts.toString() + "\n\n");
 
 //            addLayout(layouts);
         }
@@ -924,8 +947,9 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             public void onClick(DialogInterface dialog, int which) {
                 audioLink = audioIn.getText().toString();
                 if (soundFlag)
-                    addLayout(mButton(++id, soundText, PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
-                            audioLink));
+                    addLayout(
+                            mButton(++id, soundText, PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
+                                    audioLink));
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -1032,7 +1056,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             startActivityForResult(intent, Color_Request);
         } else if (activity.equals("TextDetection")) {
             Intent intent = new Intent(this, edu.sfsu.cs.orange.ocr.CaptureActivity.class);
-            Log.v("Parser","Answer :"+answer.getAnswer());
+            Log.v("Parser", "Answer :" + answer.getAnswer());
             intent.putExtra("Answer", answer);
             intent.putExtra("lan", "eng");
             startActivityForResult(intent, Text_Detection);

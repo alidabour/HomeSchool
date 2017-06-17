@@ -26,18 +26,20 @@
     </android.support.design.widget.TextInputLayout>
 
     <include layout="@layout/layout_parameters"/>
-    <LinearLayout
-        android:layout_margin="16dp"
 
+    <LinearLayout
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:orientation="horizontal">
+
         <TextView
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Select Text Language :"/>
+            android:text="Select Text Language :"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"/>
 
         <Spinner
             android:id="@+id/textLan"
