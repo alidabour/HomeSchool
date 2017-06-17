@@ -48,7 +48,7 @@ public class OrderingActivity extends AppCompatActivity implements OnStartDragLi
         layouts.add(Constants.mTextView(5,"Test5",-121212,-1223));
 
         RecyclerListAdapter adapter = new RecyclerListAdapter(getApplicationContext(), this,
-                layoutsList, this, doneBtn, new DoneOrderInterface() {
+                layoutsList, this, new DoneOrderInterface() {
             @Override
             public void onReorder(List<String> layouts) {
                 String layoutss = "";
@@ -62,7 +62,7 @@ public class OrderingActivity extends AppCompatActivity implements OnStartDragLi
                 finish();
             }
         });
-
+//        adapter.notifyItemChanged(layouts.size() -1);
         recyclerView.setAdapter(adapter);
 
 

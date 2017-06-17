@@ -13,6 +13,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +36,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
+import com.example.ali.homeschool.InstructorTopic.helper.DoneOrderInterface;
+import com.example.ali.homeschool.InstructorTopic.helper.OnStartDragListener;
+import com.example.ali.homeschool.InstructorTopic.helper.SimpleItemTouchHelperCallback;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
 import com.example.ali.homeschool.UserModelHelper.UploadFile;
@@ -53,12 +59,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
 
 import edu.sfsu.cs.orange.ocr.Answer;
 
+import static com.example.ali.homeschool.Constants.ARRANGE;
 import static com.example.ali.homeschool.Constants.Color_Request;
 import static com.example.ali.homeschool.Constants.PUT_ACTIVITY_HERE;
 import static com.example.ali.homeschool.Constants.PUT_ANSWER_HERE;
@@ -75,7 +83,8 @@ import static com.example.ali.homeschool.Constants.setColorButton;
 import static com.example.ali.homeschool.Constants.start;
 import static com.example.ali.homeschool.Constants.textViewProperties;
 
-public class InstructorTopicCreationActivity extends AppCompatActivity implements XMLClick, ImageClicked, ColorPickerDialogListener, TextAppInterface {
+public class InstructorTopicCreationActivity extends AppCompatActivity
+        implements XMLClick, ImageClicked, ColorPickerDialogListener, TextAppInterface, DoneOrderInterface, OnStartDragListener {
     int id = 0;
     int radioButtonId = 0;
     CourseCreated courseCreated;
@@ -102,7 +111,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     String topicid;
     String topicname;
     TextView sound;
-    LinearLayout act_main;
+    RelativeLayout act_main;
     LinearLayout mainView;
     String soundText = "PlaceHolder";
     String mid = "";
@@ -123,10 +132,38 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
     ObservedObject watchSoundUrl;
     String globalSoundUrl;
 
+
+    private ItemTouchHelper mItemTouchHelper;
+    ArrayList<String> layoutsList;
+    RecyclerView recyclerViewOrdering;
+    RecyclerListAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_topic);
+        layoutsList = new ArrayList<>();
+        recyclerViewOrdering = (RecyclerView) findViewById(R.id.recycleView);
+        recyclerViewOrdering.setHasFixedSize(true);
+        recyclerViewOrdering.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        adapter = new RecyclerListAdapter(getApplicationContext(), new OnStartDragListener() {
+            @Override
+            public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+                mItemTouchHelper.startDrag(viewHolder);
+            }
+        },
+                layoutsList, this, new DoneOrderInterface() {
+            @Override
+            public void onReorder(List<String> layouts) {
+
+            }
+        });
+        recyclerViewOrdering.setAdapter(adapter);
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(recyclerViewOrdering);
+
         globalImageUrl = "";
         globalSoundUrl = "";
 
@@ -142,14 +179,13 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         submitTV = (TextView) findViewById(R.id.submit);
         midLayouts = new ArrayList<>();
         mainView = (LinearLayout) findViewById(R.id.mainLayout);
-        act_main = (LinearLayout) findViewById(R.id.activiy_main);
+        act_main = (RelativeLayout) findViewById(R.id.activiy_main);
         image = (TextView) findViewById(R.id.image);
         sound = (TextView) findViewById(R.id.sound);
         findViewById(R.id.reorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), OrderingActivity.class);
-                Log.v("Orderings", "\n\nOnClick : midLayouts" + midLayouts.toString() + "\n\n");
                 String layouts = "";
 
                 for (String x : midLayouts) {
@@ -158,7 +194,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 layouts = layouts.replace(start, " ");
                 layouts = layouts.replace(end, " ");
                 intent.putExtra("Layout", layouts);
-                Log.v("Orderings", "\n\nOnClick :" + layouts + "\n\n");
                 startActivityForResult(intent, REORDER);
             }
         });
@@ -179,7 +214,17 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
             String layout = intent.getStringExtra("layout");
             layout = layout.replaceAll(start, " ");
             layout = layout.replaceAll(end, " ");
-            addLayout(layout);
+
+            String[] lays = layout.split("(?<=" + ARRANGE + ")");
+
+            for (String x : lays) {
+                Log.v("0909Intent", "x :" + x);
+                if (!x.trim().isEmpty()) {
+                    addLayout(x);
+                }
+            }
+
+//            addLayout(layout);
         }
 
         question.setOnClickListener(new View.OnClickListener() {
@@ -243,9 +288,10 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                         .child("lessons").child(lessonid).child("topics").child(topicid);
                 TopicModel t = new TopicModel();
                 String layouts = " ";
-                for (String layout : midLayouts) {
+                for (String layout : layoutsList) {
                     layouts += layout;
                 }
+                Log.v("909Log909", "\n\n Layouts submit : " + layouts + "\n\nEnd");
                 t.setLayout(start + layouts + end);
                 t.setName(topicname);
                 t.setId(topicid);
@@ -615,12 +661,27 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         Log.v("radioButtonId ", id + "");
         RelativeLayout linearLayout = parse(start + layouts + end);
         mainView.removeAllViews();
-        mainView.addView(linearLayout);
-        view1 = (RelativeLayout) mainView.getChildAt(0);
-        view2 = (LinearLayout) view1.getChildAt(0);
-        for (int i = 0; i < view2.getChildCount(); i++) {
-            views.add(view2.getChildAt(i));
-        }
+//        mainView.addView(linearLayout);
+        Log.v("0909Ada","before & clear add addLayout : " + layoutsList.toString());
+        adapter.clearItems();
+
+        layoutsList.add(layout);
+        adapter.setArrayItems(layoutsList);
+//        adapter.addItem(layout);
+        adapter = new RecyclerListAdapter(this , this,layoutsList,this,this);
+        recyclerViewOrdering.setAdapter(adapter);
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(recyclerViewOrdering);
+        Log.v("0909Ada","addLayout : " + layoutsList.toString());
+
+//        adapter.notifyItemChanged(adapter.getItemCount() - 1);
+//        view1 = (RelativeLayout) mainView.getChildAt(0);
+//        view2 = (LinearLayout) view1.getChildAt(0);
+//        for (int i = 0; i < view2.getChildCount(); i++) {
+//            views.add(view2.getChildAt(i));
+//        }
 
     }
 
@@ -694,9 +755,13 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 
 
 //                addLayout(mTextView(id, questionStart.getText().toString().trim(), textColor, textAppearance));
-                addLayout(mTextView(++id, questionStart.getText().toString().trim(), textColor, textAppearance));
-                addLayout(mTextView(++id, word.getText().toString().trim(), textColor, textAppearance));
-                addLayout(mButton(++id, "Start", "TextDetection", new Answer(word.getText().toString(),selectlanguageString),PUT_SOUND_LINK_HERE));
+                addLayout(mTextView(++id, questionStart.getText().toString().trim(), textColor,
+                        textAppearance));
+                addLayout(mTextView(++id, word.getText().toString().trim(), textColor,
+                        textAppearance));
+                addLayout(mButton(++id, "Start", "TextDetection",
+                        new Answer(word.getText().toString(), selectlanguageString),
+                        PUT_SOUND_LINK_HERE));
 
                 dialogInterface.cancel();
             }
@@ -792,7 +857,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
 //                for(String x:radioLayout){
 //                    Log.v("Parser","ITA Radio Layout :" + x);
 //                }
-                Log.v("Parser", "ITA Radio Layout :" + radioLayout.toString());
                 addLayout(radioLayout.toString());
             }
         });
@@ -809,12 +873,9 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
         try {
             mainLayout = (RelativeLayout) parseXMLInstructor
                     .parse(this, stream, getApplicationContext(), this);
-            Log.v("ITA", "pass");
         } catch (XmlPullParserException e) {
             e.printStackTrace();
-            Log.v("ITA", "XML ERROR :" + e);
         } catch (IOException e) {
-            Log.v("ITA", "XML IO ERROR :" + e);
         }
         return mainLayout;
     }
@@ -1089,5 +1150,18 @@ public class InstructorTopicCreationActivity extends AppCompatActivity implement
                 e.printStackTrace();
             }
         }
+    }
+
+
+    @Override
+    public void onReorder(List<String> layouts) {
+        Log.v("ReOrder09",layouts.toString());
+        layoutsList.clear();
+        layoutsList.addAll(layouts);
+    }
+
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        mItemTouchHelper.startDrag(viewHolder);
     }
 }

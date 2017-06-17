@@ -62,102 +62,71 @@ import edu.sfsu.cs.orange.ocr.Answer;
 public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapter.ItemViewHolder>
         implements ItemTouchHelperAdapter {
 
-    private  List<String> mItems = new ArrayList<>();
-    Button doneBtn;
+    private List<String> mItems;
+    //    Button doneBtn;
     private final OnStartDragListener mDragStartListener;
     public Context context;
     ArrayList<String> layouts;
     Activity activity;
     DoneOrderInterface doneOrderInterface;
+
     public RecyclerListAdapter(Context context, OnStartDragListener dragStartListener,
-                               ArrayList<String> layouts, Activity activity, Button doneBtn, final DoneOrderInterface doneOrderInterface) {
+                               ArrayList<String> layouts, Activity activity,
+                               final DoneOrderInterface doneOrderInterface) {
         mDragStartListener = dragStartListener;
-        mItems.addAll(Arrays.asList(context.getResources().getStringArray(R.array.color_array)));
+//        mItems.addAll(Arrays.asList(context.getResources().getStringArray(R.array.color_array)));
         this.context = context;
-        mItems=layouts;
+        mItems = new ArrayList<>();
+        mItems.addAll(layouts);
         this.activity = activity;
-        this.doneBtn = doneBtn;
+//        this.doneBtn = doneBtn;
         this.doneOrderInterface = doneOrderInterface;
-        doneBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doneOrderInterface.onReorder(mItems);
-                Log.v("Reorder","Items :" + mItems.toString());
-            }
-        });
+//        doneBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                doneOrderInterface.onReorder(mItems);
+//                Log.v("Reorder","Items :" + mItems.toString());
+//            }
+//        });
     }
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.v("Test","View Type :" + viewType);
+        Log.v("Test", "View Type :" + viewType);
         View view = LayoutInflater
                 .from(parent.getContext()).inflate(R.layout.holder_ordering_layout, parent, false);
         ItemViewHolder itemViewHolder = new ItemViewHolder(view);
-        Log.v("Test","Position :");
+        Log.v("Test", "Position :");
         return itemViewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, int position) {
-//        holder.textView.setText(mItems.get(position));
-//        ImageView imageView = new ImageView(context);
-//        Glide.with(context).load("https://www.android.com/static/2016/img/share/andy-lg.png").into(imageView);
+        Log.v("Adapter","onBindView items :\n:" + mItems.toString());
+        holder.setIsRecyclable(false);
         String layout = mItems.get(position);
-//        Log.v("Test","Layout :" + layout);
+        Log.v("Adapter", "onBindViewHolder : Layout :" + layout);
         InputStream stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
         ParseXMLInstructor parseXMLInstructor = new ParseXMLInstructor();
-        View view = new View(context);
         try {
-//          view=  parseXMLInstructor.parse(activity, stream, context, new XMLClick() {
-//              @Override
-//                public void playSound(String url) {
-//
-//                }
-//
-//                @Override
-//                public void openActivity(String activity, String answer) {
-//
-//                }
-//
-//                @Override
-//                public void onImageClick(View imageView) {
-//
-//                }
-//            });
             holder.view.addView(parseXMLInstructor.parse(activity, stream, context, new XMLClick() {
                 @Override
                 public void playSound(String url) {
-
                 }
 
                 @Override
                 public void openActivity(String activity, Answer answer) {
-
                 }
 
                 @Override
                 public void onImageClick(View imageView) {
-
                 }
             }));
         } catch (XmlPullParserException e) {
-            Log.v("Test","Error +++" +e.getMessage());
-            e.printStackTrace();
+            Log.v("Adapter", "Error +++" + e.getMessage());
         } catch (IOException e) {
-            Log.v("Test","Error +--+" +e.getMessage());
-            e.printStackTrace();
+            Log.v("Adapter", "Error +--+" + e.getMessage());
         }
-
-//        LinearLayout linearLayout = new LinearLayout(context);
-//        linearLayout.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT));
-//        Button i = new Button(context);
-//        i.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT));
-//        i.setText("Test............");
-//        linearLayout.addView(i);
-//        holder.view=linearLayout;
-//        holder.view.addView(view);
         // Start a drag whenever the handle view it touched
         holder.handleView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -178,8 +147,11 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
+        Log.v("Adapter","1onItemMove \n:" + mItems.toString());
         Collections.swap(mItems, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
+        doneOrderInterface.onReorder(mItems);
+        Log.v("Adapter","2onItemMove \n:" + mItems.toString());
         return true;
     }
 
@@ -188,6 +160,24 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
         return mItems.size();
     }
 
+    public void addItem(String item) {
+        Log.v("Adapter", "addItem : Layout :" + item);
+        if (item != null) {
+            mItems.add(item);
+            notifyDataSetChanged();
+            Log.v("Adapter", "True addItem : Layout :" + item);
+
+        }
+    }
+
+    public void clearItems() {
+        mItems.clear();
+    }
+
+    public void setArrayItems(ArrayList<String> layouts) {
+        mItems.addAll(layouts);
+        Log.v("0909Ada","setArrayItems : " + layouts.toString());
+    }
     /**
      * Simple example of a view holder that implements {@link ItemTouchHelperViewHolder} and has a
      * "handle" view that initiates a drag event when touched.
@@ -195,7 +185,7 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
     public static class ItemViewHolder extends RecyclerView.ViewHolder implements
             ItemTouchHelperViewHolder {
 
-//        public final TextView textView;
+        //public final TextView textView;
         public final ImageView handleView;
         public LinearLayout view;
 
