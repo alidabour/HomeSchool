@@ -67,7 +67,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
     private String key;
     LessonModel lessonModel;
     CourseCreated courseCreated;
-    CourseCreated courseCreated1;
+    EnrolledCourseModel courseCreated1;
     boolean courseExists = false;
     DatabaseReference myRef1;
     DatabaseReference myRef2;
@@ -146,17 +146,16 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                     {
                         myRef2 = databaseReference;
                         if (!courseExists) {
-                            myRef2.child("users").child(user.getUid()).child("enrolledCourses").addValueEventListener(
+                            myRef2.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(
                                     new ValueEventListener() {
                                         int count = 0;
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             if (!courseExists)
                                                 for (DataSnapshot d : dataSnapshot.getChildren()) {
-                                                    for (DataSnapshot d2 : d.getChildren()) {
                                                         count++;
-                                                        Log.e("ehel8oldah ", d2 + "");
-                                                        courseCreated1 = d2.getValue(CourseCreated.class);
+                                                        Log.e("ehel8oldah ", d + "");
+                                                        courseCreated1 = d.getValue(EnrolledCourseModel.class);
                                                         Log.e("Etl3e b2a: ", courseCreated.getCourse_id());
                                                         Log.e("Etl3e b2a enta eltani: ", courseCreated1.getCourse_id());
                                                         if (courseCreated.getCourse_id().equals(courseCreated1.getCourse_id())) {
@@ -186,7 +185,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                                                             Toast.makeText(CourseDescriptionActivity.this, "Already Enrolled", Toast.LENGTH_SHORT).show();
 
                                                         }
-                                                    }
+
                                                 }
                                         }
 
@@ -210,7 +209,6 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                                 progresstrial.setTopicProgressFlag("trial");
                                 progresstrial.setTopicProgressFlag("trial");
                                 myRef1.child(key2).updateChildren(progresstrial.toMap());
-                                courseExists = false;
                             }
                         }
 
