@@ -177,21 +177,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         mItemTouchHelper.attachToRecyclerView(recyclerViewOrdering);
     }
 
-    public RelativeLayout parse(String layout) {
-        InputStream stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
-        ParseXMLInstructor parseXMLInstructor = new ParseXMLInstructor();
-        RelativeLayout mainLayout = null;
-
-        try {
-            mainLayout = (RelativeLayout) parseXMLInstructor
-                    .parse(this, stream, getApplicationContext(), this);
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-        }
-        return mainLayout;
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
