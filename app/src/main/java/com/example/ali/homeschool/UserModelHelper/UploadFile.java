@@ -100,7 +100,7 @@ public class UploadFile {
     }
 
 
-    public static String getMimeType(Context context, Uri uri) {
+    private static String getMimeType(Context context, Uri uri) {
 
         String extension;
 
@@ -118,7 +118,7 @@ public class UploadFile {
         return extension;
     }
 
-    public String getFileName(Context context, Uri uri) {
+    private String getFileName(Context context, Uri uri) {
         String result = null;
         if (uri.getScheme().equals("content")) {
             Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);

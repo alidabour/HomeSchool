@@ -20,19 +20,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.view.MotionEventCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
-import android.text.LoginFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.InstructorTopic.helper.DoneOrderInterface;
 import com.example.ali.homeschool.InstructorTopic.helper.ItemTouchHelperAdapter;
 import com.example.ali.homeschool.InstructorTopic.helper.ItemTouchHelperViewHolder;
@@ -46,7 +42,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -63,10 +58,8 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
         implements ItemTouchHelperAdapter {
 
     private List<String> mItems;
-    //    Button doneBtn;
     private final OnStartDragListener mDragStartListener;
     public Context context;
-    ArrayList<String> layouts;
     Activity activity;
     DoneOrderInterface doneOrderInterface;
 
@@ -74,38 +67,25 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
                                ArrayList<String> layouts, Activity activity,
                                final DoneOrderInterface doneOrderInterface) {
         mDragStartListener = dragStartListener;
-//        mItems.addAll(Arrays.asList(context.getResources().getStringArray(R.array.color_array)));
         this.context = context;
         mItems = new ArrayList<>();
         mItems.addAll(layouts);
         this.activity = activity;
-//        this.doneBtn = doneBtn;
         this.doneOrderInterface = doneOrderInterface;
-//        doneBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                doneOrderInterface.onReorder(mItems);
-//                Log.v("Reorder","Items :" + mItems.toString());
-//            }
-//        });
     }
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.v("Test", "View Type :" + viewType);
         View view = LayoutInflater
                 .from(parent.getContext()).inflate(R.layout.holder_ordering_layout, parent, false);
         ItemViewHolder itemViewHolder = new ItemViewHolder(view);
-        Log.v("Test", "Position :");
         return itemViewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, int position) {
-        Log.v("Adapter","onBindView items :\n:" + mItems.toString());
         holder.setIsRecyclable(false);
         String layout = mItems.get(position);
-        Log.v("Adapter", "onBindViewHolder : Layout :" + layout);
         InputStream stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
         ParseXMLInstructor parseXMLInstructor = new ParseXMLInstructor();
         try {
@@ -147,11 +127,9 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
-        Log.v("Adapter","1onItemMove \n:" + mItems.toString());
         Collections.swap(mItems, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
         doneOrderInterface.onReorder(mItems);
-        Log.v("Adapter","2onItemMove \n:" + mItems.toString());
         return true;
     }
 
@@ -160,23 +138,12 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
         return mItems.size();
     }
 
-    public void addItem(String item) {
-        Log.v("Adapter", "addItem : Layout :" + item);
-        if (item != null) {
-            mItems.add(item);
-            notifyDataSetChanged();
-            Log.v("Adapter", "True addItem : Layout :" + item);
-
-        }
-    }
-
     public void clearItems() {
         mItems.clear();
     }
 
     public void setArrayItems(ArrayList<String> layouts) {
         mItems.addAll(layouts);
-        Log.v("0909Ada","setArrayItems : " + layouts.toString());
     }
     /**
      * Simple example of a view holder that implements {@link ItemTouchHelperViewHolder} and has a
@@ -185,13 +152,11 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
     public static class ItemViewHolder extends RecyclerView.ViewHolder implements
             ItemTouchHelperViewHolder {
 
-        //public final TextView textView;
         public final ImageView handleView;
         public LinearLayout view;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
-//            textView = (TextView) itemView.findViewById(R.id.text);
             handleView = (ImageView) itemView.findViewById(R.id.handle);
             view = (LinearLayout) itemView.findViewById(R.id.test);
         }
