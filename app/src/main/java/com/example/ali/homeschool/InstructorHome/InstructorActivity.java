@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -48,6 +49,7 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         setContentView(R.layout.instructor_drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout2);
+        Log.v("Enta Get Hna","T3alaly");
         //setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -126,5 +128,11 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // To clean up all activities
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 }

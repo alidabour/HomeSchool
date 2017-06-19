@@ -11,6 +11,14 @@
     android:id="@+id/enrolledCourses"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_mycourse"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/no_mycourse"
+        android:visibility="gone"/>
 
 
 </LinearLayout>

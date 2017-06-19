@@ -14,6 +14,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
@@ -40,6 +41,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
     String lessonid;
     Intent intent;
     ValueEventListener listener;
+    TextView noTopic ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab3);
 
-
+        noTopic = (TextView) findViewById(R.id.no_topic);
         //Getting intent and checking if it's null
        // Bundle bundle= intent.getBundleExtra("BUNDLE");
         //    lessonModel = bundle.getParcelable("lesson");
@@ -60,15 +62,6 @@ public class InstructorTopicActivity extends AppCompatActivity {
             lessonid = getIntent().getStringExtra("lessonid");
             Log.v("intent Extra :  ", ":------------" + lessonid);
         }
-//        if(intent!=null)
-//        {
-//        }
-//        if(intent!=null)
-//        {
-//            courseId = intent.getString("courseid");
-//            Log.v("intent Extra :  ", ":------------" + courseId);
-//        }
-
 
 
         db = FirebaseDatabase.getInstance().getReference();
@@ -145,7 +138,8 @@ public class InstructorTopicActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-    }
+
+        }
 
     @Override
     protected void onStart() {
@@ -177,6 +171,11 @@ public class InstructorTopicActivity extends AppCompatActivity {
                             }
                         });
                 lessonsRV.setAdapter(lessonAdapter);
+                if(lessonModelList.size()<0){
+                    noTopic.setVisibility(View.VISIBLE);
+                }else{
+                    noTopic.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -188,19 +187,4 @@ public class InstructorTopicActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if(listener != null){
-            db.removeEventListener(listener);
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        if(listener == null){
-//            db.addValueEventListener(listener);
-//        }
-    }
 }

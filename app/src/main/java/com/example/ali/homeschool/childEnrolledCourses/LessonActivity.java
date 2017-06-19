@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorLessons.LessonAdapter;
@@ -19,6 +20,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +41,6 @@ public class LessonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson);
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
-
         enrolledRecyclerView = (RecyclerView) findViewById(R.id.lessonsRV2);
         enrolledRecyclerView.setHasFixedSize(true);
         LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getApplicationContext(),
@@ -84,6 +86,7 @@ public class LessonActivity extends AppCompatActivity {
                     });
 //
                 enrolledRecyclerView.setAdapter(lessonAdapter);
+
 
                 enrolledRecyclerView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override

@@ -15,9 +15,10 @@
     <string name="category">Category:</string>
     <string name="topVisited">Top Visited</string>
     <string name="guest">Guest</string>
-    <string name="register">Register</string>
+    <string name="register">Create account</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="name">Enter your name</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -50,6 +51,14 @@
     <string name="choose_from_gallery">Choose from Gallery</string>
     <string name="support">support</string>
     <string name="no_course">Press add for new course</string>
+    <string name="no_lesson">press + to add more lessons</string>
+    <string name="no_topics">Press + for more topics</string>
+    <string name="no_mycourse">you have no enrolled courses</string>
+    <string name="sign_in_here">  Sign in here</string>
+    <string name="have_an_account">Have an account?</string>
+    <string name="create_account">Create account</string>
+    <string name="upload_your_profile_picture">Upload your profile picture</string>
+    <string name="repeat_password">Repeat Password</string>
 
     <string-array name="planets_array">
         <item>Mercury</item>

@@ -47,6 +47,14 @@
         android:layout_marginRight="122dp"
         android:layout_marginEnd="122dp"
         android:layout_marginTop="250dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_lesson"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/no_lesson"
+        android:visibility="gone"/>
 
 
 </RelativeLayout>
