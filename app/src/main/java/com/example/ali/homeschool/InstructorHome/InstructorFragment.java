@@ -69,6 +69,7 @@ public class InstructorFragment extends Fragment {
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab2);
 
+        Log.v("Enta Get Hna101","T3alaly");
         FirebaseAuth auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         Log.v("Test", "User Email" + user.getDisplayName());
@@ -243,5 +244,9 @@ public class InstructorFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+    }
 }

@@ -29,7 +29,7 @@
             android:title="@string/support" />
         <item
             android:id="@+id/signout"
-
+            android:icon="@mipmap/ic_launcher"
             android:title="@string/sign_out" />
     </group>
 

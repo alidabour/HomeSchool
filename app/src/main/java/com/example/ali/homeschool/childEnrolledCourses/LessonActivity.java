@@ -1,8 +1,8 @@
 package com.example.ali.homeschool.childEnrolledCourses;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -10,9 +10,9 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
-import com.example.ali.homeschool.InstructorLessons.LessonAdapter;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.adapter.StudentLessonAdapter;
 import com.example.ali.homeschool.childClass.ClassActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,7 +38,6 @@ public class LessonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson);
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
-
         enrolledRecyclerView = (RecyclerView) findViewById(R.id.lessonsRV2);
         enrolledRecyclerView.setHasFixedSize(true);
         LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getApplicationContext(),
@@ -71,19 +70,20 @@ public class LessonActivity extends AppCompatActivity {
                         lessonModelList.add(lessonModel);
                     }
 
-                    LessonAdapter lessonAdapter = new LessonAdapter(lessonModelList, new LessonAdapter.OnClickHandler() {
+                    StudentLessonAdapter studentLessonAdapter = new StudentLessonAdapter(lessonModelList, new StudentLessonAdapter.OnClickHandler() {
                         @Override
                         public void onClick(LessonModel test) {
                             Intent intent = new Intent(getApplicationContext(),
                                     ClassActivity.class);
-                            intent.putExtra("courseid",course.getCourse_id() );
+                            intent.putExtra("courseId",course.getCourse_id() );
                             intent.putExtra("lessonid", test.getId());
 
                             startActivity(intent);
                         }
-                    });
+                    },LessonActivity.this,course.getCourse_id() );
 //
-                enrolledRecyclerView.setAdapter(lessonAdapter);
+                enrolledRecyclerView.setAdapter(studentLessonAdapter);
+
 
                 enrolledRecyclerView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override

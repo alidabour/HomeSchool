@@ -1,33 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/a">
 
-    <ImageButton
+    <!--<ImageButton-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="230dp"-->
+        <!--android:id="@+id/Student"-->
+        <!--android:src="@drawable/student2"-->
+        <!--android:background="?android:attr/selectableItemBackground"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_above="@+id/Parent" />-->
+
+    <!--<ImageButton-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="230dp"-->
+        <!--android:id="@+id/Parent"-->
+        <!--android:src="@drawable/parents2"-->
+        <!--android:background="?android:attr/selectableItemBackground"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:scaleType="fitXY"/>-->
+
+    <!--<ImageButton-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="230dp"-->
+        <!--android:id="@+id/Instructor"-->
+        <!--android:src="@drawable/instructor2"-->
+        <!--android:background="?android:attr/selectableItemBackground"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignLeft="@+id/Parent"-->
+        <!--android:layout_alignStart="@+id/Parent"-->
+        <!--android:layout_below="@+id/Parent" />-->
+
+    <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:id="@+id/Student"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/a"
-        android:layout_above="@+id/Parent" />
+        android:layout_height="match_parent"
+        android:id="@+id/viewPager"
+        android:background="@drawable/bkgrnd">
+    </android.support.v4.view.ViewPager>
 
-    <ImageButton
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:id="@+id/Parent"
-        android:background="@drawable/photoid"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:scaleType="fitXY"/>
-
-    <ImageButton
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:id="@+id/Instructor"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/Parent"
-        android:layout_alignStart="@+id/Parent"
-        android:background="@drawable/a2"
-        android:layout_below="@+id/Parent" />
-
-</RelativeLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_icon"
+        android:layout_gravity="center"/>
+</FrameLayout>

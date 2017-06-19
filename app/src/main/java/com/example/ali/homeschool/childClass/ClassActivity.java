@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.Constants;
@@ -41,6 +42,7 @@ public class ClassActivity extends AppCompatActivity  {
     String course_id , lesson_id ;
     ArrayList<TopicModel> TopicModelList;
     ValueEventListener listener ;
+    TextView noTopics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

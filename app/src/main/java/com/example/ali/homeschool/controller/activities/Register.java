@@ -76,10 +76,7 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
         storageReference = FirebaseStorage.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        Button uploadPhotoButton = (Button) findViewById(R.id.UploadButton);
-
         progressDialog = new ProgressDialog(this);
-
         textViewSignin = (TextView) findViewById(R.id.textViewSignin);
         textViewSignin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,12 +92,7 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
                 openImageActivity();
             }
         });
-        uploadPhotoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openImageActivity();
-            }
-        });
+
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

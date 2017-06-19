@@ -2,30 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:padding="8dp"
     android:background="@color/colorPrimary"
-    android:gravity="bottom"
+    android:gravity="center"
+    android:layout_weight="1"
     android:orientation="horizontal"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
-        android:layout_marginTop="8dp"
-        android:id="@+id/photoid"
+    <LinearLayout
         android:layout_width="0dp"
+        android:layout_height="120dp"
         android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@drawable/photoid" />
+        android:padding="8dp"
+        android:gravity="start">
 
-    <TextView
-        android:id="@+id/navigationTextName"
-        android:fitsSystemWindows="true"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/name_nav"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        />
+        <ImageView
+            android:id="@+id/photoid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_weight="1"
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            android:src="@drawable/profile" />
+    </LinearLayout>
 
+        <TextView
+            android:id="@+id/navigationTextName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:fitsSystemWindows="true"
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            android:text="@string/name_nav"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 </LinearLayout>

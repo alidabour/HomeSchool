@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
@@ -38,7 +39,7 @@ public class MyCoursesFragment extends Fragment {
     FirebaseAuth auth;
     FirebaseUser user;
     DatabaseReference db;
-
+    TextView noMyCourse ;
    // List<Courses2> enrolledCoursesList;
     List<Courses> enrolledCoursesList;
     List<CourseCreated> coursesNames;
@@ -60,8 +61,8 @@ public class MyCoursesFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_courses_fragmetnt, container, false);
-
-        enrolledRecyclerView = (RecyclerView) view.findViewById(R.id.enrolledCourses);
+        noMyCourse =(TextView) view.findViewById(R.id.no_mycourse);
+                enrolledRecyclerView = (RecyclerView) view.findViewById(R.id.enrolledCourses);
         enrolledRecyclerView.setHasFixedSize(true);
         LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false);
@@ -137,6 +138,12 @@ public class MyCoursesFragment extends Fragment {
                                                         });
                                                // Log.v("Test", "Enrolled Size New:" + enrolledCoursesList.size());
                                             enrolledRecyclerView.setAdapter(enrolledCoursesAdapter1 );
+
+                                            if(coursesNames.size() <0){
+                                                noMyCourse.setVisibility(View.VISIBLE);
+                                            }else{
+                                                noMyCourse.setVisibility(View.GONE);
+                                            }
                                         }
                                         @Override
                                         public void onCancelled(DatabaseError databaseError) {

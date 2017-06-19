@@ -12,7 +12,6 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"/>
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lessonsRV2"
         android:layout_width="match_parent"
@@ -20,5 +19,6 @@
         android:layout_below="@+id/toolbar1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>
