@@ -128,23 +128,21 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                             lessonModel = d.getValue(LessonModel.class);
                             lessonModelList.add(lessonModel);
                         }
-                        LessonAdapter lessonAdapter = new LessonAdapter(lessonModelList,
-                                new LessonAdapter.OnClickHandler() {
+                        InstructorLessonAdapter instructorLessonAdapter = new InstructorLessonAdapter(lessonModelList,
+                                new InstructorLessonAdapter.OnClickHandler() {
                                     @Override
                                     public void onClick(LessonModel test) {
                                         // intent from current activity to Next Activity
                                         Intent intent = new Intent(InstructorLessonsActivity.this, InstructorTopicActivity.class);
                                         //Putting extras to get them in the Next Activity
-
-
                                         intent.putExtra("courseid", courseID);
                                         intent.putExtra("lessonid", test.getId());
                                         //     intent.putExtra("lesson",test);
                                         // starting the Activity
                                         startActivity(intent);
                                     }
-                                });
-                        lessonsRV.setAdapter(lessonAdapter);
+                                },InstructorLessonsActivity.this,courseID);
+                        lessonsRV.setAdapter(instructorLessonAdapter);
                         if(lessonModelList.size()<0){
                             noLesson.setVisibility(View.VISIBLE);
                         }else{

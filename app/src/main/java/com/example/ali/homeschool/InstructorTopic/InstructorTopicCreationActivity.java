@@ -97,8 +97,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         if (intent != null && intent.hasExtra("lessonid")) {
             lessonid = intent.getStringExtra("lessonid");
         }
-        if (intent != null && intent.hasExtra("courseID")) {
-            courseId = intent.getStringExtra("courseID");
+        if (intent != null && intent.hasExtra("courseId")) {
+            courseId = intent.getStringExtra("courseId");
         }
         if (intent != null && intent.hasExtra("topicid")) {
             topicid = intent.getStringExtra("topicid");

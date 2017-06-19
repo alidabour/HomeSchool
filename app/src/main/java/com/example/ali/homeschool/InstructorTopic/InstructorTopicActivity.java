@@ -54,13 +54,13 @@ public class InstructorTopicActivity extends AppCompatActivity {
         //Getting intent and checking if it's null
        // Bundle bundle= intent.getBundleExtra("BUNDLE");
         //    lessonModel = bundle.getParcelable("lesson");
-        if (getIntent().hasExtra("courseid")){
-            courseId = getIntent().getStringExtra("courseid");
-            Log.v("intent Extra :  ", ":------------" + courseId);
+        if (getIntent().hasExtra("courseId")){
+            courseId = getIntent().getStringExtra("courseId");
+            Log.v("intentExtra :  ", ":------------123" + courseId);
         }
         if (getIntent().hasExtra("lessonid")){
             lessonid = getIntent().getStringExtra("lessonid");
-            Log.v("intent Extra :  ", ":------------" + lessonid);
+            Log.v("intentExtra :  ", ":------------54321" + lessonid);
         }
 
 
@@ -165,7 +165,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
                                 intent.putExtra("topicname",test.getName());
                                 intent.putExtra("topicid",test.getId());
                                 intent.putExtra("lessonid",lessonid);
-                                intent.putExtra("courseID",courseId);
+                                intent.putExtra("courseId",courseId);
                                 intent.putExtra("layout",test.getLayout());
                                 startActivity(intent);
                             }
@@ -183,6 +183,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
 
             }
         };
+
         db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").addValueEventListener(listener);
 
     }
