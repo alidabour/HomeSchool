@@ -108,6 +108,7 @@
             android:textColor="@color/colorBack"
             android:foreground="@drawable/ripple"
             android:background="@drawable/button_shape"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium.Inverse"
             android:text="@string/signin" />
     </LinearLayout>
 
