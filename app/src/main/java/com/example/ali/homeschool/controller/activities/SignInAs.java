@@ -1,18 +1,12 @@
 package com.example.ali.homeschool.controller.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageButton;
 
-import com.example.ali.homeschool.InstructorHome.InstructorActivity;
-import com.example.ali.homeschool.ParentHome.ParentActivity;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.adapter.SigninAdapter;
 
 import java.util.ArrayList;
 
@@ -34,6 +28,7 @@ public class SignInAs extends AppCompatActivity {
         res.add(R.drawable.student2);
         res.add(R.drawable.parents2);
         pager.setAdapter(new SignInAsAdapter(getApplicationContext() , res));
+
 
     }
     @Override
