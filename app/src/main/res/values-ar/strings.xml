@@ -12,7 +12,7 @@
     <string name="title_activity_main3">Main3Activity</string>
 
     <string name="New">New!</string>
-    <string name="signin">تسجيل دخول</string>
+    <string name="signin">تسجيل الدخول</string>
     <string name="category">Category:</string>
     <string name="topVisited">Top Visited</string>
     <string name="guest">Guest</string>
@@ -42,7 +42,7 @@
     <string name="settings">اعدادات</string>
     <string name="sign_out">خروج</string>
     <string name="name_nav">منار مصطفي</string>
-    <string name="Email">البريد الإكترونى</string>
+    <string name="Email">البريد الإلكترونى</string>
     <string name="Username">إسم المسنخدم</string>
     <string name="topics_description">الدروس</string>
     <string name="ratings">Ratings</string>
@@ -56,5 +56,9 @@
     <string name="create_account">إنشاء حساب</string>
     <string name="upload_your_profile_picture">تحميل صورتك الشخصية</string>
     <string name="repeat_password">إعادة كلمة المرور</string>
+    <string name="not_have_an_account">  مستخدم جديد؟  </string>
+    <string name="sign_up_here">  إنشاء حساب </string>
+    <string name="welcome">مرحباً بك!</string>
+    <string name="enter_your_email_to_sign_in_to_your_account">أدخل بريدك الإلكترونى للدخول إلى حسابك</string>
 
 </resources>

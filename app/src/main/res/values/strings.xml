@@ -59,6 +59,10 @@
     <string name="create_account">Create account</string>
     <string name="upload_your_profile_picture">Upload your profile picture</string>
     <string name="repeat_password">Repeat Password</string>
+    <string name="not_have_an_account">New here?</string>
+    <string name="sign_up_here">  sign up</string>
+    <string name="welcome">Welcome!</string>
+    <string name="enter_your_email_to_sign_in_to_your_account">Enter your email to sign in to your account</string>
 
     <string-array name="planets_array">
         <item>Mercury</item>
