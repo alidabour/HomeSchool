@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -70,16 +71,19 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     RecyclerView recyclerViewOrdering;
     RecyclerListAdapter adapter;
 
+    ParseXMLInstructor parseXMLInstructor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_topic);
+        parseXMLInstructor = new ParseXMLInstructor(InstructorTopicCreationActivity.this);
+        parseXMLInstructor.setXmlClick(this);
         layoutsList = new ArrayList<>();
         recyclerViewOrdering = (RecyclerView) findViewById(R.id.recycleView);
         recyclerViewOrdering.setHasFixedSize(true);
         recyclerViewOrdering.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        adapter = new RecyclerListAdapter(getApplicationContext(), this,
-                layoutsList, this, this);
+        adapter = new RecyclerListAdapter(parseXMLInstructor, this,
+                layoutsList, this);
         recyclerViewOrdering.setAdapter(adapter);
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
@@ -167,14 +171,18 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
     private void addLayout(String layout) {
         adapter.clearItems();
-        layoutsList.add(layout);
-        adapter.setArrayItems(layoutsList);
-        adapter = new RecyclerListAdapter(this, this, layoutsList, this, this);
-        recyclerViewOrdering.setAdapter(adapter);
+        Log.v("O-O","before add :"+layoutsList.size());
 
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
-        mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(recyclerViewOrdering);
+        layoutsList.add(layout);
+        Log.v("O-O","after add :"+layoutsList.size());
+
+        adapter.setArrayItems(layoutsList);
+//        adapter = new RecyclerListAdapter(this, this, layoutsList, this, this);
+//        recyclerViewOrdering.setAdapter(adapter);
+//
+//        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+//        mItemTouchHelper = new ItemTouchHelper(callback);
+//        mItemTouchHelper.attachToRecyclerView(recyclerViewOrdering);
     }
 
     @Override
@@ -216,13 +224,22 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         } else if (activity.equals("TextDetection")) {
             Intent intent = new Intent(this, edu.sfsu.cs.orange.ocr.CaptureActivity.class);
             intent.putExtra("Answer", answer);
-            intent.putExtra("lan", "eng");
+//            intent.putExtra("lan", "eng");
             startActivityForResult(intent, Text_Detection);
         }
     }
 
     @Override
     public void onImageClick(View imageView) {
+    }
+
+    @Override
+    public void onEditImageView(int id, String src,String layout) {
+        int index = layoutsList.indexOf(layout);
+        imageDialog = new ImageDialog(id,InstructorTopicCreationActivity.this,onLayoutReadyInterface);
+        imageDialog.setCourseId(courseId);
+        imageDialog.setUrl(src);
+        imageDialog.openImageDialog();
     }
 
     private void playAudio(String url) throws Exception {
@@ -246,8 +263,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
     @Override
     public void onReorder(List<String> layouts) {
+        Log.v("O-O","before clear :"+layoutsList.size());
         layoutsList.clear();
+        Log.v("O-O","after clear :"+layoutsList.size());
         layoutsList.addAll(layouts);
+        Log.v("O-O","after addAll :"+layoutsList.size());
+
     }
 
     @Override

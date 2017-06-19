@@ -46,29 +46,29 @@ public class OrderingActivity extends AppCompatActivity implements OnStartDragLi
         layouts.add(Constants.mTextView(3,"Test3",-121212,-1223));
         layouts.add(Constants.mTextView(4,"Test4",-121212,-1223));
         layouts.add(Constants.mTextView(5,"Test5",-121212,-1223));
-
-        RecyclerListAdapter adapter = new RecyclerListAdapter(getApplicationContext(), this,
-                layoutsList, this, new DoneOrderInterface() {
-            @Override
-            public void onReorder(List<String> layouts) {
-                String layoutss = "";
-                for (String x:layouts){
-                    layoutss+=x + Constants.ARRANGE;
-                }
-                Log.v("Orderings","OnReorder :"+ layoutss);
-                Intent intent = new Intent();
-                intent.setData(Uri.parse(layoutss));
-                setResult(Activity.RESULT_OK,intent);
-                finish();
-            }
-        });
+//
+//        RecyclerListAdapter adapter = new RecyclerListAdapter(getApplicationContext(), this,
+//                layoutsList, this, new DoneOrderInterface() {
+//            @Override
+//            public void onReorder(List<String> layouts) {
+//                String layoutss = "";
+//                for (String x:layouts){
+//                    layoutss+=x + Constants.ARRANGE;
+//                }
+//                Log.v("Orderings","OnReorder :"+ layoutss);
+//                Intent intent = new Intent();
+//                intent.setData(Uri.parse(layoutss));
+//                setResult(Activity.RESULT_OK,intent);
+//                finish();
+//            }
+//        });
 //        adapter.notifyItemChanged(layouts.size() -1);
-        recyclerView.setAdapter(adapter);
+//        recyclerView.setAdapter(adapter);
 
 
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
-        mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(recyclerView);
+//        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+//        mItemTouchHelper = new ItemTouchHelper(callback);
+//        mItemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.ali.homeschool.controller.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -25,16 +26,16 @@ public class ImageFragment extends android.support.v4.app.Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    String image ;
+    int image ;
     String mParam2 ;
     ImageView mImageView;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         if (getArguments() != null) {
 
-            image = getArguments().getString(ARG_PARAM1);
+            image = getArguments().getInt(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-            Log.v("signinAdapter ",image);
+//            Log.v("signinAdapter ",image);
 
         }
         super.onCreate(savedInstanceState);
@@ -44,12 +45,13 @@ public class ImageFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        Log.v("signinAdapterImage ",image);
+//        Log.v("signinAdapterImage ",image);
 
         mImageView = new ImageView(getActivity());
        // inflater.inflate(R.layout.sign_in_as,mImageView);
         mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        Glide.with(getActivity()).load(image).into(mImageView);
+        mImageView.setImageResource(image);
+//        Glide.with(getActivity()).load(image).into(mImageView);
 
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,10 +62,10 @@ public class ImageFragment extends android.support.v4.app.Fragment {
         return mImageView ;
     }
 
-    public static ImageFragment newInstance (String image ,String param2){
+    public static ImageFragment newInstance (Integer image , String param2){
         ImageFragment fragment = new ImageFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1,image);
+        args.putInt(ARG_PARAM1,image);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;

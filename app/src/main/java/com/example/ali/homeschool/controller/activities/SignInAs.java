@@ -14,6 +14,8 @@ import com.example.ali.homeschool.ParentHome.ParentActivity;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.SigninAdapter;
 
+import java.util.ArrayList;
+
 /**
  * Created by lenovo on 30/11/2016.
  */
@@ -27,7 +29,11 @@ public class SignInAs extends AppCompatActivity {
         //ImageView imageView = (ImageView) findViewById(R.id.imageView);
         pager = (ViewPager) findViewById(R.id.viewPager) ;
         Log.v("pager ",pager.toString());
-        pager.setAdapter(new SigninAdapter(getSupportFragmentManager() , this));
+        ArrayList<Integer> res= new ArrayList<>();
+        res.add(R.drawable.instructor2);
+        res.add(R.drawable.student2);
+        res.add(R.drawable.parents2);
+        pager.setAdapter(new SignInAsAdapter(getApplicationContext() , res));
 
     }
     @Override

@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.util.Xml;
+import android.view.GestureDetector;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,6 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -27,8 +30,10 @@ import com.example.ali.homeschool.exercises.speech.Speech;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 
 import edu.sfsu.cs.orange.ocr.Answer;
 
@@ -38,18 +43,22 @@ import edu.sfsu.cs.orange.ocr.Answer;
 
 public class ParseXMLInstructor {
     private static final String ns = null;
-    private static Context context;
     private float scale;
-    XMLClick xmlClick;
-    Activity activity;
 
-    public View parse(final Activity activity, InputStream in, Context context,
-                      XMLClick xmlClick) throws XmlPullParserException, IOException {
-        this.xmlClick = xmlClick;
+    XMLClick xmlClick;
+
+    Activity activity;
+    String layout;
+    public ParseXMLInstructor(Activity activity) {
+        this.activity = activity;
+    }
+
+    public View parse(String layout) throws XmlPullParserException, IOException {
+        InputStream in = null;
+        this.layout = layout;
         try {
-            this.activity = activity;
-            this.context = context;
-            scale = getScale(context);
+             in = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
+            scale = getScale(activity);
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in, null);
@@ -58,20 +67,19 @@ public class ParseXMLInstructor {
             if (parser.getName().equals("RelativeLayout")) {
                 Log.v("Parse", "parser getName Relative:" + parser.getName());
                 return readRelativeLayout(parser);
-            } else if(parser.getName().equals("LinearLayout")){
+            } else if (parser.getName().equals("LinearLayout")) {
                 Log.v("Parse", "parser getName Linear:" + parser.getName());
                 return readLinearLayout(parser);
-            }else if(parser.getName().equals("TextView")){
+            } else if (parser.getName().equals("TextView")) {
                 return readTextView(parser);
-            }else if(parser.getName().equals("ImageView")) {
+            } else if (parser.getName().equals("ImageView")) {
                 Log.v("Test", "parser getName :" + parser.getName());
                 return readImageView(parser);
-            }else if (parser.getName().equals("RadioGroup")){
+            } else if (parser.getName().equals("RadioGroup")) {
                 return readRadioGroup(parser);
-            }else if(parser.getName().equals("Button")){
+            } else if (parser.getName().equals("Button")) {
                 return readButton(parser);
-            }
-            else{
+            } else {
                 return null;
             }
         } finally {
@@ -79,9 +87,13 @@ public class ParseXMLInstructor {
         }
     }
 
+    public void setXmlClick(XMLClick xmlClick) {
+        this.xmlClick = xmlClick;
+    }
+
     private View readRelativeLayout(
             XmlPullParser parser) throws XmlPullParserException, IOException {
-        RelativeLayout relativeLayout = new RelativeLayout(context);
+        RelativeLayout relativeLayout = new RelativeLayout(activity);
         RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT);
@@ -118,7 +130,7 @@ public class ParseXMLInstructor {
 
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
 //        float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
-        RadioGroup radioGroup = new RadioGroup(context);
+        RadioGroup radioGroup = new RadioGroup(activity);
         radioGroup.setOrientation(RadioGroup.VERTICAL);
         radioGroup.setId(id);
         parser.require(XmlPullParser.START_TAG, ns, "RadioGroup");
@@ -126,7 +138,7 @@ public class ParseXMLInstructor {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
-            Log.v("Parser.next" , parser.next()+"");
+            Log.v("Parser.next", parser.next() + "");
             String name = parser.getName();
             Log.v("Parse", "RadioButton :" + name);
             if (name.equals("RadioButton")) {
@@ -143,7 +155,7 @@ public class ParseXMLInstructor {
 
     private View readRadioButton(XmlPullParser parser) {
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
-        RadioButton radioButton = new RadioButton(context);
+        RadioButton radioButton = new RadioButton(activity);
         radioButton.setText(parser.getAttributeValue(ns, "android:text"));
         radioButton.setId(id);
         return radioButton;
@@ -154,7 +166,7 @@ public class ParseXMLInstructor {
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
         Log.v("Parse", "Weight : " + weight);
-        LinearLayout linearLayout = new LinearLayout(context);
+        LinearLayout linearLayout = new LinearLayout(activity);
         linearLayout.setId(id);
         String height = parser.getAttributeValue(ns, "android:layout_height");
         String width = parser.getAttributeValue(ns, "android:layout_width");
@@ -195,7 +207,7 @@ public class ParseXMLInstructor {
         String answer = null;
         String audioURL = null;
         String lan = null;
-        final Button button = new Button(context);
+        final Button button = new Button(activity);
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
         if (parser.getAttributeValue(ns, "homeSchool:audioLink") != null) {
@@ -217,14 +229,14 @@ public class ParseXMLInstructor {
         final String finalAnswer = answer;
         final String finalAnswer1 = answer;
         final String finalAudioURL = audioURL;
-        final Answer answer1 = new Answer(answer,lan);
-        Log.v("Parser","Answer "+answer1.getAnswer());
+        final Answer answer1 = new Answer(answer, lan);
+        Log.v("Parser", "Answer " + answer1.getAnswer());
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!finalActivity.equals("null")) {
                     if (finalActivity.equals("Speech")) {
-                        Intent intent = new Intent(context, Speech.class);
+                        Intent intent = new Intent(activity, Speech.class);
                         intent.putExtra("Answer", answer1);
                         activity.startActivityForResult(intent, Constants.SPEECH);
 //                        Speech speech = new Speech(activity);
@@ -235,7 +247,7 @@ public class ParseXMLInstructor {
                         xmlClick.openActivity("TextDetection", answer1);
                     }
                 }
-                if (finalAudioURL != null && !finalAudioURL.equals(Constants.PUT_SOUND_LINK_HERE) ) {
+                if (finalAudioURL != null && !finalAudioURL.equals(Constants.PUT_SOUND_LINK_HERE)) {
                     xmlClick.playSound(finalAudioURL);
                 }
             }
@@ -255,26 +267,26 @@ public class ParseXMLInstructor {
     }
 
     private ImageView readImageView(
-            XmlPullParser parser) throws XmlPullParserException, IOException {
+            final XmlPullParser parser) throws XmlPullParserException, IOException {
         Log.v("Parse", "readImageView");
         Log.v("Test", "readImageView----Ordering");
 
         parser.require(XmlPullParser.START_TAG, ns, "ImageView");
-        int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
+        final int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
-        final ImageView imageView = new ImageView(context);
+        final ImageView imageView = new ImageView(activity);
         imageView.setId(id);
         Log.v("Test", "IMG");
         String height = parser.getAttributeValue(ns, "android:layout_height");
         String width = parser.getAttributeValue(ns, "android:layout_width");
-        String src = parser.getAttributeValue(ns, "homeSchool:src");
-        Glide.with(context).load(src).listener(
+        final String src = parser.getAttributeValue(ns, "homeSchool:src");
+        Glide.with(activity).load(src).listener(
                 new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model,
                                                Target<GlideDrawable> target,
                                                boolean isFirstResource) {
-                        Log.v("Test","Parser OnException : +"+e.getMessage());
+                        Log.v("Test", "Parser OnException : +" + e.getMessage());
                         return false;
                     }
 
@@ -283,15 +295,31 @@ public class ParseXMLInstructor {
                                                    Target<GlideDrawable> target,
                                                    boolean isFromMemoryCache,
                                                    boolean isFirstResource) {
-                        Log.v("Test","Parser Model : +"+model);
+                        Log.v("Test", "Parser Model : +" + model);
                         return false;
                     }
                 }).into(imageView);
         imageView.setLayoutParams(getLayoutParams(height, width, weight, scale));
-        imageView.setOnClickListener(new View.OnClickListener() {
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+            private GestureDetector gestureDetector = new GestureDetector(activity,
+                    new GestureDetector.SimpleOnGestureListener() {
+                        @Override
+                        public boolean onDoubleTap(MotionEvent e) {
+                            Log.d("TEST", "onDoubleTap");
+                            xmlClick.onEditImageView(id, src,layout);
+                            Toast.makeText(activity, "ON Double Tap", Toast.LENGTH_SHORT).show();
+                            return super.onDoubleTap(e);
+                        }
+                        // implement here other callback methods like onFling, onScroll as necessary
+                    });
+
             @Override
-            public void onClick(View view) {
-                xmlClick.onImageClick(imageView);
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.d("TEST",
+                        "Raw event: " + event.getAction() + ", (" + event.getRawX() + ", " + event
+                                .getRawY() + ")");
+                gestureDetector.onTouchEvent(event);
+                return true;
             }
         });
         while (parser.next() != XmlPullParser.END_TAG) {
@@ -308,7 +336,7 @@ public class ParseXMLInstructor {
         parser.require(XmlPullParser.START_TAG, ns, "TextView");
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
-        TextView textView = new TextView(context);
+        TextView textView = new TextView(activity);
         textView.setId(id);
         textView.setText(parser.getAttributeValue(ns, "android:text"));
         if (parser.getAttributeValue(ns, "android:textSize") != null) {
@@ -321,8 +349,8 @@ public class ParseXMLInstructor {
             Log.v("ITA",
                     " TextAppearance " + parser.getAttributeValue(ns, "android:textAppearance"));
 //            Log.v("TEXTAPP","A " +String.valueOf(textView.getTextSize()));
-//            textView.setTextAppearance(context,android.R.style.TextAppearance_Material_Display4);
-            textView.setTextAppearance(context,
+//            textView.setTextAppearance(activity,android.R.style.TextAppearance_Material_Display4);
+            textView.setTextAppearance(activity,
                     Integer.parseInt(parser.getAttributeValue(ns, "android:textAppearance")));
             Log.v("ITA", "Size" + String.valueOf(textView.getTextSize()));
 
@@ -366,8 +394,8 @@ public class ParseXMLInstructor {
         }
     }
 
-    float getScale(Context context) {
-        return context.getResources().getDisplayMetrics().density;
+    float getScale(Activity activity) {
+        return activity.getResources().getDisplayMetrics().density;
     }
 
     int intToPixels(int dps, final float scale) {

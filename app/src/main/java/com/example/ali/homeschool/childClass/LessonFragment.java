@@ -86,41 +86,30 @@ public class LessonFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //View view = inflater.inflate(R.layout.fragment_lesson, container, false);
-        InputStream stream = null;
-        stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
-        ParseXMLInstructor parseXML = new ParseXMLInstructor();
+        ParseXMLInstructor parseXML = new ParseXMLInstructor(getActivity());
+        parseXML.setXmlClick(new XMLClick() {
+            @Override
+            public void playSound(String url) {
+
+            }
+
+            @Override
+            public void openActivity(String activity, Answer answer) {
+
+            }
+
+            @Override
+            public void onImageClick(View imageView) {
+
+            }
+
+            @Override
+            public void onEditImageView(int id, String src,String layout) {
+
+            }
+        });
         try {
-            linearLayout= (RelativeLayout) parseXML.parse(this.getActivity(), stream, getContext(),
-                    new XMLClick() {
-                        @Override
-                        public void playSound(String url) {
-                            try {
-                                playAudio(url);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void openActivity(String activity, Answer answer) {
-                            if (activity.equals("ColorActivity")) {
-                                Intent intent = new Intent(getActivity(), ColorActivity.class);
-                                intent.putExtra("Answer", answer);
-                                startActivityForResult(intent, Color_Request);
-                            } else if (activity.equals("TextDetection")) {
-                                Intent intent = new Intent(getActivity(), edu.sfsu.cs.orange.ocr.CaptureActivity.class);
-                                intent.putExtra("Answer", answer);
-//                                intent.putExtra("lan", InstructorTopicCreationActivity.selectlanguageString);
-                                //Comment
-                                startActivityForResult(intent, Text_Detection);
-                            }
-                        }
-
-                        @Override
-                        public void onImageClick(View imageView) {
-
-                        }
-                    });
+            linearLayout= (RelativeLayout) parseXML.parse(layout);
 
         } catch (XmlPullParserException e) {
             e.printStackTrace();

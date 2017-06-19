@@ -12,4 +12,5 @@ public interface XMLClick {
     void playSound(String url);
     void openActivity(String activity, Answer answer);
     void onImageClick(View imageView);
+    void onEditImageView(int id,String src,String layout);
 }

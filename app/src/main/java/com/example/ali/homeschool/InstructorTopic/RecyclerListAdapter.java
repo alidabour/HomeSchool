@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.ali.homeschool.InstructorTopic.helper.DoneOrderInterface;
 import com.example.ali.homeschool.InstructorTopic.helper.ItemTouchHelperAdapter;
@@ -59,18 +60,17 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
 
     private List<String> mItems;
     private final OnStartDragListener mDragStartListener;
-    public Context context;
-    Activity activity;
     DoneOrderInterface doneOrderInterface;
+    ParseXMLInstructor parseXMLInstructor;
 
-    public RecyclerListAdapter(Context context, OnStartDragListener dragStartListener,
-                               ArrayList<String> layouts, Activity activity,
+    public RecyclerListAdapter(ParseXMLInstructor parseXMLInstructor,
+                               OnStartDragListener dragStartListener,
+                               ArrayList<String> layouts,
                                final DoneOrderInterface doneOrderInterface) {
+        this.parseXMLInstructor = parseXMLInstructor;
         mDragStartListener = dragStartListener;
-        this.context = context;
         mItems = new ArrayList<>();
         mItems.addAll(layouts);
-        this.activity = activity;
         this.doneOrderInterface = doneOrderInterface;
     }
 
@@ -86,22 +86,8 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
     public void onBindViewHolder(final ItemViewHolder holder, int position) {
         holder.setIsRecyclable(false);
         String layout = mItems.get(position);
-        InputStream stream = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
-        ParseXMLInstructor parseXMLInstructor = new ParseXMLInstructor();
         try {
-            holder.view.addView(parseXMLInstructor.parse(activity, stream, context, new XMLClick() {
-                @Override
-                public void playSound(String url) {
-                }
-
-                @Override
-                public void openActivity(String activity, Answer answer) {
-                }
-
-                @Override
-                public void onImageClick(View imageView) {
-                }
-            }));
+            holder.view.addView(parseXMLInstructor.parse(layout));
         } catch (XmlPullParserException e) {
             Log.v("Adapter", "Error +++" + e.getMessage());
         } catch (IOException e) {
@@ -121,13 +107,19 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
 
     @Override
     public void onItemDismiss(int position) {
+        Log.v("O-O", "adapter before remove:" + mItems.size());
         mItems.remove(position);
+        doneOrderInterface.onReorder(mItems);
+        Log.v("O-O", "adapter after remove:" + mItems.size());
+
         notifyItemRemoved(position);
     }
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
+        Log.v("O-O", "adapter before Swap:" + mItems.size());
         Collections.swap(mItems, fromPosition, toPosition);
+        Log.v("O-O", "adapter after Swap:" + mItems.size());
         notifyItemMoved(fromPosition, toPosition);
         doneOrderInterface.onReorder(mItems);
         return true;
@@ -139,12 +131,20 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
     }
 
     public void clearItems() {
+        Log.v("O-O", "adapter before clearItems :" + mItems.size());
         mItems.clear();
+        Log.v("O-O", "adapter after clearItems :" + mItems.size());
+
     }
 
     public void setArrayItems(ArrayList<String> layouts) {
+        Log.v("O-O", "adapter before setArrayItems :" + mItems.size());
         mItems.addAll(layouts);
+        notifyDataSetChanged();
+        Log.v("O-O", "adapter after setArrayItems :" + mItems.size());
+
     }
+
     /**
      * Simple example of a view holder that implements {@link ItemTouchHelperViewHolder} and has a
      * "handle" view that initiates a drag event when touched.

@@ -32,9 +32,15 @@ public class ImageDialog extends MainDialog {
 
     String courseId;
 
+    String url;
+
     public ImageDialog(
             OnLayoutReadyInterface onLayoutReadyInterface) {
         super(onLayoutReadyInterface);
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
     public ImageDialog(Integer id, Activity activity,
                        OnLayoutReadyInterface onLayoutReadyInterface){
@@ -90,6 +96,7 @@ public class ImageDialog extends MainDialog {
         final EditText input = new EditText(activity);
         input.setInputType(
                 InputType.TYPE_CLASS_TEXT);
+        input.setText(url);
         final AlertDialog.Builder urlBuilder = new AlertDialog.Builder(
                 activity);
         urlBuilder.setTitle("Title");
@@ -97,10 +104,8 @@ public class ImageDialog extends MainDialog {
         urlBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String m_Text = input.getText().toString();
-                Log.v("m_Text", m_Text);
-
-                String layout = mImageView(++id, m_Text);
+                url = input.getText().toString();
+                String layout = mImageView(++id, url);
                 onLayoutReadyInterface.setLayout(layout);
             }
         });
