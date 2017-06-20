@@ -17,7 +17,8 @@
     <uses-feature android:name="android.hardware.screen.landscape"/>
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
         android:icon="@drawable/a4"
         android:label="@string/app_name"
         android:supportsRtl="true"
