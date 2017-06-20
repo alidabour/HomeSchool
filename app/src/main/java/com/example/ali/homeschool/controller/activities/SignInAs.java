@@ -1,13 +1,19 @@
 package com.example.ali.homeschool.controller.activities;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.R;
 
 import java.util.ArrayList;
@@ -27,11 +33,11 @@ public class SignInAs extends AppCompatActivity {
         pager = (ViewPager) findViewById(R.id.viewPager);
         Log.v("pager ", pager.toString());
         ArrayList<Integer> res = new ArrayList<>();
-        res.add(R.drawable.instructor2);
-        res.add(R.drawable.student2);
-        res.add(R.drawable.parents2);
+        res.add(R.drawable.instructor_icon);
+        res.add(R.drawable.student_icon);
+        res.add(R.drawable.parents_icon);
         pager.setAdapter(new SignInAsAdapter(this, res));
-        Button next = (Button) findViewById(R.id.next);
+        ImageView next = (ImageView) findViewById(R.id.next);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,13 +45,30 @@ public class SignInAs extends AppCompatActivity {
 
             }
         });
-        Button previous = (Button) findViewById(R.id.previous);
+        ImageView previous = (ImageView) findViewById(R.id.previous);
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pager.setCurrentItem(getItem(-1), true); //getItem(-1) for previous
             }
         });
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inTargetDensity = DisplayMetrics.DENSITY_DEFAULT;
+        Bitmap bmp = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                R.drawable.arrow_1, o);
+        int w = bmp.getWidth();
+        int h = bmp.getHeight();
+        Bitmap bmp2 = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                R.drawable.arrow_2, o);
+        int w2 = bmp2.getWidth();
+        int h2 = bmp2.getHeight();
+        Glide.with(getApplicationContext()).load(R.drawable.arrow_1).override(w,h).into(next);
+        Glide.with(getApplicationContext()).load(R.drawable.arrow_2).override(w2,h2).into(previous);
+
+        Log.v("SizeArrow " ,w+" "+
+        h+ " "+
+        w2+ " " +
+        h2+" ");
     }
 
     private int getItem(int i) {
