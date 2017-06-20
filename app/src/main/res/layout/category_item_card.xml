@@ -26,7 +26,9 @@
                 android:id="@+id/category_imageView"
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
-                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:scaleType="fitXY" />
 
             <FrameLayout
@@ -40,6 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|top"
                     android:text="android"
+                    style="@style/Base.TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorBack"
                     android:textStyle="bold" />
             </FrameLayout>

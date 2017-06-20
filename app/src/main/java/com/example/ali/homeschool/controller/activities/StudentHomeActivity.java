@@ -38,6 +38,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Handler;
 
 /*
     We enter this class from the Student image button as it has more than one fragment
@@ -241,12 +244,26 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         startActivity(intent);
         finish();
     }
-
+    Timer timer;
     @Override
-    public void onDataFetched(ArrayList courses) {
+    public void onDataFetched(final ArrayList courses) {
         courseList = courses ;
         imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(this , courses );
         mViewPager.setAdapter(imageCollapsingToolBarAdapter);
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                mViewPager.post(new Runnable(){
+
+                    @Override
+                    public void run() {
+                        mViewPager.setCurrentItem((mViewPager.getCurrentItem()+1)%courses.size());
+                    }
+                });
+            }
+        };
+        timer = new Timer();
+        timer.schedule(timerTask, 300000, 300000);
         mViewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -280,6 +297,13 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         });
 
 
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
 
     }
 }

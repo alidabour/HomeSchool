@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center"
-        android:padding="24dp"
+        android:padding="40dp"
         android:text="Smart . Easy . Efficient"
         android:textColor="@color/colorBack"
         android:textStyle="bold" />
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start|center"
-        android:padding="32dp"
+        android:padding="40dp"
         android:scaleType="fitStart" />
 
     <ImageView
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|center"
-        android:padding="32dp"
+        android:padding="40dp"
         android:scaleType="fitEnd" />
 
     <LinearLayout
