@@ -1,10 +1,14 @@
 [
     {
+        "outputFile": "E:\\home\\hossam\\Android Projects\\HomeSchool\\openCVLibrary249\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "map": []
+    },
+    {
         "outputFile": "E:\\Clg\\Fourth Year\\Project\\HomeSchool\\openCVLibrary249\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
         "map": []
     },
     {
-        "outputFile": "E:\\home\\hossam\\Android Projects\\HomeSchool\\openCVLibrary249\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "outputFile": "C:\\Users\\Ali\\AndroidStudioProjects\\HomeSchool\\openCVLibrary249\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
         "map": []
     }
 ]

@@ -17,7 +17,7 @@
         android:id="@+id/nav_view2"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
+        android:layout_gravity="start|center"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main3"
         app:menu="@menu/instructor_drawer" />

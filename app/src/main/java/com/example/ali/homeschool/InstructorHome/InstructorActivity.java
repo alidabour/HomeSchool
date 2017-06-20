@@ -49,25 +49,26 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         setContentView(R.layout.instructor_drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout2);
-        Log.v("Enta Get Hna","T3alaly");
+        Log.v("Enta Get Hna", "T3alaly");
         //setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view2);
         navigationView.setNavigationItemSelectedListener(this);
 
-        userPhotoId=(ImageView) navigationView.getHeaderView(0).findViewById(R.id.photoid);
+        userPhotoId = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.photoid);
         UserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navigationTextName);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-}
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -78,14 +79,17 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
     protected void onStart() {
         super.onStart();
 
-        UserModelFirebaseClass userModelFirebaseClass = new UserModelFirebaseClass(new UserModelFirebase() {
-            @Override
-            public void dataRetrieved(UserModel userModel) {
+        UserModelFirebaseClass userModelFirebaseClass = new UserModelFirebaseClass(
+                new UserModelFirebase() {
+                    @Override
+                    public void dataRetrieved(UserModel userModel) {
 
-                Glide.with(getApplicationContext()).load(userModel.getPhoto()).transform(new CircleTransform(getApplicationContext())).into(userPhotoId);
-                UserName.setText(userModel.getName());
-            }
-        });
+                        Glide.with(getApplicationContext()).load(userModel.getPhoto())
+                                .transform(new CircleTransform(getApplicationContext()))
+                                .into(userPhotoId);
+                        UserName.setText(userModel.getName());
+                    }
+                });
 
     }
 
@@ -105,14 +109,14 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-            // Commit the transaction
-         if (id == R.id.Support) {
+        // Commit the transaction
+        if (id == R.id.Support) {
 
-             Intent myWebLink = new Intent(android.content.Intent.ACTION_VIEW);
-             myWebLink.setData(Uri.parse("https://goo.gl/forms/QAK8BHZmvjSYk1fA3"));
-             startActivity(myWebLink);
+            Intent myWebLink = new Intent(android.content.Intent.ACTION_VIEW);
+            myWebLink.setData(Uri.parse("https://goo.gl/forms/QAK8BHZmvjSYk1fA3"));
+            startActivity(myWebLink);
 
-         } else if (id == R.id.signout) {
+        } else if (id == R.id.signout) {
             mAuth.getInstance().signOut();
             signOut101();
 
@@ -122,6 +126,7 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     void signOut101() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("finish", true);
