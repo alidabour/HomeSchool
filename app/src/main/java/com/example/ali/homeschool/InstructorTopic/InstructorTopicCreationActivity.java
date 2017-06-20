@@ -46,7 +46,7 @@ import static com.example.ali.homeschool.Constants.*;
 
 
 public class InstructorTopicCreationActivity extends AppCompatActivity
-        implements OnLayoutReadyInterface, XMLClick, ColorPickerDialogListener, OnStartDragListener, DoneOrderInterface, OnEditLayoutReady {
+        implements OnLayoutReadyInterface, XMLClick, ColorPickerDialogListener, OnStartDragListener, DoneOrderInterface, OnEditLayoutReady, XMLEditClick {
     static int id = 0;
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
@@ -79,6 +79,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         setContentView(R.layout.activity_instructor_topic);
         parseXMLInstructor = new ParseXMLInstructor(InstructorTopicCreationActivity.this);
         parseXMLInstructor.setXmlClick(this);
+        parseXMLInstructor.setXmlEditClick(this);
         layoutsList = new ArrayList<>();
         recyclerViewOrdering = (RecyclerView) findViewById(R.id.recycleView);
         recyclerViewOrdering.setHasFixedSize(true);
@@ -251,6 +252,19 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         imageDialog.openImageDialog();
     }
 
+    @Override
+    public void onEditSound(int id, String audioUrl,String audioText ,String layout) {
+        int index = layoutsList.indexOf(layout);
+        soundDialog = new SoundDialog(id,InstructorTopicCreationActivity.this,onLayoutReadyInterface);
+        soundDialog.setCourseId(courseId);
+        soundDialog.setAudioLink(audioUrl);
+        soundDialog.setSoundText(audioText);
+        soundDialog.setEditing(true);
+        soundDialog.setIndex(index);
+        soundDialog.setOnEditLayoutReady(this);
+        soundDialog.openSoundDialog();
+    }
+
     private void playAudio(String url) throws Exception {
         killMediaPlayer();
         mediaPlayer = new MediaPlayer();
@@ -292,6 +306,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
     @Override
     public void setLayoutAt(String layout, int index) {
+        layoutsList.remove(index);
         addLayoutAt(layout,index);
     }
 }

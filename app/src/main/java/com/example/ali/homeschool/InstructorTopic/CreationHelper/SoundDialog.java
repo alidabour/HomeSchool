@@ -32,8 +32,11 @@ import static com.example.ali.homeschool.Constants.mButton;
 
 public class SoundDialog extends MainDialog {
     private String soundText;
+
     private String audioLink;
+
     String courseId;
+
     private static final int PICK_SOUND_REQUEST = 235;
 
     public SoundDialog(OnLayoutReadyInterface onLayoutReadyInterface) {
@@ -45,8 +48,16 @@ public class SoundDialog extends MainDialog {
         super(id, activity, onLayoutReadyInterface);
     }
 
+    public void setSoundText(String soundText) {
+        this.soundText = soundText;
+    }
+
     public void setActivity(Activity activity) {
         this.activity = activity;
+    }
+
+    public void setAudioLink(String audioLink) {
+        this.audioLink = audioLink;
     }
 
     public void setId(Integer id) {
@@ -56,16 +67,19 @@ public class SoundDialog extends MainDialog {
     public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
+
     public void setFilePath(Uri filePath) {
         String storagePath = "sounds/" + courseId + "/" + UUID.randomUUID();
         new UploadFile(filePath, activity, new FileUploadHelper() {
             @Override
             public void fileUploaded(String url) {
 
-                String layout =mButton(id, soundText, PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
-                        url);
-
-                onLayoutReadyInterface.setLayout(layout);
+                String layout = mButton(id,url, soundText);
+                if (!isEditing) {
+                    onLayoutReadyInterface.setLayout(layout);
+                } else {
+                    onEditLayoutReady.setLayoutAt(layout, index);
+                }
                 //and displaying a success toast
                 Toast.makeText(activity, "File Uploaded",
                         Toast.LENGTH_LONG).show();
@@ -85,6 +99,7 @@ public class SoundDialog extends MainDialog {
         LayoutInflater li = LayoutInflater.from(activity);
         LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.sound_dialog, null);
         final EditText soundET = (EditText) someLayout.findViewById(R.id.soundtext);
+        soundET.setText(soundText);
         builder.setView(someLayout);
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -132,6 +147,7 @@ public class SoundDialog extends MainDialog {
 
         // Set up the input
         final EditText audioIn = (EditText) someLayout.findViewById(R.id.audio);
+        audioIn.setText(audioLink);
         builder.setView(someLayout);
 
         // Set up the buttons
@@ -139,9 +155,12 @@ public class SoundDialog extends MainDialog {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 audioLink = audioIn.getText().toString();
-               String layout = mButton(++id, soundText, PUT_ACTIVITY_HERE, new Answer(PUT_ANSWER_HERE),
-                        audioLink);
-                onLayoutReadyInterface.setLayout(layout);
+                String layout = mButton(++id, audioLink, soundText);
+                if (!isEditing) {
+                    onLayoutReadyInterface.setLayout(layout);
+                } else {
+                    onEditLayoutReady.setLayoutAt(layout, index);
+                }
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

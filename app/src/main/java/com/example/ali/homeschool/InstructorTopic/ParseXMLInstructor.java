@@ -44,11 +44,13 @@ import edu.sfsu.cs.orange.ocr.Answer;
 public class ParseXMLInstructor {
     private static final String ns = null;
     private float scale;
-
     XMLClick xmlClick;
+
+    XMLEditClick xmlEditClick;
 
     Activity activity;
     String layout;
+
     public ParseXMLInstructor(Activity activity) {
         this.activity = activity;
     }
@@ -57,7 +59,7 @@ public class ParseXMLInstructor {
         InputStream in = null;
         this.layout = layout;
         try {
-             in = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
+            in = new ByteArrayInputStream(layout.getBytes(Charset.forName("UTF-8")));
             scale = getScale(activity);
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
@@ -85,6 +87,10 @@ public class ParseXMLInstructor {
         } finally {
             in.close();
         }
+    }
+
+    public void setXmlEditClick(XMLEditClick xmlEditClick) {
+        this.xmlEditClick = xmlEditClick;
     }
 
     public void setXmlClick(XMLClick xmlClick) {
@@ -207,8 +213,9 @@ public class ParseXMLInstructor {
         String answer = null;
         String audioURL = null;
         String lan = null;
+        String text = null;
         final Button button = new Button(activity);
-        int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
+        final int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
         if (parser.getAttributeValue(ns, "homeSchool:audioLink") != null) {
             audioURL = parser.getAttributeValue(ns, "homeSchool:audioLink");
@@ -223,6 +230,10 @@ public class ParseXMLInstructor {
         if (parser.getAttributeValue(ns, "homeSchool:lan") != null) {
             lan = parser.getAttributeValue(ns, "homeSchool:lan");
 
+        }
+        if (parser.getAttributeValue(ns,"android:text") != null){
+            text = parser.getAttributeValue(ns,"android:text");
+            button.setText(text);
         }
         button.setId(id);
         final String finalActivity = activityString;
@@ -252,10 +263,38 @@ public class ParseXMLInstructor {
                 }
             }
         });
+        final String finalText = text;
+        button.setOnTouchListener(new View.OnTouchListener() {
+            private GestureDetector gestureDetector = new GestureDetector(activity,
+                    new GestureDetector.SimpleOnGestureListener() {
+                        @Override
+                        public boolean onDoubleTap(MotionEvent e) {
+                            Log.d("TEST", "onDoubleTap");
+                            if (finalAudioURL != null && !finalAudioURL.equals(Constants.PUT_SOUND_LINK_HERE)) {
+                                if (xmlEditClick != null) {
+                                    xmlEditClick.onEditSound(id, finalAudioURL, finalText, layout);
+                                }
+                            }
+
+//                            Toast.makeText(activity, "ON Double Tap", Toast.LENGTH_SHORT).show();
+                            return super.onDoubleTap(e);
+                        }
+                        // implement here other callback methods like onFling, onScroll as necessary
+                    });
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.d("TEST",
+                        "Raw event: " + event.getAction() + ", (" + event.getRawX() + ", " + event
+                                .getRawY() + ")");
+                gestureDetector.onTouchEvent(event);
+                return true;
+            }
+        });
         String height = parser.getAttributeValue(ns, "android:layout_height");
         String width = parser.getAttributeValue(ns, "android:layout_width");
         button.setLayoutParams(getLayoutParams(height, width, weight, scale));
-        button.setText(parser.getAttributeValue(ns, "android:text"));
+//        button.setText(parser.getAttributeValue(ns, "android:text"));
         parser.require(XmlPullParser.START_TAG, ns, "Button");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -306,7 +345,9 @@ public class ParseXMLInstructor {
                         @Override
                         public boolean onDoubleTap(MotionEvent e) {
                             Log.d("TEST", "onDoubleTap");
-                            xmlClick.onEditImageView(id, src,layout);
+                            if (xmlEditClick != null) {
+                                xmlEditClick.onEditImageView(id, src, layout);
+                            }
                             Toast.makeText(activity, "ON Double Tap", Toast.LENGTH_SHORT).show();
                             return super.onDoubleTap(e);
                         }

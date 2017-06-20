@@ -103,10 +103,6 @@ public class LessonFragment extends Fragment {
 
             }
 
-            @Override
-            public void onEditImageView(int id, String src,String layout) {
-
-            }
         });
         try {
             linearLayout= (RelativeLayout) parseXML.parse(layout);

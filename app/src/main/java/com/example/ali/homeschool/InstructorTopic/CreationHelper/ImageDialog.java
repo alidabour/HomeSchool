@@ -106,7 +106,11 @@ public class ImageDialog extends MainDialog {
             public void onClick(DialogInterface dialog, int which) {
                 url = input.getText().toString();
                 String layout = mImageView(++id, url);
-                onLayoutReadyInterface.setLayout(layout);
+                if(!isEditing){
+                    onLayoutReadyInterface.setLayout(layout);
+                }else {
+                    onEditLayoutReady.setLayoutAt(layout,index);
+                }
             }
         });
         urlBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -124,7 +128,7 @@ public class ImageDialog extends MainDialog {
             @Override
             public void fileUploaded(String url) {
                 String layout = mImageView(++id, url);
-                if(isEditing){
+                if(!isEditing){
                     onLayoutReadyInterface.setLayout(layout);
                 }else {
                     onEditLayoutReady.setLayoutAt(layout,index);

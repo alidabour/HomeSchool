@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorTopic.InstructorTopicActivity;
+import com.example.ali.homeschool.InstructorTopic.InstructorTopicCreationActivity;
 import com.example.ali.homeschool.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +41,10 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        Intent intentt = new Intent(this, InstructorTopicCreationActivity.class);
+//        intentt.putExtra("courseId","dsdssd");
+//        startActivity(intentt);
+//        finish();
         setContentView(R.layout.activity_instructor_lessons);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab3);
         noLesson = (TextView) findViewById(R.id.no_lesson);

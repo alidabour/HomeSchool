@@ -173,7 +173,7 @@ public class Constants {
         return button;
     }
     //Sound
-    public static String mButton(int id, String text,String soundLink){
+    public static String mButton(int id,String soundLink, String text){
         soundLink = soundLink.replaceAll("&", "&amp;");
         soundLink = soundLink.replaceAll("\\?", "&#63;");
         String button = BUTTON_HOLDER.replaceAll(PUT_ID_HERE, String.valueOf(id));
