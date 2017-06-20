@@ -32,7 +32,6 @@ import com.example.ali.homeschool.childEnrolledCourses.LessonActivity;
 import com.example.ali.homeschool.childEnrolledCourses.MyCoursesFragment;
 import com.example.ali.homeschool.controller.fragments.StudentFeaturedCoursesFragment;
 import com.example.ali.homeschool.data.firebase.UserModel;
-import com.example.ali.homeschool.descriptionActivity.CourseDescriptionActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;

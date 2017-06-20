@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="150dp"
     android:background="@color/colorPrimary"
-    android:gravity="center"
-    android:layout_weight="1"
     android:orientation="horizontal"
-    android:weightSum="2"
-    android:padding="6dp"
+    android:gravity="center"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-
-        <ImageView
-            android:id="@+id/photoid"
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|center_horizontal"
             android:layout_weight="1"
-            android:padding="16dp"
-            android:src="@drawable/profile" />
+            android:layout_gravity="center">
+                <ImageView
+                    android:id="@+id/photoid"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:padding="8dp"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center"
+                    android:src="@drawable/profile" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/navigationTextName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:fitsSystemWindows="true"
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
-            android:text="@string/name_nav"
+            android:layout_weight="2"
+            android:layout_gravity="center|center_horizontal"
+            android:padding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 </LinearLayout>

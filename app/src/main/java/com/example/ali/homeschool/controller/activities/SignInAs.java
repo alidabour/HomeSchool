@@ -65,10 +65,6 @@ public class SignInAs extends AppCompatActivity {
         Glide.with(getApplicationContext()).load(R.drawable.arrow_1).override(w,h).into(next);
         Glide.with(getApplicationContext()).load(R.drawable.arrow_2).override(w2,h2).into(previous);
 
-        Log.v("SizeArrow " ,w+" "+
-        h+ " "+
-        w2+ " " +
-        h2+" ");
     }
 
     private int getItem(int i) {

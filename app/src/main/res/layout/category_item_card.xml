@@ -13,9 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
-            android:layout_margin="5dp"
             android:id="@+id/category_imageView"
             android:src="@drawable/java"
+            android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
