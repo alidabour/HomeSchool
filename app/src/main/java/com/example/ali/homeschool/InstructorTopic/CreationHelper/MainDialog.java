@@ -9,9 +9,12 @@ import android.net.Uri;
 
 public abstract class MainDialog {
     Integer id;
-
     Activity activity;
+    boolean isEditing = false;
+    int index;
+    OnEditLayoutReady onEditLayoutReady;
     OnLayoutReadyInterface onLayoutReadyInterface;
+
     public MainDialog(
             OnLayoutReadyInterface onLayoutReadyInterface) {
         this.onLayoutReadyInterface = onLayoutReadyInterface;
@@ -24,8 +27,21 @@ public abstract class MainDialog {
         this.onLayoutReadyInterface = onLayoutReadyInterface;
     }
 
+    public void setOnEditLayoutReady(
+            OnEditLayoutReady onEditLayoutReady) {
+        this.onEditLayoutReady = onEditLayoutReady;
+    }
+
+    public void setEditing(boolean editing) {
+        isEditing = editing;
+    }
+
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public void setActivity(Activity activity) {

@@ -3,8 +3,10 @@ package com.example.ali.homeschool.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -101,8 +103,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public  class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         protected TextView categoryName;
         protected ImageView categoryImage;
+        protected CardView cardView;
         public CategoryViewHolder(View itemView) {
             super(itemView);
+            cardView = (CardView) itemView.findViewById(R.id.cardView);
             categoryImage = (ImageView) itemView.findViewById(R.id.category_imageView);
             categoryName = (TextView) itemView.findViewById(R.id.category_textView);
             itemView.setOnClickListener(this);
@@ -111,6 +115,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
+            cardView.setBackgroundColor(Color.parseColor("#00ff00"));
+//            cardView.setBackground(context.getResources().getDrawable(R.drawable.student_icon));
 //            Cursor cursor = mCursor;
 //            cursor.moveToPosition(position);
           //  String id = mCursor.getString(mCursor.getColumnIndex(CourseColumns.GLOBAL_ID));

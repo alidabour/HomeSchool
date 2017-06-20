@@ -124,7 +124,11 @@ public class ImageDialog extends MainDialog {
             @Override
             public void fileUploaded(String url) {
                 String layout = mImageView(++id, url);
-                onLayoutReadyInterface.setLayout(layout);
+                if(isEditing){
+                    onLayoutReadyInterface.setLayout(layout);
+                }else {
+                    onEditLayoutReady.setLayoutAt(layout,index);
+                }
                 //and displaying a success toast
                 Toast.makeText(activity, "File Uploaded",
                         Toast.LENGTH_LONG).show();

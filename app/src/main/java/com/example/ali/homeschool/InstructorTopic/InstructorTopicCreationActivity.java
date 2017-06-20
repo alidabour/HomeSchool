@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.ImageDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.MainQuestionDialog;
+import com.example.ali.homeschool.InstructorTopic.CreationHelper.OnEditLayoutReady;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.OnLayoutReadyInterface;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.SoundDialog;
 import com.example.ali.homeschool.InstructorTopic.helper.DoneOrderInterface;
@@ -45,7 +46,7 @@ import static com.example.ali.homeschool.Constants.*;
 
 
 public class InstructorTopicCreationActivity extends AppCompatActivity
-        implements OnLayoutReadyInterface, XMLClick, ColorPickerDialogListener, OnStartDragListener, DoneOrderInterface {
+        implements OnLayoutReadyInterface, XMLClick, ColorPickerDialogListener, OnStartDragListener, DoneOrderInterface, OnEditLayoutReady {
     static int id = 0;
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
@@ -184,6 +185,11 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 //        mItemTouchHelper = new ItemTouchHelper(callback);
 //        mItemTouchHelper.attachToRecyclerView(recyclerViewOrdering);
     }
+    private void addLayoutAt(String layout,int index) {
+        adapter.clearItems();
+        layoutsList.add(index,layout);
+        adapter.setArrayItems(layoutsList);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -239,6 +245,9 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         imageDialog = new ImageDialog(id,InstructorTopicCreationActivity.this,onLayoutReadyInterface);
         imageDialog.setCourseId(courseId);
         imageDialog.setUrl(src);
+        imageDialog.setEditing(true);
+        imageDialog.setIndex(index);
+        imageDialog.setOnEditLayoutReady(this);
         imageDialog.openImageDialog();
     }
 
@@ -279,5 +288,10 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     @Override
     public void setLayout(String layout) {
         addLayout(layout);
+    }
+
+    @Override
+    public void setLayoutAt(String layout, int index) {
+        addLayoutAt(layout,index);
     }
 }
