@@ -1,55 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/viewPager"
-        android:background="@drawable/back"/>
+        android:background="@drawable/back" />
 
     <TextView
+        style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center"
-        android:text="Smart , Easy , Efficient"
+        android:padding="24dp"
+        android:text="Smart . Easy . Efficient"
         android:textColor="@color/colorBack"
-        style="@style/TextAppearance.AppCompat.Medium"
-        app:paddingStart="16dp" />
+        android:textStyle="bold" />
+
     <ImageView
+        android:id="@+id/previous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start|center"
-        android:scaleType="fitStart"
-        android:padding="16dp"
-        android:id="@+id/previous" />
+        android:padding="32dp"
+        android:scaleType="fitStart" />
 
     <ImageView
+        android:id="@+id/next"
         android:layout_width="wrap_content"
-        android:scaleType="fitEnd"
-        android:padding="16dp"
         android:layout_height="wrap_content"
         android:layout_gravity="end|center"
-        android:id="@+id/next" />
+        android:padding="32dp"
+        android:scaleType="fitEnd" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
         android:orientation="vertical"
-        android:layout_gravity="center|bottom">
+        android:padding="16dp">
+
         <TextView
+            android:textSize="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Elmanara App"
-            android:textColor="@color/colorBack"/>
+            android:textColor="@color/colorBack" />
+
         <TextView
+            android:textSize="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorBack"
-            android:text="All Rights Reserved 2017"/>
+            android:text="All Rights Reserved 2017"
+            android:textColor="@color/colorBack" />
 
     </LinearLayout>
 </FrameLayout>

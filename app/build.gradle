@@ -44,6 +44,9 @@ dependencies {
     compile 'com.google.firebase:firebase-storage:10.2.6'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.jrummyapps:colorpicker:2.1.6'
+    compile 'jp.wasabeef:glide-transformations:2.0.2'
+    // If you want to use the GPU Filters
+    compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
     testCompile 'junit:junit:4.12'
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
 }

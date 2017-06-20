@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBack"
     android:fitsSystemWindows="true"
     tools:context="com.example.ali.homeschool.closed.Main3Activitytrial______________">
 
@@ -21,7 +22,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false"
             android:fitsSystemWindows="true"
-            android:layout_height="150dp">
+            android:layout_height="200dp">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPage_collapsing_toolbar"

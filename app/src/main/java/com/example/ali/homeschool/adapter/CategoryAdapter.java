@@ -3,6 +3,8 @@ package com.example.ali.homeschool.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,10 +14,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.target.Target;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Created by Ali on 1/22/2017.
@@ -51,7 +57,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(CategoryAdapter.CategoryViewHolder holder, int position) {
 //        Log.v("Test","----------------------------------CategoryAdapter : "+ CourseList.get(position).toString());
         CourseCreated Course = CourseList.get(position);
-        Glide.with(context).load(Course.getPhoto_url()).fitCenter().into(holder.categoryImage);
+
+        Glide.with(context).load(Course.getPhoto_url()).fitCenter().bitmapTransform(new RoundedCornersTransformation(context,20,0, RoundedCornersTransformation.CornerType.TOP)).into(holder.categoryImage);
         Log.v("Trailers101",holder.categoryImage.getScaleType()+"");
         holder.categoryName.setText(Course.getName());
 
