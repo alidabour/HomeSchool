@@ -11,11 +11,13 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:background="@drawable/button_shape"
+
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/category_imageView"
             android:src="@drawable/java"
-            android:padding="8dp"
+            android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -24,6 +26,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
             android:layout_margin="5dp"
+            android:textColor="@color/colorBack"
             android:id="@+id/category_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
