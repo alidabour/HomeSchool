@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorTopic.InstructorTopicActivity;
-import com.example.ali.homeschool.InstructorTopic.InstructorTopicCreationActivity;
 import com.example.ali.homeschool.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -99,8 +97,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         lessonsRV.setLayoutManager(layoutManager);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(lessonsRV.getContext(), layoutManager.getOrientation());
-        lessonsRV.addItemDecoration(dividerItemDecoration);
+
 
         db = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
@@ -140,7 +137,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                                         // intent from current activity to Next Activity
                                         Intent intent = new Intent(InstructorLessonsActivity.this, InstructorTopicActivity.class);
                                         //Putting extras to get them in the Next Activity
-                                        intent.putExtra("courseid", courseID);
+                                        intent.putExtra("courseId", courseID);
                                         intent.putExtra("lessonid", test.getId());
                                         //     intent.putExtra("lesson",test);
                                         // starting the Activity

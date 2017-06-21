@@ -1,19 +1,24 @@
 package com.example.ali.homeschool.adapter;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.ali.homeschool.InstructorTopic.InstructorTopicCreationActivity;
 import com.example.ali.homeschool.InstructorTopic.TopicModel;
 import com.example.ali.homeschool.R;
 
 import java.util.List;
 
 public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewHolder>{
+    TopicModel topicModel;
     List<TopicModel> topicModelList;
     public TopicsAdapter.OnClickHandler onClickHandler;
+
 
     public interface OnClickHandler {
         void onClick(TopicModel test);
@@ -27,14 +32,16 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
     public TopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.topic_list_item,parent,false);
+
         return new TopicViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(TopicViewHolder holder, int position) {
-        TopicModel topicModel = topicModelList.get(position);
+        final TopicModel topicModel = topicModelList.get(position);
         holder.topicName.setText(topicModel.getName());
-        holder.topicNum.setText(position + 1 +" ");
+        holder.topicNum.setText(position + 1+"");
+
     }
 
     @Override
@@ -58,5 +65,14 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
             int p = getAdapterPosition();
             onClickHandler.onClick(topicModelList.get(p));
         }
+    }
+
+
+    private void startIntent(Activity activity){
+        Intent intent = new Intent(activity,
+                InstructorTopicCreationActivity.class);
+        intent.putExtra("topicid", topicModel.getId());
+        intent.putExtra("topicname", topicModel.getName());
+        activity.startActivity(intent);
     }
 }

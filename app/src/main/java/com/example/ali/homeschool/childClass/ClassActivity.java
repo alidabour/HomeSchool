@@ -57,7 +57,7 @@ public class ClassActivity extends AppCompatActivity  {
         if (b != null) {
 
             Log.v("Test","Intent Found");
-            course_id = b.getString("courseid");
+            course_id = b.getString("courseId");
             lesson_id = b.getString("lessonid");
             Log.v("Test","Intent Found" +  " lesson "+lesson_id + " Course id " + course_id);
         }

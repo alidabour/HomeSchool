@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +18,7 @@ import android.widget.TextView;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.adapter.TopicsAdapter;
+import com.example.ali.homeschool.adapter.InstructorTopicsAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -99,7 +98,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
                         intent.putExtra("topicname",m_Text);
                         intent.putExtra("topicid",topicid);
                         intent.putExtra("lessonid",lessonid);
-                        intent.putExtra("courseID",courseId);
+                        intent.putExtra("courseId",courseId);
                         startActivity(intent);
                     }
                 });
@@ -125,9 +124,6 @@ public class InstructorTopicActivity extends AppCompatActivity {
         lessonsRV.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         lessonsRV.setLayoutManager(layoutManager);
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(lessonsRV.getContext(),layoutManager.getOrientation());
-        lessonsRV.addItemDecoration(dividerItemDecoration);
 
      //   Log.v("Testytesty10001 ", ":------------" + intent.getParcelableExtra("lesson"));
 
@@ -157,19 +153,13 @@ public class InstructorTopicActivity extends AppCompatActivity {
                         lessonModelList.add(topicModel);
                     Log.v("Test","LESSON __ "+ topicModel.toString());
                 }
-                TopicsAdapter lessonAdapter = new TopicsAdapter(lessonModelList,
-                        new TopicsAdapter.OnClickHandler() {
+                InstructorTopicsAdapter lessonAdapter = new InstructorTopicsAdapter(lessonModelList,
+                        new InstructorTopicsAdapter.OnClickHandler() {
                             @Override
                             public void onClick(TopicModel test) {
-                                Intent intent = new Intent(getApplicationContext(), InstructorTopicCreationActivity.class);
-                                intent.putExtra("topicname",test.getName());
-                                intent.putExtra("topicid",test.getId());
-                                intent.putExtra("lessonid",lessonid);
-                                intent.putExtra("courseId",courseId);
-                                intent.putExtra("layout",test.getLayout());
-                                startActivity(intent);
+                                InstructorTopicsAdapter.startIntentFromAdapter(InstructorTopicActivity.this,test);
                             }
-                        });
+                        },InstructorTopicActivity.this,courseId,lessonid);
                 lessonsRV.setAdapter(lessonAdapter);
                 if(lessonModelList.size()<0){
                     noTopic.setVisibility(View.VISIBLE);
@@ -183,7 +173,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
 
             }
         };
-
+        Log.v("courseId",courseId);
         db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").addValueEventListener(listener);
 
     }
