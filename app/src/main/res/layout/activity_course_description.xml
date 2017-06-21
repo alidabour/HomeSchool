@@ -19,12 +19,13 @@
 
         </android.support.design.widget.AppBarLayout>
 
+
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:id="@+id/nestedScrollView">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout
             android:id="@+id/activity_course_description"
@@ -38,28 +39,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:src="@drawable/earlymath"/>
-
-
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/imageView"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:text="@string/TeacherName"/>
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="210dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:text="@string/CourseName"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
+                android:layout_marginBottom="32dp"
+                android:src="@drawable/earlymath" />
 
             <RatingBar
                 android:id="@+id/ratingBar"
@@ -67,67 +48,79 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/textView2"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
+                android:layout_below="@+id/imageView"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginBottom="32dp"
+                style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
                 android:clickable="true"
-                android:longClickable="false"
-                android:isIndicator="true"
+                android:numStars="5"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView"/>
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView2"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ratingBar"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:text="@string/ratingValue"/>
+                android:text="@string/CourseName"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView3"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="13dp"
+                android:layout_below="@+id/textView2"
+                android:layout_margin="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:text="@string/CourseDescription"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
+            <TextView
+                android:id="@+id/instructor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView4"
+                android:text="Instructor :"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView4"
+                android:layout_alignTop="@+id/instructor"
+                android:layout_toEndOf="@+id/instructor"
+                android:layout_toRightOf="@+id/instructor"
+                android:text="@string/TeacherName" />
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/textView4"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
+                android:layout_below="@+id/textView"
+                android:layout_margin="16dp"
                 android:text="@string/CourseDescriptionBody"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-            <!--<LinearLayout-->
-            <!--android:orientation="vertical"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="150dp">-->
-
-            <!--</LinearLayout>-->
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView5"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_margin="16dp"
+                android:textStyle="bold"
                 android:text="@string/topics_description"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/listViewDes"
@@ -139,7 +132,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:scrollbarSize="2dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
             <Button
                 android:id="@+id/enroll"
@@ -147,30 +140,16 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/textView2"
-                android:layout_marginEnd="12dp"
-                android:layout_marginRight="12dp"
-                android:background="@color/colorAccent"
-
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_alignBottom="@+id/ratingBar"
+                android:background="@drawable/button_shape"
                 android:text="Enroll"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Inverse"/>
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Inverse" />
 
 
         </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        app:layout_anchor="@+id/nestedScrollView"
-        android:visibility="invisible"
-        android:src="@android:drawable/ic_input_add"
-        app:layout_anchorGravity="bottom|right"
-        android:tint="@color/colorPrimary"/>
 
 </android.support.design.widget.CoordinatorLayout>

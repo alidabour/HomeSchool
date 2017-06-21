@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#03879f</color>
     <color name="colorAccent">#08aac7</color>
     <color name="colorBack">#FFFFFF</color>
+    <color name="rate">#F6CC19</color>
+
 </resources>

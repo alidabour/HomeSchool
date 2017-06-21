@@ -1,6 +1,10 @@
 package com.example.ali.homeschool.descriptionActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -40,6 +44,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.ali.homeschool.R.id.colors;
 import static com.example.ali.homeschool.R.id.textView;
 
 /*
@@ -59,7 +64,6 @@ public class CourseDescriptionActivity extends AppCompatActivity {
     TextView courseTeacher;
     TextView courseName;
     RatingBar courseRating;
-    TextView courseRatingText;
     TextView courseDescription;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
@@ -74,12 +78,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
     TopicModel topicModel;
     FloatingActionButton fab;
     NestedScrollView nestedScrollView;
-    boolean flag1 = true;
-    boolean flag2 = true;
     ProgressModel progresstrial;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +89,9 @@ public class CourseDescriptionActivity extends AppCompatActivity {
         progresstrial.setTopicProgressFlag("Trial1");
         progresstrial.setTopicProgressId("Trial1");
 
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        Drawable drawable = ratingBar.getProgressDrawable();
+        drawable.setColorFilter(Color.parseColor("#F6CC19"),PorterDuff.Mode.SRC_ATOP);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         myRef1 = databaseReference;
         Toast t;
@@ -102,7 +104,6 @@ public class CourseDescriptionActivity extends AppCompatActivity {
         courseTeacher = (TextView) findViewById(textView);
         courseName = (TextView) findViewById(R.id.textView2);
         courseRating = (RatingBar) findViewById(R.id.ratingBar);
-        courseRatingText = (TextView) findViewById(R.id.textView3);
         courseDescription = (TextView) findViewById(R.id.textView5);
         CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.courseDescriptionCoordinatorLayout);
         topicsRecyclerView = (RecyclerView) findViewById(R.id.listViewDes);
@@ -113,22 +114,16 @@ public class CourseDescriptionActivity extends AppCompatActivity {
             courseDescription.setText(courseCreated.getDescription());
             courseName.setText(courseCreated.getName());
             courseTeacher.setText(courseCreated.getTeacher_name());
-            courseRatingText.setText(courseCreated.getRate());
             courseRating.setRating(Float.parseFloat(courseCreated.getRate()));
             Glide.with(getApplicationContext()).load(courseCreated.getPhoto_url()).fitCenter().into(courseImage);
             key = courseCreated.getCourse_id();
             toolbar.setTitle(courseCreated.getName());
             Log.v("Test", "Child : " + courseCreated.getName());
         }
-
-
         setSupportActionBar(toolbar);
-        // this line supports the back button to go back
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         List<String> names = new ArrayList<>();
-
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         courseName.setOnClickListener(new View.OnClickListener() {
@@ -167,9 +162,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                                                             EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
                                                             enrolledCourseModel.setName(courseCreated.getName());
                                                             enrolledCourseModel.setCourse_id(key);
-                                                            Log.v("enrolledCourseModel ", user.getUid() + " " + enrolledCourseModel.getName()
-                                                                    + " ");
-
+                                                            Log.v("enrolledCourseModel ", user.getUid() + " " + enrolledCourseModel.getName() + " ");
                                                             String key = myRef1.child("users").child(user.getUid()).child("enrolledcourses").push().getKey();
                                                             myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).setValue(enrolledCourseModel);
                                                             String key2 = myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).child("progress").push().getKey();
@@ -177,15 +170,11 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                                                             progresstrial.setTopicProgressFlag("trial");
                                                             progresstrial.setTopicProgressFlag("trial");
                                                             myRef1.child(key2).updateChildren(progresstrial.toMap());
-
-
                                                             Toast.makeText(CourseDescriptionActivity.this, "Enrolled Successful", Toast.LENGTH_SHORT).show();
                                                             courseExists = true;
                                                         } else if (count >= dataSnapshot.getChildrenCount()) {
                                                             Toast.makeText(CourseDescriptionActivity.this, "Already Enrolled", Toast.LENGTH_SHORT).show();
-
                                                         }
-
                                                 }
                                         }
 
@@ -199,9 +188,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                                 EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
                                 enrolledCourseModel.setName(courseCreated.getName());
                                 enrolledCourseModel.setCourse_id(key);
-                                Log.v("enrolledCourseModel ", user.getUid() + " " + enrolledCourseModel.getName()
-                                        + " ");
-
+                                Log.v("enrolledCourseModel ", user.getUid() + " " + enrolledCourseModel.getName() + " ");
                                 String key = myRef1.child("users").child(user.getUid()).child("enrolledcourses").push().getKey();
                                 myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).setValue(enrolledCourseModel);
                                 String key2 = myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).child("progress").push().getKey();
@@ -211,15 +198,9 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                                 myRef1.child(key2).updateChildren(progresstrial.toMap());
                             }
                         }
-
-
-
                         courseExists = false;
                     }
-
-
                 } else
-
                     Toast.makeText(CourseDescriptionActivity.this, "You Need To Sign In", Toast.LENGTH_SHORT).show();
             }
         });
@@ -278,42 +259,8 @@ public class CourseDescriptionActivity extends AppCompatActivity {
             }
         });*/
 
-        if (intent != null && intent.hasExtra("course")) {
-            courseCreated = intent.getParcelableExtra("course");
-            Log.v("Test", "Course " + courseCreated.getCourse_id());
-            nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
 
-                    if (scrollY > oldScrollY) {
-                    /*ObjectAnimator animation = ObjectAnimator.ofFloat(fab, "translationX", 10f);
-                    animation.setDuration(50);
-                    animation.start();*/
-                        // CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
-                        // fab.show();Animation animation = new TranslateAnimation(0, 500,0, 0);
-                        Animation animation = new TranslateAnimation(0, 0, 0, 500);
-
-                        if (flag1) {
-                            animation.setDuration(1000);
-                            animation.setFillAfter(true);
-                            enroll.startAnimation(animation);
-                        }
-                        animation = new TranslateAnimation(0, 0, -500, 0);
-                        if (flag1) {
-                            animation.setDuration(1000);
-                            animation.setFillAfter(true);
-                            fab.startAnimation(animation);
-                        }
-                        flag1 = false;
-                        //fab.animate().translationY(fab.getHeight() + layoutParams.bottomMargin).setInterpolator(new LinearInterpolator()).start();
-                    } else {
-                        fab.hide();
-                    }
-                }
-            });
-
-        }
     }
 
     @Override

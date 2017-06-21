@@ -263,7 +263,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
             }
         };
         timer = new Timer();
-        timer.schedule(timerTask, 30000, 30000);
+        timer.schedule(timerTask, 45000, 45000);
         mViewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

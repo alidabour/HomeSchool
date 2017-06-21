@@ -16,7 +16,6 @@
         card_view:cardBackgroundColor="@color/colorPrimary"
         card_view:cardCornerRadius="15dp"
         card_view:cardElevation="0dp">
-        <!--style="@style/CardViewStyle"-->
 
         <LinearLayout
             android:layout_width="match_parent"

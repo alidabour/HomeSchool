@@ -115,7 +115,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            cardView.setBackgroundColor(Color.parseColor("#00ff00"));
+            cardView.setBackgroundColor(Color.parseColor("#04bf4f"));
 //            cardView.setBackground(context.getResources().getDrawable(R.drawable.student_icon));
 //            Cursor cursor = mCursor;
 //            cursor.moveToPosition(position);
