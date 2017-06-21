@@ -22,23 +22,23 @@
         android:text="Speech"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
-    <TextView
-        android:id="@+id/object"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:gravity="center_horizontal"
-        android:text="Object Question"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
+    <!--<TextView-->
+        <!--android:id="@+id/object"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="8dp"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="Object Question"-->
+        <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>-->
 
-    <TextView
-        android:id="@+id/trueOrFalse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:gravity="center_horizontal"
-        android:text="True or False Question"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
+    <!--<TextView-->
+        <!--android:id="@+id/trueOrFalse"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="8dp"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="True or False Question"-->
+        <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>-->
 
     <TextView
         android:id="@+id/multipleChoices"

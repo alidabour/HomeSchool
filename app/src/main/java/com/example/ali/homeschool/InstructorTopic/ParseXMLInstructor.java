@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.IdRes;
 import android.util.Log;
 import android.util.Xml;
 import android.view.GestureDetector;
@@ -135,10 +136,21 @@ public class ParseXMLInstructor {
         //Log.v("Parse", "ns  :" + ns);
 
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
+        final int answerId= Integer.parseInt(parser.getAttributeValue(ns,"homeSchool:answer"));
 //        float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
         RadioGroup radioGroup = new RadioGroup(activity);
         radioGroup.setOrientation(RadioGroup.VERTICAL);
         radioGroup.setId(id);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                if(answerId == checkedId){
+                   xmlClick.onMultQuestionClicked(true);
+                }else {
+                    xmlClick.onMultQuestionClicked(false);
+                }
+            }
+        });
         parser.require(XmlPullParser.START_TAG, ns, "RadioGroup");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -159,7 +171,7 @@ public class ParseXMLInstructor {
         return radioGroup;
     }
 
-    private View readRadioButton(XmlPullParser parser) {
+    private RadioButton readRadioButton(XmlPullParser parser) {
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         RadioButton radioButton = new RadioButton(activity);
         radioButton.setText(parser.getAttributeValue(ns, "android:text"));
@@ -274,6 +286,8 @@ public class ParseXMLInstructor {
                                 if (xmlEditClick != null) {
                                     xmlEditClick.onEditSound(id, finalAudioURL, finalText, layout);
                                 }
+                            }else if (finalActivity.equals("ColorActivity")) {
+                                xmlEditClick.onEditColorQuestion(id, finalText,layout);
                             }
 
 //                            Toast.makeText(activity, "ON Double Tap", Toast.LENGTH_SHORT).show();

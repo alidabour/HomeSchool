@@ -22,9 +22,11 @@ import java.util.ArrayList;
 
 import static com.example.ali.homeschool.Constants.PUT_ANSWER_HERE;
 import static com.example.ali.homeschool.Constants.PUT_ID_HERE;
+import static com.example.ali.homeschool.Constants.mTextView;
 import static com.example.ali.homeschool.Constants.radioButton;
 import static com.example.ali.homeschool.Constants.radioGroupEnd;
 import static com.example.ali.homeschool.Constants.radioGroupStart;
+import static com.example.ali.homeschool.Constants.textAppearance;
 
 /**
  * Created by Ali on 6/18/2017.
@@ -46,7 +48,6 @@ public class MultiQuestionDialog  extends  MainDialog{
                 .inflate(R.layout.mulit_choice_dialog, null);
         final EditText question1 = (EditText) relativeLT.findViewById(R.id.questionText);
         final LinearLayout linearLayout = (LinearLayout) relativeLT.findViewById(R.id.questions);
-        final EditText answer1 = (EditText) linearLayout.findViewById(R.id.answer1ET);
         FloatingActionButton addQuestion = (FloatingActionButton) relativeLT
                 .findViewById(R.id.addQuestion);
         addQuestion.setOnClickListener(new View.OnClickListener() {
@@ -60,43 +61,33 @@ public class MultiQuestionDialog  extends  MainDialog{
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                LinearLayout la = (LinearLayout) linearLayout.getChildAt(0);
-                TextInputLayout te = (TextInputLayout) la.getChildAt(0);
-                FrameLayout et = (FrameLayout) te.getChildAt(0);
-                android.support.v7.widget.AppCompatEditText om = (AppCompatEditText) et
-                        .getChildAt(0);
                 ArrayList<String> radioLayout = new ArrayList<String>();
-//                String quET = actionTextXML.replaceAll(PU, String.valueOf(id));
-//                quET = quET.replaceAll(PUTSIZEHERE, String.valueOf(30));
-//                quET = quET.replaceAll(PUTACTIONTEXTHERE, question1.getText().toString());
-//                quET = quET.replaceAll(PUTCOLOR, "123");
-//                radioLayout.add(quET);
-                radioLayout.add(radioGroupStart.replace(PUT_ID_HERE, String.valueOf(++id)));
-//                addRadio(radioGroupStart.replace(PUT_ID_HERE,String.valueOf(++id)));
+               String radioStart = radioGroupStart.replace(PUT_ID_HERE, String.valueOf(++id));
 
                 for (int count = 0; count < linearLayout.getChildCount(); count++) {
                     LinearLayout lat = (LinearLayout) linearLayout.getChildAt(count);
                     TextInputLayout tet = (TextInputLayout) lat.getChildAt(0);
                     CheckBox checkbox = (CheckBox) lat.getChildAt(1);
                     Log.v("MultiQue", "Check Box Checked:" + checkbox.isChecked());
+
                     FrameLayout ett = (FrameLayout) tet.getChildAt(0);
                     android.support.v7.widget.AppCompatEditText omm = (AppCompatEditText) ett
-                            .getChildAt(0);
-                    Log.v("MultiQue", "Child 0 Edit text :" + omm.getText());
+                                .getChildAt(0);
                     String r1 = radioButton
-                            .replaceAll(PUT_ID_HERE, String.valueOf(++radioButtonId));
+                            .replaceAll(PUT_ID_HERE, String.valueOf(++id));
                     r1 = r1.replaceAll(PUT_ANSWER_HERE, omm.getText().toString());
-                    Log.v("MultiQue", "radio " + r1);
                     radioLayout.add(r1);
-                    // addLayout(r1);
+                    if(checkbox.isChecked()){
+                        radioStart = radioStart.replace(PUT_ANSWER_HERE,String.valueOf(id));
+                    }
                 }
                 radioLayout.add(radioGroupEnd);
-//                addLayout(radioGroupEnd);
-                //          addRadio(radioLayout.toString());
-//                for(String x:radioLayout){
-//                    Log.v("Parser","ITA Radio Layout :" + x);
-//                }
-                onLayoutReadyInterface.setLayout(radioLayout.toString());
+                String groupLayout= "";
+                for(String x:radioLayout){
+                    groupLayout += x;
+                }
+                onLayoutReadyInterface.setLayout(mTextView(++id,question1.getText().toString(),-11177216,textAppearance[2]));
+                onLayoutReadyInterface.setLayout(radioStart +groupLayout);
             }
         });
         builder.setView(relativeLT);

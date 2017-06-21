@@ -26,18 +26,20 @@ import static com.example.ali.homeschool.Constants.textViewProperties;
  */
 
 public class ColorQuestionDialog extends MainTextDialog {
+    String questionTitle;
 
     public ColorQuestionDialog(Integer id, Activity activity,
                                OnLayoutReadyInterface onLayoutReadyInterface) {
         super(id, activity, onLayoutReadyInterface);
     }
 
-    public void openColorQuestionDialog(){
+    public void openColorQuestionDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 //        builder.setTitle("Title");
         LayoutInflater li = LayoutInflater.from(activity);
         LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.color_question_dialog, null);
         final EditText questionET = (EditText) someLayout.findViewById(R.id.question);
+        questionET.setText(questionTitle);
         textViewProperties(someLayout, activity, this);
         Spinner colorSpinner = (Spinner) someLayout.findViewById(R.id.colors);
         ArrayAdapter<CharSequence> actionColors = ArrayAdapter.createFromResource(activity,
@@ -65,12 +67,23 @@ public class ColorQuestionDialog extends MainTextDialog {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String questionText = questionET.getText().toString();
-                onLayoutReadyInterface.setLayout(mButton(++id, questionText, "ColorActivity", new Answer(selection[0]),
-                        PUT_SOUND_LINK_HERE));
+                if (!isEditing) {
+                    onLayoutReadyInterface.setLayout(
+                            mButton(++id, questionText, "ColorActivity", new Answer(selection[0]),
+                                    PUT_SOUND_LINK_HERE));
+                }
+                else {
+                    onEditLayoutReady.setLayoutAt(mButton(++id, questionText, "ColorActivity", new Answer(selection[0]),
+                            PUT_SOUND_LINK_HERE),index);
+                }
                 dialogInterface.cancel();
             }
         });
         builder.show();
+    }
+
+    public void setQuestionTitle(String questionTitle) {
+        this.questionTitle = questionTitle;
     }
 
 }

@@ -16,6 +16,7 @@ import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.InstructorTopic.InstructorTopicCreationActivity;
 import com.example.ali.homeschool.InstructorTopic.ParseXMLInstructor;
 import com.example.ali.homeschool.InstructorTopic.XMLClick;
+import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.exercises.color.ColorActivity;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -90,12 +91,26 @@ public class LessonFragment extends Fragment {
         parseXML.setXmlClick(new XMLClick() {
             @Override
             public void playSound(String url) {
-
+                try {
+                    playAudio(url);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void openActivity(String activity, Answer answer) {
-
+                if (activity.equals("ColorActivity")) {
+                    Intent intent = new Intent(getActivity(), ColorActivity.class);
+                    intent.putExtra("Answer", answer);
+                    startActivityForResult(intent, Color_Request);
+                } else if (activity.equals("TextDetection")) {
+                    Intent intent = new Intent(getActivity(), edu.sfsu.cs.orange.ocr.CaptureActivity.class);
+                    intent.putExtra("Answer", answer);
+//                                intent.putExtra("lan", InstructorTopicCreationActivity.selectlanguageString);
+                    //Comment
+                    startActivityForResult(intent, Text_Detection);
+                }
             }
 
             @Override
@@ -103,6 +118,16 @@ public class LessonFragment extends Fragment {
 
             }
 
+            @Override
+            public void onMultQuestionClicked(boolean isCorrect) {
+                if(isCorrect){
+                    MediaPlayer mediaPlayer= MediaPlayer.create(getActivity(), R.raw.yay);
+                    mediaPlayer.start();
+                }else{
+                    MediaPlayer mediaPlayer= MediaPlayer.create(getActivity(), R.raw.wronganswer);
+                    mediaPlayer.start();
+                }
+            }
         });
         try {
             linearLayout= (RelativeLayout) parseXML.parse(layout);

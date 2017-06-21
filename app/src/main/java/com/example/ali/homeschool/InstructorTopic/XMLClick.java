@@ -12,4 +12,5 @@ public interface XMLClick extends XMLClickParent{
     void playSound(String url);
     void openActivity(String activity, Answer answer);
     void onImageClick(View imageView);
+    void onMultQuestionClicked(boolean isCorrect);
 }

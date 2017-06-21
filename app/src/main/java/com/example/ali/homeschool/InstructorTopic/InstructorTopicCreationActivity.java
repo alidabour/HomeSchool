@@ -1,6 +1,7 @@
 package com.example.ali.homeschool.InstructorTopic;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -11,15 +12,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.ali.homeschool.InstructorTopic.CreationHelper.ColorQuestionDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.ImageDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.MainQuestionDialog;
+import com.example.ali.homeschool.InstructorTopic.CreationHelper.MultiQuestionDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.OnEditLayoutReady;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.OnLayoutReadyInterface;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.SoundDialog;
+import com.example.ali.homeschool.InstructorTopic.CreationHelper.SpeechDialog;
+import com.example.ali.homeschool.InstructorTopic.CreationHelper.TextDetectionDialog;
 import com.example.ali.homeschool.InstructorTopic.helper.DoneOrderInterface;
 import com.example.ali.homeschool.InstructorTopic.helper.OnStartDragListener;
 import com.example.ali.homeschool.InstructorTopic.helper.SimpleItemTouchHelperCallback;
@@ -61,10 +68,16 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     String topicid;
     String topicname;
     TextView sound;
+    int textColor = -11177216;
 
+    SpeechDialog speechDialog;
+    MultiQuestionDialog multiQuestionDialog;
+    ColorQuestionDialog colorQuestionDialog;
     SoundDialog soundDialog;
     ImageDialog imageDialog;
-    MainQuestionDialog mainQuestionDialog;
+    TextDetectionDialog textDetectionDialog;
+
+    //    MainQuestionDialog mainQuestionDialog;
     OnLayoutReadyInterface onLayoutReadyInterface = this;
 
     private ItemTouchHelper mItemTouchHelper;
@@ -73,6 +86,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     RecyclerListAdapter adapter;
 
     ParseXMLInstructor parseXMLInstructor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,8 +141,62 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainQuestionDialog = new MainQuestionDialog(id,InstructorTopicCreationActivity.this,onLayoutReadyInterface);
-                mainQuestionDialog.openMainQuestionDialog();
+//                mainQuestionDialog = new MainQuestionDialog(id,InstructorTopicCreationActivity.this,onLayoutReadyInterface);
+//                mainQuestionDialog.openMainQuestionDialog();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(
+                        InstructorTopicCreationActivity.this);
+                builder.setTitle("Choose type :");
+                LayoutInflater li = LayoutInflater.from(InstructorTopicCreationActivity.this);
+                LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.question_list, null);
+                final TextView colorQue = (TextView) someLayout.findViewById(R.id.color);
+                final TextView speechQue = (TextView) someLayout.findViewById(R.id.speech);
+                final TextView multiQue = (TextView) someLayout.findViewById(R.id.multipleChoices);
+                final TextView textDetection = (TextView) someLayout
+                        .findViewById(R.id.textDetection);
+
+                builder.setView(someLayout);
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+                colorQue.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                        colorQuestionDialog = new ColorQuestionDialog(id,
+                                InstructorTopicCreationActivity.this, onLayoutReadyInterface);
+                        colorQuestionDialog.openColorQuestionDialog();
+
+                    }
+                });
+                speechQue.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                        speechDialog = new SpeechDialog(id, InstructorTopicCreationActivity.this,
+                                onLayoutReadyInterface);
+                        speechDialog.openSpeechDialog();
+
+                    }
+                });
+                multiQue.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                        multiQuestionDialog = new MultiQuestionDialog(id,
+                                InstructorTopicCreationActivity.this, onLayoutReadyInterface);
+                        multiQuestionDialog.openMultiQuestionDialog();
+                    }
+                });
+
+                textDetection.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                        textDetectionDialog = new TextDetectionDialog(id,
+                                InstructorTopicCreationActivity.this, onLayoutReadyInterface);
+                        textDetectionDialog.openTextDetectionDialog();
+                    }
+                });
+
 
             }
         });
@@ -173,22 +241,13 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
     private void addLayout(String layout) {
         adapter.clearItems();
-        Log.v("O-O","before add :"+layoutsList.size());
-
         layoutsList.add(layout);
-        Log.v("O-O","after add :"+layoutsList.size());
-
         adapter.setArrayItems(layoutsList);
-//        adapter = new RecyclerListAdapter(this, this, layoutsList, this, this);
-//        recyclerViewOrdering.setAdapter(adapter);
-//
-//        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
-//        mItemTouchHelper = new ItemTouchHelper(callback);
-//        mItemTouchHelper.attachToRecyclerView(recyclerViewOrdering);
     }
-    private void addLayoutAt(String layout,int index) {
+
+    private void addLayoutAt(String layout, int index) {
         adapter.clearItems();
-        layoutsList.add(index,layout);
+        layoutsList.add(index, layout);
         adapter.setArrayItems(layoutsList);
     }
 
@@ -204,9 +263,15 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
     @Override
     public void onColorSelected(int dialogId, @ColorInt int color) {
-       if(mainQuestionDialog !=null){
-           mainQuestionDialog.setTextColor(color);
-       }
+        if (textDetectionDialog != null) {
+            textDetectionDialog.setTextColor(color);
+        }
+        if (colorQuestionDialog != null) {
+            colorQuestionDialog.setTextColor(color);
+        }
+        if (speechDialog != null) {
+            speechDialog.setTextColor(color);
+        }
     }
 
     @Override
@@ -241,9 +306,15 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     }
 
     @Override
-    public void onEditImageView(int id, String src,String layout) {
+    public void onMultQuestionClicked(boolean isCorrect) {
+
+    }
+
+    @Override
+    public void onEditImageView(int id, String src, String layout) {
         int index = layoutsList.indexOf(layout);
-        imageDialog = new ImageDialog(id,InstructorTopicCreationActivity.this,onLayoutReadyInterface);
+        imageDialog = new ImageDialog(id, InstructorTopicCreationActivity.this,
+                onLayoutReadyInterface);
         imageDialog.setCourseId(courseId);
         imageDialog.setUrl(src);
         imageDialog.setEditing(true);
@@ -253,9 +324,10 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     }
 
     @Override
-    public void onEditSound(int id, String audioUrl,String audioText ,String layout) {
+    public void onEditSound(int id, String audioUrl, String audioText, String layout) {
         int index = layoutsList.indexOf(layout);
-        soundDialog = new SoundDialog(id,InstructorTopicCreationActivity.this,onLayoutReadyInterface);
+        soundDialog = new SoundDialog(id, InstructorTopicCreationActivity.this,
+                onLayoutReadyInterface);
         soundDialog.setCourseId(courseId);
         soundDialog.setAudioLink(audioUrl);
         soundDialog.setSoundText(audioText);
@@ -263,6 +335,18 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         soundDialog.setIndex(index);
         soundDialog.setOnEditLayoutReady(this);
         soundDialog.openSoundDialog();
+    }
+
+    @Override
+    public void onEditColorQuestion(int id, String questionTitle, String layout) {
+        int index = layoutsList.indexOf(layout);
+        colorQuestionDialog = new ColorQuestionDialog(id, InstructorTopicCreationActivity.this,
+                onLayoutReadyInterface);
+        colorQuestionDialog.setQuestionTitle(questionTitle);
+        colorQuestionDialog.setOnEditLayoutReady(this);
+        colorQuestionDialog.setIndex(index);
+        colorQuestionDialog.setEditing(true);
+        colorQuestionDialog.openColorQuestionDialog();
     }
 
     private void playAudio(String url) throws Exception {
@@ -286,11 +370,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
     @Override
     public void onReorder(List<String> layouts) {
-        Log.v("O-O","before clear :"+layoutsList.size());
         layoutsList.clear();
-        Log.v("O-O","after clear :"+layoutsList.size());
         layoutsList.addAll(layouts);
-        Log.v("O-O","after addAll :"+layoutsList.size());
 
     }
 
@@ -307,6 +388,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     @Override
     public void setLayoutAt(String layout, int index) {
         layoutsList.remove(index);
-        addLayoutAt(layout,index);
+        addLayoutAt(layout, index);
     }
 }
