@@ -1,48 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardBackgroundColor="@color/colorBack"
-    android:background="@android:drawable/dialog_holo_dark_frame"
-    app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="true">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <TextView
+            android:id="@+id/lessonName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:layout_gravity="center"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:text="Lesson 1 "
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-            <TextView
-                android:id="@+id/lessonName"
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:layout_margin="16dp"
+            android:layout_weight="5">
+
+            <Button
+                android:id="@+id/startbtn"
+                style="@style/TextAppearance.AppCompat.Small.Inverse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="5"
+                android:background="@drawable/button_shape"
                 android:gravity="center"
-                android:text="Lesson 1 "
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:text="@string/start"
+                android:textColor="@color/colorBack" />
+        </FrameLayout>
+    </LinearLayout>
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_weight="5"
-                android:layout_gravity="center|start">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_margin="6dp"
+            android:background="#C0C0C0"
+            android:padding="6dp" />
 
-                <Button
-                    android:id="@+id/startbtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/button_shape"
-                    android:gravity="center"
-                    android:text="@string/start"
-                    style="@style/TextAppearance.AppCompat.Small.Inverse"
-                    android:textColor="@color/colorBack" />
-            </FrameLayout>
-        </LinearLayout>
-
-</android.support.v7.widget.CardView>
+</LinearLayout>

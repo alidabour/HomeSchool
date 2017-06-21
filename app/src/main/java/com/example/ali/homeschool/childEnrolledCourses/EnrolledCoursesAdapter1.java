@@ -74,7 +74,6 @@ public class EnrolledCoursesAdapter1 extends RecyclerView.Adapter<EnrolledCourse
         public void onClick(View view) {
             int b = getAdapterPosition();
             cardView.setBackgroundColor(Color.parseColor("#04bf4f"));
-
             onClickHandler.onClick(courses.get(b));
 
         }
