@@ -4,32 +4,23 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/coursesNav"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/my_course"
             android:title="@string/my_courses" />
         <item
             android:id="@+id/featuredCoursesNaV"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/course"
             android:title="@string/featured_courses" />
-        <!--<item-->
-            <!--android:id="@+id/nav_slideshow"-->
-            <!--android:icon="@drawable/ic_menu_slideshow"-->
-            <!--android:title="" />-->
-        <!--<item-->
-            <!--android:id="@+id/nav_manage"-->
-            <!--android:icon="@drawable/ic_menu_manage"-->
-            <!--android:title="Tools" />-->
-
 
     </group>
     <group>
 
         <item
             android:id="@+id/Support"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/support"
             android:title="@string/support" />
         <item
             android:id="@+id/signout"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/signout"
             android:title="@string/sign_out" />
     </group>
 

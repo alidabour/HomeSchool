@@ -24,7 +24,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="enroll">انضم</string>
+    <string name="enroll">تسجيل</string>
     <string name="youMustSignIn">You have to Sign In</string>
     <string name="enrollDone">You have Successfully enrolled</string>
     <string name="title_activity_main4">Courses</string>
@@ -48,7 +48,7 @@
     <string name="ratings">Ratings</string>
     <string name="enter_url">Enter Url</string>
     <string name="choose_from_gallery">Choose from Gallery</string>
-    <string name="support">support</string>
+    <string name="support">الدعم</string>
     <string name="no_course">Press add for new course</string>
     <string name="no_lesson">press + to add more lessons</string>
     <string name="sign_in_here"> تسجيل الدخول</string>
@@ -60,5 +60,11 @@
     <string name="sign_up_here">  إنشاء حساب </string>
     <string name="welcome">مرحباً بك!</string>
     <string name="enter_your_email_to_sign_in_to_your_account">أدخل بريدك الإلكترونى للدخول إلى حسابك</string>
+    <string name="Instructor">المدرس</string>
+    <string name="Student">الطالب</string>
+    <string name="Parents">الوالد</string>
+    <string name="instructor">المدرس :</string>
+    <string name="Courses">الكورسات</string>
+    <string name="smart_easy_efficient">Smart . Easy . Efficient</string>
 
 </resources>

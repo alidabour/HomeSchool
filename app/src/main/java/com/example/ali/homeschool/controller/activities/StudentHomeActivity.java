@@ -78,6 +78,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
          */
         setContentView(R.layout.courseslayout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.Courses);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
         //setSupportActionBar(toolbar);
@@ -90,20 +91,9 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         userPhotoId=(ImageView) navigationView.getHeaderView(0).findViewById(R.id.photoid);
         UserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navigationTextName);
-
-
         mViewPager = (ViewPager) findViewById(R.id.viewPage_collapsing_toolbar);
-
-
-//        Fragment newFragment = new StudentFeaturedCoursesFragment();
-//        newFragment.setArguments(bundle);
-//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//        transaction.replace(R.id.fragment1, newFragment);
-//        transaction.commit();
-
     }
 
     /*

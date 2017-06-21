@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|center"
         android:padding="40dp"
-        android:text="Smart . Easy . Efficient"
+        android:text="@string/smart_easy_efficient"
         android:textColor="@color/colorBack"
         android:textStyle="bold" />
 

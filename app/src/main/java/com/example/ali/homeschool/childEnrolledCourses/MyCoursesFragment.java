@@ -135,7 +135,7 @@ public class MyCoursesFragment extends Fragment {
 //                                                                Log.v("Test","Lessons entry.size());" +entry.size());
                                                                 startActivity(intent);
                                                             }
-                                                        });
+                                                        } , getActivity());
                                                // Log.v("Test", "Enrolled Size New:" + enrolledCoursesList.size());
                                             enrolledRecyclerView.setAdapter(enrolledCoursesAdapter1 );
 

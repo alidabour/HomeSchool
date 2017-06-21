@@ -155,9 +155,8 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
                                 DatabaseReference myRef = databaseReference;
                                 newUser = new UserModel();
                                 newUser.setEmail(email.getText().toString().trim());
-                                newUser.setName(String.valueOf(userName));
+                                newUser.setName(String.valueOf(userName.getText()));
                                 newUser.setPhoto(photoString);
-
                                 user = mAuth.getCurrentUser();
 
                                 myRef.child("users").child(user.getUid()).setValue(newUser);
@@ -174,8 +173,6 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }
-
-                            // ...
                         }
                     });
         } else {
@@ -218,12 +215,6 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
         }
         return valid;
     }
-
-
-
-
-
-
 
     @Override
     public void fileUploaded(String url) {

@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.InstructorHome.InstructorActivity;
@@ -30,9 +31,9 @@ public class SignInAsAdapter extends PagerAdapter {
 
     Context mContext;
     LayoutInflater mLayoutInflater;
-    ArrayList<Integer> mResources;
+    ArrayList<Home> mResources;
 
-    public SignInAsAdapter(Context context, ArrayList<Integer> mResources) {
+    public SignInAsAdapter(Context context, ArrayList<Home> mResources) {
         mContext = context;
         this.mResources = mResources;
         mLayoutInflater = (LayoutInflater) mContext
@@ -46,7 +47,7 @@ public class SignInAsAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((RelativeLayout) object);
+        return view == ((FrameLayout) object);
     }
 
     @Override
@@ -56,19 +57,17 @@ public class SignInAsAdapter extends PagerAdapter {
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inTargetDensity = DisplayMetrics.DENSITY_DEFAULT;
         Bitmap bmp = BitmapFactory.decodeResource(mContext.getResources(),
-                mResources.get(position), o);
+                mResources.get(position).getImage(), o);
         int w = bmp.getWidth();
         int h = bmp.getHeight();
          Log.v("Size " , w + " " +h) ;
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-       // imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        Glide.with(mContext).load(mResources.get(position)).override(w,h).into(imageView);
-        //imageView.setImageResource(mResources.get(position));
-
-      // Log.v("Size " , imageView.getHeight() + " " +imageView.getWidth()) ;
+        Glide.with(mContext).load(mResources.get(position).getImage()).override(w,h).into(imageView);
+        TextView textView = (TextView) itemView.findViewById(R.id.textView);
+        textView.setText(mResources.get(position).getName());
         container.addView(itemView);
 
-        imageView.setOnClickListener(new View.OnClickListener() {
+        itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (position == 0) {
@@ -98,6 +97,6 @@ public class SignInAsAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((RelativeLayout) object);
+        container.removeView((FrameLayout) object);
     }
 }

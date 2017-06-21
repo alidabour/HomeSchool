@@ -55,11 +55,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
     Toolbar toolbar;
     ListView topicsListView;
     RecyclerView topicsRecyclerView;
-    TopicsAdapter topicsAdapter;
     Button enroll;
-    TopicsFirebaseAdapter topicsFirebaseAdapter;
-    private static final int CURSOR_LOADER_ID_DES = 1;
-    private static final int CURSOR_LOADER_ID_TOPIC = 2;
     ImageView courseImage;
     TextView courseTeacher;
     TextView courseName;

@@ -32,10 +32,19 @@ public class SignInAs extends AppCompatActivity {
         //ImageView imageView = (ImageView) findViewById(R.id.imageView);
         pager = (ViewPager) findViewById(R.id.viewPager);
         Log.v("pager ", pager.toString());
-        ArrayList<Integer> res = new ArrayList<>();
-        res.add(R.drawable.instructor_icon);
-        res.add(R.drawable.student_icon);
-        res.add(R.drawable.parents_icon);
+        ArrayList<Home> res = new ArrayList<>();
+        Home home = new Home() ;
+        home.setImage(R.drawable.instructor_icon);
+        home.setName(getString(R.string.Instructor));
+        res.add(home);
+        home = new Home();
+        home.setImage(R.drawable.student_icon);
+        home.setName(getString(R.string.Student));
+        res.add(home);
+        home = new Home();
+        home.setImage(R.drawable.parents_icon);
+        home.setName(getString(R.string.Parents));
+        res.add(home);
         pager.setAdapter(new SignInAsAdapter(this, res));
         ImageView next = (ImageView) findViewById(R.id.next);
         next.setOnClickListener(new View.OnClickListener() {
@@ -55,15 +64,15 @@ public class SignInAs extends AppCompatActivity {
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inTargetDensity = DisplayMetrics.DENSITY_DEFAULT;
         Bitmap bmp = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                R.drawable.arrow_1, o);
+                R.drawable.arrow_2, o);
         int w = bmp.getWidth();
         int h = bmp.getHeight();
         Bitmap bmp2 = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                R.drawable.arrow_2, o);
+                R.drawable.arrow_1, o);
         int w2 = bmp2.getWidth();
         int h2 = bmp2.getHeight();
-        Glide.with(getApplicationContext()).load(R.drawable.arrow_1).override(w,h).into(next);
-        Glide.with(getApplicationContext()).load(R.drawable.arrow_2).override(w2,h2).into(previous);
+        Glide.with(getApplicationContext()).load(R.drawable.arrow_2).override(w,h).into(next);
+        Glide.with(getApplicationContext()).load(R.drawable.arrow_1).override(w2,h2).into(previous);
 
     }
 
