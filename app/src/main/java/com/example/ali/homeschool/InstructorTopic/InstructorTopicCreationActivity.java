@@ -27,6 +27,7 @@ import com.example.ali.homeschool.InstructorTopic.CreationHelper.OnLayoutReadyIn
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.SoundDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.SpeechDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.TextDetectionDialog;
+import com.example.ali.homeschool.InstructorTopic.CreationHelper.TextViewDialog;
 import com.example.ali.homeschool.InstructorTopic.helper.DoneOrderInterface;
 import com.example.ali.homeschool.InstructorTopic.helper.OnStartDragListener;
 import com.example.ali.homeschool.InstructorTopic.helper.SimpleItemTouchHelperCallback;
@@ -75,6 +76,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     ColorQuestionDialog colorQuestionDialog;
     SoundDialog soundDialog;
     ImageDialog imageDialog;
+    TextViewDialog textViewDialog;
     TextDetectionDialog textDetectionDialog;
 
     //    MainQuestionDialog mainQuestionDialog;
@@ -221,10 +223,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imageDialog = new ImageDialog(id, InstructorTopicCreationActivity.this,
-                        onLayoutReadyInterface);
-                imageDialog.setCourseId(courseId);
-                imageDialog.openImageDialog();
+//                imageDialog = new ImageDialog(id, InstructorTopicCreationActivity.this,
+//                        onLayoutReadyInterface);
+//                imageDialog.setCourseId(courseId);
+//                imageDialog.openImageDialog();
+                textViewDialog = new TextViewDialog(id,InstructorTopicCreationActivity.this,onLayoutReadyInterface);
+                textViewDialog.openTextViewDialog();
 
             }
         });
@@ -347,6 +351,18 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         colorQuestionDialog.setIndex(index);
         colorQuestionDialog.setEditing(true);
         colorQuestionDialog.openColorQuestionDialog();
+    }
+
+    @Override
+    public void onEditTextView(int id, String text, String layout) {
+        int index = layoutsList.indexOf(layout);
+        textViewDialog = new TextViewDialog(id,InstructorTopicCreationActivity.this,onLayoutReadyInterface);
+        textViewDialog.setEditing(true);
+        textViewDialog.setIndex(index);
+        textViewDialog.setOnEditLayoutReady(this);
+        textViewDialog.setText(text);
+        textViewDialog.openTextViewDialog();
+
     }
 
     private void playAudio(String url) throws Exception {

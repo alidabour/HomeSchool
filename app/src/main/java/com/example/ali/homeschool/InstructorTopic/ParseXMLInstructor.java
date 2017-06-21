@@ -394,11 +394,12 @@ public class ParseXMLInstructor {
     private TextView readTextView(XmlPullParser parser) throws XmlPullParserException, IOException {
         Log.v("Parse", "readTextView");
         parser.require(XmlPullParser.START_TAG, ns, "TextView");
-        int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
+        final int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
         float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
         TextView textView = new TextView(activity);
         textView.setId(id);
-        textView.setText(parser.getAttributeValue(ns, "android:text"));
+        final String text = parser.getAttributeValue(ns, "android:text");
+        textView.setText(text);
         if (parser.getAttributeValue(ns, "android:textSize") != null) {
             textView.setTextSize(
                     Float.parseFloat(parser.getAttributeValue(ns, "android:textSize")));
@@ -406,19 +407,33 @@ public class ParseXMLInstructor {
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
         String color = parser.getAttributeValue(ns, "android:textColor");
         if (parser.getAttributeValue(ns, "android:textAppearance") != null) {
-            Log.v("ITA",
-                    " TextAppearance " + parser.getAttributeValue(ns, "android:textAppearance"));
-//            Log.v("TEXTAPP","A " +String.valueOf(textView.getTextSize()));
-//            textView.setTextAppearance(activity,android.R.style.TextAppearance_Material_Display4);
             textView.setTextAppearance(activity,
                     Integer.parseInt(parser.getAttributeValue(ns, "android:textAppearance")));
-            Log.v("ITA", "Size" + String.valueOf(textView.getTextSize()));
 
         }
         textView.setTextColor(Integer.parseInt(color));
         String height = parser.getAttributeValue(ns, "android:layout_height");
         String width = parser.getAttributeValue(ns, "android:layout_width");
         textView.setLayoutParams(getLayoutParams(height, width, weight, scale));
+        if(xmlEditClick != null){
+            textView.setOnTouchListener(new View.OnTouchListener() {
+                private GestureDetector gestureDetector = new GestureDetector(activity,
+                        new GestureDetector.SimpleOnGestureListener() {
+                            @Override
+                            public boolean onDoubleTap(MotionEvent e) {
+                                xmlEditClick.onEditTextView(id,text,layout);
+                                return super.onDoubleTap(e);
+                            }
+                            // implement here other callback methods like onFling, onScroll as necessary
+                        });
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    gestureDetector.onTouchEvent(event);
+                    return true;
+                }
+            });
+        }
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
