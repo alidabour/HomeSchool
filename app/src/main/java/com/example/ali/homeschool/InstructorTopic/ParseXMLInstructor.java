@@ -246,6 +246,8 @@ public class ParseXMLInstructor {
             button.setText(text);
         }
         button.setId(id);
+        button.setBackgroundColor(Color.parseColor("#08aac7"));
+        button.setTextColor(Color.parseColor("#FFFFFF"));
         final String finalActivity = activityString;
         final String finalAnswer = answer;
         final String finalAnswer1 = answer;
