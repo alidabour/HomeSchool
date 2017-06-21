@@ -3,7 +3,7 @@ package com.example.ali.homeschool.InstructorTopic.CreationHelper;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,14 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.example.ali.homeschool.Constants;
-import com.example.ali.homeschool.InstructorHome.CourseCreated;
-import com.example.ali.homeschool.InstructorTopic.InstructorTopicCreationActivity;
-import com.example.ali.homeschool.InstructorTopic.TextAppInterface;
 import com.example.ali.homeschool.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 import edu.sfsu.cs.orange.ocr.Answer;
 
@@ -51,6 +44,7 @@ public class TextDetectionDialog extends MainTextDialog {
         final EditText questionStart = (EditText) linearLayout.findViewById(R.id.questionStart);
         final Spinner selectLanguage = (Spinner) linearLayout.findViewById(R.id.textLan);
 
+        word.setTextColor(ContextCompat.getColor(activity, R.color.colorPrimary));
         ArrayAdapter<CharSequence> textSizes = ArrayAdapter
                 .createFromResource(activity,
                         R.array.text_lan_array, android.R.layout.simple_spinner_item);
@@ -75,9 +69,9 @@ public class TextDetectionDialog extends MainTextDialog {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                onLayoutReadyInterface.setLayout(mTextView(++id, questionStart.getText().toString().trim(), textColor,
+                onLayoutReadyInterface.setLayout(mTextView(++id, questionStart.getText().toString().trim(), Constants.textColor,
                         textAppearance));
-                onLayoutReadyInterface.setLayout( mTextView(++id, word.getText().toString().trim(), textColor,
+                onLayoutReadyInterface.setLayout( mTextView(++id, word.getText().toString().trim(), Constants.uniqueTextColor,
                         textAppearance));
                 onLayoutReadyInterface.setLayout( mButton(++id, "Start", "TextDetection",
                         new Answer(word.getText().toString(), selectlanguageString),

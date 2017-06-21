@@ -5,7 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -97,7 +99,8 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         lessonsRV.setLayoutManager(layoutManager);
 
-
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(lessonsRV.getContext(), layoutManager.getOrientation());
+        lessonsRV.addItemDecoration(dividerItemDecoration);
 
         db = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
@@ -108,7 +111,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
             courseID = courseCreated.getCourse_id().toString();
         }
 
-
+        toolbar.setTitleTextColor((ContextCompat.getColor(InstructorLessonsActivity.this,R.color.colorBack)));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

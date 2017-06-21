@@ -2,6 +2,7 @@ package com.example.ali.homeschool.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
     public void onBindViewHolder(LessonViewHolder holder, int position) {
         final LessonModel lessonModel = lessonModelList.get(position);
         holder.lessonName.setText(lessonModel.getName());
+        holder.lessonName.setTextColor(ContextCompat.getColor(activity, R.color.colorLesson));
         holder.startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

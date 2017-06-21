@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.example.ali.homeschool.InstructorTopic.InstructorTopicCreationActivity;
+import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.R;
 
 import edu.sfsu.cs.orange.ocr.Answer;
@@ -44,8 +44,8 @@ public class SpeechDialog extends MainTextDialog {
             public void onClick(DialogInterface dialogInterface, int i) {
                 Log.v("TESTAPP", "onClick :" + textAppearance);
 
-                onLayoutReadyInterface.setLayout(mTextView(++id, "قول كلمة :", textColor, textAppearance));
-                String textview = mTextView(++id, word.getText().toString(), textColor,
+                onLayoutReadyInterface.setLayout(mTextView(++id, "قول كلمة :", Constants.textColor, textAppearance));
+                String textview = mTextView(++id, word.getText().toString(), Constants.uniqueTextColor,
                         textAppearance);
                 onLayoutReadyInterface.setLayout(textview);
                 Answer answer = new Answer();
