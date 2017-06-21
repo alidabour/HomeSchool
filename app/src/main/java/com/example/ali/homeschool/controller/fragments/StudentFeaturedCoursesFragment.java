@@ -119,11 +119,11 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                     String key = x.getKey();
                     c.setCourse_id(key);
                     users.add(c);
-                    Log.v("Test", "Child : " + c.getDescription());
+                    Log.v("Test", "Child : " + c.getDescriptionS());
                 }
                 HashMap<String, ArrayList<CourseCreated>> map = new HashMap<>();
                 for (CourseCreated x : users) {
-                    // subject.add(x.getSubjectS());
+                    // subjectS.add(x.getSubjectS());
                     random.add(x);
                     ArrayList<CourseCreated> c = new ArrayList<CourseCreated>();
                     if (map.get(x.getSubjectS()) != null) {

@@ -98,8 +98,9 @@ public class MyCoursesFragment extends Fragment {
                                             Log.e("Fire", "Inside " + inside.toString());
                                             CourseCreated courses = new CourseCreated();
                                             //Courses2 courseCreated = new Courses2();
+                                            courses= inside.getValue(CourseCreated.class);
+                                            Log.e("Test","Inside Childs "+courses.getName().toString() );
                                                 for (DataSnapshot x : inside.getChildren()){
-                                                    Log.e("Test","Inside Childs "+x.toString() );
 //                                                    if(Objects.equals(x.getKey(), "course_id")){
 //                                                        Log.v("Test","course id " +x.getValue());
 ////                                                        courses.setCourse_id(x.getValue().toString());
@@ -107,7 +108,7 @@ public class MyCoursesFragment extends Fragment {
 //                                                    }else if(Objects.equals(x.getKey(), "name")){
 //                                                        Log.v("Test","Des " +x.getValue());
 //                                                        courses.setName(x.getValue().toString());
-//                                                        courses.setDescription(x.getValue().toString());
+//                                                        courses.setDescriptionS(x.getValue().toString());
 //                                                    }
 
                                                     Log.e("myCoursesdatasnapshot: ",x.toString() );
@@ -115,9 +116,8 @@ public class MyCoursesFragment extends Fragment {
                                                     //courses = x.getValue(Courses.class);
                                                 }
 //                                                Courses2 course2=null ;
-                                               courses= inside.getValue(CourseCreated.class);
                                                // Log.e("mappingcoursesfromfire ", courses.getLessons() + " Description : "
-                                                      //  + courses.getDescription() + " Name : " + courses.getName());
+                                                      //  + courses.getDescriptionS() + " Name : " + courses.getName());
 //                                                enrolledCoursesList.add(course2);
                                             coursesNames.add(courses);
 

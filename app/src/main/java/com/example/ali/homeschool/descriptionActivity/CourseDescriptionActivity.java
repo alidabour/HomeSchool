@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -15,8 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -30,7 +27,6 @@ import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.InstructorTopic.TopicModel;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.TopicsAdapter;
-import com.example.ali.homeschool.adapter.TopicsFirebaseAdapter;
 import com.example.ali.homeschool.childProgress.EnrolledCourseModel;
 import com.example.ali.homeschool.childProgress.ProgressModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,11 +40,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.ali.homeschool.R.id.colors;
 import static com.example.ali.homeschool.R.id.textView;
 
 /*
-This is the class which i use to get the description of the course from the click listener
+This is the class which i use to get the descriptionS of the course from the click listener
 and supposely later on i would use the data base to fetch this data
  */
 public class CourseDescriptionActivity extends AppCompatActivity {
@@ -107,7 +102,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra("course")) {
             courseCreated = intent.getParcelableExtra("course");
-            courseDescription.setText(courseCreated.getDescription());
+            courseDescription.setText(courseCreated.getDescriptionS());
             courseName.setText(courseCreated.getName());
             courseTeacher.setText(courseCreated.getTeacher_name());
             courseRating.setRating(Float.parseFloat(courseCreated.getRate()));
@@ -324,13 +319,13 @@ public class CourseDescriptionActivity extends AppCompatActivity {
 ////                        HashMap<String, ArrayList<Courses>> map = new HashMap<>();
 ////                        for (Courses x : lessonsID) {
 ////                            ArrayList<Courses> c = new ArrayList<Courses>();
-////                            if (map.get(x.getSubject()) != null) {
-////                                c = map.get(x.getSubject());
+////                            if (map.get(x.getSubjectS()) != null) {
+////                                c = map.get(x.getSubjectS());
 ////                                c.add(x);
-////                                map.put(x.getSubject(), c);
+////                                map.put(x.getSubjectS(), c);
 ////                            } else {
 ////                                c.add(x);
-////                                map.put(x.getSubject(), c);
+////                                map.put(x.getSubjectS(), c);
 ////                            }
 ////                        }
 //                        Log.e("onDataChange: " ,"" +topics.size());

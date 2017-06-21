@@ -10,7 +10,7 @@ import android.os.Parcelable;
 public class CourseCreated implements Parcelable {
 
     String course_id;
-    String description;
+    String descriptionS;
     String name;
     String photo_url;
     String rate;
@@ -26,12 +26,12 @@ public class CourseCreated implements Parcelable {
         this.course_id = course_id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescriptionS() {
+        return descriptionS;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionS(String descriptionS) {
+        this.descriptionS = descriptionS;
     }
 
     public String getName() {
@@ -90,7 +90,7 @@ public class CourseCreated implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.course_id);
-        dest.writeString(this.description);
+        dest.writeString(this.descriptionS);
         dest.writeString(this.name);
         dest.writeString(this.photo_url);
         dest.writeString(this.rate);
@@ -104,7 +104,7 @@ public class CourseCreated implements Parcelable {
 
     protected CourseCreated(Parcel in) {
         this.course_id = in.readString();
-        this.description = in.readString();
+        this.descriptionS = in.readString();
         this.name = in.readString();
         this.photo_url = in.readString();
         this.rate = in.readString();

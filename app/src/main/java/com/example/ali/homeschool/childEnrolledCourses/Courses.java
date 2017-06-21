@@ -3,7 +3,6 @@ package com.example.ali.homeschool.childEnrolledCourses;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 
@@ -18,11 +17,11 @@ public class Courses implements Parcelable {
 
     public String name;
     public String rate;
-    public String subject;
+    public String subjectS;
     public String teacher;
     public String teacher_id;
     public String privacy;
-    public String description;
+    public String descriptionS;
     public String course_id;
     Map<String, LessonModel> lessons;
 
@@ -34,12 +33,12 @@ public class Courses implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.course_id);
-        dest.writeString(this.description);
+        dest.writeString(this.descriptionS);
         dest.writeInt(this.lessons.size());
         dest.writeString(this.name);
         dest.writeString(this.privacy);
         dest.writeString(this.rate);
-        dest.writeString(this.subject);
+        dest.writeString(this.subjectS);
         dest.writeString(this.teacher);
         dest.writeString(this.teacher_id);
         for (Map.Entry<String, LessonModel> entry : this.lessons.entrySet()) {
@@ -54,11 +53,11 @@ public class Courses implements Parcelable {
     protected Courses(Parcel in) {
         this.name = in.readString();
         this.rate = in.readString();
-        this.subject = in.readString();
+        this.subjectS = in.readString();
         this.teacher = in.readString();
         this.teacher_id = in.readString();
         this.privacy = in.readString();
-        this.description = in.readString();
+        this.descriptionS = in.readString();
         this.course_id = in.readString();
         int lessonsSize = in.readInt();
         this.lessons = new HashMap<String, LessonModel>(lessonsSize);
@@ -97,12 +96,12 @@ public class Courses implements Parcelable {
         this.rate = rate;
     }
 
-    public String getSubject() {
-        return subject;
+    public String getSubjectS() {
+        return subjectS;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setSubjectS(String subjectS) {
+        this.subjectS = subjectS;
     }
 
     public String getTeacher() {
@@ -129,12 +128,12 @@ public class Courses implements Parcelable {
         this.privacy = privacy;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescriptionS() {
+        return descriptionS;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionS(String descriptionS) {
+        this.descriptionS = descriptionS;
     }
 
     public String getCourse_id() {
