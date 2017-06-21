@@ -62,6 +62,7 @@ public class LessonActivity extends AppCompatActivity {
                 lessonModelList = new ArrayList<LessonModel>();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     LessonModel lessonModel = dataSnapshot1.getValue(LessonModel.class);
+                    Log.v("Lesson " , lessonModel.getName());
                     lessonModelList.add(lessonModel);
                 }
 
@@ -77,7 +78,7 @@ public class LessonActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         }, LessonActivity.this, course.getCourse_id());
-//
+
                 enrolledRecyclerView.setAdapter(studentLessonAdapter);
 
 
