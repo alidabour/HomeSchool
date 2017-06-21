@@ -154,7 +154,7 @@ public class Guest extends AppCompatActivity {
                         }
                         HashMap<String, ArrayList<CourseCreated>> map = new HashMap<>();
                         for (CourseCreated x : users) {
-                           // subject.add(x.getSubjectS());
+                           // subjectS.add(x.getSubjectS());
                             //Log.e("Subject", x.getSubjectS());
 
                             random.add(x);

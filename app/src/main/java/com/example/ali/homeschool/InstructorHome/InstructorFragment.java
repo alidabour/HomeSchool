@@ -88,8 +88,8 @@ public class InstructorFragment extends Fragment {
 
                 // Set up the input
                 final EditText input = (EditText) someLayout.findViewById(R.id.courseName);
-                final EditText descriptions = (EditText) someLayout.findViewById(R.id.description);
-                final EditText subjects = (EditText) someLayout.findViewById(R.id.subject);
+                final EditText descriptions = (EditText) someLayout.findViewById(R.id.descriptionS);
+                final EditText subjects = (EditText) someLayout.findViewById(R.id.subjectS);
 
                 TextView gallery = (TextView) someLayout.findViewById(R.id.choosefromGallery);
                 gallery.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +137,7 @@ public class InstructorFragment extends Fragment {
                      //   view.findViewById(R.id.no_course).setVisibility(View.INVISIBLE);
                       /*  db.child("courses").child(key).child("name").setValue(coursName);
                         db.child("courses").child(key).child("subjectS").setValue(subjectS);
-                        db.child("courses").child(key).child("description").setValue(descriptionS);
+                        db.child("courses").child(key).child("descriptionS").setValue(descriptionS);
                         db.child("courses").child(key).child("rate").setValue("5.0");
                         db.child("courses").child(key).child("teacher").setValue(user.getDisplayName());
                         db.child("courses").child(key).child("teacher_id").setValue(user.getUid());

@@ -4,8 +4,6 @@ package com.example.ali.homeschool.adapter;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.target.Target;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
 
@@ -63,7 +59,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         Glide.with(context).load(Course.getPhoto_url()).fitCenter().bitmapTransform(new RoundedCornersTransformation(context,20,0, RoundedCornersTransformation.CornerType.TOP)).into(holder.categoryImage);
         Log.v("Trailers101",holder.categoryImage.getScaleType()+"");
         holder.categoryName.setText(Course.getName());
-
+        Log.v("Trailers10111111111111",Course.getName()+"");
 //        mCursor.moveToPosition(position);
 //        CategoryInformation categoryInformation = categoryInformationList.get(position);
 //        Log.v("Test","test");

@@ -17,7 +17,7 @@ public class DataProvider {
     static final Uri BASE_CONTENT_URI = Uri.parse("content://"+AUTHORITY);
     interface Path {
         //String CATEGORY = "category";
-        String SUBJECT = "subject";
+        String SUBJECT = "subjectS";
         String COURSE = "course";
         String LESSON = "lesson";
         String TOPIC = "topic";

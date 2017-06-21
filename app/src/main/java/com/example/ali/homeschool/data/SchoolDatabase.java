@@ -22,7 +22,7 @@ import net.simonvt.schematic.annotation.Table;
 public class SchoolDatabase {
     private SchoolDatabase(){}
     static final int VERSION = 1;
-    @Table(SubjectColumns.class) public static final String SUBJECT = "subject";
+    @Table(SubjectColumns.class) public static final String SUBJECT = "subjectS";
     @Table(CourseColumns.class) public static final String COURSE = "course";
     @Table(LessonColumns.class) public static final String LESSON = "lesson";
     @Table(TopicColumns.class) public  static final String TOPIC = "topic";
