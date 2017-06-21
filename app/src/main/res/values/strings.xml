@@ -68,7 +68,8 @@
     <string name="Parents">Parents</string>
     <string name="instructor">Instructor :</string>
     <string name="Courses">Courses</string>
-    <string name="smart_easy_efficient">Smart . Easy . Efficient</string>
+    <string name="smart_easy_efficient">Smart .. Easy .. Efficient</string>
+    <string name="start">Start</string>
 
     <string-array name="planets_array">
         <item>Mercury</item>

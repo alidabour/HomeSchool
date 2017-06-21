@@ -20,7 +20,7 @@ import java.util.List;
  * Created by Ali on 4/21/2017.
  */
 
-public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdapter.LessonViewHolder>{
+public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdapter.LessonViewHolder> {
     List<LessonModel> lessonModelList;
     public StudentLessonAdapter.OnClickHandler onClickHandler;
     Activity activity;
@@ -29,9 +29,10 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
     public interface OnClickHandler {
         void onClick(LessonModel test);
     }
+
     public StudentLessonAdapter(List<LessonModel> lessonModelList,
                                 StudentLessonAdapter.OnClickHandler onClickHandler,
-                                Activity activity ,
+                                Activity activity,
                                 String courseId) {
         this.lessonModelList = lessonModelList;
         this.onClickHandler = onClickHandler;
@@ -42,7 +43,7 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
     @Override
     public LessonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.student_lesson_item_view,parent,false);
+                .inflate(R.layout.student_lesson_item_view, parent, false);
         return new LessonViewHolder(itemView);
     }
 
@@ -56,9 +57,8 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
             public void onClick(View v) {
                 Intent intent = new Intent(activity,
                         ClassActivity.class);
-                intent.putExtra("courseId",courseId);
+                intent.putExtra("courseId", courseId);
                 intent.putExtra("lessonid", lessonModel.getId());
-
                 activity.startActivity(intent);
             }
         });
@@ -69,7 +69,7 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
         return lessonModelList.size();
     }
 
-    public class LessonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class LessonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView lessonName;
         protected Button startBtn;
 

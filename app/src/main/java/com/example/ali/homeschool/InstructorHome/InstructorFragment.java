@@ -40,8 +40,8 @@ public class InstructorFragment extends Fragment {
     View view;
     String photoUrl;
     String coursName;
-    String descriptionS;
-    String subjectS;
+    String description;
+    String subject;
     List<CourseCreated> coursesList;
     RecyclerView coursesRV;
     DatabaseReference db;
@@ -88,8 +88,8 @@ public class InstructorFragment extends Fragment {
 
                 // Set up the input
                 final EditText input = (EditText) someLayout.findViewById(R.id.courseName);
-                final EditText description = (EditText) someLayout.findViewById(R.id.description);
-                final EditText subject = (EditText) someLayout.findViewById(R.id.subject);
+                final EditText descriptions = (EditText) someLayout.findViewById(R.id.description);
+                final EditText subjects = (EditText) someLayout.findViewById(R.id.subject);
 
                 TextView gallery = (TextView) someLayout.findViewById(R.id.choosefromGallery);
                 gallery.setOnClickListener(new View.OnClickListener() {
@@ -113,24 +113,24 @@ public class InstructorFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         coursName = input.getText().toString();
-                        subjectS = subject.getText().toString();
-                        descriptionS = description.getText().toString();
+                        subject = subjects.getText().toString();
+                        description = descriptions.getText().toString();
                         String key = db.child("users").child(user.getUid()).child("CreatedCourse").push().getKey();
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("course_id").setValue(key);
-                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("descriptionS").setValue(descriptionS);
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("descriptionS").setValue(description);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("name").setValue(coursName);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("photo_url").setValue(photoUrl);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("rate").setValue("5.0");
-                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("subjectS").setValue(subjectS);
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("subjectS").setValue(subject);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("teacher_id").setValue(user.getUid());
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("teacher_name").setValue("Mohamed");
 
                         db.child("courses").child(key).child("course_id").setValue(key);
-                        db.child("courses").child(key).child("descriptionS").setValue(descriptionS);
+                        db.child("courses").child(key).child("descriptionS").setValue(description);
                         db.child("courses").child(key).child("name").setValue(coursName);
                         db.child("courses").child(key).child("photo_url").setValue(photoUrl);
                         db.child("courses").child(key).child("rate").setValue("5.0");
-                        db.child("courses").child(key).child("subjectS").setValue(subjectS);
+                        db.child("courses").child(key).child("subjectS").setValue(subject);
                         db.child("courses").child(key).child("teacher_id").setValue(user.getUid());
                         db.child("courses").child(key).child("teacher_name").setValue("Mohamed");
 

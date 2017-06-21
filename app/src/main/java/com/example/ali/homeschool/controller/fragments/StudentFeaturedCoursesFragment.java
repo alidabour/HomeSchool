@@ -119,7 +119,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                     String key = x.getKey();
                     c.setCourse_id(key);
                     users.add(c);
-                    Log.v("Test", "Child : " + users);
+                    Log.v("Test", "Child : " + c.getDescription());
                 }
                 HashMap<String, ArrayList<CourseCreated>> map = new HashMap<>();
                 for (CourseCreated x : users) {
