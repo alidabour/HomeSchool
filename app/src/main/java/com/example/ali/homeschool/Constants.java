@@ -45,10 +45,11 @@ public class Constants {
     public final static String ARRANGE = "ARR4444ANGE";
     //XML 'S
     public final static String radioGroupStart = "<RadioGroup android:layout_width=\"match_parent\"\n" +
-            "        android:layout_height=\"wrap_content\"\n" +
+            "        android:layout_height=\"wrap" +
+            "_content\"\n" +
             "        android:id=\""+ PUT_ID_HERE +"\"" +
             "homeSchool:answer=\""+PUT_ANSWER_HERE+"\" >" ;
-    public final static String radioGroupEnd = "</RadioGroup>";
+    public final static String radioGroupEnd = "</RadioGroup>"+ARRANGE;
     public final static String radioButton = "<RadioButton\n" +
             "            android:layout_width=\"match_parent\"\n" +
             "            android:layout_height=\"wrap_content\"\n" +

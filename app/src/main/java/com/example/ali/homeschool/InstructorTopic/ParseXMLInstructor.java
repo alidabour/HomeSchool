@@ -46,9 +46,7 @@ public class ParseXMLInstructor {
     private static final String ns = null;
     private float scale;
     XMLClick xmlClick;
-
     XMLEditClick xmlEditClick;
-
     Activity activity;
     String layout;
 
@@ -136,7 +134,7 @@ public class ParseXMLInstructor {
         //Log.v("Parse", "ns  :" + ns);
 
         int id = Integer.parseInt(parser.getAttributeValue(ns, "android:id"));
-        final int answerId= Integer.parseInt(parser.getAttributeValue(ns,"homeSchool:answer"));
+        final int answerId = Integer.parseInt(parser.getAttributeValue(ns, "homeSchool:answer"));
 //        float weight = Float.parseFloat(parser.getAttributeValue(ns, "android:layout_weight"));
         RadioGroup radioGroup = new RadioGroup(activity);
         radioGroup.setOrientation(RadioGroup.VERTICAL);
@@ -144,9 +142,9 @@ public class ParseXMLInstructor {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                if(answerId == checkedId){
-                   xmlClick.onMultQuestionClicked(true);
-                }else {
+                if (answerId == checkedId) {
+                    xmlClick.onMultQuestionClicked(true);
+                } else {
                     xmlClick.onMultQuestionClicked(false);
                 }
             }
@@ -243,8 +241,8 @@ public class ParseXMLInstructor {
             lan = parser.getAttributeValue(ns, "homeSchool:lan");
 
         }
-        if (parser.getAttributeValue(ns,"android:text") != null){
-            text = parser.getAttributeValue(ns,"android:text");
+        if (parser.getAttributeValue(ns, "android:text") != null) {
+            text = parser.getAttributeValue(ns, "android:text");
             button.setText(text);
         }
         button.setId(id);
@@ -254,57 +252,62 @@ public class ParseXMLInstructor {
         final String finalAudioURL = audioURL;
         final Answer answer1 = new Answer(answer, lan);
         Log.v("Parser", "Answer " + answer1.getAnswer());
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!finalActivity.equals("null")) {
-                    if (finalActivity.equals("Speech")) {
-                        Intent intent = new Intent(activity, Speech.class);
-                        intent.putExtra("Answer", answer1);
-                        activity.startActivityForResult(intent, Constants.SPEECH);
+        if(xmlClick != null){
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!finalActivity.equals("null")) {
+                        if (finalActivity.equals("Speech")) {
+                            Intent intent = new Intent(activity, Speech.class);
+                            intent.putExtra("Answer", answer1);
+                            activity.startActivityForResult(intent, Constants.SPEECH);
 //                        Speech speech = new Speech(activity);
 //                        speech.setWord(answer)
-                    } else if (finalActivity.equals("ColorActivity")) {
-                        xmlClick.openActivity("ColorActivity", answer1);
-                    } else if (finalActivity.equals("TextDetection")) {
-                        xmlClick.openActivity("TextDetection", answer1);
+                        } else if (finalActivity.equals("ColorActivity")) {
+                            xmlClick.openActivity("ColorActivity", answer1);
+                        } else if (finalActivity.equals("TextDetection")) {
+                            xmlClick.openActivity("TextDetection", answer1);
+                        }
+                    }
+                    if (finalAudioURL != null && !finalAudioURL.equals(Constants.PUT_SOUND_LINK_HERE)) {
+                        xmlClick.playSound(finalAudioURL);
                     }
                 }
-                if (finalAudioURL != null && !finalAudioURL.equals(Constants.PUT_SOUND_LINK_HERE)) {
-                    xmlClick.playSound(finalAudioURL);
-                }
-            }
-        });
+            });
+        }
         final String finalText = text;
-        button.setOnTouchListener(new View.OnTouchListener() {
-            private GestureDetector gestureDetector = new GestureDetector(activity,
-                    new GestureDetector.SimpleOnGestureListener() {
-                        @Override
-                        public boolean onDoubleTap(MotionEvent e) {
-                            Log.d("TEST", "onDoubleTap");
-                            if (finalAudioURL != null && !finalAudioURL.equals(Constants.PUT_SOUND_LINK_HERE)) {
-                                if (xmlEditClick != null) {
-                                    xmlEditClick.onEditSound(id, finalAudioURL, finalText, layout);
+        if(xmlEditClick != null){
+            button.setOnTouchListener(new View.OnTouchListener() {
+                private GestureDetector gestureDetector = new GestureDetector(activity,
+                        new GestureDetector.SimpleOnGestureListener() {
+                            @Override
+                            public boolean onDoubleTap(MotionEvent e) {
+                                Log.d("TEST", "onDoubleTap");
+                                if (finalAudioURL != null && !finalAudioURL
+                                        .equals(Constants.PUT_SOUND_LINK_HERE)) {
+                                    if (xmlEditClick != null) {
+                                        xmlEditClick.onEditSound(id, finalAudioURL, finalText, layout);
+                                    }
+                                } else if (finalActivity.equals("ColorActivity")) {
+                                    xmlEditClick.onEditColorQuestion(id, finalText, layout);
                                 }
-                            }else if (finalActivity.equals("ColorActivity")) {
-                                xmlEditClick.onEditColorQuestion(id, finalText,layout);
-                            }
 
 //                            Toast.makeText(activity, "ON Double Tap", Toast.LENGTH_SHORT).show();
-                            return super.onDoubleTap(e);
-                        }
-                        // implement here other callback methods like onFling, onScroll as necessary
-                    });
+                                return super.onDoubleTap(e);
+                            }
+                            // implement here other callback methods like onFling, onScroll as necessary
+                        });
 
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.d("TEST",
-                        "Raw event: " + event.getAction() + ", (" + event.getRawX() + ", " + event
-                                .getRawY() + ")");
-                gestureDetector.onTouchEvent(event);
-                return true;
-            }
-        });
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    Log.d("TEST",
+                            "Raw event: " + event.getAction() + ", (" + event.getRawX() + ", " + event
+                                    .getRawY() + ")");
+                    gestureDetector.onTouchEvent(event);
+                    return true;
+                }
+            });
+        }
         String height = parser.getAttributeValue(ns, "android:layout_height");
         String width = parser.getAttributeValue(ns, "android:layout_width");
         button.setLayoutParams(getLayoutParams(height, width, weight, scale));
