@@ -117,7 +117,7 @@ public class InstructorFragment extends Fragment {
                         descriptionS = description.getText().toString();
                         String key = db.child("users").child(user.getUid()).child("CreatedCourse").push().getKey();
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("course_id").setValue(key);
-                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("descriptionS").setValue(coursName);
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("descriptionS").setValue(descriptionS);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("name").setValue(coursName);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("photo_url").setValue(photoUrl);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("rate").setValue("5.0");
@@ -127,7 +127,7 @@ public class InstructorFragment extends Fragment {
 
 
                         db.child("courses").child(key).child("course_id").setValue(key);
-                        db.child("courses").child(key).child("descriptionS").setValue(coursName);
+                        db.child("courses").child(key).child("descriptionS").setValue(descriptionS);
                         db.child("courses").child(key).child("name").setValue(coursName);
                         db.child("courses").child(key).child("photo_url").setValue(photoUrl);
                         db.child("courses").child(key).child("rate").setValue("5.0");
