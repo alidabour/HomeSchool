@@ -22,7 +22,7 @@
 
     <ImageButton
         android:id="@+id/previous"
-        android:src="@drawable/arrow_2"
+        android:src="@drawable/arrow_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleX=".5"
@@ -30,7 +30,7 @@
         android:background="@drawable/transparent"
         android:layout_gravity="start|center"
         android:padding="40dp"
-     />
+        />
 
     <ImageButton
         android:id="@+id/next"
@@ -42,7 +42,7 @@
         android:layout_gravity="end|center"
         android:padding="40dp"
 
-        android:src="@drawable/arrow_1"/>
+        android:src="@drawable/arrow_2"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
