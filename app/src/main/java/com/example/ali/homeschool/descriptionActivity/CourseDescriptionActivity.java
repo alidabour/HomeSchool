@@ -63,7 +63,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
     LessonModel lessonModel;
     CourseCreated courseCreated;
     EnrolledCourseModel courseCreated1;
-    boolean courseExists = false;
+    boolean courseExists ;
     DatabaseReference myRef1;
     DatabaseReference myRef2;
     TopicModel topicModel;
@@ -74,7 +74,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        courseExists = false;
         setContentView(R.layout.activity_course_description);
         progresstrial = new ProgressModel();
         progresstrial.setTopicProgressFlag("Trial1");
@@ -117,55 +117,48 @@ public class CourseDescriptionActivity extends AppCompatActivity {
         List<String> names = new ArrayList<>();
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
-        courseName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                databaseReference.child("users").child(user.getUid()).child("enrolledcourses").push().setValue(key);
-            }
-        });
+
         final int type = intent.getIntExtra("type", 0);
 
         enroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (type != 0) {
-                    {
                         myRef2 = databaseReference;
-                        if (!courseExists) {
                             myRef2.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(
                                     new ValueEventListener() {
+                                        boolean flag = false;
                                         int count = 0;
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             if (!courseExists)
                                                 for (DataSnapshot d : dataSnapshot.getChildren()) {
-                                                        count++;
-                                                        Log.e("ehel8oldah ", d + "");
-                                                        courseCreated1 = d.getValue(EnrolledCourseModel.class);
+                                                    Log.e("ehel8oldah ", d + "");
+                                                    courseCreated1 = d.getValue(EnrolledCourseModel.class);
+                                                    Log.e("Etl3e b2a: ", courseCreated.getCourse_id());
+                                                    Log.e("Etl3e b2a enta eltani: ", courseCreated1.getCourse_id());
+                                                    if (courseCreated.getCourse_id().equals(courseCreated1.getCourse_id())) {
                                                         Log.e("Etl3e b2a: ", courseCreated.getCourse_id());
                                                         Log.e("Etl3e b2a enta eltani: ", courseCreated1.getCourse_id());
-                                                        if (courseCreated.getCourse_id().equals(courseCreated1.getCourse_id())) {
-
-                                                            courseExists = true;
-                                                        }
-                                                        if (count >= dataSnapshot.getChildrenCount() && !courseExists) {
-                                                            myRef1 = databaseReference;
-                                                            EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
-                                                            enrolledCourseModel.setName(courseCreated.getName());
-                                                            enrolledCourseModel.setCourse_id(key);
-                                                            Log.v("enrolledCourseModel ", user.getUid() + " " + enrolledCourseModel.getName() + " ");
-                                                            String key = myRef1.child("users").child(user.getUid()).child("enrolledcourses").push().getKey();
-                                                            myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).setValue(enrolledCourseModel);
-                                                            String key2 = myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).child("progress").push().getKey();
-                                                            myRef1 = myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).child("progress");
-                                                            progresstrial.setTopicProgressFlag("trial");
-                                                            progresstrial.setTopicProgressFlag("trial");
-                                                            myRef1.child(key2).updateChildren(progresstrial.toMap());
-                                                            Toast.makeText(CourseDescriptionActivity.this, "Enrolled Successful", Toast.LENGTH_SHORT).show();
-                                                            courseExists = true;
-                                                        } else if (count >= dataSnapshot.getChildrenCount()) {
-                                                            Toast.makeText(CourseDescriptionActivity.this, "Already Enrolled", Toast.LENGTH_SHORT).show();
-                                                        }
+                                                        courseExists = true;
+                                                        Toast.makeText(CourseDescriptionActivity.this, "Already Enrolled", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                                if(!courseExists) {
+                                                    myRef1 = databaseReference;
+                                                    EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
+                                                    enrolledCourseModel.setName(courseCreated.getName());
+                                                    enrolledCourseModel.setCourse_id(key);
+                                                    Log.v("enrolledCourseModel ", user.getUid() + " " + enrolledCourseModel.getName() + " ");
+                                                    String key = myRef1.child("users").child(user.getUid()).child("enrolledcourses").push().getKey();
+                                                    myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).setValue(enrolledCourseModel);
+                                                    String key2 = myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).child("progress").push().getKey();
+                                                    myRef1 = myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).child("progress");
+                                                    progresstrial.setTopicProgressFlag("trial");
+                                                    progresstrial.setTopicProgressFlag("trial");
+                                                    myRef1.child(key2).updateChildren(progresstrial.toMap());
+                                                    courseExists = true;
+                                                    Toast.makeText(CourseDescriptionActivity.this, "Enrolled Successfully", Toast.LENGTH_SHORT).show();
                                                 }
                                         }
 
@@ -174,23 +167,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
 
                                         }
                                     });
-                            if (!courseExists) {
-                                myRef1 = databaseReference;
-                                EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
-                                enrolledCourseModel.setName(courseCreated.getName());
-                                enrolledCourseModel.setCourse_id(key);
-                                Log.v("enrolledCourseModel ", user.getUid() + " " + enrolledCourseModel.getName() + " ");
-                                String key = myRef1.child("users").child(user.getUid()).child("enrolledcourses").push().getKey();
-                                myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).setValue(enrolledCourseModel);
-                                String key2 = myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).child("progress").push().getKey();
-                                myRef1 = myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).child("progress");
-                                progresstrial.setTopicProgressFlag("trial");
-                                progresstrial.setTopicProgressFlag("trial");
-                                myRef1.child(key2).updateChildren(progresstrial.toMap());
-                            }
-                        }
-                        courseExists = false;
-                    }
+
                 } else
                     Toast.makeText(CourseDescriptionActivity.this, "You Need To Sign In", Toast.LENGTH_SHORT).show();
             }
