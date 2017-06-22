@@ -37,7 +37,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     Toolbar toolbar;
     String courseID;
     TextView noLesson ;
-
+    ArrayList<LessonModel> lessonModelList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,7 +124,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         Log.v("el_ID_hna" , courseID + " " );
         db.child("courses").child(courseID).child("lessons").addValueEventListener(
                 new ValueEventListener() {
-                    ArrayList<LessonModel> lessonModelList;
+
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         lessonModelList = new ArrayList<>();
@@ -148,11 +148,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                                     }
                                 },InstructorLessonsActivity.this,courseID);
                         lessonsRV.setAdapter(instructorLessonAdapter);
-                        if(lessonModelList.size()<0){
-                            noLesson.setVisibility(View.VISIBLE);
-                        }else{
-                            noLesson.setVisibility(View.GONE);
-                        }
+
                     }
 
                     @Override
