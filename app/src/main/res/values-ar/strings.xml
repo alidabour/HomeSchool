@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">HomeSchool</string>
+    <string name="app_name">المناره</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -66,6 +66,12 @@
     <string name="instructor">مدرس :</string>
     <string name="Courses">الكورسات</string>
     <string name="smart_easy_efficient">ذكى .. سهل .. فعال</string>
-    <string name="start">Start</string>
+    <string name="start">ابدأ</string>
+    <string name="image">صوره</string>
+    <string name="sound">صوت</string>
+    <string name="question">أسئله</string>
+    <string name="text">مقال</string>
+    <string name="submit">تم</string>
+    <string name="courses">Courses</string>
 
 </resources>

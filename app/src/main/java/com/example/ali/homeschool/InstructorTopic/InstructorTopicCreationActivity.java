@@ -10,10 +10,15 @@ import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,6 +37,7 @@ import com.example.ali.homeschool.InstructorTopic.helper.DoneOrderInterface;
 import com.example.ali.homeschool.InstructorTopic.helper.OnStartDragListener;
 import com.example.ali.homeschool.InstructorTopic.helper.SimpleItemTouchHelperCallback;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.controller.activities.Register;
 import com.example.ali.homeschool.exercises.color.ColorActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -61,14 +67,16 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     private MediaPlayer mediaPlayer;
     StorageReference storageReference;
     DatabaseReference databaseReference;
-    TextView submitTV;
-    TextView image;
-    TextView question;
+    ImageView submitTV;
+    ImageView image;
+    ImageView question;
+    ImageView sound;
+    ImageView text ;
     String courseId;
     String lessonid;
     String topicid;
     String topicname;
-    TextView sound;
+
     int textColor = -11177216;
 
     SpeechDialog speechDialog;
@@ -86,13 +94,15 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     ArrayList<String> layoutsList;
     RecyclerView recyclerViewOrdering;
     RecyclerListAdapter adapter;
-
+    Toolbar toolbar;
     ParseXMLInstructor parseXMLInstructor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_topic);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         parseXMLInstructor = new ParseXMLInstructor(InstructorTopicCreationActivity.this);
         parseXMLInstructor.setXmlClick(this);
         parseXMLInstructor.setXmlEditClick(this);
@@ -110,10 +120,11 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
-        question = (TextView) findViewById(R.id.question);
-        submitTV = (TextView) findViewById(R.id.submit);
-        image = (TextView) findViewById(R.id.image);
-        sound = (TextView) findViewById(R.id.sound);
+        question = (ImageView) findViewById(R.id.question);
+        submitTV = (ImageView) findViewById(R.id.submit);
+        image = (ImageView) findViewById(R.id.image);
+        sound = (ImageView) findViewById(R.id.sound);
+        text = (ImageView) findViewById(R.id.textViewInstructor);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("lessonid")) {
@@ -202,34 +213,41 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
             }
         });
-        submitTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                databaseReference = databaseReference.child("courses").child(courseId)
-                        .child("lessons").child(lessonid).child("topics").child(topicid);
-                TopicModel t = new TopicModel();
-                String layouts = " ";
-                for (String layout : layoutsList) {
-                    layouts += layout;
-                }
-                t.setLayout(start + layouts + end);
-                t.setName(topicname);
-                t.setId(topicid);
-                databaseReference.updateChildren(t.toMap());
-                finish();
-            }
-        });
+//        submitTV.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                databaseReference = databaseReference.child("courses").child(courseId)
+//                        .child("lessons").child(lessonid).child("topics").child(topicid);
+//                TopicModel t = new TopicModel();
+//                String layouts = " ";
+//                for (String layout : layoutsList) {
+//                    layouts += layout;
+//                }
+//                t.setLayout(start + layouts + end);
+//                t.setName(topicname);
+//                t.setId(topicid);
+//                databaseReference.updateChildren(t.toMap());
+//                finish();
+//            }
+//        });
 
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                imageDialog = new ImageDialog(id, InstructorTopicCreationActivity.this,
-//                        onLayoutReadyInterface);
-//                imageDialog.setCourseId(courseId);
-//                imageDialog.openImageDialog();
-                textViewDialog = new TextViewDialog(id,InstructorTopicCreationActivity.this,onLayoutReadyInterface);
-                textViewDialog.openTextViewDialog();
+                imageDialog = new ImageDialog(id, InstructorTopicCreationActivity.this,
+                        onLayoutReadyInterface);
+                imageDialog.setCourseId(courseId);
+                imageDialog.openImageDialog();
 
+
+            }
+        });
+
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textViewDialog = new TextViewDialog(id, InstructorTopicCreationActivity.this, onLayoutReadyInterface);
+                textViewDialog.openTextViewDialog();
             }
         });
         sound.setOnClickListener(new View.OnClickListener() {
@@ -241,7 +259,40 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                 soundDialog.openSoundDialog();
             }
         });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                if (item.getItemId() == R.id.submit) {
+                    Log.v("Test", "Sign IN");
+                    databaseReference = databaseReference.child("courses").child(courseId)
+                            .child("lessons").child(lessonid).child("topics").child(topicid);
+                    TopicModel t = new TopicModel();
+                    String layouts = " ";
+                    for (String layout : layoutsList) {
+                        layouts += layout;
+                    }
+                    t.setLayout(start + layouts + end);
+                    t.setName(topicname);
+                    t.setId(topicid);
+                    databaseReference.updateChildren(t.toMap());
+                    finish();
+                }
+                return true;
+            }
+        });
+
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.instructor, menu);
+        MenuItem item = menu.findItem(R.id.submit);
+        return true;
+    }
+
 
     private void addLayout(String layout) {
         adapter.clearItems();
@@ -356,7 +407,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     @Override
     public void onEditTextView(int id, String text, String layout) {
         int index = layoutsList.indexOf(layout);
-        textViewDialog = new TextViewDialog(id,InstructorTopicCreationActivity.this,onLayoutReadyInterface);
+        textViewDialog = new TextViewDialog(id, InstructorTopicCreationActivity.this, onLayoutReadyInterface);
         textViewDialog.setEditing(true);
         textViewDialog.setIndex(index);
         textViewDialog.setOnEditLayoutReady(this);

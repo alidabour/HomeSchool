@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/colorBack"
     tools:context="com.example.ali.homeschool.InstructorLessons.InstructorLessonsActivity">
 
         <android.support.v7.widget.Toolbar

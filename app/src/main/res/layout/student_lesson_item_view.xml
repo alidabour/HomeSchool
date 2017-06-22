@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="10">
-
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="7"
+        android:layout_margin="6dp"
         android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:weightSum="11">
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" />
+        android:weightSum="10">
+
         <TextView
             android:id="@+id/lessonName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="6"
-            android:gravity="left"
+            android:layout_gravity="center"
+            android:layout_weight="8"
+            android:gravity="center"
             android:text="Lesson 1 "
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-        <Space
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3" />
-        <Button
-            android:id="@+id/startbtn"
-            style="@style/TextAppearance.AppCompat.Small.Inverse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_shape"
-            android:gravity="center"
-            android:text="@string/start"
-            android:textColor="@color/colorBack" />
+            android:layout_gravity="center|start"
+            android:layout_weight="2">
 
+            <Button
+                android:id="@+id/startbtn"
+                style="@style/TextAppearance.AppCompat.Small.Inverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/button_shape"
+                android:gravity="center"
+                android:text="@string/start"
+                android:textColor="@color/colorBack" />
+        </FrameLayout>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_gravity="center"
+        android:layout_margin="6dp"
+        android:background="#C0C0C0"
+        android:padding="6dp" />
 
 </LinearLayout>

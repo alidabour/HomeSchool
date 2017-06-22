@@ -1,35 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--<group android:checkableBehavior="single">-->
-        <!--<item-->
-            <!--android:id="@+id/coursesNav"-->
-            <!--android:icon="@drawable/ic_menu_camera"-->
-            <!--android:title="@string/my_courses" />-->
-        <!--<item-->
-            <!--android:id="@+id/featuredCoursesNaV"-->
-            <!--android:icon="@drawable/ic_menu_gallery"-->
-            <!--android:title="@string/featured_courses" />-->
-        <!--&lt;!&ndash;<item&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/nav_slideshow"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:icon="@drawable/ic_menu_slideshow"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:title="" />&ndash;&gt;-->
-        <!--&lt;!&ndash;<item&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/nav_manage"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:icon="@drawable/ic_menu_manage"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:title="Tools" />&ndash;&gt;-->
 
-
-    <!--</group>-->
     <group>
 
         <item
             android:id="@+id/Support"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/support"
             android:title="@string/support" />
         <item
             android:id="@+id/signout"
-
+            android:icon="@drawable/signout"
             android:title="@string/sign_out" />
     </group>
 

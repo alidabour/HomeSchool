@@ -41,7 +41,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
     String lessonid;
     Intent intent;
     ValueEventListener listener;
-    TextView noTopic ;
+    TextView noTopic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +52,13 @@ public class InstructorTopicActivity extends AppCompatActivity {
 
         noTopic = (TextView) findViewById(R.id.no_topic);
         //Getting intent and checking if it's null
-       // Bundle bundle= intent.getBundleExtra("BUNDLE");
+        // Bundle bundle= intent.getBundleExtra("BUNDLE");
         //    lessonModel = bundle.getParcelable("lesson");
-        if (getIntent().hasExtra("courseId")){
+        if (getIntent().hasExtra("courseId")) {
             courseId = getIntent().getStringExtra("courseId");
             Log.v("intentExtra :  ", ":------------123" + courseId);
         }
-        if (getIntent().hasExtra("lessonid")){
+        if (getIntent().hasExtra("lessonid")) {
             lessonid = getIntent().getStringExtra("lessonid");
             Log.v("intentExtra :  ", ":------------54321" + lessonid);
         }
@@ -78,7 +78,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
                 final EditText input = new EditText(InstructorTopicActivity.this);
                 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
                 input.setInputType(
-                        InputType.TYPE_CLASS_TEXT );
+                        InputType.TYPE_CLASS_TEXT);
                 builder.setView(input);
 
                 // Set up the buttons
@@ -87,19 +87,19 @@ public class InstructorTopicActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         m_Text = input.getText().toString();
 //                        Map<String,String> lesson = new HashMap<String, String>();
-                        String key =db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").push().getKey();
+                        String key = db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").push().getKey();
 //                        lesson.put("id",key);
 //                        lesson.put("name",m_Text);
                         db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(key).child("id").setValue(key);
                         db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(key).child("name").setValue(m_Text);
                         db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(key).child("layout").setValue("");
-                        String topicid=key;
+                        String topicid = key;
                         Intent intent = new Intent(getApplicationContext(), InstructorTopicCreationActivity.class);
 
-                        intent.putExtra("topicname",m_Text);
-                        intent.putExtra("topicid",topicid);
-                        intent.putExtra("lessonid",lessonid);
-                        intent.putExtra("courseId",courseId);
+                        intent.putExtra("topicname", m_Text);
+                        intent.putExtra("topicid", topicid);
+                        intent.putExtra("lessonid", lessonid);
+                        intent.putExtra("courseId", courseId);
                         startActivity(intent);
                     }
                 });
@@ -123,50 +123,51 @@ public class InstructorTopicActivity extends AppCompatActivity {
 //        });
         lessonsRV = (RecyclerView) findViewById(R.id.lessonsRV);
         lessonsRV.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         lessonsRV.setLayoutManager(layoutManager);
 
-     //   Log.v("Testytesty10001 ", ":------------" + intent.getParcelableExtra("lesson"));
+        //   Log.v("Testytesty10001 ", ":------------" + intent.getParcelableExtra("lesson"));
 
 
 /*
 
         toolbar.setTitle(lessonModel.getName().toString());
         toolbar.setTitleTextColor(ContextCompat.getColor(InstructorTopicActivity.this,R.color.colorBack));*/
-        toolbar.setTitleTextColor(ContextCompat.getColor(InstructorTopicActivity.this,R.color.colorBack));
+        toolbar.setTitleTextColor(ContextCompat.getColor(InstructorTopicActivity.this, R.color.colorBack));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        }
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
-        listener =  new ValueEventListener() {
+        listener = new ValueEventListener() {
             List<TopicModel> lessonModelList;
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 lessonModelList = new ArrayList<TopicModel>();
-                Log.e("dataSnapShot",dataSnapshot+"");
-                for (DataSnapshot d : dataSnapshot.getChildren()){
-                    Log.v("Testytesty101","Lesson " + d.toString());
+                Log.e("dataSnapShot", dataSnapshot + "");
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
+                    Log.v("Testytesty101", "Lesson " + d.toString());
                     topicModel = d.getValue(TopicModel.class);
-                    if(!(topicModel.getLayout()==null))
+                    if (!(topicModel.getLayout() == null))
                         lessonModelList.add(topicModel);
-                    Log.v("Test","LESSON __ "+ topicModel.toString());
+                    Log.v("Test", "LESSON __ " + topicModel.toString());
                 }
                 InstructorTopicsAdapter lessonAdapter = new InstructorTopicsAdapter(lessonModelList,
                         new InstructorTopicsAdapter.OnClickHandler() {
                             @Override
                             public void onClick(TopicModel test) {
-                                InstructorTopicsAdapter.startIntentFromAdapter(InstructorTopicActivity.this,test);
+                                InstructorTopicsAdapter.startIntentFromAdapter(InstructorTopicActivity.this, test);
                             }
-                        },InstructorTopicActivity.this,courseId,lessonid);
+                        }, InstructorTopicActivity.this, courseId, lessonid);
                 lessonsRV.setAdapter(lessonAdapter);
-                if(lessonModelList.size()<0){
+                if (lessonModelList.size() < 0) {
                     noTopic.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     noTopic.setVisibility(View.GONE);
                 }
             }
@@ -176,7 +177,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
 
             }
         };
-        Log.v("courseId",courseId);
+        Log.v("courseId", courseId);
         db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").addValueEventListener(listener);
 
     }

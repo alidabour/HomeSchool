@@ -5,6 +5,6 @@
     <color name="colorAccent">#08aac7</color>
     <color name="colorBack">#FFFFFF</color>
     <color name="rate">#F6CC19</color>
-
-    <color name="colorLesson">#272724</color>
+    <color name="bkgrnd">#edebeb</color>
+    <color name="colorLesson">#000000</color>
 </resources>

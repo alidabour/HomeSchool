@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HomeSchool</string>
+    <string name="app_name">al-manara</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -70,6 +70,12 @@
     <string name="Courses">Courses</string>
     <string name="smart_easy_efficient">Smart .. Easy .. Efficient</string>
     <string name="start">Start</string>
+    <string name="image">Image</string>
+    <string name="sound">Sound</string>
+    <string name="question">Question</string>
+    <string name="text">text</string>
+    <string name="submit">submit</string>
+    <string name="courses">Courses</string>
 
     <string-array name="planets_array">
         <item>Mercury</item>

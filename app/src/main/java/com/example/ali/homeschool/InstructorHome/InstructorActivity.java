@@ -48,8 +48,8 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.instructor_drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        toolbar.setTitle(R.string.courses);
         appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout2);
-        Log.v("Enta Get Hna", "T3alaly");
         //setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -60,7 +60,6 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view2);
         navigationView.setNavigationItemSelectedListener(this);
-
         userPhotoId = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.photoid);
         UserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navigationTextName);
 
