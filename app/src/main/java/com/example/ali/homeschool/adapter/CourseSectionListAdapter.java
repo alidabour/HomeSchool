@@ -27,6 +27,12 @@ public class CourseSectionListAdapter extends RecyclerView.Adapter<CourseSection
     List<HeaderRVData> headerRVDataList;
     int userViewType;
     ArrayList<String> subject ;
+    String userid;
+
+    public void setUserId(String userid) {
+        this.userid = userid;
+    }
+
     public CourseSectionListAdapter(Context context, List<HeaderRVData> headerRVDataList, int userviewType , ArrayList subject){
         this.context = context;
         this.userViewType=userviewType;
@@ -50,6 +56,8 @@ public class CourseSectionListAdapter extends RecyclerView.Adapter<CourseSection
                 Intent intent= new Intent (context, CourseDescriptionActivity.class);
                 intent.putExtra("course",course);
                 intent.putExtra("type",userViewType);
+                intent.putExtra("userid",userid);
+                Log.v( "userid: ",userid);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 Log.v( "onClick: ","ID ___ "+course.getDescriptionS());
                 Log.e( "onClick: ",intent.toString()+course );

@@ -73,6 +73,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
     ProgressModel progresstrial;
     ValueEventListener listener1;
     ValueEventListener listener2;
+    String userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +115,10 @@ public class CourseDescriptionActivity extends AppCompatActivity {
             toolbar.setTitle(courseCreated.getName());
             Log.v("Test", "Child : " + courseCreated.getName());
         }
+        if(intent.hasExtra("userid")){
+            userid = intent.getStringExtra("userid");
+            Log.v("ElidZaahr",userid);
+        }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -151,11 +156,11 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                                                     EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
                                                     enrolledCourseModel.setName(courseCreated.getName());
                                                     enrolledCourseModel.setCourse_id(key);
-                                                    Log.v("enrolledCourseModel ", user.getUid() + " " + enrolledCourseModel.getName() + " ");
-                                                    String key = myRef1.child("users").child(user.getUid()).child("enrolledcourses").push().getKey();
-                                                    myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).setValue(enrolledCourseModel);
-                                                    String key2 = myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).child("progress").push().getKey();
-                                                    myRef1 = myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).child("progress");
+                                                    Log.v("enrolledCourseModel ", userid + " " + enrolledCourseModel.getName() + " ");
+                                                    String key = myRef1.child("users").child(userid).child("enrolledcourses").push().getKey();
+                                                    myRef1.child("users").child(userid).child("enrolledcourses").child(key).setValue(enrolledCourseModel);
+                                                    String key2 = myRef1.child("users").child(userid).child("enrolledcourses").child(key).child("progress").push().getKey();
+                                                    myRef1 = myRef1.child("users").child(userid).child("enrolledcourses").child(key).child("progress");
                                                     progresstrial.setTopicProgressFlag("trial");
                                                     progresstrial.setTopicProgressFlag("trial");
                                                     myRef1.child(key2).updateChildren(progresstrial.toMap());
@@ -169,7 +174,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
 
                                         }
                                     };
-                    databaseReference.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(listener1);
+                    databaseReference.child("users").child(userid).child("enrolledcourses").addValueEventListener(listener1);
 
                 } else
                     Toast.makeText(CourseDescriptionActivity.this, "You Need To Sign In", Toast.LENGTH_SHORT).show();
@@ -256,7 +261,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
 
             }
         };
-        databaseReference.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(listener1);
+        databaseReference.child("users").child(userid).child("enrolledcourses").addValueEventListener(listener1);
         databaseReference.child("courses").child(String.valueOf(courseCreated.getCourse_id())).child("lessons").addValueEventListener(listener2);
 //
 ////            for(Lessons x : lessonsID)

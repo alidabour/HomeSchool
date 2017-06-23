@@ -50,6 +50,7 @@
 
         <activity android:name=".childClass.ClassActivity"/>
         <activity android:name=".controller.activities.Guest"/>
+        <activity android:name=".controller.activities.StudentFeaturedCourses"/>
         <activity
             android:name=".descriptionActivity.CourseDescriptionActivity"
             android:parentActivityName=".controller.activities.StudentHomeActivity">

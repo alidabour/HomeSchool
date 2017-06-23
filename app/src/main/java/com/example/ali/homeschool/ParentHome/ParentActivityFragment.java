@@ -19,7 +19,7 @@ import android.widget.ProgressBar;
 
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.ChildrenAdapter;
-import com.example.ali.homeschool.childProgress.ChildCourses;
+import com.example.ali.homeschool.controller.activities.StudentFeaturedCourses;
 import com.example.ali.homeschool.data.CategoryInformation;
 import com.example.ali.homeschool.data.firebase.Users;
 import com.google.firebase.auth.FirebaseAuth;
@@ -168,9 +168,12 @@ import java.util.List;
                                     @Override
                                     public void onClick(ChildModel test) {
                                         Log.v("Test",test.toString());
-                                        Intent intent = new Intent(getContext(),ChildCourses.class);
+
+                                        Intent intent = new Intent(getContext(),StudentFeaturedCourses.class);
                                         Log.v("Test","Child id"+test.getId());
+
                                         intent.putExtra("childModel",test);
+                                        intent.putExtra("userid",test.getId());
                                         startActivity(intent);
                                     }
                                 });
