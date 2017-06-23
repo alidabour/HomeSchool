@@ -30,7 +30,6 @@ import static com.example.ali.homeschool.Constants.mImageView;
 public class ImageDialog extends MainDialog {
     private static final int PICK_IMAGE_REQUEST = 234;
 
-    private ProgressImage progressImage;
 
     String courseId;
     String url;
@@ -48,10 +47,7 @@ public class ImageDialog extends MainDialog {
                        OnLayoutReadyInterface onLayoutReadyInterface){
         super(id,activity,onLayoutReadyInterface);
     }
-    public void setProgressImage(
-            ProgressImage progressImage) {
-        this.progressImage = progressImage;
-    }
+
     public void setCourseId(String courseId) {
         this.courseId = courseId;
     }

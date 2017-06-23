@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.ColorQuestionDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.ImageDialog;
@@ -161,6 +162,11 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
             public void onClick(View view) {
 //                mainQuestionDialog = new MainQuestionDialog(id,InstructorTopicCreationActivity.this,onLayoutReadyInterface);
 //                mainQuestionDialog.openMainQuestionDialog();
+                if(isImageOrSound){
+                    Toast.makeText(InstructorTopicCreationActivity.this, "Not Allowed", Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
                 final AlertDialog.Builder builder = new AlertDialog.Builder(
                         InstructorTopicCreationActivity.this);
                 builder.setTitle("Choose type :");
@@ -181,6 +187,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                         dialog.cancel();
                         colorQuestionDialog = new ColorQuestionDialog(id,
                                 InstructorTopicCreationActivity.this, onLayoutReadyInterface);
+                        colorQuestionDialog.setProgressImage(progressImage);
                         colorQuestionDialog.openColorQuestionDialog();
 
                     }
@@ -191,6 +198,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                         dialog.cancel();
                         speechDialog = new SpeechDialog(id, InstructorTopicCreationActivity.this,
                                 onLayoutReadyInterface);
+                        speechDialog.setProgressImage(progressImage);
                         speechDialog.openSpeechDialog();
 
                     }
@@ -201,6 +209,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                         dialog.cancel();
                         multiQuestionDialog = new MultiQuestionDialog(id,
                                 InstructorTopicCreationActivity.this, onLayoutReadyInterface);
+                        multiQuestionDialog.setProgressImage(progressImage);
                         multiQuestionDialog.openMultiQuestionDialog();
                     }
                 });
@@ -211,6 +220,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                         dialog.cancel();
                         textDetectionDialog = new TextDetectionDialog(id,
                                 InstructorTopicCreationActivity.this, onLayoutReadyInterface);
+                        textDetectionDialog.setProgressImage(progressImage);
                         textDetectionDialog.openTextDetectionDialog();
                     }
                 });

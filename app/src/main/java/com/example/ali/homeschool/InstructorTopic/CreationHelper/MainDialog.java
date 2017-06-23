@@ -15,7 +15,11 @@ public abstract class MainDialog {
     int index;
     OnEditLayoutReady onEditLayoutReady;
     OnLayoutReadyInterface onLayoutReadyInterface;
-
+    ProgressImage progressImage;
+    public void setProgressImage(
+            ProgressImage progressImage) {
+        this.progressImage = progressImage;
+    }
     public MainDialog(
             OnLayoutReadyInterface onLayoutReadyInterface) {
         this.onLayoutReadyInterface = onLayoutReadyInterface;

@@ -86,6 +86,7 @@ public class MultiQuestionDialog  extends  MainDialog{
                 for(String x:radioLayout){
                     groupLayout += x;
                 }
+                progressImage.setImageOrSound(true);
                 onLayoutReadyInterface.setLayout(mTextView(++id,question1.getText().toString(),-11177216,textAppearance[2]));
                 onLayoutReadyInterface.setLayout(radioStart +groupLayout);
             }

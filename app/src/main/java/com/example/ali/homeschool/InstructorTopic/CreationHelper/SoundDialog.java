@@ -32,12 +32,6 @@ import static com.example.ali.homeschool.Constants.mButton;
 
 public class SoundDialog extends MainDialog {
     private String soundText;
-    ProgressImage progressImage;
-
-    public void setProgressImage(
-            ProgressImage progressImage) {
-        this.progressImage = progressImage;
-    }
 
     private String audioLink;
 

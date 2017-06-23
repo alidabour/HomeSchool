@@ -76,7 +76,7 @@ public class TextDetectionDialog extends MainTextDialog {
                 onLayoutReadyInterface.setLayout( mButton(++id, "Start", "TextDetection",
                         new Answer(word.getText().toString(), selectlanguageString),
                         PUT_SOUND_LINK_HERE));
-
+                progressImage.setImageOrSound(true);
                 dialogInterface.cancel();
             }
         });

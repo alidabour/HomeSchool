@@ -51,6 +51,7 @@ public class SpeechDialog extends MainTextDialog {
                 Answer answer = new Answer();
                 answer.setAnswer(word.getText().toString());
                 onLayoutReadyInterface.setLayout(mButton(++id, "Start", "Speech", answer, PUT_SOUND_LINK_HERE));
+                progressImage.setImageOrSound(true);
                 dialogInterface.cancel();
             }
         });
