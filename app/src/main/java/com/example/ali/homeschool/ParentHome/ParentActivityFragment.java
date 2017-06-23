@@ -3,10 +3,9 @@ package com.example.ali.homeschool.ParentHome;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -18,10 +17,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import com.example.ali.homeschool.adapter.ChildrenAdapter;
-import com.example.ali.homeschool.data.CategoryInformation;
-import com.example.ali.homeschool.childProgress.ChildCourses;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.adapter.ChildrenAdapter;
+import com.example.ali.homeschool.childProgress.ChildCourses;
+import com.example.ali.homeschool.data.CategoryInformation;
 import com.example.ali.homeschool.data.firebase.Users;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,6 +47,9 @@ import java.util.List;
     ChildsAdapter childAdapter;
     RecyclerView parentRecycleView;
     ProgressBar progressBar ;
+    ValueEventListener listener;
+    ValueEventListener queryListener;
+
     public ParentActivityFragment() {
     }
 
@@ -77,8 +79,9 @@ import java.util.List;
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         emailText = input.getText().toString();
-                        db.child("users").orderByChild("email").equalTo(emailText).addValueEventListener(
-                                new ValueEventListener() {
+
+
+                        listener=  new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         for (DataSnapshot d : dataSnapshot.getChildren()) {
@@ -112,7 +115,8 @@ import java.util.List;
                                     @Override
                                     public void onCancelled(DatabaseError databaseError) {
                                     }
-                                });
+                                };
+                        db.child("users").orderByChild("email").equalTo(emailText).addValueEventListener(listener);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -137,13 +141,19 @@ import java.util.List;
 
         return view;
     }
-
+    @Override
+    public void onPause(){
+        if (listener != null)
+            db.removeEventListener(listener);
+        if (queryListener!= null)
+            db.removeEventListener(queryListener);
+        super.onPause();
+    }
     @Override
     public void onStart() {
         super.onStart();
         progressBar.setVisibility(View.VISIBLE);
-        db.child("users").child(user.getUid()).child("childs").addValueEventListener(
-                new ValueEventListener() {
+        queryListener=    new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Log.v("Test","OnDataChanged");
@@ -174,7 +184,9 @@ import java.util.List;
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });
+                };
+        db.child("users").child(user.getUid()).child("childs").addValueEventListener(queryListener);
+
     }
 
     @Override

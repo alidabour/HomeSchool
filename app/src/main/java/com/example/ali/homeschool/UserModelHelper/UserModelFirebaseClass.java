@@ -19,7 +19,7 @@ public class UserModelFirebaseClass {
     UserModel userModel;
     DatabaseReference databaseReference;
     UserModelFirebase userModelFirebase;
-
+    ValueEventListener listener;
     public UserModelFirebaseClass(UserModelFirebase userModelFirebase) {
         this.userModelFirebase=userModelFirebase;
         dataRetrieved();
@@ -30,7 +30,7 @@ public class UserModelFirebaseClass {
         create();
 
 
-        databaseReference.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+        listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userModel = dataSnapshot.getValue(UserModel.class);
@@ -45,7 +45,8 @@ public class UserModelFirebaseClass {
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
-        });
+        };
+        databaseReference.child("users").child(user.getUid()).addValueEventListener(listener);
     }
  /*   public void dataRetrieved1(){
 
@@ -69,4 +70,5 @@ public class UserModelFirebaseClass {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
     }
+
 }

@@ -32,6 +32,7 @@ public class LessonActivity extends AppCompatActivity {
     ValueEventListener listener;
     List<LessonModel> lessonModelList;
     DatabaseReference db;
+    ValueEventListener queryListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,12 @@ public class LessonActivity extends AppCompatActivity {
         Log.e("courseinLessonActivity", course.toString());
 
     }
-
+    @Override
+    protected void onPause(){
+        if (listener != null)
+            db.removeEventListener(listener);
+        super.onPause();
+    }
     @Override
     protected void onStart() {
         super.onStart();

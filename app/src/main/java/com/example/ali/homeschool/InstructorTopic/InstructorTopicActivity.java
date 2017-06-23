@@ -181,5 +181,11 @@ public class InstructorTopicActivity extends AppCompatActivity {
         db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").addValueEventListener(listener);
 
     }
+    @Override
+    protected void onPause(){
+        if (listener != null)
+            db.removeEventListener(listener);
+        super.onPause();
+    }
 
 }

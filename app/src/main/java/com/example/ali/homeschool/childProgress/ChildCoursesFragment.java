@@ -34,6 +34,8 @@ public class ChildCoursesFragment extends Fragment {
     DatabaseReference db;
     ChildModel c;
     List<EnrolledCourseModel> enrolledCourseModel;
+    ValueEventListener listener;
+
     public ChildCoursesFragment() {
     }
     View view;
@@ -62,10 +64,17 @@ public class ChildCoursesFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        if (listener != null)
+            db.removeEventListener(listener);
+        super.onPause();
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
-        db.child("users").child(c.getId()).child("enrolledcourses").addValueEventListener(
-                new ValueEventListener() {
+
+        listener=    new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         enrolledCourseModel = new ArrayList<EnrolledCourseModel>();
@@ -88,8 +97,8 @@ public class ChildCoursesFragment extends Fragment {
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });
-
+                };
+        db.child("users").child(c.getId()).child("enrolledcourses").addValueEventListener(listener);
     }
 
     @Override

@@ -52,6 +52,7 @@ public class Guest extends AppCompatActivity {
     ArrayList<String> subject = new ArrayList<>();
     ArrayList<CourseCreated> random = new ArrayList<>();
     ProgressBar progressBar ;
+    ValueEventListener listener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,7 +128,12 @@ public class Guest extends AppCompatActivity {
         return true;
     }
 
-
+    @Override
+    protected void onPause(){
+        if (listener != null)
+            databaseReference.removeEventListener(listener);
+        super.onPause();
+    }
 
     @Override
     protected void onStart() {
@@ -135,8 +141,7 @@ public class Guest extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
         DatabaseReference myRef = databaseReference;
-        myRef.child("courses").addValueEventListener(
-                new ValueEventListener() {
+        listener = new ValueEventListener() {
                     public static final String TAG = "EmailPassword";
 
                     @Override
@@ -202,9 +207,9 @@ public class Guest extends AppCompatActivity {
                                 Toast.LENGTH_SHORT).show();
                         // [END_EXCLUDE]
                     }
-                });
+                };
 
-
+        databaseReference.child("courses").addValueEventListener(listener);
     }
     }
 

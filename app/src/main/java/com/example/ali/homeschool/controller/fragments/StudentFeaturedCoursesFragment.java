@@ -102,6 +102,13 @@ public class StudentFeaturedCoursesFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        if(queryListener != null)
+            databaseReference.removeEventListener( queryListener);
+        super.onPause();
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         // Add value event listener to the post

@@ -26,6 +26,7 @@ public class Classroom extends AppCompatActivity {
     ChildModel childModel;
     ChildsAdapter childAdapter;
     RecyclerView studentsRecycleView;
+    ValueEventListener listener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,13 +40,18 @@ public class Classroom extends AppCompatActivity {
         }
 
     }
-
+    @Override
+    protected void onPause(){
+        if (listener != null)
+            db.removeEventListener(listener);
+        super.onPause();
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
-        db.child("users").orderByValue().addValueEventListener(
-                new ValueEventListener() {
+
+           listener =  new ValueEventListener() {
                     ArrayList<ChildModel> childModelList;
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -90,6 +96,7 @@ public class Classroom extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });
+                };
+        db.child("users").orderByValue().addValueEventListener(listener);
     }
 }

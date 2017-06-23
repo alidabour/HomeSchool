@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -70,6 +71,8 @@ public class CourseDescriptionActivity extends AppCompatActivity {
     FloatingActionButton fab;
     NestedScrollView nestedScrollView;
     ProgressModel progresstrial;
+    ValueEventListener listener1;
+    ValueEventListener listener2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,9 +127,8 @@ public class CourseDescriptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (type != 0) {
-                        myRef2 = databaseReference;
-                            myRef2.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(
-                                    new ValueEventListener() {
+
+                    listener1 = new ValueEventListener() {
                                         boolean flag = false;
                                         int count = 0;
                                         @Override
@@ -166,78 +168,30 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                                         public void onCancelled(DatabaseError databaseError) {
 
                                         }
-                                    });
+                                    };
+                    databaseReference.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(listener1);
 
                 } else
                     Toast.makeText(CourseDescriptionActivity.this, "You Need To Sign In", Toast.LENGTH_SHORT).show();
             }
         });
 
-       /* fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (type != 0) {
-                    {
-                        myRef2 = databaseReference;
-                        myRef2.child("users").child(user.getUid()).child("EnrolledCourses").addValueEventListener(
-                                new ValueEventListener() {
-                                    int count = 0;
-
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        if (!courseExists)
-                                            for (DataSnapshot d : dataSnapshot.getChildren()) {
-                                                count++;
-                                                Log.e("eh el8olb dah ", d + "");
-                                                courseCreated1 = d.getValue(CourseCreated.class);
-                                                Log.e("Etl3e b2a: ", courseCreated.getCourse_id());
-                                                Log.e("Etl3e b2a enta eltani: ", courseCreated1.getCourse_id());
-                                                if (courseCreated.getCourse_id().equals(courseCreated1.getCourse_id())) {
-                                                    courseExists = true;
-                                                }
-                                                if (count >= dataSnapshot.getChildrenCount() && !courseExists) {
-                                                    myRef1 = databaseReference;
-                                                    EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
-                                                    enrolledCourseModel.setName(courseCreated.getName());
-                                                    enrolledCourseModel.setCourse_id(key);
-                                                    progresstrial.setTopicProgressId("Trial");
-                                                    progresstrial.setTopicProgressFlag("Trial");
-                                                    enrolledCourseModel.setProgress();
-                                                    myRef1.child("users").child(user.getUid()).child("EnrolledCourses").push().setValue(enrolledCourseModel);
-
-                                                    Toast.makeText(CourseDescriptionActivity.this, "Enrolled Successful", Toast.LENGTH_SHORT).show();
-                                                    courseExists = true;
-                                                } else if (count >= dataSnapshot.getChildrenCount())
-                                                    Toast.makeText(CourseDescriptionActivity.this, "Already Enrolled", Toast.LENGTH_SHORT).show();
-                                            }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-
-                        courseExists = false;
-                    }
-
-
-                } else
-                    Toast.makeText(CourseDescriptionActivity.this, "You Need To Sign In", Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
-
-
     }
-
+    @Override
+    protected void onPause(){
+        if (listener1 != null)
+            databaseReference.removeEventListener(listener1);
+        if (listener2 != null)
+            databaseReference.removeEventListener(listener2);
+        super.onPause();
+    }
     @Override
     public void onStart() {
         super.onStart();
         // Add value event listener to the post
         // [START post_value_event_listener]DatabaseReference myRef = databaseReference;
-        databaseReference.child("courses").child(String.valueOf(courseCreated.getCourse_id())).child("lessons").addValueEventListener(
-                new ValueEventListener() {
+
+           listener2 =      new ValueEventListener() {
                     List<TopicModel> lessonModelList;
 
                     @Override
@@ -271,7 +225,39 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });
+                };
+
+
+
+        listener1 = new ValueEventListener() {
+            int count = 0;
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!courseExists)
+                    for (DataSnapshot d : dataSnapshot.getChildren()) {
+                        Log.e("ehel8oldah ", d + "");
+                        courseCreated1 = d.getValue(EnrolledCourseModel.class);
+                        Log.e("Etl3e b2a: ", courseCreated.getCourse_id());
+                        Log.e("Etl3e b2a enta eltani: ", courseCreated1.getCourse_id());
+                        if (courseCreated.getCourse_id().equals(courseCreated1.getCourse_id())) {
+                            Log.e("Etl3e b2a: ", courseCreated.getCourse_id());
+                            Log.e("Etl3e b2a enta eltani: ", courseCreated1.getCourse_id());
+                            courseExists = true;
+                        }
+                    }
+                if(courseExists) {
+                   enroll.setText("Enrolled");
+                    enroll.setBackgroundColor((ContextCompat.getColor(CourseDescriptionActivity.this, R.color.colorLesson)));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        databaseReference.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(listener1);
+        databaseReference.child("courses").child(String.valueOf(courseCreated.getCourse_id())).child("lessons").addValueEventListener(listener2);
 //
 ////            for(Lessons x : lessonsID)
 ////            myRef.child("topics").orderByChild("lesson_id").equalTo(x.getLesson_id()).addValueEventListener(

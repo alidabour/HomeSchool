@@ -53,7 +53,7 @@ public class InstructorFragment extends Fragment {
     private Uri filePath;
     CourseCreated globalCourseCreated;
     ProgressBar progressBar;
-
+    ValueEventListener listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -176,6 +176,7 @@ public class InstructorFragment extends Fragment {
                 "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
                         .getData().toString());
 
+        if(data!=null)
         filePath = data.getData();
 
         String storagePath = "images/coursesPhoto/"+  UUID.randomUUID();
@@ -192,7 +193,7 @@ public class InstructorFragment extends Fragment {
     public void onStart() {
         super.onStart();
         progressBar.setVisibility(View.VISIBLE);
-        db.child("users").child(user.getUid()).child("CreatedCourse").addValueEventListener(new ValueEventListener() {
+        listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.v("Test", "OnData");
@@ -240,9 +241,15 @@ public class InstructorFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+        db.child("users").child(user.getUid()).child("CreatedCourse").addValueEventListener(listener);
     }
-
+    @Override
+    public void onPause(){
+        if (listener != null)
+            db.removeEventListener(listener);
+        super.onPause();
+    }
     @Override
     public void onResume() {
         super.onResume();

@@ -38,6 +38,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     String courseID;
     TextView noLesson ;
     ArrayList<LessonModel> lessonModelList;
+    ValueEventListener listener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,14 +117,19 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
-
+    @Override
+    protected void onPause(){
+        if (listener != null)
+            db.removeEventListener(listener);
+        super.onPause();
+    }
     @Override
     protected void onStart() {
         super.onStart();
         db = FirebaseDatabase.getInstance().getReference();
         Log.v("el_ID_hna" , courseID + " " );
-        db.child("courses").child(courseID).child("lessons").addValueEventListener(
-                new ValueEventListener() {
+
+        listener =       new ValueEventListener() {
 
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -155,6 +161,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });
+                };
+        db.child("courses").child(courseID).child("lessons").addValueEventListener(listener);
     }
 }

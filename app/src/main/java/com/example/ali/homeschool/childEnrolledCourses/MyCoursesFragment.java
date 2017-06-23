@@ -43,6 +43,7 @@ public class MyCoursesFragment extends Fragment {
    // List<Courses2> enrolledCoursesList;
     List<Courses> enrolledCoursesList;
     List<CourseCreated> coursesNames;
+    ValueEventListener listener;
 
     public MyCoursesFragment() {
         // Required empty public constructor
@@ -72,10 +73,16 @@ public class MyCoursesFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        if (listener != null)
+            db.removeEventListener(listener);
+        super.onPause();
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
-        db.child("users").child(user.getUid()).child("enrolledcourses")
-                .addValueEventListener(new ValueEventListener() {
+       listener = new ValueEventListener() {
 //                    enrolledCourses = new ArrayList;
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -153,7 +160,9 @@ public class MyCoursesFragment extends Fragment {
                         // [END_EXCLUDE]
                     }
 
-                });
+                };
+        db.child("users").child(user.getUid()).child("enrolledcourses")
+                .addValueEventListener(listener);
     }
 
     @Override
