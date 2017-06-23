@@ -101,6 +101,14 @@
         </activity>
         <activity android:name=".AliSecretActivity">
         </activity>
+        <activity android:name=".studenthome.StudentHomeActivityNew"
+            android:label="@string/Student">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

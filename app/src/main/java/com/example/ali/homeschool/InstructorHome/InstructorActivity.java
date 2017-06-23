@@ -50,9 +50,9 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         setContentView(R.layout.instructor_drawer_layout);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        if(user.getEmail().equals("ali@ali.com")){
-            startActivity(new Intent(InstructorActivity.this, AliSecretActivity.class));
-        }
+//        if(user.getEmail().equals("ali@ali.com")){
+//            startActivity(new Intent(InstructorActivity.this, AliSecretActivity.class));
+//        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         toolbar.setTitle(R.string.courses);
         appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout2);
