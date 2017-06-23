@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.ali.homeschool.AliSecretActivity;
 import com.example.ali.homeschool.CircleTransform;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.UploadFile;
@@ -47,6 +48,11 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.instructor_drawer_layout);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        if(user.getEmail().equals("ali@ali.com")){
+            startActivity(new Intent(InstructorActivity.this, AliSecretActivity.class));
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         toolbar.setTitle(R.string.courses);
         appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout2);
@@ -65,8 +71,6 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
     }
 
     @Override
