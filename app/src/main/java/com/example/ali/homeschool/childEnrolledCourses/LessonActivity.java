@@ -3,16 +3,16 @@ package com.example.ali.homeschool.childEnrolledCourses;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.adapter.StudentLessonAdapter;
 import com.example.ali.homeschool.childClass.ClassActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,23 +33,26 @@ public class LessonActivity extends AppCompatActivity {
     List<LessonModel> lessonModelList;
     DatabaseReference db;
     ValueEventListener queryListener;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_lesson);
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         enrolledRecyclerView = (RecyclerView) findViewById(R.id.lessonsRV2);
         enrolledRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getApplicationContext(),
-                LinearLayoutManager.VERTICAL, false);
-        enrolledRecyclerView.setLayoutManager(categoryLayoutManger);
+//        LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getApplicationContext(),
+//                LinearLayoutManager.VERTICAL, false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
+        enrolledRecyclerView.setLayoutManager(gridLayoutManager);
         Log.e("Test", "myLessonActivity");
         db = FirebaseDatabase.getInstance().getReference();
         lessonModelList = new ArrayList<LessonModel>();
 
         Intent intent = getIntent();
         course = intent.getParcelableExtra("course");
+
         Log.e("courseinLessonActivity", course.toString());
 
     }
@@ -85,7 +88,7 @@ public class LessonActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         }, LessonActivity.this, course.getCourse_id());
-
+                studentLessonAdapter.setCourseId(course.getCourse_id());
                 enrolledRecyclerView.setAdapter(studentLessonAdapter);
 
 

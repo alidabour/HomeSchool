@@ -82,9 +82,9 @@ public class CoursesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_courses, container, false);
         coursesRecycleView = (RecyclerView)view.findViewById(R.id.courses);
         coursesRecycleView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManger = new GridLayoutManager(getActivity(),4);
-        gridLayoutManger.generateLayoutParams(new GridLayoutManager.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        GridLayoutManager gridLayoutManger = new GridLayoutManager(getActivity(),3);
+//        gridLayoutManger.generateLayoutParams(new GridLayoutManager.LayoutParams(
+//                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         coursesRecycleView.setLayoutManager(gridLayoutManger);
 
         db = FirebaseDatabase.getInstance().getReference();

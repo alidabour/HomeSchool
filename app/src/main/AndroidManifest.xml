@@ -34,13 +34,13 @@
         <activity android:name=".controller.activities.Sign_In"/>
         <activity android:name=".controller.activities.SignInAs"/>
         <activity android:name=".closed.Guesttrial______________"/>
-        <activity
-            android:name=".exercises.textdetection.CaptureActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".exercises.textdetection.PreferencesActivity"/>
+        <!--<activity-->
+            <!--android:name=".exercises.textdetection.CaptureActivity"-->
+            <!--android:configChanges="orientation|keyboardHidden|screenSize"-->
+            <!--android:screenOrientation="landscape"-->
+            <!--android:theme="@android:style/Theme.NoTitleBar.Fullscreen"-->
+            <!--android:windowSoftInputMode="stateAlwaysHidden"/>-->
+        <!--<activity android:name=".exercises.textdetection.PreferencesActivity"/>-->
 
         <provider
             android:name=".data.generated.DataProvider"
@@ -62,10 +62,10 @@
             android:name=".controller.activities.StudentHomeActivity"
             android:label="@string/title_activity_main4"
             android:theme="@style/AppTheme"/>
-        <activity
-            android:name=".childEnrolledCourses.EnrolledCourseActivity"
-            android:label="@string/title_activity_enrolled_course"
-            android:theme="@style/AppTheme"/>
+        <!--<activity-->
+            <!--android:name=".childEnrolledCourses.EnrolledCourseActivity"-->
+            <!--android:label="@string/title_activity_enrolled_course"-->
+            <!--android:theme="@style/AppTheme"/>-->
         <activity
             android:name=".ParentHome.ParentActivity"
             android:label="@string/title_activity_parent"
@@ -101,7 +101,7 @@
         </activity>
         <activity android:name=".AliSecretActivity">
         </activity>
-        <activity android:name=".studenthome.StudentHomeActivityNew"
+        <activity android:name="com.example.ali.homeschool.studenthome.StudentHomeActivityNew"
             android:label="@string/Student">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

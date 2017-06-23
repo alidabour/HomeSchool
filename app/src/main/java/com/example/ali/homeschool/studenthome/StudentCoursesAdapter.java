@@ -10,11 +10,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.childEnrolledCourses.LessonActivity;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Ali on 6/23/2017.
@@ -39,20 +42,27 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
 
     @Override
     public void onBindViewHolder(CourseViewHolder holder, int position) {
+        if(courses.get(position)!= null){
+            CourseCreated courseCreated = courses.get(position);
+            Glide.with(context).load(courseCreated.getPhoto_url()).into(holder.courseImage);
+
+        }
+
 
     }
 
     @Override
     public int getItemCount() {
+//        return 20;
         return courses.size();
     }
 
     public class CourseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView courseImage;
+        CircleImageView courseImage;
 
         public CourseViewHolder(View itemView) {
             super(itemView);
-            courseImage = (ImageView) itemView.findViewById(R.id.course_image);
+            courseImage = (CircleImageView) itemView.findViewById(R.id.course_image);
             courseImage.setOnClickListener(this);
         }
 
@@ -62,17 +72,18 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
             animation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+//                    context.startActivity(new Intent(context, ClassActivity.class));
                     int p = getAdapterPosition();
                     CourseCreated courseCreated = courses.get(p);
                     Intent intent = new Intent(context,
                             LessonActivity.class);
                     intent.putExtra("course", courseCreated);
                     context.startActivity(intent);
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-//                    context.startActivity(new Intent(context, ClassActivity.class));
                 }
 
                 @Override
