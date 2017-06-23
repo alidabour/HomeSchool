@@ -2,6 +2,7 @@ package com.example.ali.homeschool.InstructorTopic.CreationHelper;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.view.View;
 
 /**
  * Created by Ali on 6/18/2017.
@@ -47,5 +48,6 @@ public abstract class MainDialog {
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
+
 
 }

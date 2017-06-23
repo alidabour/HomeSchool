@@ -72,13 +72,13 @@ public class SignInAsAdapter extends PagerAdapter {
             public void onClick(View v) {
                 if (position == 0) {
 
-                    Intent intent =new Intent(mContext, InstructorActivity.class);
+                    Intent intent =new Intent(mContext, StudentHomeActivity.class);
                     intent.putExtra("FLAG_ACTIVITY_NEW_TASK" , true );
                     mContext.startActivity(intent);
 
                 } else if (position == 1) {
 
-                    Intent intent =new Intent(mContext, StudentHomeActivity.class);
+                    Intent intent =new Intent(mContext, InstructorActivity.class);
                     intent.putExtra("FLAG_ACTIVITY_NEW_TASK" , true );
                     mContext.startActivity(intent);
 

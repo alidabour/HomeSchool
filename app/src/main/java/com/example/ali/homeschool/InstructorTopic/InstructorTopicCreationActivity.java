@@ -29,6 +29,7 @@ import com.example.ali.homeschool.InstructorTopic.CreationHelper.MainQuestionDia
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.MultiQuestionDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.OnEditLayoutReady;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.OnLayoutReadyInterface;
+import com.example.ali.homeschool.InstructorTopic.CreationHelper.ProgressImage;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.SoundDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.SpeechDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.TextDetectionDialog;
@@ -60,7 +61,8 @@ import static com.example.ali.homeschool.Constants.*;
 
 
 public class InstructorTopicCreationActivity extends AppCompatActivity
-        implements OnLayoutReadyInterface, XMLClick, ColorPickerDialogListener, OnStartDragListener, DoneOrderInterface, OnEditLayoutReady, XMLEditClick {
+        implements OnLayoutReadyInterface, XMLClick, ColorPickerDialogListener,
+        OnStartDragListener, DoneOrderInterface, OnEditLayoutReady, XMLEditClick,ProgressImage {
     static int id = 0;
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
@@ -86,6 +88,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     ImageDialog imageDialog;
     TextViewDialog textViewDialog;
     TextDetectionDialog textDetectionDialog;
+    ProgressImage progressImage;
 
     //    MainQuestionDialog mainQuestionDialog;
     OnLayoutReadyInterface onLayoutReadyInterface = this;
@@ -96,7 +99,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     RecyclerListAdapter adapter;
     Toolbar toolbar;
     ParseXMLInstructor parseXMLInstructor;
-
+    boolean isImageOrSound = false;
+    boolean isQuestion = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +130,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         sound = (ImageView) findViewById(R.id.sound);
         text = (ImageView) findViewById(R.id.textViewInstructor);
 
+        progressImage = this;
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("lessonid")) {
             lessonid = intent.getStringExtra("lessonid");
@@ -237,6 +242,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                 imageDialog = new ImageDialog(id, InstructorTopicCreationActivity.this,
                         onLayoutReadyInterface);
                 imageDialog.setCourseId(courseId);
+                imageDialog.setProgressImage(progressImage);
                 imageDialog.openImageDialog();
 
 
@@ -256,6 +262,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                 soundDialog = new SoundDialog(id, InstructorTopicCreationActivity.this,
                         onLayoutReadyInterface);
                 soundDialog.setCourseId(courseId);
+                soundDialog.setProgressImage(progressImage);
                 soundDialog.openSoundDialog();
             }
         });
@@ -375,6 +382,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         imageDialog.setEditing(true);
         imageDialog.setIndex(index);
         imageDialog.setOnEditLayoutReady(this);
+        imageDialog.setProgressImage(progressImage);
         imageDialog.openImageDialog();
     }
 
@@ -388,6 +396,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         soundDialog.setSoundText(audioText);
         soundDialog.setEditing(true);
         soundDialog.setIndex(index);
+        soundDialog.setProgressImage(progressImage);
         soundDialog.setOnEditLayoutReady(this);
         soundDialog.openSoundDialog();
     }
@@ -456,5 +465,15 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     public void setLayoutAt(String layout, int index) {
         layoutsList.remove(index);
         addLayoutAt(layout, index);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public void setImageOrSound(boolean imageOrSound) {
+        isImageOrSound = imageOrSound;
     }
 }

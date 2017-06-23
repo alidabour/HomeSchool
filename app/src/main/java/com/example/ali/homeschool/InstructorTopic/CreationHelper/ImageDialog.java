@@ -30,8 +30,9 @@ import static com.example.ali.homeschool.Constants.mImageView;
 public class ImageDialog extends MainDialog {
     private static final int PICK_IMAGE_REQUEST = 234;
 
-    String courseId;
+    private ProgressImage progressImage;
 
+    String courseId;
     String url;
 
     public ImageDialog(
@@ -42,9 +43,14 @@ public class ImageDialog extends MainDialog {
     public void setUrl(String url) {
         this.url = url;
     }
+
     public ImageDialog(Integer id, Activity activity,
                        OnLayoutReadyInterface onLayoutReadyInterface){
         super(id,activity,onLayoutReadyInterface);
+    }
+    public void setProgressImage(
+            ProgressImage progressImage) {
+        this.progressImage = progressImage;
     }
     public void setCourseId(String courseId) {
         this.courseId = courseId;
@@ -108,6 +114,7 @@ public class ImageDialog extends MainDialog {
                 String layout = mImageView(++id, url);
                 if(!isEditing){
                     onLayoutReadyInterface.setLayout(layout);
+                    progressImage.setImageOrSound(true);
                 }else {
                     onEditLayoutReady.setLayoutAt(layout,index);
                 }
@@ -130,6 +137,7 @@ public class ImageDialog extends MainDialog {
                 String layout = mImageView(++id, url);
                 if(!isEditing){
                     onLayoutReadyInterface.setLayout(layout);
+                    progressImage.setImageOrSound(true);
                 }else {
                     onEditLayoutReady.setLayoutAt(layout,index);
                 }

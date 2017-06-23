@@ -10,9 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.CourseSectionListAdapter;
@@ -57,7 +60,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
     ProgressBar progressBar;
     ValueEventListener queryListener;
     DatabaseReference myRef ;
-
+    ImageView gifImage;
     public StudentFeaturedCoursesFragment() {
     }
 
@@ -77,7 +80,9 @@ public class StudentFeaturedCoursesFragment extends Fragment {
             container.removeAllViews();
         }
         listener = (courseInterface) getActivity();
-
+        gifImage = (ImageView) view.findViewById(R.id.gif);
+        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(gifImage);
+        Glide.with(this).load(R.raw.animated).into(imageViewTarget);
         //temp.setListener(listener);
         Log.v("StudentCoursesFragment", "Test");
         return view;

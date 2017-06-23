@@ -59,6 +59,7 @@ public class LessonActivity extends AppCompatActivity {
         listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.v("Lesson","Datasnapshot "+ dataSnapshot);
                 lessonModelList = new ArrayList<LessonModel>();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     LessonModel lessonModel = dataSnapshot1.getValue(LessonModel.class);
@@ -99,6 +100,7 @@ public class LessonActivity extends AppCompatActivity {
             }
 
         };
+        Log.v("Lesson","Course id : "+ course.getCourse_id());
         db.child("courses").child(course.getCourse_id()).child("lessons").addValueEventListener(listener);
 
     }
