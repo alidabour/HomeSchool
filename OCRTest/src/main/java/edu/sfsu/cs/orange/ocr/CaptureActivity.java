@@ -226,7 +226,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     public static final int CORRECTANSWER = 10;
     public static final int WRONGANSWER = -10;
 
-    public ArrayList<String> word = new ArrayList<>() ;
+    public String word  ;
 
     Handler getHandler() {
         return handler;
@@ -249,7 +249,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             if(intent.hasExtra("Answer")){
                 Answer answer = intent.getParcelableExtra("Answer");
                 DEFAULT_SOURCE_LANGUAGE_CODE=answer.getLan();
-                word.add(answer.getAnswer());
+                word=answer.getAnswer();
                 Log.v("Helloooooooooooooooz",answer.getAnswer());
 
             }
@@ -795,10 +795,19 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
 //    String android="android";
         boolean b=false;
-        for (int i = 0; i < word.size(); i++) {
-            if (word.get(i).equals(ocrResult.getText())) {
-                Toast.makeText(getApplicationContext(), "نجحت", Toast.LENGTH_SHORT).show();
-                Log.v("ass", ocrResult.getText());
+        String s=ocrResult.getText();
+        String[] words = s.split("\\s+");
+        for (int i = 0; i < words.length; i++) {
+
+            words[i] = words[i].replaceAll("[^\\w]", "");
+        }
+Log.v("ass",ocrResult.getText());
+
+        for (int i = 0; i < words.length; i++) {
+            Log.v("ass",words[i]);
+            if (word.equals( words[i])) {
+                Toast.makeText(getApplicationContext(), "نجحت", Toast.LENGTH_LONG).show();
+//                Log.v("ass", ocrResult.getText());
                 b=true;
                 Intent intent = new Intent();
                 intent.setData(Uri.parse(String.valueOf(b)));
@@ -810,8 +819,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
         if(!b){
             Log.v("Word.eq", "Failed");
-            Toast.makeText(getApplicationContext(), "فشلت", Toast.LENGTH_SHORT).show();
-            Log.v("ass", ocrResult.getText());
+            Toast.makeText(getApplicationContext(), "فشلت", Toast.LENGTH_LONG).show();
+//            Log.v("ass", ocrResult.getText());
 
             Intent intent = new Intent();
             intent.setData(Uri.parse(String.valueOf(b)));
