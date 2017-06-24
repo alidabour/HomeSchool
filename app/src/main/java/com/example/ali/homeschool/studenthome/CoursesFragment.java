@@ -9,7 +9,9 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Slide;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,16 +82,31 @@ public class CoursesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_courses, container, false);
-        coursesRecycleView = (RecyclerView)view.findViewById(R.id.courses);
+        coursesRecycleView = (RecyclerView) view.findViewById(R.id.courses);
         coursesRecycleView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManger = new GridLayoutManager(getActivity(),3);
+        GridLayoutManager gridLayoutManger = new GridLayoutManager(getActivity(), 3);
 //        gridLayoutManger.generateLayoutParams(new GridLayoutManager.LayoutParams(
 //                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         coursesRecycleView.setLayoutManager(gridLayoutManger);
 
         db = FirebaseDatabase.getInstance().getReference();
 
+        setupWindowAnimations();
         return view;
+    }
+
+    private void setupWindowAnimations() {
+
+        // Re-enter transition is executed when returning back to this activity
+        Slide slideTransition = new Slide();
+        slideTransition.setSlideEdge(Gravity.LEFT); // Use START if using right - to - left locale
+        slideTransition.setDuration(1000);
+
+        getActivity().getWindow().setReenterTransition(slideTransition);  // When MainActivity Re-enter the Screen
+        getActivity().getWindow().setExitTransition(slideTransition);     // When MainActivity Exits the Screen
+
+        // For overlap of Re Entering Activity - MainActivity.java and Exiting TransitionActivity.java
+        getActivity().getWindow().setAllowReturnTransitionOverlap(false);
     }
 
     @Override
@@ -100,6 +117,7 @@ public class CoursesFragment extends Fragment {
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }
+
                     @Override
                     public void onDataChange(final DataSnapshot dataSnapshot) {
                         coursesNames = new ArrayList<>();
@@ -111,10 +129,10 @@ public class CoursesFragment extends Fragment {
                                         @Override
                                         public void onDataChange(DataSnapshot inside) {
                                             CourseCreated courses = inside.getValue(CourseCreated.class);
-                                            for (DataSnapshot x : inside.getChildren()){
+                                            for (DataSnapshot x : inside.getChildren()) {
                                             }
                                             coursesNames.add(courses);
-                                            StudentCoursesAdapter studentCoursesAdapter = new StudentCoursesAdapter(getActivity(),coursesNames);
+                                            StudentCoursesAdapter studentCoursesAdapter = new StudentCoursesAdapter(getActivity(), coursesNames);
                                             coursesRecycleView.setAdapter(studentCoursesAdapter);
 //                                            if(coursesNames.size() <0){
 //                                                noMyCourse.setVisibility(View.VISIBLE);
@@ -122,6 +140,7 @@ public class CoursesFragment extends Fragment {
 //                                                noMyCourse.setVisibility(View.GONE);
 //                                            }
                                         }
+
                                         @Override
                                         public void onCancelled(DatabaseError databaseError) {
                                         }

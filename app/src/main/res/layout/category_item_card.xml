@@ -13,7 +13,7 @@
         android:layout_height="150dp"
         android:layout_gravity="center"
         android:id="@+id/cardView"
-        card_view:cardBackgroundColor="@color/colorPrimary"
+        card_view:cardBackgroundColor="@color/rate"
         card_view:cardCornerRadius="15dp"
         card_view:cardElevation="0dp">
 

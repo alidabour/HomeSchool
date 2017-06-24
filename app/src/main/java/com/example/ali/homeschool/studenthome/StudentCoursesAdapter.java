@@ -1,5 +1,7 @@
 package com.example.ali.homeschool.studenthome;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -80,10 +82,11 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
 //                    context.startActivity(new Intent(context, ClassActivity.class));
                     int p = getAdapterPosition();
                     CourseCreated courseCreated = courses.get(p);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity)context);
                     Intent intent = new Intent(context,
                             LessonActivity.class);
                     intent.putExtra("course", courseCreated);
-                    context.startActivity(intent);
+                    context.startActivity(intent, options.toBundle());
                 }
 
                 @Override
