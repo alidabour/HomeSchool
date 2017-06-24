@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
     android:adjustViewBounds="true"
     android:orientation="vertical">
     <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_gravity="center_horizontal"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_margin="8dp"
         android:id="@+id/lesson_image"
@@ -14,6 +16,11 @@
         android:src="@drawable/profile"
         app:civ_border_width="4dp"
         app:civ_border_color="#00ff00"/>
+    <TextView
+        android:text="test"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->

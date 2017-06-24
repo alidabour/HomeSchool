@@ -24,6 +24,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdapter.LessonViewHolder> {
+    private static final int ITEM_VIEW_TYPE_HEADER = 0;
+    private static final int ITEM_VIEW_TYPE_ITEM = 1;
     List<LessonModel> lessonModelList;
     public StudentLessonAdapter.OnClickHandler onClickHandler;
     Activity activity;
@@ -36,6 +38,10 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
     public interface OnClickHandler {
         void onClick(LessonModel test);
     }
+    public boolean isOneRow(int position) {
+        return position%3==0;
+    }
+
 
     public StudentLessonAdapter(List<LessonModel> lessonModelList,
                                 StudentLessonAdapter.OnClickHandler onClickHandler,
@@ -51,6 +57,13 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
     public LessonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.student_lesson_item_view, parent, false);
+//        if (viewType == ITEM_VIEW_TYPE_HEADER) {
+//            return new LessonViewHolder(itemView);
+//        }
+//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+//        return new TextViewHolder(view);
+
+
         return new LessonViewHolder(itemView);
     }
 
@@ -75,8 +88,12 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
 
     @Override
     public int getItemCount() {
-//        return 20;
-        return lessonModelList.size();
+        return 20;
+//        return lessonModelList.size();
+    }
+    @Override
+    public int getItemViewType(int position) {
+        return isOneRow(position) ? ITEM_VIEW_TYPE_HEADER : ITEM_VIEW_TYPE_ITEM;
     }
 
     public class LessonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

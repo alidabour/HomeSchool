@@ -1,13 +1,17 @@
 package com.example.ali.homeschool.studenthome;
 
 import android.content.Context;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.ali.homeschool.R;
 
 public class MainStudentFragment extends Fragment {
@@ -57,7 +61,11 @@ public class MainStudentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_student, container, false);
+        View view = inflater.inflate(R.layout.fragment_main_student, container, false);
+        ImageView imageView = (ImageView) view.findViewById(R.id.masha);
+        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView);
+        Glide.with(this).load(R.raw.source).into(imageViewTarget);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

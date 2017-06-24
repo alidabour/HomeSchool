@@ -71,7 +71,7 @@ public class ColorQuestionDialog extends MainTextDialog {
                     onLayoutReadyInterface.setLayout(
                             mButton(++id, questionText, "ColorActivity", new Answer(selection[0]),
                                     PUT_SOUND_LINK_HERE));
-                    progressImage.setImageOrSound(true);
+                    progressImage.setImageOrSound(true,true);
                 }
                 else {
                     onEditLayoutReady.setLayoutAt(mButton(++id, questionText, "ColorActivity", new Answer(selection[0]),

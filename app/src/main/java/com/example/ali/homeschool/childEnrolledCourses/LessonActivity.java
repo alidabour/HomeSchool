@@ -33,6 +33,7 @@ public class LessonActivity extends AppCompatActivity {
     List<LessonModel> lessonModelList;
     DatabaseReference db;
     ValueEventListener queryListener;
+    GridLayoutManager gridLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +45,9 @@ public class LessonActivity extends AppCompatActivity {
         enrolledRecyclerView.setHasFixedSize(true);
 //        LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getApplicationContext(),
 //                LinearLayoutManager.VERTICAL, false);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
+        gridLayoutManager = new GridLayoutManager(this,2);
         enrolledRecyclerView.setLayoutManager(gridLayoutManager);
+
         Log.e("Test", "myLessonActivity");
         db = FirebaseDatabase.getInstance().getReference();
         lessonModelList = new ArrayList<LessonModel>();
@@ -76,7 +78,7 @@ public class LessonActivity extends AppCompatActivity {
                     lessonModelList.add(lessonModel);
                 }
 
-                StudentLessonAdapter studentLessonAdapter = new StudentLessonAdapter(lessonModelList,
+                final StudentLessonAdapter studentLessonAdapter = new StudentLessonAdapter(lessonModelList,
                         new StudentLessonAdapter.OnClickHandler() {
                             @Override
                             public void onClick(LessonModel test) {
@@ -90,6 +92,15 @@ public class LessonActivity extends AppCompatActivity {
                         }, LessonActivity.this, course.getCourse_id());
                 studentLessonAdapter.setCourseId(course.getCourse_id());
                 enrolledRecyclerView.setAdapter(studentLessonAdapter);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        Log.v("getSpanSize"," positon" + position);
+                        Log.v("getSpanSize"," isOneRow" + studentLessonAdapter.isOneRow(position));
+
+                        return studentLessonAdapter.isOneRow(position)?2:1;
+                    }
+                });
 
 
                 enrolledRecyclerView.setOnLongClickListener(new View.OnLongClickListener() {
