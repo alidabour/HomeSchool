@@ -2,6 +2,7 @@ package com.example.ali.homeschool.InstructorTopic;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -228,23 +229,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
             }
         });
-//        submitTV.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                databaseReference = databaseReference.child("courses").child(courseId)
-//                        .child("lessons").child(lessonid).child("topics").child(topicid);
-//                TopicModel t = new TopicModel();
-//                String layouts = " ";
-//                for (String layout : layoutsList) {
-//                    layouts += layout;
-//                }
-//                t.setLayout(start + layouts + end);
-//                t.setName(topicname);
-//                t.setId(topicid);
-//                databaseReference.updateChildren(t.toMap());
-//                finish();
-//            }
-//        });
 
         image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,7 +238,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                 imageDialog.setCourseId(courseId);
                 imageDialog.setProgressImage(progressImage);
                 imageDialog.openImageDialog();
-
 
             }
         });
@@ -479,7 +462,20 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Closing Activity")
+                .setMessage("Are you sure you want to close this activity?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
 
