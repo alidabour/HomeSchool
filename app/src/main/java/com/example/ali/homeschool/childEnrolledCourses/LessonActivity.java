@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
@@ -39,6 +41,8 @@ public class LessonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+
         setContentView(R.layout.activity_lesson);
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         enrolledRecyclerView = (RecyclerView) findViewById(R.id.lessonsRV2);
@@ -55,7 +59,12 @@ public class LessonActivity extends AppCompatActivity {
         Intent intent = getIntent();
         course = intent.getParcelableExtra("course");
 
+        Explode enterTransition = new Explode();
+        enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
+        getWindow().setEnterTransition(enterTransition);
         Log.e("courseinLessonActivity", course.toString());
+        getWindow().setAllowEnterTransitionOverlap(false);
+
 
     }
     @Override

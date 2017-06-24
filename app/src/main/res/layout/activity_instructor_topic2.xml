@@ -26,7 +26,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:tint="@color/colorBack"/>
+        android:tint="@color/colorPrimary"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lessonsRV"

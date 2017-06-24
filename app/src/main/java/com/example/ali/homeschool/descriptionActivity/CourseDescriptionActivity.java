@@ -86,10 +86,9 @@ public class CourseDescriptionActivity extends AppCompatActivity {
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         Drawable drawable = ratingBar.getProgressDrawable();
-        drawable.setColorFilter(Color.parseColor("#F6CC19"),PorterDuff.Mode.SRC_ATOP);
+        drawable.setColorFilter(Color.parseColor("#0C75DE"),PorterDuff.Mode.SRC_ATOP);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         myRef1 = databaseReference;
-        Toast t;
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
