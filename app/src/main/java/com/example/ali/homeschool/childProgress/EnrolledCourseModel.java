@@ -13,51 +13,22 @@ import java.util.Map;
 public class EnrolledCourseModel implements Parcelable {
     String course_id;
     String name;
+    String enrolledcoursemodelid;
     Map<String,ProgressModel> progress;
+    public String getEnrolledcoursemodelid() {
+        return enrolledcoursemodelid;
+    }
+
+    public void setEnrolledcoursemodelid(String enrolledcoursemodelid) {
+        this.enrolledcoursemodelid = enrolledcoursemodelid;
+    }
+
 
     public EnrolledCourseModel() {
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.course_id);
-        dest.writeString(this.name);
-        dest.writeInt(this.progress.size());
-        for (Map.Entry<String, ProgressModel> entry : this.progress.entrySet()) {
-            dest.writeString(entry.getKey());
-            dest.writeParcelable(entry.getValue(), flags);
-        }
-    }
-
-    protected EnrolledCourseModel(Parcel in) {
-        this.course_id = in.readString();
-        this.name = in.readString();
-        int progressSize = in.readInt();
-        this.progress = new HashMap<>(progressSize);
-        for (int i = 0; i < progressSize; i++) {
-            String key = in.readString();
-            ProgressModel value = in.readParcelable(ProgressModel.class.getClassLoader());
-            this.progress.put(key, value);
-        }
-    }
-
-    public static final Parcelable.Creator<EnrolledCourseModel> CREATOR = new Parcelable.Creator<EnrolledCourseModel>() {
-        @Override
-        public EnrolledCourseModel createFromParcel(Parcel source) {
-            return new EnrolledCourseModel(source);
-        }
-
-        @Override
-        public EnrolledCourseModel[] newArray(int size) {
-            return new EnrolledCourseModel[size];
-        }
-    };
 
     public String getCourse_id() {
         return course_id;
@@ -82,4 +53,46 @@ public class EnrolledCourseModel implements Parcelable {
     public void setProgress(Map<String, ProgressModel> progress) {
         this.progress = progress;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.course_id);
+        dest.writeString(this.name);
+        dest.writeString(this.enrolledcoursemodelid);
+        dest.writeInt(this.progress.size());
+        for (Map.Entry<String, ProgressModel> entry : this.progress.entrySet()) {
+            dest.writeString(entry.getKey());
+            dest.writeParcelable(entry.getValue(), flags);
+        }
+    }
+
+    protected EnrolledCourseModel(Parcel in) {
+        this.course_id = in.readString();
+        this.name = in.readString();
+        this.enrolledcoursemodelid = in.readString();
+        int progressSize = in.readInt();
+        this.progress = new HashMap<String, ProgressModel>(progressSize);
+        for (int i = 0; i < progressSize; i++) {
+            String key = in.readString();
+            ProgressModel value = in.readParcelable(ProgressModel.class.getClassLoader());
+            this.progress.put(key, value);
+        }
+    }
+
+    public static final Creator<EnrolledCourseModel> CREATOR = new Creator<EnrolledCourseModel>() {
+        @Override
+        public EnrolledCourseModel createFromParcel(Parcel source) {
+            return new EnrolledCourseModel(source);
+        }
+
+        @Override
+        public EnrolledCourseModel[] newArray(int size) {
+            return new EnrolledCourseModel[size];
+        }
+    };
 }

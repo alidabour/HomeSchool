@@ -1,7 +1,6 @@
 package com.example.ali.homeschool.childEnrolledCourses;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.childClass.ClassActivity;
@@ -88,8 +86,8 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
 
     @Override
     public int getItemCount() {
-        return 20;
-//        return lessonModelList.size();
+//        return 20;
+        return lessonModelList.size();
     }
     @Override
     public int getItemViewType(int position) {

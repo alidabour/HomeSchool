@@ -13,6 +13,25 @@ import java.util.Map;
 public class ProgressModel implements Parcelable {
     String topicProgressFlag;
     String topicProgressId;
+    String enrolledcourseid;
+    String progressid;
+
+
+    public String getProgressid() {
+        return progressid;
+    }
+
+    public void setProgressid(String progressid) {
+        this.progressid = progressid;
+    }
+
+    public String getEnrolledcourseid() {
+        return enrolledcourseid;
+    }
+
+    public void setEnrolledcourseid(String enrolledcourseid) {
+        this.enrolledcourseid = enrolledcourseid;
+    }
 
     public String getTopicProgressFlag() {
         return topicProgressFlag;
@@ -32,8 +51,10 @@ public class ProgressModel implements Parcelable {
 
     public Map<String,Object> toMap(){
         HashMap<String,Object> topic = new HashMap<>();
-        topic.put("id",topicProgressFlag);
-        topic.put("name",topicProgressId);
+        topic.put("enrolledcourseid",enrolledcourseid);
+        topic.put("topicProgressFlag",topicProgressFlag);
+        topic.put("topicProgressId",topicProgressId);
+        topic.put("progressid",progressid);
         return topic;
     }
 
@@ -46,6 +67,8 @@ public class ProgressModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.topicProgressFlag);
         dest.writeString(this.topicProgressId);
+        dest.writeString(this.enrolledcourseid);
+        dest.writeString(this.progressid);
     }
 
     public ProgressModel() {
@@ -54,9 +77,11 @@ public class ProgressModel implements Parcelable {
     protected ProgressModel(Parcel in) {
         this.topicProgressFlag = in.readString();
         this.topicProgressId = in.readString();
+        this.enrolledcourseid = in.readString();
+        this.progressid = in.readString();
     }
 
-    public static final Parcelable.Creator<ProgressModel> CREATOR = new Parcelable.Creator<ProgressModel>() {
+    public static final Creator<ProgressModel> CREATOR = new Creator<ProgressModel>() {
         @Override
         public ProgressModel createFromParcel(Parcel source) {
             return new ProgressModel(source);

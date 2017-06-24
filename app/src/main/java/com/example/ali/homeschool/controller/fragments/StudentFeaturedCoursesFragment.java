@@ -98,6 +98,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
     public void onDetach() {
 
         listener = null;
+        queryListener = null;
         super.onDetach();
     }
 

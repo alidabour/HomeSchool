@@ -11,7 +11,6 @@ import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
@@ -21,13 +20,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.ColorQuestionDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.ImageDialog;
-import com.example.ali.homeschool.InstructorTopic.CreationHelper.MainQuestionDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.MultiQuestionDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.OnEditLayoutReady;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.OnLayoutReadyInterface;
@@ -40,7 +37,6 @@ import com.example.ali.homeschool.InstructorTopic.helper.DoneOrderInterface;
 import com.example.ali.homeschool.InstructorTopic.helper.OnStartDragListener;
 import com.example.ali.homeschool.InstructorTopic.helper.SimpleItemTouchHelperCallback;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.controller.activities.Register;
 import com.example.ali.homeschool.exercises.color.ColorActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -48,18 +44,16 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.jrummyapps.android.colorpicker.ColorPickerDialogListener;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.sfsu.cs.orange.ocr.Answer;
 
-import static com.example.ali.homeschool.Constants.*;
+import static com.example.ali.homeschool.Constants.ARRANGE;
+import static com.example.ali.homeschool.Constants.Color_Request;
+import static com.example.ali.homeschool.Constants.Text_Detection;
+import static com.example.ali.homeschool.Constants.end;
+import static com.example.ali.homeschool.Constants.start;
 
 
 public class InstructorTopicCreationActivity extends AppCompatActivity
@@ -148,6 +142,10 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         }
         if (intent != null && intent.hasExtra("layout")) {
             String layout = intent.getStringExtra("layout");
+            if((layout.contains("ImageView"))||(layout.contains("RadioButton"))
+                    ||(layout.contains("RadioGroup"))||(layout.contains("TextView")))
+                isQuestion = false;
+            Log.v("isQuestion",isQuestion+"");
             layout = layout.replaceAll(start, " ");
             layout = layout.replaceAll(end, " ");
             String[] lays = layout.split("(?<=" + ARRANGE + ")");
@@ -163,7 +161,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
             public void onClick(View view) {
 //                mainQuestionDialog = new MainQuestionDialog(id,InstructorTopicCreationActivity.this,onLayoutReadyInterface);
 //                mainQuestionDialog.openMainQuestionDialog();
-                if(isImageOrSound){
+                if(isImageOrSound||isQuestion){
                     Toast.makeText(InstructorTopicCreationActivity.this, "Not Allowed", Toast.LENGTH_SHORT)
                             .show();
                     return;
@@ -275,6 +273,10 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                     t.setLayout(start + layouts + end);
                     t.setName(topicname);
                     t.setId(topicid);
+                    if(isQuestion)
+                    t.setQuestion("true");
+                    else
+                        t.setQuestion("false");
                     databaseReference.updateChildren(t.toMap());
                     finish();
                 }
@@ -480,8 +482,10 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
 
     @Override
-    public void setImageOrSound(boolean imageOrSound, boolean isQuestion) {
+    public void setImageOrSound(boolean imageOrSound, boolean isQuestion1) {
         isImageOrSound = imageOrSound;
-        this.isQuestion = isQuestion;
+        isQuestion = isQuestion1;
+
+        Log.v("isQuestion1",isQuestion1+"");
     }
 }

@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -13,17 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ali.homeschool.InstructorTopic.InstructorTopicCreationActivity;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
 import com.example.ali.homeschool.UserModelHelper.UploadFile;
 
 import java.util.UUID;
 
-import edu.sfsu.cs.orange.ocr.Answer;
-
-import static com.example.ali.homeschool.Constants.PUT_ACTIVITY_HERE;
-import static com.example.ali.homeschool.Constants.PUT_ANSWER_HERE;
 import static com.example.ali.homeschool.Constants.mButton;
 
 /**
@@ -77,7 +71,7 @@ public class SoundDialog extends MainDialog {
                 String layout = mButton(id,url, soundText);
                 if (!isEditing) {
                     onLayoutReadyInterface.setLayout(layout);
-                    progressImage.setImageOrSound(true,true);
+                    progressImage.setImageOrSound(true,false);
                 } else {
                     onEditLayoutReady.setLayoutAt(layout, index);
                 }
@@ -159,7 +153,7 @@ public class SoundDialog extends MainDialog {
                 String layout = mButton(++id, audioLink, soundText);
                 if (!isEditing) {
                     onLayoutReadyInterface.setLayout(layout);
-                    progressImage.setImageOrSound(true,true);
+                    progressImage.setImageOrSound(true,false);
                 } else {
                     onEditLayoutReady.setLayoutAt(layout, index);
                 }

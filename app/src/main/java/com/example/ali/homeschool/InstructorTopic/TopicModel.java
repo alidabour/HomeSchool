@@ -12,6 +12,16 @@ public class TopicModel implements Parcelable {
     String id;
     String name;
     String layout;
+    String question="false";
+
+    public Map<String,Object> toMap(){
+        HashMap<String,Object> topic = new HashMap<>();
+        topic.put("id",id);
+        topic.put("name",name);
+        topic.put("layout",layout);
+        topic.put("question",question);
+        return topic;
+    }
 
     public String getId() {
         return id;
@@ -28,12 +38,21 @@ public class TopicModel implements Parcelable {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getLayout() {
         return layout;
     }
 
     public void setLayout(String layout) {
         this.layout = layout;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     @Override
@@ -46,6 +65,7 @@ public class TopicModel implements Parcelable {
         dest.writeString(this.id);
         dest.writeString(this.name);
         dest.writeString(this.layout);
+        dest.writeString(this.question);
     }
 
     public TopicModel() {
@@ -55,9 +75,10 @@ public class TopicModel implements Parcelable {
         this.id = in.readString();
         this.name = in.readString();
         this.layout = in.readString();
+        this.question = in.readString();
     }
 
-    public static final Parcelable.Creator<TopicModel> CREATOR = new Parcelable.Creator<TopicModel>() {
+    public static final Creator<TopicModel> CREATOR = new Creator<TopicModel>() {
         @Override
         public TopicModel createFromParcel(Parcel source) {
             return new TopicModel(source);
@@ -68,11 +89,4 @@ public class TopicModel implements Parcelable {
             return new TopicModel[size];
         }
     };
-    public Map<String,Object> toMap(){
-        HashMap<String,Object> topic = new HashMap<>();
-        topic.put("id",id);
-        topic.put("name",name);
-        topic.put("layout",layout);
-        return topic;
-    }
 }

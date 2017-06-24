@@ -28,7 +28,6 @@ import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.UserModelFirebase;
 import com.example.ali.homeschool.UserModelHelper.UserModelFirebaseClass;
 import com.example.ali.homeschool.adapter.SampleCoursesToolbarAdapter;
-import com.example.ali.homeschool.childEnrolledCourses.LessonActivity;
 import com.example.ali.homeschool.childEnrolledCourses.MyCoursesFragment;
 import com.example.ali.homeschool.controller.fragments.StudentFeaturedCoursesFragment;
 import com.example.ali.homeschool.data.firebase.UserModel;
@@ -40,7 +39,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Handler;
 
 /*
     We enter this class from the Student image button as it has more than one fragment
@@ -293,6 +291,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         timer.cancel();
 
     }

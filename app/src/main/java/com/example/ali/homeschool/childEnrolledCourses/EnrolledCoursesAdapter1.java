@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.ali.homeschool.CircleTransform;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
 
@@ -47,9 +46,11 @@ public class EnrolledCoursesAdapter1 extends RecyclerView.Adapter<EnrolledCourse
     @Override
     public void onBindViewHolder(LessonViewHolder holder, int position) {
         CourseCreated categoryInformations1 = courses.get(position);
-        Log.v("Adapter " ,categoryInformations1.getPhoto_url());
+        if(categoryInformations1.getPhoto_url()!=null){
+            Log.v("Adapter ", categoryInformations1.getPhoto_url());
+            Glide.with(mContext).load(categoryInformations1.getPhoto_url()).bitmapTransform(new RoundedCornersTransformation(mContext, 20, 0, RoundedCornersTransformation.CornerType.TOP)).into(holder.courseImage);
+        }
         holder.courseName.setText(categoryInformations1.getName());
-        Glide.with(mContext).load(categoryInformations1.getPhoto_url()).bitmapTransform(new RoundedCornersTransformation(mContext,20,0, RoundedCornersTransformation.CornerType.TOP)).into(holder.courseImage);
 
     }
 

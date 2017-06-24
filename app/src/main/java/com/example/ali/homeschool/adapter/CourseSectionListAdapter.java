@@ -56,8 +56,10 @@ public class CourseSectionListAdapter extends RecyclerView.Adapter<CourseSection
                 Intent intent= new Intent (context, CourseDescriptionActivity.class);
                 intent.putExtra("course",course);
                 intent.putExtra("type",userViewType);
-                intent.putExtra("userid",userid);
-                Log.v( "userid: ",userid);
+                if(userid!=null) {
+                    intent.putExtra("userid", userid);
+                    Log.v("userid: ", userid);
+                }
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 Log.v( "onClick: ","ID ___ "+course.getDescriptionS());
                 Log.e( "onClick: ",intent.toString()+course );

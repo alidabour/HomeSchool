@@ -18,6 +18,9 @@ import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.InstructorTopic.TopicModel;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.childProgress.ProgressModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +33,7 @@ import java.util.ArrayList;
     This class is for advanced level later on as it is designed to get the images like the cat image and the voice
     and that is why it has not been deleted yet
  */
-public class ClassActivity extends AppCompatActivity  {
+public class ClassActivity extends AppCompatActivity {
     //RelativeLayout relativeLayout;
     View linearLayout;
     ImageView imageView;
@@ -39,27 +42,31 @@ public class ClassActivity extends AppCompatActivity  {
     ArrayList<String> layouts;
     DatabaseReference db;
     LessonModel lesson;
-    String course_id , lesson_id ;
+    String course_id, lesson_id;
     ArrayList<TopicModel> TopicModelList;
-    ValueEventListener listener ;
+    ValueEventListener listener;
     TextView noTopics;
+    FirebaseUser user;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = FirebaseDatabase.getInstance().getReference();
-        context=getApplicationContext();
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+        context = getApplicationContext();
         setContentView(R.layout.activity_class_trial);
         pager = (ViewPager) findViewById(R.id.viewPager);
-        Intent iin= getIntent();
+        Intent iin = getIntent();
         Bundle b = iin.getExtras();
         TopicModelList = new ArrayList<TopicModel>();
         if (b != null) {
 
-            Log.v("Test","Intent Found");
+            Log.v("Test", "Intent Found");
             course_id = b.getString("courseId");
             lesson_id = b.getString("lessonid");
-            Log.v("Test","Intent Found" +  " lesson "+lesson_id + " Course id " + course_id);
+            Log.v("Test", "Intent Found" + " lesson " + lesson_id + " Course id " + course_id);
         }
     }
 
@@ -67,7 +74,7 @@ public class ClassActivity extends AppCompatActivity  {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.v("Test","Coursr id "+ "OnStart bta3t topic");
+        Log.v("Test", "Coursr id " + "OnStart bta3t topic");
 //        Log.v("Test","Listener ahu "+ listener.toString());
         //  lessonModelList = new ArrayList<LessonModel>();
         listener = new ValueEventListener() {
@@ -97,11 +104,11 @@ public class ClassActivity extends AppCompatActivity  {
 //                    layouts.add(topicModel.getLayout());
 //                    //  }
 //                }
-                //  if (getSupportFragmentManager() != null){
-                pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(), layouts));
-                //layouts = new ArrayList<String>();
+                if (getSupportFragmentManager() != null) {
+                    pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(), layouts));
+                    //layouts = new ArrayList<String>();
 
-
+                }
             }
 
             @Override
@@ -115,20 +122,20 @@ public class ClassActivity extends AppCompatActivity  {
 
     @Override
     protected void onPause() {
-        if(listener != null)
-        db.removeEventListener(listener);
+        if (listener != null)
+            db.removeEventListener(listener);
         super.onPause();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode== Constants.SPEECH){
-            if(resultCode==Constants.CORRECTANSWER){
-                Log.v("talayabni",data.getData().toString());
+        if (requestCode == Constants.SPEECH) {
+            if (resultCode == Constants.CORRECTANSWER) {
+                Log.v("talayabni", data.getData().toString());
 
-                Log.e( "ارنب", " Rabbit");
-                MediaPlayer mediaPlayer= MediaPlayer.create(this,R.raw.yay);
+                Log.e("ارنب", " Rabbit");
+                MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
                 mediaPlayer.start();
 
                 new CountDownTimer(4000, 1000) {
@@ -141,46 +148,121 @@ public class ClassActivity extends AppCompatActivity  {
 
                 }.start();
 
-                Toast.makeText(this," احسنت \n"+ data.getData().toString() ,  Toast.LENGTH_LONG).show();
+                Toast.makeText(this, " احسنت \n" + data.getData().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, " ya rbbbbbb \n" + data.getData().toString(), Toast.LENGTH_LONG).show();
+
+             /*   db.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(new ValueEventListener() {
+                    int count = 0;
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            for (DataSnapshot d : dataSnapshot.getChildren()) {
+                                Log.e("ehel8oldah ", d + "");
+
+                            }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });*/
 
 
-            }else if (resultCode == Constants.WRONGANSWER){
-                Log.v("t3alayabni","etnyl t3ala");
-                Toast.makeText(this," حاول مرة أخري \n"+ data.getData().toString() ,  Toast.LENGTH_LONG).show();
+            } else if (resultCode == Constants.WRONGANSWER) {
+                Boolean Flag = false;
+                db.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot d : dataSnapshot.getChildren()) {
+                            for (DataSnapshot d1 : d.getChildren())
+                                for (DataSnapshot d2 : d1.getChildren()) {
+                                    Log.v("dddddddddddddd", d2.getValue() + "Welcome");
+                                    ProgressModel progressModel = d2.getValue(ProgressModel.class);
+                                    progressModel.setTopicProgressFlag("true");
+                                    Log.v("dddddddddddddd", progressModel.getTopicProgressId() + "getTopicProgressId");
+                                    Log.v("dddddddddddddd", progressModel.getEnrolledcourseid() + "getEnrolledcourseid");
+                                    Log.v("dddddddddddddd", progressModel.getProgressid() + "getProgressid");
+                                    Log.v("dddddddddddddd", progressModel.getTopicProgressFlag() + "getTopicProgressFlag");
+                                    db.child("users").child(user.getUid()).child("enrolledcourses").child(progressModel.getEnrolledcourseid())
+                                            .child("progress").child(progressModel.getProgressid()).updateChildren(progressModel.toMap());
+
+                                }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                Log.v("t3alayabni", "etnyl t3ala");
+                Toast.makeText(this, " حاول مرة أخري \n" + data.getData().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, " ya rbbbbbb \n" + data.getData().toString(), Toast.LENGTH_LONG).show();
 
             }
         }
-        Log.v("LessonFragment", "Activity Result " +requestCode + " , "+ resultCode );
-        if(resultCode == Constants.CORRECTANSWER){
-            if (requestCode == Constants.SIMPLE){
+        Log.v("LessonFragment", "Activity Result " + requestCode + " , " + resultCode);
+        if (resultCode == Constants.CORRECTANSWER) {
+            if (requestCode == Constants.SIMPLE) {
                 Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
             }
         }
-        if(resultCode == Constants.WRONGANSWER){
-            if (requestCode == Constants.SIMPLE){
+        if (resultCode == Constants.WRONGANSWER) {
+            if (requestCode == Constants.SIMPLE) {
                 Toast.makeText(context, "Result Wrong", Toast.LENGTH_SHORT).show();
             }
         }
-        if(resultCode == Activity.RESULT_OK){
-            if(requestCode == Constants.SPEECH){
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == Constants.SPEECH) {
 
             }
         }
-        Log.v("LessonFragment", "Activity Result " +requestCode + " , "+ resultCode );
-        if(resultCode == Constants.CORRECTANSWER){
-            if (requestCode == Constants.Text_Detection){
-                Log.v("t3ala yabni","etnyl t3ala enta eltani");
+
+
+        //-----------------------------------------------------------------------------------------------------
+
+
+        Log.v("LessonFragment", "Activity Result " + requestCode + " , " + resultCode);
+
+        //-----------------------------------------------------------------------------------------------------
+
+
+        if (resultCode == Constants.CORRECTANSWER) {
+            if (requestCode == Constants.Text_Detection) {
+
+                Log.v("t3alayabni", "etnyl t3ala enta eltani");
                 Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
             }
         }
 
-        Log.v("ezhr w ban ",resultCode+"");
-        Log.v("ezhr w ban ",requestCode+"");
-        if(resultCode == Constants.WRONGANSWER){
-            if (requestCode == Constants.Text_Detection){
-                Log.v("t3ala yabni","etnyl t3ala");
+
+        /*db.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(new ValueEventListener() {
+            int count = 0;
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
+                    Log.e("ehel8oldahel3b3l3b ",  d.getValue() + "7amada t3ala ya baba engzz");
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
+        Log.v("ezhr w ban ", resultCode + "");
+        Log.v("ezhr w ban ", requestCode + "");
+        if (resultCode == Constants.WRONGANSWER) {
+            if (requestCode == Constants.Text_Detection) {
+
+
                 Toast.makeText(context, "Result Incorrect", Toast.LENGTH_SHORT).show();
             }
+            Log.v("t3ala yabni", "etnyl t3ala");
         }
     }
 

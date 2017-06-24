@@ -137,7 +137,7 @@ public class MyCoursesFragment extends Fragment {
                                                                 Intent intent = new Intent(getActivity(),
                                                                         LessonActivity.class);
                                                                 intent.putExtra("course",test);
-                                                                Log.v("Testsssss","Course Lesson : " + test.getPhoto_url().toString());
+                                                           //     Log.v("Testsssss","Course Lesson : " + test.getPhoto_url().toString());
 //                                                                Set<Map.Entry<String, LessonModel>> entry =test.getLessons().entrySet();
 //                                                                Log.v("Test","Lessons entry.size());" +entry.size());
                                                                 startActivity(intent);
