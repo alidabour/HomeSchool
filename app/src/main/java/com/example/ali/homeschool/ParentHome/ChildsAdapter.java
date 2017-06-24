@@ -9,10 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.ali.homeschool.CircleTransform;
-import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.adapter.ChildrenAdapter;
 
 import java.util.List;
 
@@ -27,6 +24,7 @@ public class ChildsAdapter extends RecyclerView.Adapter<ChildsAdapter.ChildViewH
         this.onClickHandler = onClickHandler;
         this.context = context ;
     }
+
     Context context ;
     List<ChildModel> childList;
     OnClickHandler onClickHandler;

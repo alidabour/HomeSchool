@@ -5,5 +5,5 @@ package com.example.ali.homeschool.InstructorTopic.CreationHelper;
  */
 
 public interface ProgressImage {
-    void setImageOrSound(boolean imageOrSound);
+    void setImageOrSound(boolean imageOrSound,boolean isQuestion);
 }

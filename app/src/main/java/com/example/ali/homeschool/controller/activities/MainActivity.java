@@ -23,7 +23,8 @@ TextView logoname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_activity);mAuth = FirebaseAuth.getInstance();
+        setContentView(R.layout.home_activity);
+        mAuth = FirebaseAuth.getInstance();
         // Buttons
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {

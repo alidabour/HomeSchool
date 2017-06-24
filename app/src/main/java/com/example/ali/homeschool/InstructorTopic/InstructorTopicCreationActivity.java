@@ -482,8 +482,10 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         super.onBackPressed();
     }
 
+
     @Override
-    public void setImageOrSound(boolean imageOrSound) {
+    public void setImageOrSound(boolean imageOrSound, boolean isQuestion) {
         isImageOrSound = imageOrSound;
+        this.isQuestion = isQuestion;
     }
 }

@@ -77,7 +77,7 @@ public class SoundDialog extends MainDialog {
                 String layout = mButton(id,url, soundText);
                 if (!isEditing) {
                     onLayoutReadyInterface.setLayout(layout);
-                    progressImage.setImageOrSound(true);
+                    progressImage.setImageOrSound(true,true);
                 } else {
                     onEditLayoutReady.setLayoutAt(layout, index);
                 }
@@ -159,7 +159,7 @@ public class SoundDialog extends MainDialog {
                 String layout = mButton(++id, audioLink, soundText);
                 if (!isEditing) {
                     onLayoutReadyInterface.setLayout(layout);
-                    progressImage.setImageOrSound(true);
+                    progressImage.setImageOrSound(true,true);
                 } else {
                     onEditLayoutReady.setLayoutAt(layout, index);
                 }

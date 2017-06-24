@@ -30,8 +30,8 @@ dependencies {
     })
     compile project(path: ':OCRTest')
     compile project(':openCVLibrary249')
-    compile 'com.android.support:support-v4:25.3.1'
     // If you want to use the GPU Filters
+    compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
     compile 'net.simonvt.schematic:schematic:0.6.3'
@@ -47,6 +47,8 @@ dependencies {
     compile 'com.jrummyapps:colorpicker:2.1.6'
     compile 'jp.wasabeef:glide-transformations:2.0.2'
     compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+
     testCompile 'junit:junit:4.12'
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
 }

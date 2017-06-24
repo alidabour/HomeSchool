@@ -110,7 +110,7 @@ public class ImageDialog extends MainDialog {
                 String layout = mImageView(++id, url);
                 if(!isEditing){
                     onLayoutReadyInterface.setLayout(layout);
-                    progressImage.setImageOrSound(true);
+                    progressImage.setImageOrSound(true,false);
                 }else {
                     onEditLayoutReady.setLayoutAt(layout,index);
                 }
@@ -133,7 +133,7 @@ public class ImageDialog extends MainDialog {
                 String layout = mImageView(++id, url);
                 if(!isEditing){
                     onLayoutReadyInterface.setLayout(layout);
-                    progressImage.setImageOrSound(true);
+                    progressImage.setImageOrSound(true,false);
                 }else {
                     onEditLayoutReady.setLayoutAt(layout,index);
                 }

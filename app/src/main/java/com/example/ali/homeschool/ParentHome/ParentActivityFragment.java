@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.ChildrenAdapter;
 import com.example.ali.homeschool.childProgress.ChildCourses;
+import com.example.ali.homeschool.controller.activities.StudentFeaturedCourses;
 import com.example.ali.homeschool.data.CategoryInformation;
 import com.example.ali.homeschool.data.firebase.Users;
 import com.google.firebase.auth.FirebaseAuth;
@@ -166,12 +167,39 @@ import java.util.List;
                         childAdapter = new ChildsAdapter(childModels,getActivity() ,
                                 new ChildsAdapter.OnClickHandler() {
                                     @Override
-                                    public void onClick(ChildModel test) {
+                                    public void onClick(final ChildModel test) {
                                         Log.v("Test",test.toString());
-                                        Intent intent = new Intent(getContext(),ChildCourses.class);
-                                        Log.v("Test","Child id"+test.getId());
-                                        intent.putExtra("childModel",test);
-                                        startActivity(intent);
+
+                                        CharSequence colors[] = new CharSequence[] {"Enroll My Child into Course", "View This Child's Progress"};
+
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                        builder.setTitle("Choose an Option");
+                                        builder.setItems(colors, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int i) {
+                                                if(i==0){
+                                                    Intent intent = new Intent(getContext(),StudentFeaturedCourses.class);
+                                                    Log.v("Test","Child id"+test.getId());
+
+                                                    intent.putExtra("childModel",test);
+                                                    intent.putExtra("userid",test.getId());
+                                                    startActivity(intent);
+                                                }
+                                                else {
+                                                    Intent intent = new Intent(getContext(), ChildCourses.class);
+                                                    Log.v("Test","Child id"+test.getId());
+
+                                                    intent.putExtra("childModel",test);
+                                                    intent.putExtra("userid",test.getId());
+                                                    startActivity(intent);
+                                                }
+
+
+                                            }
+                                        });
+                                        builder.show();
+
+
                                     }
                                 });
                         parentRecycleView.setHasFixedSize(true);
