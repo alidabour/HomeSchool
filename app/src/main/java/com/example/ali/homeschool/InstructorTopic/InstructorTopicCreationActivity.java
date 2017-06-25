@@ -26,7 +26,6 @@ import android.widget.Toast;
 
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.ColorQuestionDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.ImageDialog;
-import com.example.ali.homeschool.InstructorTopic.CreationHelper.MainQuestionDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.MultiImageQueDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.MultiQuestionDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.OnEditLayoutReady;
@@ -78,7 +77,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     ImageView text ;
     String courseId;
     String lessonid;
-    String topicid;
+    String topicid=" ";
     String topicname;
 
     int textColor = -11177216;
@@ -284,8 +283,17 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
                 if (item.getItemId() == R.id.submit) {
                     Log.v("Test", "Sign IN");
+                    String key;
                     databaseReference = databaseReference.child("courses").child(courseId)
-                            .child("lessons").child(lessonid).child("topics").child(topicid);
+                            .child("lessons").child(lessonid).child("topics");
+                    if(topicid.equals(" "))
+                    databaseReference = databaseReference.child(topicid);
+                    else {
+                        key = databaseReference.push().getKey();
+                        databaseReference = databaseReference.child(key);
+                        topicid=key;
+                    }
+
                     TopicModel t = new TopicModel();
                     String layouts = " ";
                     if(layoutsList.size()>0){

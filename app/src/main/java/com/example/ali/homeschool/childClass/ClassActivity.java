@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ToxicBakery.viewpager.transforms.RotateDownTransformer;
 import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.InstructorTopic.TopicModel;
@@ -162,6 +161,7 @@ public class ClassActivity extends AppCompatActivity {
         if (pager != null) {
             pager.setAdapter(null);
         }
+
         super.onDestroy();
     }
 

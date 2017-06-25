@@ -40,6 +40,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
     LessonModel lessonModel;
     String lessonid;
     Intent intent;
+    String topicid=" ";
     ValueEventListener listener;
     TextView noTopic;
 
@@ -87,13 +88,17 @@ public class InstructorTopicActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         m_Text = input.getText().toString();
 //                        Map<String,String> lesson = new HashMap<String, String>();
-                        String key = db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").push().getKey();
+                        /*String key = db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").push().getKey();
 //                        lesson.put("id",key);
 //                        lesson.put("name",m_Text);
                         db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(key).child("id").setValue(key);
                         db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(key).child("name").setValue(m_Text);
                         db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(key).child("layout").setValue("");
+
+
                         String topicid = key;
+                        */
+
                         Intent intent = new Intent(getApplicationContext(), InstructorTopicCreationActivity.class);
 
                         intent.putExtra("topicname", m_Text);
@@ -155,6 +160,9 @@ public class InstructorTopicActivity extends AppCompatActivity {
                     topicModel = d.getValue(TopicModel.class);
                     if (!(topicModel.getLayout() == null))
                         lessonModelList.add(topicModel);
+                    if(!topicModel.getId().equals(" "))
+                        topicid = topicModel.getId();
+
                     Log.v("Test", "LESSON __ " + topicModel.toString());
                 }
                 InstructorTopicsAdapter lessonAdapter = new InstructorTopicsAdapter(lessonModelList,
