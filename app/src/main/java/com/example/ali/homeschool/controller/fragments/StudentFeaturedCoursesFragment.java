@@ -170,6 +170,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                 listener.onDataFetched(random);
 
 
+
                 progressBar.setVisibility(View.INVISIBLE);
             }
 
