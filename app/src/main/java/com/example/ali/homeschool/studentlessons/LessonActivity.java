@@ -50,7 +50,7 @@ public class LessonActivity extends AppCompatActivity {
     ValueEventListener queryListener;
     GridLayoutManager gridLayoutManager;
     RelativeLayout viewRoot;
-    LinearLayout line;
+    RelativeLayout line;
     int cx;
     int cy;
     int finalRadius;
@@ -66,7 +66,7 @@ public class LessonActivity extends AppCompatActivity {
         viewRoot = (RelativeLayout) findViewById(R.id.viewRoot);
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
 
-        line = (LinearLayout) findViewById(R.id.line);
+        line = (RelativeLayout) findViewById(R.id.line);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)
                 line.getLayoutParams();
         params.setMargins(-1 * line.getWidth(), 0, 0, 0);
@@ -86,7 +86,7 @@ public class LessonActivity extends AppCompatActivity {
         Intent intent = getIntent();
         course = intent.getParcelableExtra("course");
         ((TextView) findViewById(R.id.course_name)).setText(course.getName());
-        Glide.with(getApplicationContext()).load(course.getPhoto_url()).into((ImageView)findViewById(R.id.course_image));
+        Glide.with(getApplicationContext()).load(course.getPhoto_url()).dontTransform().into((ImageView)findViewById(R.id.course_image));
         Explode enterTransition = new Explode();
         enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
         getWindow().setEnterTransition(enterTransition);

@@ -14,15 +14,15 @@
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="?attr/actionBarSize"-->
     <!--android:background="?attr/colorPrimary"/>-->
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/line"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_margin="16dp"
-        android:orientation="horizontal">
+        android:layout_margin="16dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_centerHorizontal="true"
             android:id="@+id/course_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,14 +31,15 @@
             app:civ_border_width="4dp"/>
 
         <TextView
+            android:layout_toEndOf="@+id/course_image"
             android:id="@+id/course_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="8dp"
             tools:text="Course Name"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>
-    </LinearLayout>
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"/>
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lessonsRV2"

@@ -3,17 +3,22 @@
              android:id="@+id/viewRoot"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-                android:background="@drawable/back22"
+                android:background="@drawable/back222"
              tools:context="com.example.ali.homeschool.studenthome.CoursesFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.RecyclerView
-        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         android:layout_marginBottom="24dp"
         android:id="@+id/courses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
+    <ImageView
+        android:background="@drawable/back3"
+        android:clickable="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
