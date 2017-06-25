@@ -1,22 +1,30 @@
 package com.example.ali.homeschool.studenthome;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.childEnrolledCourses.LessonActivity;
+import com.example.ali.homeschool.studentlessons.LessonActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -28,10 +36,22 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAdapter.CourseViewHolder> {
     Context context;
     List<CourseCreated> courses;
+    View viewRoot;
+    List<Integer> colors = new ArrayList<>();
+    public void setViewRoot(View viewRoot) {
+        this.viewRoot = viewRoot;
+    }
 
     public StudentCoursesAdapter(Context context, List<CourseCreated> courses) {
         this.context = context;
         this.courses = courses;
+        colors.add(Color.parseColor("#003366"));
+        colors.add(Color.parseColor("#a3b03d"));
+        colors.add(Color.parseColor("#fdbcb4"));
+        colors.add(Color.parseColor("#34b233"));
+        colors.add(Color.parseColor("#bf4147"));
+        colors.add(Color.parseColor("#f6883d"));
+
     }
 
     @Override
@@ -47,15 +67,15 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
         if(courses.get(position)!= null){
             CourseCreated courseCreated = courses.get(position);
             Glide.with(context).load(courseCreated.getPhoto_url()).into(holder.courseImage);
-
         }
+        holder.courseImage.setBorderColor(colors.get(position));
 
 
     }
 
     @Override
     public int getItemCount() {
-//        return 20;
+//        return 6;
         return courses.size();
     }
 
@@ -65,6 +85,7 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
         public CourseViewHolder(View itemView) {
             super(itemView);
             courseImage = (CircleImageView) itemView.findViewById(R.id.course_image);
+//            courseImage.setBorderColor(Color.parseColor("#ff00ff"));
             courseImage.setOnClickListener(this);
         }
 
@@ -77,16 +98,35 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
 
                 }
 
+                @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void onAnimationEnd(Animation animation) {
 //                    context.startActivity(new Intent(context, ClassActivity.class));
-                    int p = getAdapterPosition();
-                    CourseCreated courseCreated = courses.get(p);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity)context);
-                    Intent intent = new Intent(context,
-                            LessonActivity.class);
-                    intent.putExtra("course", courseCreated);
-                    context.startActivity(intent, options.toBundle());
+                    int cx = (viewRoot.getLeft() + viewRoot.getRight()) / 2;
+                    int cy = (viewRoot.getTop() + viewRoot.getBottom()) / 2;
+                    int finalRadius = Math.max(viewRoot.getWidth(), viewRoot.getHeight());
+
+                    Animator anim = ViewAnimationUtils
+                            .createCircularReveal(viewRoot, cx, cy, 0, finalRadius);
+                    final int color = 0xFFFF0000;
+                    final Drawable drawable = new ColorDrawable(color);
+                    viewRoot.setForeground(drawable);
+//                    viewRoot.setBackgroundColor(Color.parseColor("#ff0000"));
+                    anim.addListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            int p = getAdapterPosition();
+                            CourseCreated courseCreated = courses.get(p);
+                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity)context);
+                            Intent intent = new Intent(context,
+                                    LessonActivity.class);
+                            intent.putExtra("course", courseCreated);
+                            context.startActivity(intent, options.toBundle());
+                        }
+                    });
+                    anim.start();
+                    //
+
                 }
 
                 @Override

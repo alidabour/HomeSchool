@@ -49,7 +49,9 @@ dependencies {
     compile 'jp.wasabeef:glide-transformations:2.0.2'
     compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
     testCompile 'junit:junit:4.12'
+
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
 }
 

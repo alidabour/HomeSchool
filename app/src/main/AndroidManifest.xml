@@ -95,7 +95,7 @@
             />
         >
         <activity android:name=".exercises.simple.SimpleExercises"/>
-        <activity android:name=".childEnrolledCourses.LessonActivity"/>
+        <activity android:name=".studentlessons.LessonActivity"/>
         <activity android:name=".exercises.speech.Speech"/>
         <activity android:name=".InstructorTopic.InstructorTopicActivity"/>
         <activity android:name=".InstructorHome.Classroom"/>

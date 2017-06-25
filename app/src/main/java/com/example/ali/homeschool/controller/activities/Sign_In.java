@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.data.InternetConnectionChecker;
+import com.example.ali.homeschool.studenthome.StudentHomeActivityNew;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,24 +25,28 @@ import com.google.firebase.auth.FirebaseUser;
  * Created by lenovo on 30/11/2016.
  */
 
-public class Sign_In extends AppCompatActivity implements View.OnClickListener{
+public class Sign_In extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "EmailPassword";
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     //  private TextView Detail;
-    private TextView textViewSignup ;
-    private ProgressDialog progressDialog ;
+    private TextView textViewSignup;
+    private ProgressDialog progressDialog;
 
     private EditText Email;
     private EditText Password;
+    private boolean openStudent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin);
         // Detail = (TextView) findViewById(R.id.Detail);
-
+        Intent intent = getIntent();
+        if (intent.hasExtra("userType")) {
+            openStudent = true;
+        }
         Email = (EditText) findViewById(R.id.Email);
         Password = (EditText) findViewById(R.id.Password);
         textViewSignup = (TextView) findViewById(R.id.textViewSignUp);
@@ -51,7 +56,7 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(getBaseContext() , Register.class));
+                startActivity(new Intent(getBaseContext(), Register.class));
 
             }
         });
@@ -65,10 +70,16 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    {
+
+                    if (openStudent) {
+                        Intent intent = new Intent(getApplicationContext(),
+                                StudentHomeActivityNew.class);
+                        startActivity(intent);
+                    } else {
                         Intent intent = new Intent(getApplicationContext(), SignInAs.class);
                         startActivity(intent);
                     }
+
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
@@ -79,7 +90,6 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
         };
         findViewById(R.id.SigninButton).setOnClickListener(this);
         Log.e(TAG, "" + mAuth);
-
 
 
     }
@@ -100,25 +110,30 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
         progressDialog.show();
         progressDialog.setCancelable(false);
 
-        mAuth.signInWithEmailAndPassword(Email.getText().toString().trim(),Password.getText().toString().trim())
+        mAuth.signInWithEmailAndPassword(Email.getText().toString().trim(),
+                Password.getText().toString().trim())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        InternetConnectionChecker internetConnectionChecker = new InternetConnectionChecker(getApplicationContext());
+                        InternetConnectionChecker internetConnectionChecker = new InternetConnectionChecker(
+                                getApplicationContext());
                         Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-                        if(task.isSuccessful())
-                        {
-                            Intent intent = new Intent(getApplicationContext(), SignInAs.class);
-                            startActivity(intent);
-                        }
-                        else {
+                        if (task.isSuccessful()) {
+                            if(openStudent){
+                                Intent intent = new Intent(getApplicationContext(),
+                                        StudentHomeActivityNew.class);
+                                startActivity(intent);
+                            }else {
+                                Intent intent = new Intent(getApplicationContext(), SignInAs.class);
+                                startActivity(intent);
+                            }
+                        } else {
                             if (internetConnectionChecker.isInternetOn()) {
                                 Log.w(TAG, "signInWithEmail:failed", task.getException());
                                 progressDialog.dismiss();
                                 Toast.makeText(Sign_In.this, "Wrong Username Or Password",
                                         Toast.LENGTH_SHORT).show();
-                            }
-                            else {
+                            } else {
                                 progressDialog.dismiss();
                                 Log.w(TAG, "signInWithEmail:failed", task.getException());
                                 Toast.makeText(Sign_In.this, "Internet Connection Not Available",
@@ -151,6 +166,7 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
     private boolean validateForm() {
         boolean valid = true;
 
@@ -180,8 +196,8 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener{
         //     createAccount(Email.getText().toString(), Password.getText().toString());
         //  } else
         if (i == R.id.SigninButton) {
-            String s =Email.getText().toString().trim();
-            String ss =Password.getText().toString().trim();
+            String s = Email.getText().toString().trim();
+            String ss = Password.getText().toString().trim();
             signIn(s, ss);
 //        } else if (i == R.id.sign_out_button) {
 //            signOut();

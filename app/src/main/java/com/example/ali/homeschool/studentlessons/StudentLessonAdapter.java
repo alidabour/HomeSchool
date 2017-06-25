@@ -1,7 +1,8 @@
-package com.example.ali.homeschool.childEnrolledCourses;
+package com.example.ali.homeschool.studentlessons;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.childClass.ClassActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -27,17 +29,19 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
     List<LessonModel> lessonModelList;
     public StudentLessonAdapter.OnClickHandler onClickHandler;
     Activity activity;
-
     String courseId;
+    List<Integer> colors = new ArrayList<>();
 
     public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
+
     public interface OnClickHandler {
         void onClick(LessonModel test);
     }
+
     public boolean isOneRow(int position) {
-        return position%3==0;
+        return position % 3 == 0;
     }
 
 
@@ -49,6 +53,12 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
         this.onClickHandler = onClickHandler;
         this.activity = activity;
         this.courseId = courseId;
+        colors.add(Color.parseColor("#003366"));
+        colors.add(Color.parseColor("#a3b03d"));
+        colors.add(Color.parseColor("#fdbcb4"));
+        colors.add(Color.parseColor("#34b233"));
+        colors.add(Color.parseColor("#bf4147"));
+        colors.add(Color.parseColor("#f6883d"));
     }
 
     @Override
@@ -81,6 +91,7 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
 //                activity.startActivity(intent);
 //            }
 //        });
+        holder.circleImageView.setBorderColor(colors.get(position % 5));
     }
 
 
@@ -89,13 +100,14 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
 //        return 20;
         return lessonModelList.size();
     }
+
     @Override
     public int getItemViewType(int position) {
         return isOneRow(position) ? ITEM_VIEW_TYPE_HEADER : ITEM_VIEW_TYPE_ITEM;
     }
 
     public class LessonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-//        private TextView lessonName;
+        //        private TextView lessonName;
 //        protected Button startBtn;
         CircleImageView circleImageView;
 
@@ -129,7 +141,7 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
 //                    context.startActivity(new Intent(context, ClassActivity.class));
                     Intent intent = new Intent(activity,
                             ClassActivity.class);
-                    if(courseId !=null) {
+                    if (courseId != null) {
                         intent.putExtra("courseId", courseId);
                     }
                     intent.putExtra("lessonid", lessonModelList.get(p).getId());

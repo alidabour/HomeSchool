@@ -1,8 +1,6 @@
 package com.example.ali.homeschool.studenthome;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -10,17 +8,17 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Slide;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.childEnrolledCourses.EnrolledCoursesAdapter1;
-import com.example.ali.homeschool.childEnrolledCourses.LessonActivity;
 import com.example.ali.homeschool.childProgress.EnrolledCourseModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,6 +42,7 @@ public class CoursesFragment extends Fragment {
     RecyclerView coursesRecycleView;
     DatabaseReference db;
     List<CourseCreated> coursesNames;
+    FirebaseUser firebaseUser;
 //    private OnFragmentInteractionListener mListener;
 
     public CoursesFragment() {
@@ -76,18 +75,22 @@ public class CoursesFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    View viewRoot;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_courses, container, false);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        viewRoot = (RelativeLayout) view.findViewById(R.id.viewRoot);
         coursesRecycleView = (RecyclerView) view.findViewById(R.id.courses);
         coursesRecycleView.setHasFixedSize(true);
         GridLayoutManager gridLayoutManger = new GridLayoutManager(getActivity(), 3);
 //        gridLayoutManger.generateLayoutParams(new GridLayoutManager.LayoutParams(
 //                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         coursesRecycleView.setLayoutManager(gridLayoutManger);
+//        StudentCoursesAdapter studentCoursesAdapter = new StudentCoursesAdapter(getContext(),new ArrayList<CourseCreated>());
+//        coursesRecycleView.setAdapter(studentCoursesAdapter);
 
         db = FirebaseDatabase.getInstance().getReference();
 
@@ -112,44 +115,49 @@ public class CoursesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        db.child("users").child("GjiwC0oIEYb52VXOsEG83hXOiij1").child("enrolledcourses")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
+        if(firebaseUser != null) {
+            db.child("users").child(firebaseUser.getUid()).child("enrolledcourses")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
 
-                    @Override
-                    public void onDataChange(final DataSnapshot dataSnapshot) {
-                        coursesNames = new ArrayList<>();
-                        for (DataSnapshot s : dataSnapshot.getChildren()) {
-                            EnrolledCourseModel c = s.getValue(EnrolledCourseModel.class);
-                            db.child("courses").child(c.getCourse_id())
-                                    .addValueEventListener(new ValueEventListener() {
-                                        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                                        @Override
-                                        public void onDataChange(DataSnapshot inside) {
-                                            CourseCreated courses = inside.getValue(CourseCreated.class);
-                                            for (DataSnapshot x : inside.getChildren()) {
-                                            }
-                                            coursesNames.add(courses);
-                                            StudentCoursesAdapter studentCoursesAdapter = new StudentCoursesAdapter(getActivity(), coursesNames);
-                                            coursesRecycleView.setAdapter(studentCoursesAdapter);
+                        @Override
+                        public void onDataChange(final DataSnapshot dataSnapshot) {
+                            coursesNames = new ArrayList<>();
+                            for (DataSnapshot s : dataSnapshot.getChildren()) {
+                                EnrolledCourseModel c = s.getValue(EnrolledCourseModel.class);
+                                db.child("courses").child(c.getCourse_id())
+                                        .addValueEventListener(new ValueEventListener() {
+                                            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                                            @Override
+                                            public void onDataChange(DataSnapshot inside) {
+                                                CourseCreated courses = inside
+                                                        .getValue(CourseCreated.class);
+                                                for (DataSnapshot x : inside.getChildren()) {
+                                                }
+                                                coursesNames.add(courses);
+                                                StudentCoursesAdapter studentCoursesAdapter = new StudentCoursesAdapter(
+                                                        getActivity(), coursesNames);
+                                                studentCoursesAdapter.setViewRoot(viewRoot);
+                                                coursesRecycleView
+                                                        .setAdapter(studentCoursesAdapter);
 //                                            if(coursesNames.size() <0){
 //                                                noMyCourse.setVisibility(View.VISIBLE);
 //                                            }else{
 //                                                noMyCourse.setVisibility(View.GONE);
 //                                            }
-                                        }
+                                            }
 
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-                                        }
-                                    });
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                            }
+                                        });
+                            }
+                            // [END_EXCLUDE]
                         }
-                        // [END_EXCLUDE]
-                    }
-
-                });
+                    });
+        }
     }
 
     @Override

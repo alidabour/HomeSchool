@@ -1,5 +1,10 @@
-package com.example.ali.homeschool.childEnrolledCourses;
+package com.example.ali.homeschool.studentlessons;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,10 +12,15 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
@@ -36,6 +46,12 @@ public class LessonActivity extends AppCompatActivity {
     DatabaseReference db;
     ValueEventListener queryListener;
     GridLayoutManager gridLayoutManager;
+    RelativeLayout viewRoot;
+    LinearLayout line;
+    int cx;
+    int cy;
+    int finalRadius;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +60,20 @@ public class LessonActivity extends AppCompatActivity {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 
         setContentView(R.layout.activity_lesson);
+        viewRoot = (RelativeLayout) findViewById(R.id.viewRoot);
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
+
+        line = (LinearLayout) findViewById(R.id.line);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)
+                line.getLayoutParams();
+        params.setMargins(-1 * line.getWidth(), 0, 0, 0);
+        line.setLayoutParams(params);
+
         enrolledRecyclerView = (RecyclerView) findViewById(R.id.lessonsRV2);
         enrolledRecyclerView.setHasFixedSize(true);
 //        LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getApplicationContext(),
 //                LinearLayoutManager.VERTICAL, false);
-        gridLayoutManager = new GridLayoutManager(this,2);
+        gridLayoutManager = new GridLayoutManager(this, 2);
         enrolledRecyclerView.setLayoutManager(gridLayoutManager);
 
         Log.e("Test", "myLessonActivity");
@@ -64,30 +88,73 @@ public class LessonActivity extends AppCompatActivity {
         getWindow().setEnterTransition(enterTransition);
         Log.e("courseinLessonActivity", course.toString());
         getWindow().setAllowEnterTransitionOverlap(false);
+        cx = (viewRoot.getLeft() + viewRoot.getRight()) / 2;
+        cy = (viewRoot.getTop() + viewRoot.getBottom()) / 2;
+        finalRadius = Math.max(viewRoot.getWidth(), viewRoot.getHeight());
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            startAnimation();
+//        }
 
 
     }
+//
+//    @RequiresApi(api = Build.VERSION_CODES.M)
+//    void startAnimation() {
+//        Animator anim = ViewAnimationUtils
+//                .createCircularReveal(viewRoot, cx, cy, 0, finalRadius);
+//        final int color = 0x0000FFFF;
+//        final Drawable drawable = new ColorDrawable(color);
+//        viewRoot.setForeground(drawable);
+////                    viewRoot.setBackgroundColor(Color.parseColor("#ff0000"));
+//        anim.addListener(new AnimatorListenerAdapter() {
+//            @Override
+//            public void onAnimationEnd(Animator animation) {
+//            }
+//        });
+//        anim.start();
+//
+//    }
+
     @Override
-    protected void onPause(){
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            startAnimation();
+//        }
+        return super.onCreateView(name, context, attrs);
+    }
+
+    @Override
+    protected void onPause() {
         if (listener != null)
             db.removeEventListener(listener);
         super.onPause();
     }
+
     @Override
     protected void onStart() {
         super.onStart();
+//        Animation animation = new TranslateAnimation(0, 200,0, 0);
+//        animation.setDuration(3000);
+//        animation.setFillAfter(true);
+//        line.startAnimation(animation);
+        ObjectAnimator animX = ObjectAnimator.ofFloat(line,
+                View.TRANSLATION_X, -1* line.getWidth(), 0);
+        animX.setDuration(3000);
+        animX.start();
         listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.v("Lesson","Datasnapshot "+ dataSnapshot);
+                Log.v("NNLessonNN", "Datasnapshot " + dataSnapshot);
                 lessonModelList = new ArrayList<LessonModel>();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     LessonModel lessonModel = dataSnapshot1.getValue(LessonModel.class);
-                    Log.v("Lesson " , lessonModel.getName());
+//                    Log.v("Lesson ", lessonModel.getName());
                     lessonModelList.add(lessonModel);
                 }
 
-                final StudentLessonAdapter studentLessonAdapter = new StudentLessonAdapter(lessonModelList,
+                final StudentLessonAdapter studentLessonAdapter = new StudentLessonAdapter(
+                        lessonModelList,
                         new StudentLessonAdapter.OnClickHandler() {
                             @Override
                             public void onClick(LessonModel test) {
@@ -104,10 +171,10 @@ public class LessonActivity extends AppCompatActivity {
                 gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
-                        Log.v("getSpanSize"," positon" + position);
-                        Log.v("getSpanSize"," isOneRow" + studentLessonAdapter.isOneRow(position));
+                        Log.v("getSpanSize", " positon" + position);
+                        Log.v("getSpanSize", " isOneRow" + studentLessonAdapter.isOneRow(position));
 
-                        return studentLessonAdapter.isOneRow(position)?2:1;
+                        return studentLessonAdapter.isOneRow(position) ? 2 : 1;
                     }
                 });
 
@@ -129,8 +196,9 @@ public class LessonActivity extends AppCompatActivity {
             }
 
         };
-        Log.v("Lesson","Course id : "+ course.getCourse_id());
-        db.child("courses").child(course.getCourse_id()).child("lessons").addValueEventListener(listener);
+        Log.v("Lesson", "Course id : " + course.getCourse_id());
+        db.child("courses").child(course.getCourse_id()).child("lessons")
+                .addValueEventListener(listener);
 
     }
 }
