@@ -37,8 +37,6 @@ public class SignInAs extends AppCompatActivity {
         setContentView(R.layout.sign_in_as);
         //ImageView imageView = (ImageView) findViewById(R.id.imageView);
         pager = (ViewPager) findViewById(R.id.viewPager);
-        CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
-        indicator.setViewPager(pager);
 
         Log.v("pager ", pager.toString());
         ArrayList<Home> res = new ArrayList<>();
@@ -55,6 +53,9 @@ public class SignInAs extends AppCompatActivity {
         home.setName(getString(R.string.Parents));
         res.add(home);
         pager.setAdapter(new SignInAsAdapter(this, res));
+        CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
+        indicator.setViewPager(pager);
+
 //        final ImageButton previous = (ImageButton) findViewById(R.id.previous);
 //        final ImageButton next = (ImageButton) findViewById(R.id.next);
 //        next.setOnClickListener(new View.OnClickListener() {
