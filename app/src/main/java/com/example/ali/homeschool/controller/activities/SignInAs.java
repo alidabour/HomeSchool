@@ -1,5 +1,7 @@
 package com.example.ali.homeschool.controller.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -139,8 +141,21 @@ public class SignInAs extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        ActivityCompat.finishAffinity(SignInAs.this);
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Closing Activity")
+                .setMessage("Are you sure you want to close this activity?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.finishAffinity(SignInAs.this);
+                        finish();
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
       /*  Intent intent = new Intent(SignInAs.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
