@@ -35,7 +35,8 @@ public class ChildCoursesFragment extends Fragment {
     ChildModel c;
     List<EnrolledCourseModel> enrolledCourseModel;
     ValueEventListener listener;
-
+    int counter=0;
+    int progress=0;
     public ChildCoursesFragment() {
     }
     View view;
@@ -74,7 +75,7 @@ public class ChildCoursesFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        listener=    new ValueEventListener() {
+        listener    =    new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         enrolledCourseModel = new ArrayList<EnrolledCourseModel>();
@@ -82,6 +83,15 @@ public class ChildCoursesFragment extends Fragment {
                             Log.v("Test","Progress "+d.toString());
                             EnrolledCourseModel e = d.getValue(EnrolledCourseModel.class);
                             enrolledCourseModel.add(e);
+                            for (DataSnapshot d1 : d.getChildren()){
+                                for (DataSnapshot d2 : d1.getChildren()) {
+                                    ProgressModel progressModel = d2.getValue(ProgressModel.class);
+                                    if(progressModel.getTopicProgressFlag().equals("true"))
+                                        progress++;
+                                        counter = (int) d1.getChildrenCount();
+                                }
+                                }
+
                         }
                         ChildProgressAdapter1 childProgressAdapter1 = new ChildProgressAdapter1(
                                 enrolledCourseModel, new ChildProgressAdapter1.OnClickHandler() {
