@@ -1,6 +1,7 @@
 package com.example.ali.homeschool.childClass;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.util.Random;
 
 import edu.sfsu.cs.orange.ocr.Answer;
 
@@ -132,6 +134,10 @@ public class LessonFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
+//        Random rnd = new Random();
+//
+//        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+//        container.setBackgroundColor(color);
         return linearLayout;
     }
 

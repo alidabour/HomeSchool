@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ToxicBakery.viewpager.transforms.RotateDownTransformer;
 import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.InstructorTopic.TopicModel;
@@ -125,6 +126,7 @@ public class ClassActivity extends AppCompatActivity {
 //                fragmentList.add(new NestedFrag());
 
                 pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(), fragmentList));
+                pager.setPageTransformer(true, new CubeOutTransformer()); //set the animation
 
                 //layouts = new ArrayList<String>();
 
@@ -132,7 +134,7 @@ public class ClassActivity extends AppCompatActivity {
         };
 
 
-        ;
+
         db.child("courses").
 
                 child(course_id).
