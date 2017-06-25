@@ -38,7 +38,7 @@ import java.util.UUID;
 public class InstructorFragment extends Fragment {
 
     View view;
-    String photoUrl;
+    String photoUrl = "";
     String coursName;
     String description;
     String subject;
@@ -115,6 +115,10 @@ public class InstructorFragment extends Fragment {
                         coursName = input.getText().toString();
                         subject = subjects.getText().toString();
                         description = descriptions.getText().toString();
+
+                        if(photoUrl.isEmpty()){
+                            photoUrl = "https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2Fcourses%2Fphoto_default.png?alt=media&token=a338378b-eb7d-4d65-88ea-a4266fd0c1d5";
+                        }
                         String key = db.child("users").child(user.getUid()).child("CreatedCourse").push().getKey();
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("course_id").setValue(key);
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("descriptionS").setValue(description);
@@ -183,8 +187,7 @@ public class InstructorFragment extends Fragment {
         uploadFile = new UploadFile(filePath, getActivity(), new FileUploadHelper() {
             @Override
             public void fileUploaded(String url) {
-                photoUrl = url ;
-
+                    photoUrl = url;
             }
         }, storagePath);
     }

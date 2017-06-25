@@ -55,7 +55,7 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
     UserModel newUser;
     static Context context;
     ImageView photoImageView;
-    String photoString;
+    String photoString = "";
     UploadFile uploadFile;
     private TextView textViewSignin ;
     private ProgressDialog progressDialog ;
@@ -153,6 +153,9 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("success", "");
                                 DatabaseReference myRef = databaseReference;
+                                if(photoString.isEmpty()){
+                                    photoString = " https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2FusersPhoto%2Fprofile.png?alt=media&token=b832ae10-6cda-45f5-9681-4ff355736da4";
+                                }
                                 newUser = new UserModel();
                                 newUser.setEmail(email.getText().toString().trim());
                                 newUser.setName(String.valueOf(userName.getText()));
