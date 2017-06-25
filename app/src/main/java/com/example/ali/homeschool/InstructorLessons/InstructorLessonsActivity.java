@@ -1,5 +1,6 @@
 package com.example.ali.homeschool.InstructorLessons;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,7 +42,8 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     TextView noLesson;
     ArrayList<LessonModel> lessonModelList;
     ValueEventListener listener;
-
+    final int PICK_IMAGE_REQUEST = 234;
+    String filePath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,18 +62,17 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(
                         InstructorLessonsActivity.this);
                 builder.setTitle("Title");
-                LayoutInflater li = LayoutInflater.from(getApplicationContext());
-                LinearLayout someLayout = (LinearLayout) li
-                        .inflate(R.layout.lesson_dialog, null);
-
+                LayoutInflater li = LayoutInflater.from(InstructorLessonsActivity.this);
+                LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.lesson_dialog, null);
+                TextView gallery = (TextView) someLayout.findViewById(R.id.choosefromGallery);
                 // Set up the input
-                final EditText input = (EditText)someLayout.findViewById(R.id.lesson_image);
+                final EditText input = (EditText)someLayout.findViewById(R.id.lessonName);
 //                final EditText input = (EditText)someLayout.findViewById(R.id.lesson_image);
 
                 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
                 input.setInputType(
                         InputType.TYPE_CLASS_TEXT);
-                builder.setView(input);
+                builder.setView(someLayout);
 
                 // Set up the buttons
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -81,12 +82,17 @@ public class InstructorLessonsActivity extends AppCompatActivity {
 //                        Map<String,String> lesson = new HashMap<String, String>();
                         String key = db.child("courses").child(courseCreated.getCourse_id())
                                 .child("lessons").push().getKey();
+                        if(filePath.isEmpty()){
+                            filePath = "https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2Fcourses%2Fphoto_default.png?alt=media&token=a338378b-eb7d-4d65-88ea-a4266fd0c1d5";
+                        }
 //                        lesson.put("id",key);
 //                        lesson.put("name",m_Text);
                         db.child("courses").child(courseCreated.getCourse_id()).child("lessons")
                                 .child(key).child("id").setValue(key);
                         db.child("courses").child(courseCreated.getCourse_id()).child("lessons")
                                 .child(key).child("name").setValue(m_Text);
+                        db.child("courses").child(courseCreated.getCourse_id()).child("lessons")
+                                .child(key).child("photo_url").setValue(filePath);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -95,8 +101,15 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-
-                builder.show();
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+                gallery.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        openImageActivity();
+                    }
+                });
+//                builder.show();
             }
         });
 //        addTopicB.setOnClickListener(new View.OnClickListener() {
@@ -132,12 +145,26 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
-
+    private void openImageActivity() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"),
+                PICK_IMAGE_REQUEST);
+    }
     @Override
     protected void onPause() {
         if (listener != null)
             db.removeEventListener(listener);
         super.onPause();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK){
+            filePath = data.getData().toString();
+        }
     }
 
     @Override
