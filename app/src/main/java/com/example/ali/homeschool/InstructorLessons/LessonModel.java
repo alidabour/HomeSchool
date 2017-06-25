@@ -15,7 +15,16 @@ import java.util.Map;
 public class LessonModel implements Parcelable {
     String id;
     String name;
-    Map<String,TopicModel> topics;
+    String photo_url;
+    Map<String, TopicModel> topics;
+
+    public String getPhoto_url() {
+        return photo_url;
+    }
+
+    public void setPhoto_url(String photo_url) {
+        this.photo_url = photo_url;
+    }
 
     public String getId() {
         return id;
@@ -52,6 +61,7 @@ public class LessonModel implements Parcelable {
         dest.writeString(this.id);
         dest.writeString(this.name);
         dest.writeMap(this.topics);
+        dest.writeString(this.photo_url);
         dest.writeInt(this.topics.size());
         for (Map.Entry<String, TopicModel> entry : this.topics.entrySet()) {
             dest.writeString(entry.getKey());
@@ -65,6 +75,7 @@ public class LessonModel implements Parcelable {
     protected LessonModel(Parcel in) {
         this.id = in.readString();
         this.name = in.readString();
+        this.photo_url = in.readString();
         int topicsSize = in.readInt();
         this.topics = new HashMap<String, TopicModel>(topicsSize);
         for (int i = 0; i < topicsSize; i++) {
