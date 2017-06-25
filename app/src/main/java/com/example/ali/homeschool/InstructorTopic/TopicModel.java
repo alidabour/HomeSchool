@@ -7,20 +7,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 public class TopicModel implements Parcelable {
     String id;
     String name;
     String layout;
-    String question="false";
+    String question = "false";
+    String topicType = "normal";
 
-    public Map<String,Object> toMap(){
-        HashMap<String,Object> topic = new HashMap<>();
-        topic.put("id",id);
-        topic.put("name",name);
-        topic.put("layout",layout);
-        topic.put("question",question);
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> topic = new HashMap<>();
+        topic.put("id", id);
+        topic.put("name", name);
+        topic.put("layout", layout);
+        topic.put("question", question);
+        topic.put("topicType", topicType);
         return topic;
+    }
+
+    public String getTopicType() {
+        return topicType;
+    }
+
+    public void setTopicType(String topicType) {
+        this.topicType = topicType;
     }
 
     public String getId() {
@@ -66,6 +75,7 @@ public class TopicModel implements Parcelable {
         dest.writeString(this.name);
         dest.writeString(this.layout);
         dest.writeString(this.question);
+        dest.writeString(this.topicType);
     }
 
     public TopicModel() {
@@ -76,6 +86,7 @@ public class TopicModel implements Parcelable {
         this.name = in.readString();
         this.layout = in.readString();
         this.question = in.readString();
+        this.topicType = in.readString();
     }
 
     public static final Creator<TopicModel> CREATOR = new Creator<TopicModel>() {

@@ -20,14 +20,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.ColorQuestionDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.ImageDialog;
+import com.example.ali.homeschool.InstructorTopic.CreationHelper.MainQuestionDialog;
+import com.example.ali.homeschool.InstructorTopic.CreationHelper.MultiImageQueDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.MultiQuestionDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.OnEditLayoutReady;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.OnLayoutReadyInterface;
+import com.example.ali.homeschool.InstructorTopic.CreationHelper.OnQuestionLayoutReady;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.ProgressImage;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.SoundDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.SpeechDialog;
@@ -58,10 +62,12 @@ import static com.example.ali.homeschool.Constants.start;
 
 public class InstructorTopicCreationActivity extends AppCompatActivity
         implements OnLayoutReadyInterface, XMLClick, ColorPickerDialogListener,
-        OnStartDragListener, DoneOrderInterface, OnEditLayoutReady, XMLEditClick,ProgressImage {
+        OnStartDragListener, DoneOrderInterface, OnEditLayoutReady, XMLEditClick,ProgressImage, OnQuestionLayoutReady {
     static int id = 0;
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
+    private static final int PICK_IMAGE_MULTI_QUE = 236;
+    private final String HOLD  = " ,HO##LD,";
     private MediaPlayer mediaPlayer;
     StorageReference storageReference;
     DatabaseReference databaseReference;
@@ -84,16 +90,20 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     ImageDialog imageDialog;
     TextViewDialog textViewDialog;
     TextDetectionDialog textDetectionDialog;
+    MultiImageQueDialog multiImageQueDialog;
     ProgressImage progressImage;
-
+    //Parmaters
+    String parms;
+    String topicType = "normal";
     //    MainQuestionDialog mainQuestionDialog;
     OnLayoutReadyInterface onLayoutReadyInterface = this;
-
+    OnQuestionLayoutReady onQuestionLayoutReady = this;
     private ItemTouchHelper mItemTouchHelper;
     ArrayList<String> layoutsList;
     RecyclerView recyclerViewOrdering;
     RecyclerListAdapter adapter;
     Toolbar toolbar;
+    RelativeLayout relativeLayout;
     ParseXMLInstructor parseXMLInstructor;
     boolean isImageOrSound = false;
     boolean isQuestion = false;
@@ -102,6 +112,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_topic);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        relativeLayout = (RelativeLayout) findViewById(R.id.activiy_main);
         setSupportActionBar(toolbar);
         parseXMLInstructor = new ParseXMLInstructor(InstructorTopicCreationActivity.this);
         parseXMLInstructor.setXmlClick(this);
@@ -176,6 +187,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                 final TextView multiQue = (TextView) someLayout.findViewById(R.id.multipleChoices);
                 final TextView textDetection = (TextView) someLayout
                         .findViewById(R.id.textDetection);
+                final TextView multiImageQue = (TextView) someLayout.findViewById(R.id.imagesMulti);
 
                 builder.setView(someLayout);
                 final AlertDialog dialog = builder.create();
@@ -223,6 +235,15 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                         textDetectionDialog.openTextDetectionDialog();
                     }
                 });
+                multiImageQue.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                        multiImageQueDialog = new MultiImageQueDialog(id,InstructorTopicCreationActivity.this,onQuestionLayoutReady);
+                        multiImageQueDialog.setCourseId(courseId);
+                        multiImageQueDialog.openMultiImageQueDialog();
+                    }
+                });
 
 
             }
@@ -267,10 +288,17 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                             .child("lessons").child(lessonid).child("topics").child(topicid);
                     TopicModel t = new TopicModel();
                     String layouts = " ";
-                    for (String layout : layoutsList) {
-                        layouts += layout;
+                    if(layoutsList.size()>0){
+                        for (String layout : layoutsList) {
+                            layouts += layout;
+                        }
+                        t.setLayout(start + layouts + end);
+                    }else{
+                        topicType = "multiImageQue";
+                        t.setTopicType(topicType);
+                        t.setLayout(parms);
                     }
-                    t.setLayout(start + layouts + end);
+
                     t.setName(topicname);
                     t.setId(topicid);
                     if(isQuestion)
@@ -315,6 +343,9 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         }
         if (requestCode == PICK_SOUND_REQUEST && resultCode == Activity.RESULT_OK) {
             soundDialog.setFilePath(data.getData());
+        }
+        if(requestCode == PICK_IMAGE_MULTI_QUE && resultCode == Activity.RESULT_OK){
+            multiImageQueDialog.setFilePath(data.getData());
         }
     }
 
@@ -487,5 +518,17 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         isQuestion = isQuestion1;
 
         Log.v("isQuestion1",isQuestion1+"");
+    }
+
+    @Override
+    public void onLayoutReady(String layout) {
+        Log.v("ImageQue","Layout -"+layout);
+        parms = layout;
+//        relativeLayout.addView(multiImageQueDialog.getFinalView());
+//        relativeLayout  = (RelativeLayout) multiImageQueDialog.getFinalView();
+//        parms = layout.split("(?<=" + HOLD + ")");
+//        for(String s:parms){
+//            Log.v("Parms","- "+s.replaceAll(HOLD," "));
+//        }
     }
 }

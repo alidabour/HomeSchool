@@ -156,7 +156,9 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                     headerRVDatas.add(new HeaderRVData((String) pair.getKey(),
                             (List) pair.getValue()));
                     Log.v("Test", "Map_______" + pair.getKey() + " = " + pair.getValue());
-                    subject.add(pair.getKey().toString());
+                    if(pair.getKey() != null){
+                        subject.add(pair.getKey().toString());
+                    }
                     it.remove(); // avoids a ConcurrentModificationException
                 }
                 courseSectionListAdapter = new CourseSectionListAdapter(getActivity(),

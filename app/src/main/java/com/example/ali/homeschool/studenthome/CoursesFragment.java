@@ -112,7 +112,7 @@ public class CoursesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        db.child("users").child("nX4zI26SlpPA7bVaRVWEE708c0g1").child("enrolledcourses")
+        db.child("users").child("GjiwC0oIEYb52VXOsEG83hXOiij1").child("enrolledcourses")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onCancelled(DatabaseError databaseError) {

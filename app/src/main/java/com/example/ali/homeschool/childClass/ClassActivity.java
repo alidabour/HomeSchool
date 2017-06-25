@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.InstructorTopic.TopicModel;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.childClass.topicsfragment.MultiImageQuestionFragment;
 import com.example.ali.homeschool.childProgress.ProgressModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*
     This class is for advanced level later on as it is designed to get the images like the cat image and the voice
@@ -79,6 +82,11 @@ public class ClassActivity extends AppCompatActivity {
         //  lessonModelList = new ArrayList<LessonModel>();
         listener = new ValueEventListener() {
             @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+            @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.e("TopicsonDataChang", "onDataChang");
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
@@ -89,11 +97,15 @@ public class ClassActivity extends AppCompatActivity {
                 }
 
                 layouts = new ArrayList<String>();
+                List<Fragment> fragmentList = new ArrayList<>();
 
                 for (TopicModel modelEntry : TopicModelList) {
-
-                    TopicModel topicModel = modelEntry;
-                    layouts.add(topicModel.getLayout());
+//                    layouts.add(topicModel.getLayout());
+                    if(modelEntry.getTopicType().equals("normal")){
+                        fragmentList.add(LessonFragment.newInstance(modelEntry.getLayout()));
+                    }else if(modelEntry.getTopicType().equals("multiImageQue")){
+                        fragmentList.add(MultiImageQuestionFragment.newInstance(modelEntry.getLayout()));
+                    }
 
                 }
 
@@ -104,27 +116,47 @@ public class ClassActivity extends AppCompatActivity {
 //                    layouts.add(topicModel.getLayout());
 //                    //  }
 //                }
-                if (getSupportFragmentManager() != null) {
-                    pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(), layouts));
-                    //layouts = new ArrayList<String>();
+                //  if (getSupportFragmentManager() != null){
+//                fragmentList.add(LessonFragment.newInstance(layouts.get(0)));
+//                fragmentList.add(new NestedFrag());
+//                fragmentList.add(new NestedFrag());
 
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(), fragmentList));
+                //layouts = new ArrayList<String>();
 
             }
         };
-        db.child("courses").child(course_id).child("lessons").child(lesson_id).child("topics").addValueEventListener(listener);
+
+
+        ;
+        db.child("courses").
+
+                child(course_id).
+
+                child("lessons").
+
+                child(lesson_id).
+
+                child("topics").
+
+                addValueEventListener(listener);
 
     }
 
     @Override
     protected void onPause() {
-        if (listener != null)
+        if (listener != null){
             db.removeEventListener(listener);
+        }
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(pager != null){
+            pager.setAdapter(null);
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -148,8 +180,10 @@ public class ClassActivity extends AppCompatActivity {
 
                 }.start();
 
-                Toast.makeText(this, " احسنت \n" + data.getData().toString(), Toast.LENGTH_LONG).show();
-                Toast.makeText(this, " ya rbbbbbb \n" + data.getData().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, " احسنت \n" + data.getData().toString(), Toast.LENGTH_LONG)
+                        .show();
+                Toast.makeText(this, " ya rbbbbbb \n" + data.getData().toString(),
+                        Toast.LENGTH_LONG).show();
 
              /*   db.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(new ValueEventListener() {
                     int count = 0;
@@ -171,35 +205,47 @@ public class ClassActivity extends AppCompatActivity {
 
             } else if (resultCode == Constants.WRONGANSWER) {
                 Boolean Flag = false;
-                db.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                db.child("users").child(user.getUid()).child("enrolledcourses")
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        for (DataSnapshot d : dataSnapshot.getChildren()) {
-                            for (DataSnapshot d1 : d.getChildren())
-                                for (DataSnapshot d2 : d1.getChildren()) {
-                                    Log.v("dddddddddddddd", d2.getValue() + "Welcome");
-                                    ProgressModel progressModel = d2.getValue(ProgressModel.class);
-                                    progressModel.setTopicProgressFlag("true");
-                                    Log.v("dddddddddddddd", progressModel.getTopicProgressId() + "getTopicProgressId");
-                                    Log.v("dddddddddddddd", progressModel.getEnrolledcourseid() + "getEnrolledcourseid");
-                                    Log.v("dddddddddddddd", progressModel.getProgressid() + "getProgressid");
-                                    Log.v("dddddddddddddd", progressModel.getTopicProgressFlag() + "getTopicProgressFlag");
-                                    db.child("users").child(user.getUid()).child("enrolledcourses").child(progressModel.getEnrolledcourseid())
-                                            .child("progress").child(progressModel.getProgressid()).updateChildren(progressModel.toMap());
+                                for (DataSnapshot d : dataSnapshot.getChildren()) {
+                                    for (DataSnapshot d1 : d.getChildren())
+                                        for (DataSnapshot d2 : d1.getChildren()) {
+                                            Log.v("dddddddddddddd", d2.getValue() + "Welcome");
+                                            ProgressModel progressModel = d2
+                                                    .getValue(ProgressModel.class);
+                                            progressModel.setTopicProgressFlag("true");
+                                            Log.v("dddddddddddddd", progressModel
+                                                    .getTopicProgressId() + "getTopicProgressId");
+                                            Log.v("dddddddddddddd", progressModel
+                                                    .getEnrolledcourseid() + "getEnrolledcourseid");
+                                            Log.v("dddddddddddddd", progressModel
+                                                    .getProgressid() + "getProgressid");
+                                            Log.v("dddddddddddddd", progressModel
+                                                    .getTopicProgressFlag() + "getTopicProgressFlag");
+                                            db.child("users").child(user.getUid())
+                                                    .child("enrolledcourses")
+                                                    .child(progressModel.getEnrolledcourseid())
+                                                    .child("progress")
+                                                    .child(progressModel.getProgressid())
+                                                    .updateChildren(progressModel.toMap());
 
+                                        }
                                 }
-                        }
-                    }
+                            }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
+                            }
+                        });
                 Log.v("t3alayabni", "etnyl t3ala");
-                Toast.makeText(this, " حاول مرة أخري \n" + data.getData().toString(), Toast.LENGTH_LONG).show();
-                Toast.makeText(this, " ya rbbbbbb \n" + data.getData().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, " حاول مرة أخري \n" + data.getData().toString(),
+                        Toast.LENGTH_LONG).show();
+                Toast.makeText(this, " ya rbbbbbb \n" + data.getData().toString(),
+                        Toast.LENGTH_LONG).show();
 
             }
         }

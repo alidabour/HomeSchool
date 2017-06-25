@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.example.ali.homeschool.childClass.LessonFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Dabour on 11/26/2016.
@@ -14,18 +15,20 @@ import java.util.ArrayList;
 
 public class LessonPagerAdapter extends FragmentStatePagerAdapter {
     ArrayList<String> layouts ;
-    public LessonPagerAdapter(FragmentManager fm, ArrayList<String> layouts) {
+    List<Fragment> fragmentList;
+    public LessonPagerAdapter(FragmentManager fm, List<Fragment> fragmentList) {
         super(fm);
-        this.layouts=layouts;
+        this.fragmentList = fragmentList;
+//        this.layouts=layouts;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return new LessonFragment().newInstance(layouts.get(position),"Test");
+        return fragmentList.get(position);
     }
 
     @Override
     public int getCount() {
-        return layouts.size();
+        return fragmentList.size();
     }
 }

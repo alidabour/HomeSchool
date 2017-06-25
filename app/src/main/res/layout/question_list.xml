@@ -23,23 +23,22 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
     <!--<TextView-->
-        <!--android:id="@+id/object"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="8dp"-->
-        <!--android:gravity="center_horizontal"-->
-        <!--android:text="Object Question"-->
-        <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>-->
+    <!--android:id="@+id/object"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="8dp"-->
+    <!--android:gravity="center_horizontal"-->
+    <!--android:text="Object Question"-->
+    <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>-->
 
     <!--<TextView-->
-        <!--android:id="@+id/trueOrFalse"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="8dp"-->
-        <!--android:gravity="center_horizontal"-->
-        <!--android:text="True or False Question"-->
-        <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>-->
-
+    <!--android:id="@+id/trueOrFalse"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="8dp"-->
+    <!--android:gravity="center_horizontal"-->
+    <!--android:text="True or False Question"-->
+    <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>-->
     <TextView
         android:id="@+id/multipleChoices"
         android:layout_width="match_parent"
@@ -50,11 +49,20 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
     <TextView
-        android:text="Text Detection"
-        android:id="@+id/textDetection"
+        android:id="@+id/imagesMulti"
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Images Multiple Choice"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
+
+    <TextView
+        android:id="@+id/textDetection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Text Detection"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
 </LinearLayout>
