@@ -151,6 +151,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
         listener = new ValueEventListener() {
             List<TopicModel> lessonModelList;
 
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 lessonModelList = new ArrayList<TopicModel>();
