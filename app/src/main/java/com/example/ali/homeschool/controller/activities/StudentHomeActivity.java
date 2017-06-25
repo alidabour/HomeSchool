@@ -292,6 +292,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     protected void onDestroy() {
         super.onDestroy();
 
+    if(timer!=null)
         timer.cancel();
 
     }

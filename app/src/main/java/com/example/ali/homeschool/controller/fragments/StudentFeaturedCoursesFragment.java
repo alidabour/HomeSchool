@@ -165,7 +165,11 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                         headerRVDatas, 1, subject);
                 courseSectionRV.setAdapter(courseSectionListAdapter);
                 // [END_EXCLUDE]
+
+                if(getActivity()!=null)
                 listener.onDataFetched(random);
+
+
                 progressBar.setVisibility(View.INVISIBLE);
             }
 
