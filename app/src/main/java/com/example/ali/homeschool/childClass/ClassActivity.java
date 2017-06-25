@@ -55,7 +55,7 @@ public class ClassActivity extends AppCompatActivity {
     TextView noTopics;
     FirebaseUser user;
     FirebaseAuth firebaseAuth;
-    ImageView imageView2 ;
+    ImageView imageView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class ClassActivity extends AppCompatActivity {
         context = getApplicationContext();
         setContentView(R.layout.activity_class_trial);
         pager = (ViewPager) findViewById(R.id.viewPager);
-         imageView2 = (ImageView) findViewById(R.id.masha);
+        imageView2 = (ImageView) findViewById(R.id.masha);
 
         Intent iin = getIntent();
         Bundle b = iin.getExtras();
@@ -133,11 +133,11 @@ public class ClassActivity extends AppCompatActivity {
                 pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(), fragmentList));
                 pager.setPageTransformer(true, new CubeOutTransformer()); //set the animation
 
+
                 //layouts = new ArrayList<String>();
 
             }
         };
-
 
 
         db.child("courses").
@@ -175,23 +175,25 @@ public class ClassActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        imageView2.setVisibility(View.VISIBLE);
         GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView2);
         Glide.with(this).load(R.raw.source).into(imageViewTarget);
         MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
         mediaPlayer.start();
-
+        pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
+        // imageView2.setVisibility(View.GONE);
         if (requestCode == Constants.SPEECH) {
             if (resultCode == Constants.CORRECTANSWER) {
                 Log.v("talayabni", data.getData().toString());
 
                 Log.e("ارنب", " Rabbit");
 
-
                 Toast.makeText(this, " احسنت \n" + data.getData().toString(), Toast.LENGTH_LONG)
                         .show();
                 Toast.makeText(this, " ya rbbbbbb \n" + data.getData().toString(),
                         Toast.LENGTH_LONG).show();
 
+                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
              /*   db.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(new ValueEventListener() {
                     int count = 0;
                     @Override
@@ -242,6 +244,10 @@ public class ClassActivity extends AppCompatActivity {
 
                             }
                         });
+                // imageView2.setVisibility(View.INVISIBLE);
+                Log.v("pagr ", pager.getCurrentItem() + "");
+                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
+
                 Log.v("t3alayabni", "etnyl t3ala");
                 Toast.makeText(this, " حاول مرة أخري \n" + data.getData().toString(),
                         Toast.LENGTH_LONG).show();
@@ -253,17 +259,20 @@ public class ClassActivity extends AppCompatActivity {
         Log.v("LessonFragment", "Activity Result " + requestCode + " , " + resultCode);
         if (resultCode == Constants.CORRECTANSWER) {
             if (requestCode == Constants.SIMPLE) {
+                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
                 Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
             }
         }
         if (resultCode == Constants.WRONGANSWER) {
             if (requestCode == Constants.SIMPLE) {
+                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
                 Toast.makeText(context, "Result Wrong", Toast.LENGTH_SHORT).show();
             }
         }
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == Constants.SPEECH) {
 
+                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
             }
         }
 
@@ -279,6 +288,7 @@ public class ClassActivity extends AppCompatActivity {
         if (resultCode == Constants.CORRECTANSWER) {
             if (requestCode == Constants.Text_Detection) {
 
+                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
                 Log.v("t3alayabni", "etnyl t3ala enta eltani");
                 Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
             }
@@ -306,7 +316,7 @@ public class ClassActivity extends AppCompatActivity {
         if (resultCode == Constants.WRONGANSWER) {
             if (requestCode == Constants.Text_Detection) {
 
-
+                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
                 Toast.makeText(context, "Result Incorrect", Toast.LENGTH_SHORT).show();
             }
             Log.v("t3ala yabni", "etnyl t3ala");
