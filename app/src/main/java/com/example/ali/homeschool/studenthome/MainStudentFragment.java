@@ -63,8 +63,8 @@ public class MainStudentFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main_student, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.masha);
-        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView);
-        Glide.with(this).load(R.raw.source).into(imageViewTarget);
+//        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView);
+//        Glide.with(this).load(R.raw.source).into(imageViewTarget);
         return view;
     }
 

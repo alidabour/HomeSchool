@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.childClass.ClassActivity;
@@ -77,6 +79,8 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
 
     @Override
     public void onBindViewHolder(LessonViewHolder holder, int position) {
+        Glide.with(activity).load(lessonModelList.get(position).getPhoto_url()).into(holder.circleImageView);
+        holder.lessonName.setText(lessonModelList.get(position).getName());
 //        final LessonModel lessonModel = lessonModelList.get(position);
 //        Log.v("Lesson " , lessonModel.getName());
 //        holder.lessonName.setText(lessonModel.getName());
@@ -91,7 +95,7 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
 //                activity.startActivity(intent);
 //            }
 //        });
-        holder.circleImageView.setBorderColor(colors.get(position % 5));
+//        holder.circleImageView.setBorderColor(colors.get(position % 5));
     }
 
 
@@ -110,11 +114,12 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
         //        private TextView lessonName;
 //        protected Button startBtn;
         CircleImageView circleImageView;
-
+        TextView lessonName ;
         public LessonViewHolder(View itemView) {
             super(itemView);
             circleImageView = (CircleImageView) itemView.findViewById(R.id.lesson_image);
             circleImageView.setOnClickListener(this);
+            lessonName  = (TextView) itemView.findViewById(R.id.lesson_name);
 //            lessonName = (TextView) itemView.findViewById(R.id.lessonName);
 //            startBtn = (Button) itemView.findViewById(R.id.startbtn);
 //            startBtn.setOnClickListener(this);

@@ -2,13 +2,18 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:background="@drawable/back1"
+             android:background="@drawable/back11"
              tools:context="com.example.ali.homeschool.studenthome.MainStudentFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView android:layout_height="match_parent"
-               android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageView android:layout_height="wrap_content"
+               android:layout_width="wrap_content"
+               android:padding="40dp"
+               android:layout_alignParentEnd="true"
                android:id="@+id/masha"/>
-
+    </RelativeLayout>
 </FrameLayout>

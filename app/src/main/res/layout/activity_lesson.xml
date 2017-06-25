@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/viewRoot"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -16,37 +16,39 @@
     <!--android:background="?attr/colorPrimary"/>-->
     <LinearLayout
         android:id="@+id/line"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:layout_margin="16dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <de.hdodenhof.circleimageview.CircleImageView
-            app:civ_border_color="@color/colorPrimary"
-            app:civ_border_width="4dp"
-            android:src="@drawable/profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp"
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_margin="8dp"
-            android:layout_gravity="center"
-            android:id="@+id/textView3"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/course_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Course Name"
+            tools:src="@drawable/profile"
+            app:civ_border_color="@color/colorPrimary"
+            app:civ_border_width="4dp"/>
+
+        <TextView
+            android:id="@+id/course_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            tools:text="Course Name"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="24dp"
         android:id="@+id/lessonsRV2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:layout_centerVertical="true"
+        android:layout_marginBottom="24dp"
         />
     <!--android:layout_below="@+id/toolbar1"-->
 

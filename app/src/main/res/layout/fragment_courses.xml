@@ -3,7 +3,7 @@
              android:id="@+id/viewRoot"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-                android:background="@drawable/back2"
+                android:background="@drawable/back22"
              tools:context="com.example.ali.homeschool.studenthome.CoursesFragment">
 
     <!-- TODO: Update blank fragment layout -->

@@ -19,9 +19,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.R;
@@ -82,7 +85,8 @@ public class LessonActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         course = intent.getParcelableExtra("course");
-
+        ((TextView) findViewById(R.id.course_name)).setText(course.getName());
+        Glide.with(getApplicationContext()).load(course.getPhoto_url()).into((ImageView)findViewById(R.id.course_image));
         Explode enterTransition = new Explode();
         enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
         getWindow().setEnterTransition(enterTransition);
@@ -139,7 +143,7 @@ public class LessonActivity extends AppCompatActivity {
 //        animation.setFillAfter(true);
 //        line.startAnimation(animation);
         ObjectAnimator animX = ObjectAnimator.ofFloat(line,
-                View.TRANSLATION_X, -1* line.getWidth(), 0);
+                View.TRANSLATION_X, -1 * line.getWidth(), 0);
         animX.setDuration(3000);
         animX.start();
         listener = new ValueEventListener() {

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -23,6 +24,8 @@ import android.widget.TextView;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.InstructorTopic.InstructorTopicActivity;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.UserModelHelper.FileUploadHelper;
+import com.example.ali.homeschool.UserModelHelper.UploadFile;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class InstructorLessonsActivity extends AppCompatActivity {
     RecyclerView lessonsRV;
@@ -43,7 +47,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     ArrayList<LessonModel> lessonModelList;
     ValueEventListener listener;
     final int PICK_IMAGE_REQUEST = 234;
-    String filePath;
+    String photo_url ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,8 +86,8 @@ public class InstructorLessonsActivity extends AppCompatActivity {
 //                        Map<String,String> lesson = new HashMap<String, String>();
                         String key = db.child("courses").child(courseCreated.getCourse_id())
                                 .child("lessons").push().getKey();
-                        if(filePath.isEmpty()){
-                            filePath = "https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2Fcourses%2Fphoto_default.png?alt=media&token=a338378b-eb7d-4d65-88ea-a4266fd0c1d5";
+                        if(photo_url.isEmpty()){
+                            photo_url = "https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2Fcourses%2Fphoto_default.png?alt=media&token=a338378b-eb7d-4d65-88ea-a4266fd0c1d5";
                         }
 //                        lesson.put("id",key);
 //                        lesson.put("name",m_Text);
@@ -92,7 +96,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                         db.child("courses").child(courseCreated.getCourse_id()).child("lessons")
                                 .child(key).child("name").setValue(m_Text);
                         db.child("courses").child(courseCreated.getCourse_id()).child("lessons")
-                                .child(key).child("photo_url").setValue(filePath);
+                                .child(key).child("photo_url").setValue(photo_url);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -163,7 +167,15 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK){
-            filePath = data.getData().toString();
+            Uri filePath = data.getData();
+            String storagePath = "images/coursesPhoto/"+courseID+  UUID.randomUUID();
+
+            new UploadFile(filePath, InstructorLessonsActivity.this, new FileUploadHelper() {
+                @Override
+                public void fileUploaded(String url) {
+                    photo_url = url;
+                }
+            },storagePath);
         }
     }
 
