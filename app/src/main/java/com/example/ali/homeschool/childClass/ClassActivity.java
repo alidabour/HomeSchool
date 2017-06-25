@@ -16,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ToxicBakery.viewpager.transforms.RotateDownTransformer;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.InstructorLessons.LessonModel;
 import com.example.ali.homeschool.InstructorTopic.TopicModel;
@@ -52,6 +55,7 @@ public class ClassActivity extends AppCompatActivity {
     TextView noTopics;
     FirebaseUser user;
     FirebaseAuth firebaseAuth;
+    ImageView imageView2 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,8 @@ public class ClassActivity extends AppCompatActivity {
         context = getApplicationContext();
         setContentView(R.layout.activity_class_trial);
         pager = (ViewPager) findViewById(R.id.viewPager);
+         imageView2 = (ImageView) findViewById(R.id.masha);
+
         Intent iin = getIntent();
         Bundle b = iin.getExtras();
         TopicModelList = new ArrayList<TopicModel>();
@@ -169,23 +175,17 @@ public class ClassActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView2);
+        Glide.with(this).load(R.raw.source).into(imageViewTarget);
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
+        mediaPlayer.start();
+
         if (requestCode == Constants.SPEECH) {
             if (resultCode == Constants.CORRECTANSWER) {
                 Log.v("talayabni", data.getData().toString());
 
                 Log.e("ارنب", " Rabbit");
-                MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
-                mediaPlayer.start();
 
-                new CountDownTimer(4000, 1000) {
-                    public void onFinish() {
-                        finish();
-                    }
-
-                    public void onTick(long millisUntilFinished) {
-                    }
-
-                }.start();
 
                 Toast.makeText(this, " احسنت \n" + data.getData().toString(), Toast.LENGTH_LONG)
                         .show();

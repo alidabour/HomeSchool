@@ -127,10 +127,11 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
                     }else{
                         int p = getAdapterPosition();
                         CourseCreated courseCreated = courses.get(p);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity)context);
                         Intent intent = new Intent(context,
                                 LessonActivity.class);
                         intent.putExtra("course", courseCreated);
-                        context.startActivity(intent);
+                        context.startActivity(intent, options.toBundle());
                     }
 //                    viewRoot.setBackgroundColor(Color.parseColor("#ff0000"));
 
