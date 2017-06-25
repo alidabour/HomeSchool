@@ -21,6 +21,8 @@ import com.example.ali.homeschool.R;
 
 import java.util.ArrayList;
 
+import me.relex.circleindicator.CircleIndicator;
+
 /**
  * Created by lenovo on 30/11/2016.
  */
@@ -35,9 +37,12 @@ public class SignInAs extends AppCompatActivity {
         setContentView(R.layout.sign_in_as);
         //ImageView imageView = (ImageView) findViewById(R.id.imageView);
         pager = (ViewPager) findViewById(R.id.viewPager);
+        CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
+        indicator.setViewPager(pager);
+
         Log.v("pager ", pager.toString());
         ArrayList<Home> res = new ArrayList<>();
-        Home home = new Home() ;
+        Home home = new Home();
         home.setImage(R.drawable.student_icon);
         home.setName(getString(R.string.Student));
         res.add(home);
@@ -50,76 +55,76 @@ public class SignInAs extends AppCompatActivity {
         home.setName(getString(R.string.Parents));
         res.add(home);
         pager.setAdapter(new SignInAsAdapter(this, res));
-        final ImageButton previous = (ImageButton) findViewById(R.id.previous);
-        final ImageButton next = (ImageButton) findViewById(R.id.next);
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                previous.setEnabled(true);
-//                previous.setSelected(true);
-//                int current =pager.getCurrentItem();
-//                if(current == pager.getChildCount()){
+//        final ImageButton previous = (ImageButton) findViewById(R.id.previous);
+//        final ImageButton next = (ImageButton) findViewById(R.id.next);
+//        next.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                previous.setEnabled(true);
+////                previous.setSelected(true);
+////                int current =pager.getCurrentItem();
+////                if(current == pager.getChildCount()){
+////                    next.setEnabled(false);
+////                    next.setSelected(false);
+////                }else {
+////                    next.setEnabled(true);
+////                    next.setSelected(true);
+////
+////                }
+//                pager.setCurrentItem(getItem(+1), true); //getItem(-1) for previous
+//
+//            }
+//        });
+//        previous.setEnabled(false);
+//        previous.setVisibility(View.GONE);
+//        previous.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                next.setEnabled(true);
+////                next.setSelected(true);
+////                int current =pager.getCurrentItem();
+////                if(current == 0){
+////                    previous.setEnabled(false);
+////                    previous.setSelected(false);
+////                }else {
+////                    previous.setEnabled(true);
+////                    previous.setSelected(true);
+////                }
+//                pager.setCurrentItem(getItem(-1), true); //getItem(-1) for previous
+//            }
+//        });
+//        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset,
+//                                       int positionOffsetPixels) {
+////                Toast.makeText(SignInAs.this, position +"/"+positionOffset, Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+////                Toast.makeText(SignInAs.this, "Count: "+pager.getChildCount(), Toast.LENGTH_SHORT).show();
+//                if (position == 2) {
 //                    next.setEnabled(false);
-//                    next.setSelected(false);
-//                }else {
+//                    next.setVisibility(View.GONE);
+//                } else {
 //                    next.setEnabled(true);
-//                    next.setSelected(true);
+//                    next.setVisibility(View.VISIBLE);
 //
 //                }
-                pager.setCurrentItem(getItem(+1), true); //getItem(-1) for previous
-
-            }
-        });
-        previous.setEnabled(false);
-        previous.setVisibility(View.GONE);
-        previous.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                next.setEnabled(true);
-//                next.setSelected(true);
-//                int current =pager.getCurrentItem();
-//                if(current == 0){
+//                if (position == 0) {
 //                    previous.setEnabled(false);
-//                    previous.setSelected(false);
-//                }else {
+//                    previous.setVisibility(View.GONE);
+//                } else {
 //                    previous.setEnabled(true);
-//                    previous.setSelected(true);
+//                    previous.setVisibility(View.VISIBLE);
 //                }
-                pager.setCurrentItem(getItem(-1), true); //getItem(-1) for previous
-            }
-        });
-        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset,
-                                       int positionOffsetPixels) {
-//                Toast.makeText(SignInAs.this, position +"/"+positionOffset, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-//                Toast.makeText(SignInAs.this, "Count: "+pager.getChildCount(), Toast.LENGTH_SHORT).show();
-                if(position == 2){
-                    next.setEnabled(false);
-                    next.setVisibility(View.GONE);
-                }else{
-                    next.setEnabled(true);
-                    next.setVisibility(View.VISIBLE);
-
-                }
-                if(position==0){
-                    previous.setEnabled(false);
-                    previous.setVisibility(View.GONE);
-                }else{
-                    previous.setEnabled(true);
-                    previous.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
 //        BitmapFactory.Options o = new BitmapFactory.Options();
 //        o.inTargetDensity = DisplayMetrics.DENSITY_DEFAULT;
 //        Bitmap bmp = BitmapFactory.decodeResource(getApplicationContext().getResources(),
@@ -145,8 +150,7 @@ public class SignInAs extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Closing Activity")
                 .setMessage("Are you sure you want to close this activity?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ActivityCompat.finishAffinity(SignInAs.this);
