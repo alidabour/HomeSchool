@@ -81,12 +81,15 @@ public class CourseDescriptionActivity extends AppCompatActivity {
         courseExists = false;
         setContentView(R.layout.activity_course_description);
         progresstrial = new ProgressModel();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        myRef1 = databaseReference;
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         Drawable drawable = ratingBar.getProgressDrawable();
         drawable.setColorFilter(Color.parseColor("#0C75DE"),PorterDuff.Mode.SRC_ATOP);
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        myRef1 = databaseReference;
+
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -116,12 +119,13 @@ public class CourseDescriptionActivity extends AppCompatActivity {
             userid = intent.getStringExtra("userid");
             Log.v("ElidZaahr",userid);
         }
+        else
+            userid = user.getUid();
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         List<String> names = new ArrayList<>();
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
 
         final int type = intent.getIntExtra("type", 0);
 
@@ -147,11 +151,11 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                                                     final EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
                                                     enrolledCourseModel.setName(courseCreated.getName());
                                                     enrolledCourseModel.setCourse_id(key);
-                                                    Log.v("enrolledCourseModel ", user.getUid() + " " + enrolledCourseModel.getName() + " ");
-                                                    String key = myRef1.child("users").child(user.getUid()).child("enrolledcourses").push().getKey();
+                                                    Log.v("enrolledCourseModel ", userid + " " + enrolledCourseModel.getName() + " ");
+                                                    String key = myRef1.child("users").child(userid).child("enrolledcourses").push().getKey();
                                                     enrolledCourseModel.setEnrolledcoursemodelid(key);
-                                                    myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).setValue(enrolledCourseModel);
-                                                    String key2 = myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(key).child("progress").push().getKey();
+                                                    myRef1.child("users").child(userid).child("enrolledcourses").child(key).setValue(enrolledCourseModel);
+                                                    String key2 = myRef1.child("users").child(userid).child("enrolledcourses").child(key).child("progress").push().getKey();
 
                                                     courseExists = true;
                                                     Toast.makeText(CourseDescriptionActivity.this, "Enrolled Successfully", Toast.LENGTH_SHORT).show();
@@ -165,12 +169,17 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                                                                         TopicModel topicModel = d3.getValue(TopicModel.class);
                                                                         if(topicModel.getQuestion().equals("true")){
                                                                             myRef1 = databaseReference;
-                                                                            String key2 = myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(enrolledCourseModel.getEnrolledcoursemodelid()).child("progress").push().getKey();
-                                                                            myRef1 = myRef1.child("users").child(user.getUid()).child("enrolledcourses").child(enrolledCourseModel.getEnrolledcoursemodelid()).child("progress");
+                                                                            String key2 = myRef1.child("users").child(userid).child("enrolledcourses").child(enrolledCourseModel.getEnrolledcoursemodelid()).child("progress").push().getKey();
+                                                                            myRef1 = myRef1.child("users").child(userid).child("enrolledcourses").child(enrolledCourseModel.getEnrolledcoursemodelid()).child("progress");
                                                                             progresstrial.setTopicProgressFlag("false");
                                                                             progresstrial.setTopicProgressId(topicModel.getId());
                                                                             progresstrial.setProgressid(key2);
                                                                             progresstrial.setEnrolledcourseid(enrolledCourseModel.getEnrolledcoursemodelid());
+                                                                            Log.v("TopicModel",topicModel.getQuestion());
+                                                                            Log.v("TopicModel",topicModel.getId());
+                                                                            Log.v("TopicModel",topicModel.getName());
+                                                                            Log.v("TopicModel",topicModel.getLayout());
+                                                                            Log.v("TopicModel",topicModel.getTopicType());
                                                                             myRef1.child(key2).updateChildren(progresstrial.toMap());
                                                                         }
                                                                     }
@@ -192,7 +201,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
 
                                         }
                                     };
-                    databaseReference.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(listener1);
+                    databaseReference.child("users").child(userid).child("enrolledcourses").addValueEventListener(listener1);
 
                 } else
                     Toast.makeText(CourseDescriptionActivity.this, "You Need To Sign In", Toast.LENGTH_SHORT).show();
@@ -279,7 +288,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
 
             }
         };
-        databaseReference.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(listener1);
+        databaseReference.child("users").child(userid).child("enrolledcourses").addValueEventListener(listener1);
         databaseReference.child("courses").child(String.valueOf(courseCreated.getCourse_id())).child("lessons").addValueEventListener(listener2);
 //
 ////            for(Lessons x : lessonsID)

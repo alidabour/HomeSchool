@@ -101,9 +101,9 @@ public class ClassActivity extends AppCompatActivity {
 
                 for (TopicModel modelEntry : TopicModelList) {
 //                    layouts.add(topicModel.getLayout());
-                    if(modelEntry.getTopicType().equals("normal")){
+                    if (modelEntry.getTopicType().equals("normal")) {
                         fragmentList.add(LessonFragment.newInstance(modelEntry.getLayout()));
-                    }else if(modelEntry.getTopicType().equals("multiImageQue")){
+                    } else if (modelEntry.getTopicType().equals("multiImageQue")) {
                         fragmentList.add(MultiImageQuestionFragment.newInstance(modelEntry.getLayout()));
                     }
 
@@ -122,6 +122,7 @@ public class ClassActivity extends AppCompatActivity {
 //                fragmentList.add(new NestedFrag());
 
                 pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(), fragmentList));
+
                 //layouts = new ArrayList<String>();
 
             }
@@ -145,7 +146,7 @@ public class ClassActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        if (listener != null){
+        if (listener != null) {
             db.removeEventListener(listener);
         }
         super.onPause();
@@ -153,7 +154,7 @@ public class ClassActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if(pager != null){
+        if (pager != null) {
             pager.setAdapter(null);
         }
         super.onDestroy();
@@ -162,6 +163,7 @@ public class ClassActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == Constants.SPEECH) {
             if (resultCode == Constants.CORRECTANSWER) {
                 Log.v("talayabni", data.getData().toString());
@@ -204,7 +206,6 @@ public class ClassActivity extends AppCompatActivity {
 
 
             } else if (resultCode == Constants.WRONGANSWER) {
-                Boolean Flag = false;
                 db.child("users").child(user.getUid()).child("enrolledcourses")
                         .addValueEventListener(new ValueEventListener() {
                             @Override
@@ -213,24 +214,19 @@ public class ClassActivity extends AppCompatActivity {
                                 for (DataSnapshot d : dataSnapshot.getChildren()) {
                                     for (DataSnapshot d1 : d.getChildren())
                                         for (DataSnapshot d2 : d1.getChildren()) {
-                                            Log.v("dddddddddddddd", d2.getValue() + "Welcome");
-                                            ProgressModel progressModel = d2
-                                                    .getValue(ProgressModel.class);
-                                            progressModel.setTopicProgressFlag("true");
-                                            Log.v("dddddddddddddd", progressModel
-                                                    .getTopicProgressId() + "getTopicProgressId");
-                                            Log.v("dddddddddddddd", progressModel
-                                                    .getEnrolledcourseid() + "getEnrolledcourseid");
-                                            Log.v("dddddddddddddd", progressModel
-                                                    .getProgressid() + "getProgressid");
-                                            Log.v("dddddddddddddd", progressModel
-                                                    .getTopicProgressFlag() + "getTopicProgressFlag");
-                                            db.child("users").child(user.getUid())
-                                                    .child("enrolledcourses")
-                                                    .child(progressModel.getEnrolledcourseid())
-                                                    .child("progress")
-                                                    .child(progressModel.getProgressid())
-                                                    .updateChildren(progressModel.toMap());
+                                            ProgressModel progressModel = d2.getValue(ProgressModel.class);
+                                            Log.v("dddddddddddddd", progressModel.getTopicProgressId() + "Welcome");
+
+                                            Log.v("dddddddddddddd", TopicModelList.get(pager.getCurrentItem()).getId() + "Welcome");
+                                            if (progressModel.getTopicProgressId().equals(TopicModelList.get(pager.getCurrentItem()).getId())) {
+                                                progressModel.setTopicProgressFlag("true");
+                                                db.child("users").child(user.getUid())
+                                                        .child("enrolledcourses")
+                                                        .child(progressModel.getEnrolledcourseid())
+                                                        .child("progress")
+                                                        .child(progressModel.getProgressid())
+                                                        .updateChildren(progressModel.toMap());
+                                            }
 
                                         }
                                 }

@@ -18,6 +18,16 @@ import java.util.List;
 public class ChildProgressAdapter1 extends RecyclerView.Adapter<ChildProgressAdapter1.ChildProgressViewHolder> {
     List<EnrolledCourseModel> enrolledCourseModels;
     OnClickHandler onClickHandler;
+    double Progress;
+
+    public double getProgress() {
+        return Progress;
+    }
+
+    public void setProgress(double progress) {
+        Progress = progress;
+    }
+
     public interface OnClickHandler {
         void onClick(EnrolledCourseModel test);
     }
@@ -41,7 +51,7 @@ public class ChildProgressAdapter1 extends RecyclerView.Adapter<ChildProgressAda
                                  int position) {
         EnrolledCourseModel enrolledCourseModel= enrolledCourseModels.get(position);
         holder.courseName.setText(enrolledCourseModel.getName());
-        holder.progressBar.setProgress(5);
+        holder.progressBar.setProgress((int) Progress*100);
     }
 
     @Override

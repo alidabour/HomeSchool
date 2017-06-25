@@ -36,7 +36,7 @@ public class ChildCoursesFragment extends Fragment {
     List<EnrolledCourseModel> enrolledCourseModel;
     ValueEventListener listener;
     int counter=0;
-    int progress=0;
+    double progress=0.0;
     public ChildCoursesFragment() {
     }
     View view;
@@ -49,6 +49,9 @@ public class ChildCoursesFragment extends Fragment {
         view =inflater.inflate(R.layout.fragment_child_courses, container, false);
         context = getContext();
         db = FirebaseDatabase.getInstance().getReference();
+
+        counter=0;
+        progress=0.0;
         Intent intent  =getActivity().getIntent();
         if (intent != null && intent.hasExtra("childModel")){
             Log.v("Test","Intent found");
@@ -88,10 +91,11 @@ public class ChildCoursesFragment extends Fragment {
                                     ProgressModel progressModel = d2.getValue(ProgressModel.class);
                                     if(progressModel.getTopicProgressFlag().equals("true"))
                                         progress++;
-                                        counter = (int) d1.getChildrenCount();
-                                }
-                                }
 
+                                        counter++;
+                                    Log.v("Progress+counnter","1-counter : " +progress/counter +"2-progress : "+progress);
+                                }
+                                }
                         }
                         ChildProgressAdapter1 childProgressAdapter1 = new ChildProgressAdapter1(
                                 enrolledCourseModel, new ChildProgressAdapter1.OnClickHandler() {
@@ -100,6 +104,7 @@ public class ChildCoursesFragment extends Fragment {
 
                             }
                         });
+                        childProgressAdapter1.setProgress(progress/counter);
                         recyclerView.setAdapter(childProgressAdapter1);
                     }
 
