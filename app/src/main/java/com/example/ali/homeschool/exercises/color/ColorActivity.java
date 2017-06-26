@@ -25,6 +25,9 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class ColorActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
 
     static {
@@ -171,15 +174,26 @@ public class ColorActivity extends AppCompatActivity implements CameraBridgeView
             else {
                 Core.putText(img, "find " + colorName[i], new Point(150, 150), Core.FONT_HERSHEY_DUPLEX, 1.0, new Scalar(209, 150, 98));
 
-                //wait 10 seconds then finsh
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+
+                TimerTask timerTask = new TimerTask() {
                     @Override
                     public void run() {
-                        // Do something after 5s = 5000ms
                         finish();
                     }
-                }, 10000);
+                };
+                Timer timer = new Timer();
+//                timer.schedule(timerTask, 10000, 10000);
+                timer.schedule(timerTask,10000);
+
+                //wait 10 seconds then finsh
+//                Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        // Do something after 5s = 5000ms
+//                        finish();
+//                    }
+//                }, 10000);
             }
         }
 
