@@ -1,24 +1,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:id="@+id/viewRoot"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-                android:background="@drawable/back222"
-             tools:context="com.example.ali.homeschool.studenthome.CoursesFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back222"
+    tools:context="com.example.ali.homeschool.studenthome.CoursesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.RecyclerView
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="24dp"
-        android:id="@+id/courses"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
-    <ImageView
-        android:background="@drawable/back3"
-        android:clickable="false"
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="10"
+    android:orientation="vertical"
+    android:background="@drawable/back3">
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_weight="3"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4.4"
+        android:weightSum="5"
+        android:orientation="horizontal">
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4.5"/>
+    <com.example.ali.homeschool.module.utils.DebugRecyclerView
+        android:id="@+id/courses"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        />
+    </LinearLayout>
+</LinearLayout>
+    <!--   <ImageView
+           android:background="@drawable/back3"
+           android:clickable="false"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"/>-->
 
 </RelativeLayout>

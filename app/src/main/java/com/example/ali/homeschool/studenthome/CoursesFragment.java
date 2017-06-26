@@ -5,8 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.transition.Slide;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,6 +16,9 @@ import android.widget.RelativeLayout;
 import com.example.ali.homeschool.InstructorHome.CourseCreated;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.childProgress.EnrolledCourseModel;
+import com.example.ali.homeschool.module.layoutmanager.LondonEyeLayoutManager;
+import com.example.ali.homeschool.module.layoutmanager.scroller.IScrollHandler;
+import com.example.ali.homeschool.module.utils.DebugRecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,10 +41,12 @@ public class CoursesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    RecyclerView coursesRecycleView;
+   DebugRecyclerView coursesRecycleView;
     DatabaseReference db;
     List<CourseCreated> coursesNames;
     FirebaseUser firebaseUser;
+    LondonEyeLayoutManager mLondonEyeLayoutManager;
+
 //    private OnFragmentInteractionListener mListener;
 
     public CoursesFragment() {
@@ -84,14 +87,61 @@ public class CoursesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_courses, container, false);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         viewRoot = (RelativeLayout) view.findViewById(R.id.viewRoot);
-        coursesRecycleView = (RecyclerView) view.findViewById(R.id.courses);
+        coursesRecycleView = (DebugRecyclerView) view.findViewById(R.id.courses);
         coursesRecycleView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManger = new GridLayoutManager(getActivity(), 3);
+      /*  GridLayoutManager gridLayoutManger = new GridLayoutManager(getActivity(), 3);
+        coursesRecycleView.setLayoutManager(gridLayoutManger);*/
+
+
+
+
 //        gridLayoutManger.generateLayoutParams(new GridLayoutManager.LayoutParams(
 //                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        coursesRecycleView.setLayoutManager(gridLayoutManger);
 //        StudentCoursesAdapter studentCoursesAdapter = new StudentCoursesAdapter(getContext(),new ArrayList<CourseCreated>());
 //        coursesRecycleView.setAdapter(studentCoursesAdapter);
+
+
+
+
+
+        /*
+                London Trial
+         */
+
+
+        //----------------------------------------------------------------------------------
+        int screenWidth = getActivity().getResources().getDisplayMetrics().widthPixels;
+
+
+        // define circle radius
+        int circleRadius = screenWidth;
+        circleRadius = (int) (circleRadius*0.85);
+        // define center of the circle
+        int xOrigin = (int) (screenWidth*0.5);
+        int yOrigin = 0;
+
+        coursesRecycleView.setParameters(circleRadius, xOrigin, yOrigin);
+        mLondonEyeLayoutManager = new LondonEyeLayoutManager(
+                circleRadius,
+                xOrigin,
+                yOrigin,
+                coursesRecycleView,
+                // define scroll strategy NATURAL / PIXEL_PERFECT
+                IScrollHandler.Strategy.NATURAL);
+        coursesRecycleView.setLayoutManager(mLondonEyeLayoutManager);
+//------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
 
         db = FirebaseDatabase.getInstance().getReference();
 

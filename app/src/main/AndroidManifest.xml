@@ -115,7 +115,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".childClass.GenResult"/>
+        <activity android:name=".Gen"/>
 
     </application>
 

@@ -86,7 +86,8 @@ public class LessonActivity extends AppCompatActivity {
         Intent intent = getIntent();
         course = intent.getParcelableExtra("course");
         ((TextView) findViewById(R.id.course_name)).setText(course.getName());
-        Glide.with(getApplicationContext()).load(course.getPhoto_url()).dontTransform().into((ImageView)findViewById(R.id.course_image));
+        Glide.with(getApplicationContext()).load(course.getPhoto_url())
+                .override(25,25).dontTransform().into((ImageView)findViewById(R.id.course_image));
         Explode enterTransition = new Explode();
         enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
         getWindow().setEnterTransition(enterTransition);
