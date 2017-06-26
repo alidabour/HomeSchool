@@ -2,6 +2,7 @@ package com.example.ali.homeschool.InstructorTopic;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -20,7 +21,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -74,7 +77,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     private MediaPlayer mediaPlayer;
     StorageReference storageReference;
     DatabaseReference databaseReference;
-    ImageView submitTV;
+    //    ImageView submitTV;
     ImageView image;
     ImageView question;
     ImageView sound;
@@ -108,6 +111,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     Toolbar toolbar;
     RelativeLayout relativeLayout;
     Button openFragment;
+    FrameLayout fragmentLayout;
+
     ParseXMLInstructor parseXMLInstructor;
     boolean isImageOrSound = false;
     boolean isQuestion = false;
@@ -137,8 +142,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
-        question = (ImageView) findViewById(R.id.question);
-        submitTV = (ImageView) findViewById(R.id.submit);
+        question = (ImageView) findViewById(R.id.questionImage);
+//        submitTV = (ImageView) findViewById(R.id.submit);
         image = (ImageView) findViewById(R.id.image);
         sound = (ImageView) findViewById(R.id.sound);
         text = (ImageView) findViewById(R.id.textViewInstructor);
@@ -176,14 +181,38 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                         addLayout(x);
                     }
                 }
-            }else if(topicModel.getTopicType().equals("multiImageQue")){
+            } else if (topicModel.getTopicType().equals("multiImageQue")) {
 //                String[] parm = parseMutiImageQue(layout);
                 openFragment.setVisibility(View.VISIBLE);
-                Fragment fragment = MultiImageQuestionFragment.newInstance(layout);
+                final String finalLayout1 = layout;
+                openFragment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        findViewById(R.id.fragmentQue).setVisibility(View.VISIBLE);
+//                        Fragment fragment = MultiImageQuestionFragment.newInstance(finalLayout);
+//
+//                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                        transaction.replace(R.id.fragmentQue, fragment).commit();
+                        // create a frame layout
+                        fragmentLayout = new FrameLayout(InstructorTopicCreationActivity.this);
+                        // set the layout params to fill the activity
+                        fragmentLayout.setLayoutParams(
+                                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                        ViewGroup.LayoutParams.MATCH_PARENT));
+                        // set an id to the layout
+                        fragmentLayout.setId(R.id.multiImageQue); // some positive integer
+                        // set the layout as Activity content
+                        setContentView(fragmentLayout);
+                        // Finally , add the fragment
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .add(R.id.multiImageQue,
+                                        MultiImageQuestionFragment.newInstance(finalLayout1))
+                                .commit();  // 1000 - is the id set for the container layout
 
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    }
+                });
 
-                transaction.add(R.id.activiy_main, fragment).commit();
             }
         }
 //        if (intent != null && intent.hasExtra("layout")) {
@@ -543,19 +572,32 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Closing Activity")
-                .setMessage("Are you sure you want to close this activity?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
+//        if()
+//        if()
+        android.support.v4.app.FragmentManager fm = this
+                .getSupportFragmentManager();
+//        if(fm.)
+        fm.popBackStack();
 
-                })
-                .setNegativeButton("No", null)
-                .show();
+        if (findViewById(R.id.multiImageQue)!=null) {
+            if(findViewById(R.id.multiImageQue).getVisibility() == View.VISIBLE)
+            findViewById(R.id.multiImageQue).setVisibility(View.GONE);
+            setContentView(R.layout.activity_instructor_topic);
+        } else {
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Closing Activity")
+                    .setMessage("Are you sure you want to close this activity?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+        }
     }
 
 

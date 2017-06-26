@@ -56,6 +56,7 @@ public class ClassActivity extends AppCompatActivity {
     FirebaseUser user;
     FirebaseAuth firebaseAuth;
     ImageView imageView2;
+    List<Fragment> fragmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +81,20 @@ public class ClassActivity extends AppCompatActivity {
             lesson_id = b.getString("lessonid");
             Log.v("Test", "Intent Found" + " lesson " + lesson_id + " Course id " + course_id);
         }
+//        List<Fragment> fragmentList = new ArrayList<>();
+//        fragmentList.add(NestedFrag.newInstance("1"));
+//        fragmentList.add(NestedFrag.newInstance("2"));
+//        fragmentList.add(NestedFrag.newInstance("3"));
+//        fragmentList.add(NestedFrag.newInstance("4"));
+//        pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(), fragmentList));
+
     }
 
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.v("Test", "Coursr id " + "OnStart bta3t topic");
+        Log.v("Pager----", "OnStart");
 //        Log.v("Test","Listener ahu "+ listener.toString());
         //  lessonModelList = new ArrayList<LessonModel>();
         listener = new ValueEventListener() {
@@ -97,25 +105,23 @@ public class ClassActivity extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("TopicsonDataChang", "onDataChang");
+                Log.v("Pager----", "OnStart onDataChange");
+                Log.v("Pager----", "OnStart onDataChange :->" +dataSnapshot );
+                TopicModelList = new ArrayList<TopicModel>();
+
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    Log.e("TopicsonDataChang", dataSnapshot.toString());
+                    Log.v("Pager----", "OnStart onDataChange Child:-> " + dataSnapshot1.toString() );
                     TopicModel topicModel = dataSnapshot1.getValue(TopicModel.class);
-                    Log.e("TopicsonDataChang", topicModel.toString());
                     TopicModelList.add(topicModel);
                 }
-
                 layouts = new ArrayList<String>();
-                List<Fragment> fragmentList = new ArrayList<>();
-
+                fragmentList = new ArrayList<>();
                 for (TopicModel modelEntry : TopicModelList) {
-//                    layouts.add(topicModel.getLayout());
                     if (modelEntry.getTopicType().equals("normal")) {
                         fragmentList.add(LessonFragment.newInstance(modelEntry.getLayout()));
                     } else if (modelEntry.getTopicType().equals("multiImageQue")) {
                         fragmentList.add(MultiImageQuestionFragment.newInstance(modelEntry.getLayout()));
                     }
-
                 }
 
 //                Map<String, TopicModel> topicModelHashMap = lesson.getTopics();
@@ -129,13 +135,9 @@ public class ClassActivity extends AppCompatActivity {
 //                fragmentList.add(LessonFragment.newInstance(layouts.get(0)));
 //                fragmentList.add(new NestedFrag());
 //                fragmentList.add(new NestedFrag());
-
+//                pager.setAdapter(null);
                 pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(), fragmentList));
-                pager.setPageTransformer(true, new CubeOutTransformer()); //set the animation
-
-
-                //layouts = new ArrayList<String>();
-
+//                pager.setPageTransformer(true, new CubeOutTransformer()); //set the animation
             }
         };
 
@@ -174,13 +176,15 @@ public class ClassActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         imageView2.setVisibility(View.VISIBLE);
         GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView2);
         Glide.with(this).load(R.raw.source).into(imageViewTarget);
         MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
         mediaPlayer.start();
-        pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
+        Log.v("Pager0000","Pager Size :" + pager.getChildCount());
+        Log.v("Pager0000","List Size :" + fragmentList.size());
+
+//        pager.setCurrentItem((pager.getCurrentItem() + 1));
         // imageView2.setVisibility(View.GONE);
         if (requestCode == Constants.SPEECH) {
             if (resultCode == Constants.CORRECTANSWER) {
@@ -193,7 +197,7 @@ public class ClassActivity extends AppCompatActivity {
                 Toast.makeText(this, " ya rbbbbbb \n" + data.getData().toString(),
                         Toast.LENGTH_LONG).show();
 
-                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
+//                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
              /*   db.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(new ValueEventListener() {
                     int count = 0;
                     @Override
@@ -246,7 +250,7 @@ public class ClassActivity extends AppCompatActivity {
                         });
                 // imageView2.setVisibility(View.INVISIBLE);
                 Log.v("pagr ", pager.getCurrentItem() + "");
-                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
+//                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
 
                 Log.v("t3alayabni", "etnyl t3ala");
                 Toast.makeText(this, " حاول مرة أخري \n" + data.getData().toString(),
@@ -259,20 +263,20 @@ public class ClassActivity extends AppCompatActivity {
         Log.v("LessonFragment", "Activity Result " + requestCode + " , " + resultCode);
         if (resultCode == Constants.CORRECTANSWER) {
             if (requestCode == Constants.SIMPLE) {
-                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
+//                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
                 Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
             }
         }
         if (resultCode == Constants.WRONGANSWER) {
             if (requestCode == Constants.SIMPLE) {
-                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
+//                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
                 Toast.makeText(context, "Result Wrong", Toast.LENGTH_SHORT).show();
             }
         }
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == Constants.SPEECH) {
 
-                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
+//                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
             }
         }
 
@@ -288,7 +292,7 @@ public class ClassActivity extends AppCompatActivity {
         if (resultCode == Constants.CORRECTANSWER) {
             if (requestCode == Constants.Text_Detection) {
 
-                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
+//                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
                 Log.v("t3alayabni", "etnyl t3ala enta eltani");
                 Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
             }
@@ -316,7 +320,7 @@ public class ClassActivity extends AppCompatActivity {
         if (resultCode == Constants.WRONGANSWER) {
             if (requestCode == Constants.Text_Detection) {
 
-                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
+//                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
                 Toast.makeText(context, "Result Incorrect", Toast.LENGTH_SHORT).show();
             }
             Log.v("t3ala yabni", "etnyl t3ala");
@@ -325,6 +329,22 @@ public class ClassActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        if(pager != null){
+            Log.v("Pager0000","onResume : pager size" + pager.getChildCount());
+        }
+        if(fragmentList != null){
+            Log.v("Pager0000","onResume : fragement size" + fragmentList.size());
+        }
+
+        Log.v("Pager0000","onResume : pager size" + pager.getChildCount());
+        if(pager != null){
+            Log.v("Pager0000","onResume : pager size" + pager.getChildCount());
+        }
+        if(fragmentList != null){
+            Log.v("Pager0000","onResume : fragement size" + fragmentList.size());
+
+        }
+
         super.onResume();
     }
 //        layouts.add(cursor.getString(cursor.getColumnIndex(TopicColumns.TOPIC_LAYOUT)));

@@ -44,26 +44,29 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             layout = getArguments().getString("layout");
-            parms = layout.split("(?<=" + HOLD + ")");
-            for (int i = 0; i < parms.length; i++) {
-                parms[i] = parms[i].replaceAll(HOLD, " ");
+            if(layout !=null){
+                parms = layout.split("(?<=" + HOLD + ")");
+                for (int i = 0; i < parms.length; i++) {
+                    parms[i] = parms[i].replaceAll(HOLD, " ");
+                }
+                questionHeadText = parms[0];
+                answer1text = parms[2];
+                answer2text = parms[5];
+                answer3text = parms[8];
+                answer4text = parms[11];
+                url1 = parms[1];
+                url2 = parms[4];
+                url3 = parms[7];
+                url4 = parms[10];
+                isCorrect1 = parms[3].trim().equals("true");
+                isCorrect2 = parms[6].trim().equals("true");
+                isCorrect3 = parms[9].trim().equals("true");
+                isCorrect4 = parms[12].trim().equals("true");
+
+
+                Log.v("MultiImageQuestion", "Layout :" + layout);
+
             }
-            questionHeadText = parms[0];
-            answer1text = parms[2];
-            answer2text = parms[5];
-            answer3text = parms[8];
-            answer4text = parms[11];
-            url1 = parms[1];
-            url2 = parms[4];
-            url3 = parms[7];
-            url4 = parms[10];
-            isCorrect1 = parms[3].trim().equals("true");
-            isCorrect2 = parms[6].trim().equals("true");
-            isCorrect3 = parms[9].trim().equals("true");
-            isCorrect4 = parms[12].trim().equals("true");
-
-
-            Log.v("MultiImageQuestion", "Layout :" + layout);
 
         }
     }

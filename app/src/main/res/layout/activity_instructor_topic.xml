@@ -7,6 +7,7 @@
                 android:background="@color/colorBack"
                 android:orientation="vertical">
 
+
     <Button
         android:id="@+id/openFragment"
         android:layout_width="wrap_content"
@@ -115,7 +116,7 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/question"
+                            android:id="@+id/questionImage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"

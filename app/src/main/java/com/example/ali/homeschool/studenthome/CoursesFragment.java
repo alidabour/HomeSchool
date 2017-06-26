@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Slide;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -125,6 +126,7 @@ public class CoursesFragment extends Fragment {
                         @Override
                         public void onDataChange(final DataSnapshot dataSnapshot) {
                             coursesNames = new ArrayList<>();
+                            Log.v("WhyInternet?", "Inside ");
                             for (DataSnapshot s : dataSnapshot.getChildren()) {
                                 EnrolledCourseModel c = s.getValue(EnrolledCourseModel.class);
                                 db.child("courses").child(c.getCourse_id())
@@ -132,6 +134,7 @@ public class CoursesFragment extends Fragment {
                                             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                             @Override
                                             public void onDataChange(DataSnapshot inside) {
+                                                Log.v("WhyInternet?", "Inside :"+ inside);
                                                 CourseCreated courses = inside
                                                         .getValue(CourseCreated.class);
                                                 for (DataSnapshot x : inside.getChildren()) {
