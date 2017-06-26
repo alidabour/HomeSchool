@@ -117,7 +117,7 @@ public class CoursesFragment extends Fragment {
         int circleRadius = screenWidth;
         circleRadius = (int) (circleRadius*0.85);
         // define center of the circle
-        int xOrigin = (int) (screenWidth*0.5);
+        int xOrigin = -400;
         int yOrigin = 0;
 
         coursesRecycleView.setParameters(circleRadius, xOrigin, yOrigin);
