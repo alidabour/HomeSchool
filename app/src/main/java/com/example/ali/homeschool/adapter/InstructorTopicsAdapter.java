@@ -113,6 +113,7 @@ public class InstructorTopicsAdapter extends RecyclerView.Adapter<InstructorTopi
     public static void startIntentFromAdapter(Activity activity,TopicModel topicModel){
         Intent intent = new Intent(activity,
                 InstructorTopicCreationActivity.class);
+        intent.putExtra("topicPar",topicModel);
         intent.putExtra("topicid", topicModel.getId());
         intent.putExtra("topicname", topicModel.getName());
         intent.putExtra("layout", topicModel.getLayout());

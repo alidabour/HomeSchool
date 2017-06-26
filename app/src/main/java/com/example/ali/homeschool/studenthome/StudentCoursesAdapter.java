@@ -109,22 +109,22 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
                             .createCircularReveal(viewRoot, cx, cy, 0, finalRadius);
                     final int color = 0xFFFF0000;
                     final Drawable drawable = new ColorDrawable(color);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        viewRoot.setForeground(drawable);
-                        anim.addListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                int p = getAdapterPosition();
-                                CourseCreated courseCreated = courses.get(p);
-                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity)context);
-                                Intent intent = new Intent(context,
-                                        LessonActivity.class);
-                                intent.putExtra("course", courseCreated);
-                                context.startActivity(intent, options.toBundle());
-                            }
-                        });
-                        anim.start();
-                    }else{
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                        viewRoot.setForeground(drawable);
+//                        anim.addListener(new AnimatorListenerAdapter() {
+//                            @Override
+//                            public void onAnimationEnd(Animator animation) {
+//                                int p = getAdapterPosition();
+//                                CourseCreated courseCreated = courses.get(p);
+//                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity)context);
+//                                Intent intent = new Intent(context,
+//                                        LessonActivity.class);
+//                                intent.putExtra("course", courseCreated);
+//                                context.startActivity(intent, options.toBundle());
+//                            }
+//                        });
+//                        anim.start();
+//                    }else{
                         int p = getAdapterPosition();
                         CourseCreated courseCreated = courses.get(p);
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity)context);
@@ -132,7 +132,7 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
                                 LessonActivity.class);
                         intent.putExtra("course", courseCreated);
                         context.startActivity(intent, options.toBundle());
-                    }
+//                    }
 //                    viewRoot.setBackgroundColor(Color.parseColor("#ff0000"));
 
                     //

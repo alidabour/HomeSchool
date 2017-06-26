@@ -57,14 +57,6 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
             url2 = parms[4];
             url3 = parms[7];
             url4 = parms[10];
-            Log.v("MultiImageQuestion", "isTrue :" + parms[3]);
-            Log.v("MultiImageQuestion", "isTrue :" + parms[6]);
-            Log.v("MultiImageQuestion", "isTrue :" + parms[9]);
-            Log.v("MultiImageQuestion", "isTrue :" + parms[12]);
-            Log.v("MultiImageQuestion", "isTrue :" + parms[3].trim().equals("true"));
-            Log.v("MultiImageQuestion", "isTrue :" + parms[6].trim().equals("true"));
-            Log.v("MultiImageQuestion", "isTrue :" + parms[9].trim().equals("true"));
-            Log.v("MultiImageQuestion", "isTrue :" + parms[12].trim().equals("true"));
             isCorrect1 = parms[3].trim().equals("true");
             isCorrect2 = parms[6].trim().equals("true");
             isCorrect3 = parms[9].trim().equals("true");

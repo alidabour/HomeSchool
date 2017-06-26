@@ -69,7 +69,7 @@ public class InstructorFragment extends Fragment {
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab2);
 
-        Log.v("Enta Get Hna101","T3alaly");
+        Log.v("Enta Get Hna101", "T3alaly");
         FirebaseAuth auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         Log.v("Test", "User Email" + user.getDisplayName());
@@ -116,18 +116,27 @@ public class InstructorFragment extends Fragment {
                         subject = subjects.getText().toString();
                         description = descriptions.getText().toString();
 
-                        if(photoUrl.isEmpty()){
+                        if (photoUrl.isEmpty()) {
                             photoUrl = "https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2Fcourses%2Fphoto_default.png?alt=media&token=a338378b-eb7d-4d65-88ea-a4266fd0c1d5";
                         }
-                        String key = db.child("users").child(user.getUid()).child("CreatedCourse").push().getKey();
-                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("course_id").setValue(key);
-                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("descriptionS").setValue(description);
-                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("name").setValue(coursName);
-                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("photo_url").setValue(photoUrl);
-                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("rate").setValue("5.0");
-                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("subjectS").setValue(subject);
-                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("teacher_id").setValue(user.getUid());
-                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key).child("teacher_name").setValue("Mohamed");
+                        String key = db.child("users").child(user.getUid()).child("CreatedCourse")
+                                .push().getKey();
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key)
+                                .child("course_id").setValue(key);
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key)
+                                .child("descriptionS").setValue(description);
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key)
+                                .child("name").setValue(coursName);
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key)
+                                .child("photo_url").setValue(photoUrl);
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key)
+                                .child("rate").setValue("5.0");
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key)
+                                .child("subjectS").setValue(subject);
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key)
+                                .child("teacher_id").setValue(user.getUid());
+                        db.child("users").child(user.getUid()).child("CreatedCourse").child(key)
+                                .child("teacher_name").setValue("Mohamed");
 
                         db.child("courses").child(key).child("course_id").setValue(key);
                         db.child("courses").child(key).child("descriptionS").setValue(description);
@@ -138,7 +147,34 @@ public class InstructorFragment extends Fragment {
                         db.child("courses").child(key).child("teacher_id").setValue(user.getUid());
                         db.child("courses").child(key).child("teacher_name").setValue("Mohamed");
 
-                     //   view.findViewById(R.id.no_course).setVisibility(View.INVISIBLE);
+                        String lessonKey = db.child("courses").child(key)
+                                .child("lessons").push().getKey();
+                        db.child("courses").child(key).child("lessons")
+                                .child(lessonKey).child("id").setValue(lessonKey);
+                        db.child("courses").child(key).child("lessons")
+                                .child(lessonKey).child("name").setValue("الدرس الاول");
+                        db.child("courses").child(key).child("lessons")
+                                .child(lessonKey).child("photo_url").setValue(
+                                "https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2Fcourses%2Fphoto_default.png?alt=media&token=a338378b-eb7d-4d65-88ea-a4266fd0c1d5");
+                        String topicKey = db.child("courses").child(key)
+                                .child("lessons").child(lessonKey).child("topics").push().getKey();
+                        db.child("courses").child(key)
+                                .child("lessons").child(lessonKey).child("topics").child(topicKey)
+                                .child("id").setValue(topicKey);
+                        db.child("courses").child(key)
+                                .child("lessons").child(lessonKey).child("topics").child(topicKey)
+                                .child("layout").setValue(
+                                "<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\nandroid:id=\"2\" android:layout_weight=\"0\" android:layout_width=\"match_parent\"\nandroid:layout_height=\"match_parent\"><LinearLayout android:layout_centerInParent=\"true\" android:orientation=\"vertical\" android:layout_weight=\"0\" android:id=\"2000\" android:layout_width=\"match_parent\" android:layout_height=\"wrap_content\">ARR4444ANGE <TextView  android:id=\"1\" android:layout_weight=\"0\"  android:text=\"اهلا بيكم\"  android:textColor=\"-11177216\"  android:textAppearance=\"16974324\"  android:layout_width=\"match_parent\"  android:layout_height=\"wrap_content\" />ARR4444ANGE</LinearLayout></RelativeLayout>");
+                        db.child("courses").child(key)
+                                .child("lessons").child(lessonKey).child("topics").child(topicKey)
+                                .child("name").setValue("الحصة الاولى");
+                        db.child("courses").child(key)
+                                .child("lessons").child(lessonKey).child("topics").child(topicKey)
+                                .child("question").setValue("false");
+                        db.child("courses").child(key)
+                                .child("lessons").child(lessonKey).child("topics").child(topicKey)
+                                .child("topicType").setValue("normal");
+                        //   view.findViewById(R.id.no_course).setVisibility(View.INVISIBLE);
                       /*  db.child("courses").child(key).child("name").setValue(coursName);
                         db.child("courses").child(key).child("subjectS").setValue(subjectS);
                         db.child("courses").child(key).child("descriptionS").setValue(descriptionS);
@@ -175,19 +211,19 @@ public class InstructorFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK)
-        Log.e("InstructorPhoto",
-                "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
-                        .getData().toString());
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK)
+            Log.e("InstructorPhoto",
+                    "Req : " + requestCode + " Res :" + resultCode + " Intent : " + data
+                            .getData().toString());
 
-        if(data!=null)
-        filePath = data.getData();
+        if (data != null)
+            filePath = data.getData();
 
-        String storagePath = "images/coursesPhoto/"+  UUID.randomUUID();
+        String storagePath = "images/coursesPhoto/" + UUID.randomUUID();
         uploadFile = new UploadFile(filePath, getActivity(), new FileUploadHelper() {
             @Override
             public void fileUploaded(String url) {
-                    photoUrl = url;
+                photoUrl = url;
             }
         }, storagePath);
     }
@@ -207,7 +243,8 @@ public class InstructorFragment extends Fragment {
                     Log.v("Test", "Courses Model " + courseCreated.getName());
                     Log.v("Test", "Courses " + x.toString());
                 }
-                instructorCoursesCardAdapter = new InstructorCoursesCardAdapter(coursesList,new InstructorCoursesCardAdapter.OnClickHandler() {
+                instructorCoursesCardAdapter = new InstructorCoursesCardAdapter(coursesList,
+                        new InstructorCoursesCardAdapter.OnClickHandler() {
                             @Override
                             public void onClick(CourseCreated test) {
                                 Log.v("Test", "Open Activity");
@@ -216,12 +253,12 @@ public class InstructorFragment extends Fragment {
                                 intent.putExtra("course", test);
                                 startActivity(intent);
                             }
-                        },getContext());
+                        }, getContext());
 
-                if(coursesList.size()<=0){
-                    Log.v("mfesh Course" , "toz fek");
+                if (coursesList.size() <= 0) {
+                    Log.v("mfesh Course", "toz fek");
                     view.findViewById(R.id.no_course).setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     view.findViewById(R.id.no_course).setVisibility(View.GONE);
                 }
                 coursesRV.setAdapter(instructorCoursesCardAdapter);
@@ -245,14 +282,17 @@ public class InstructorFragment extends Fragment {
 
             }
         };
-        db.child("users").child(user.getUid()).child("CreatedCourse").addValueEventListener(listener);
+        db.child("users").child(user.getUid()).child("CreatedCourse")
+                .addValueEventListener(listener);
     }
+
     @Override
-    public void onPause(){
+    public void onPause() {
         if (listener != null)
             db.removeEventListener(listener);
         super.onPause();
     }
+
     @Override
     public void onResume() {
         super.onResume();

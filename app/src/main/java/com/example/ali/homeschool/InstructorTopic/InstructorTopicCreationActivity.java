@@ -8,6 +8,8 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -40,6 +43,7 @@ import com.example.ali.homeschool.InstructorTopic.helper.DoneOrderInterface;
 import com.example.ali.homeschool.InstructorTopic.helper.OnStartDragListener;
 import com.example.ali.homeschool.InstructorTopic.helper.SimpleItemTouchHelperCallback;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.childClass.topicsfragment.MultiImageQuestionFragment;
 import com.example.ali.homeschool.exercises.color.ColorActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -61,12 +65,12 @@ import static com.example.ali.homeschool.Constants.start;
 
 public class InstructorTopicCreationActivity extends AppCompatActivity
         implements OnLayoutReadyInterface, XMLClick, ColorPickerDialogListener,
-        OnStartDragListener, DoneOrderInterface, OnEditLayoutReady, XMLEditClick,ProgressImage, OnQuestionLayoutReady {
+        OnStartDragListener, DoneOrderInterface, OnEditLayoutReady, XMLEditClick, ProgressImage, OnQuestionLayoutReady {
     static int id = 0;
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
     private static final int PICK_IMAGE_MULTI_QUE = 236;
-    private final String HOLD  = " ,HO##LD,";
+    private final String HOLD = " ,HO##LD,";
     private MediaPlayer mediaPlayer;
     StorageReference storageReference;
     DatabaseReference databaseReference;
@@ -74,10 +78,10 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     ImageView image;
     ImageView question;
     ImageView sound;
-    ImageView text ;
+    ImageView text;
     String courseId;
     String lessonid;
-    String topicid=" ";
+    String topicid = " ";
     String topicname;
 
     int textColor = -11177216;
@@ -103,9 +107,11 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     RecyclerListAdapter adapter;
     Toolbar toolbar;
     RelativeLayout relativeLayout;
+    Button openFragment;
     ParseXMLInstructor parseXMLInstructor;
     boolean isImageOrSound = false;
     boolean isQuestion = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +119,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         relativeLayout = (RelativeLayout) findViewById(R.id.activiy_main);
         setSupportActionBar(toolbar);
+        openFragment = (Button) findViewById(R.id.openFragment);
         parseXMLInstructor = new ParseXMLInstructor(InstructorTopicCreationActivity.this);
         parseXMLInstructor.setXmlClick(this);
         parseXMLInstructor.setXmlEditClick(this);
@@ -150,29 +157,59 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         if (intent != null && intent.hasExtra("topicname")) {
             topicname = intent.getStringExtra("topicname");
         }
-        if (intent != null && intent.hasExtra("layout")) {
-            String layout = intent.getStringExtra("layout");
-            if((layout.contains("ImageView"))||(layout.contains("RadioButton"))
-                    ||(layout.contains("RadioGroup"))||(layout.contains("TextView")))
-                isQuestion = false;
-            Log.v("isQuestion",isQuestion+"");
-            layout = layout.replaceAll(start, " ");
-            layout = layout.replaceAll(end, " ");
-            String[] lays = layout.split("(?<=" + ARRANGE + ")");
-            for (String x : lays) {
-                if (!x.trim().isEmpty()) {
-                    addLayout(x);
+        if (intent != null && intent.hasExtra("topicPar")) {
+            TopicModel topicModel = intent.getParcelableExtra("topicPar");
+            String topicType = topicModel.getTopicType();
+            Log.v("Test", "Topic Model :" + topicType);
+            Log.v("Test", "Topic Model :" + topicModel.getName());
+            String layout = topicModel.getLayout();
+            if (topicModel.getTopicType().equals("normal")) {
+                if ((layout.contains("ImageView")) || (layout.contains("RadioButton"))
+                        || (layout.contains("RadioGroup")) || (layout.contains("TextView")))
+                    isQuestion = false;
+                Log.v("isQuestion", isQuestion + "");
+                layout = layout.replaceAll(start, " ");
+                layout = layout.replaceAll(end, " ");
+                String[] lays = layout.split("(?<=" + ARRANGE + ")");
+                for (String x : lays) {
+                    if (!x.trim().isEmpty()) {
+                        addLayout(x);
+                    }
                 }
+            }else if(topicModel.getTopicType().equals("multiImageQue")){
+//                String[] parm = parseMutiImageQue(layout);
+                openFragment.setVisibility(View.VISIBLE);
+                Fragment fragment = MultiImageQuestionFragment.newInstance(layout);
+
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+                transaction.add(R.id.activiy_main, fragment).commit();
             }
         }
+//        if (intent != null && intent.hasExtra("layout")) {
+//            String layout = intent.getStringExtra("layout");
+//            if((layout.contains("ImageView"))||(layout.contains("RadioButton"))
+//                    ||(layout.contains("RadioGroup"))||(layout.contains("TextView")))
+//                isQuestion = false;
+//            Log.v("isQuestion",isQuestion+"");
+//            layout = layout.replaceAll(start, " ");
+//            layout = layout.replaceAll(end, " ");
+//            String[] lays = layout.split("(?<=" + ARRANGE + ")");
+//            for (String x : lays) {
+//                if (!x.trim().isEmpty()) {
+//                    addLayout(x);
+//                }
+//            }
+//        }
 
         question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                mainQuestionDialog = new MainQuestionDialog(id,InstructorTopicCreationActivity.this,onLayoutReadyInterface);
 //                mainQuestionDialog.openMainQuestionDialog();
-                if(isImageOrSound||isQuestion){
-                    Toast.makeText(InstructorTopicCreationActivity.this, "Not Allowed", Toast.LENGTH_SHORT)
+                if (isImageOrSound || isQuestion) {
+                    Toast.makeText(InstructorTopicCreationActivity.this, "Not Allowed",
+                            Toast.LENGTH_SHORT)
                             .show();
                     return;
                 }
@@ -238,7 +275,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                     @Override
                     public void onClick(View v) {
                         dialog.cancel();
-                        multiImageQueDialog = new MultiImageQueDialog(id,InstructorTopicCreationActivity.this,onQuestionLayoutReady);
+                        multiImageQueDialog = new MultiImageQueDialog(id,
+                                InstructorTopicCreationActivity.this, onQuestionLayoutReady);
                         multiImageQueDialog.setCourseId(courseId);
                         multiImageQueDialog.openMultiImageQueDialog();
                     }
@@ -263,7 +301,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textViewDialog = new TextViewDialog(id, InstructorTopicCreationActivity.this, onLayoutReadyInterface);
+                textViewDialog = new TextViewDialog(id, InstructorTopicCreationActivity.this,
+                        onLayoutReadyInterface);
                 textViewDialog.openTextViewDialog();
             }
         });
@@ -286,22 +325,22 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                     String key;
                     databaseReference = databaseReference.child("courses").child(courseId)
                             .child("lessons").child(lessonid).child("topics");
-                    if(topicid.equals(" "))
-                    databaseReference = databaseReference.child(topicid);
+                    if (topicid.equals(" "))
+                        databaseReference = databaseReference.child(topicid);
                     else {
                         key = databaseReference.push().getKey();
                         databaseReference = databaseReference.child(key);
-                        topicid=key;
+                        topicid = key;
                     }
 
                     TopicModel t = new TopicModel();
                     String layouts = " ";
-                    if(layoutsList.size()>0){
+                    if (layoutsList.size() > 0) {
                         for (String layout : layoutsList) {
                             layouts += layout;
                         }
                         t.setLayout(start + layouts + end);
-                    }else{
+                    } else {
                         topicType = "multiImageQue";
                         t.setTopicType(topicType);
                         t.setLayout(parms);
@@ -309,8 +348,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
                     t.setName(topicname);
                     t.setId(topicid);
-                    if(isQuestion)
-                    t.setQuestion("true");
+                    if (isQuestion)
+                        t.setQuestion("true");
                     else
                         t.setQuestion("false");
                     databaseReference.updateChildren(t.toMap());
@@ -352,7 +391,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         if (requestCode == PICK_SOUND_REQUEST && resultCode == Activity.RESULT_OK) {
             soundDialog.setFilePath(data.getData());
         }
-        if(requestCode == PICK_IMAGE_MULTI_QUE && resultCode == Activity.RESULT_OK){
+        if (requestCode == PICK_IMAGE_MULTI_QUE && resultCode == Activity.RESULT_OK) {
             multiImageQueDialog.setFilePath(data.getData());
         }
     }
@@ -450,7 +489,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     @Override
     public void onEditTextView(int id, String text, String layout) {
         int index = layoutsList.indexOf(layout);
-        textViewDialog = new TextViewDialog(id, InstructorTopicCreationActivity.this, onLayoutReadyInterface);
+        textViewDialog = new TextViewDialog(id, InstructorTopicCreationActivity.this,
+                onLayoutReadyInterface);
         textViewDialog.setEditing(true);
         textViewDialog.setIndex(index);
         textViewDialog.setOnEditLayoutReady(this);
@@ -507,8 +547,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Closing Activity")
                 .setMessage("Are you sure you want to close this activity?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
@@ -525,12 +564,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         isImageOrSound = imageOrSound;
         isQuestion = isQuestion1;
 
-        Log.v("isQuestion1",isQuestion1+"");
+        Log.v("isQuestion1", isQuestion1 + "");
     }
 
     @Override
     public void onLayoutReady(String layout) {
-        Log.v("ImageQue","Layout -"+layout);
+        Log.v("ImageQue", "Layout -" + layout);
         parms = layout;
 //        relativeLayout.addView(multiImageQueDialog.getFinalView());
 //        relativeLayout  = (RelativeLayout) multiImageQueDialog.getFinalView();
@@ -539,4 +578,9 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 //            Log.v("Parms","- "+s.replaceAll(HOLD," "));
 //        }
     }
+
+    String[] parseMutiImageQue(String layout) {
+        return layout.split("(?<=" + HOLD + ")");
+    }
+
 }

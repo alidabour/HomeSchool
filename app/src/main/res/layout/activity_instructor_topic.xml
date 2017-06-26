@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activiy_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBack"
-    android:orientation="vertical">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/activiy_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorBack"
+                android:orientation="vertical">
 
+    <Button
+        android:id="@+id/openFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Preview"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:titleTextColor="@color/colorBack" />
+        android:titleTextColor="@color/colorBack"/>
 
     <HorizontalScrollView
         android:id="@+id/control"
@@ -44,11 +53,11 @@
                         android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/image"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:src="@drawable/image"
-                            android:id="@+id/image"
                             />
 
                         <TextView
@@ -57,7 +66,7 @@
                             android:layout_margin="8dp"
                             android:gravity="center_horizontal"
                             android:text="@string/image"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Button" />
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
                     </LinearLayout>
 
                     <View
@@ -65,7 +74,7 @@
                         android:layout_width="1dp"
                         android:layout_height="90dp"
                         android:layout_gravity="center"
-                        android:background="@android:color/darker_gray" />
+                        android:background="@android:color/darker_gray"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -75,11 +84,11 @@
                         android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/sound"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:src="@drawable/sound"
-                            android:id="@+id/sound"/>
+                            android:src="@drawable/sound"/>
 
                         <TextView
 
@@ -88,7 +97,7 @@
                             android:layout_margin="8dp"
                             android:gravity="center_horizontal"
                             android:text="@string/sound"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Button" />
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
                     </LinearLayout>
 
@@ -96,7 +105,7 @@
                         android:layout_width="1dp"
                         android:layout_height="90dp"
                         android:layout_gravity="center"
-                        android:background="@android:color/darker_gray" />
+                        android:background="@android:color/darker_gray"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -106,11 +115,11 @@
                         android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/question"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:id="@+id/question"
-                            android:src="@drawable/question" />
+                            android:src="@drawable/question"/>
 
                         <TextView
 
@@ -119,7 +128,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_margin="8dp"
                             android:text="@string/question"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Button" />
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
                     </LinearLayout>
 
@@ -127,7 +136,7 @@
                         android:layout_width="1dp"
                         android:layout_height="90dp"
                         android:layout_gravity="center"
-                        android:background="@android:color/darker_gray" />
+                        android:background="@android:color/darker_gray"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -137,11 +146,11 @@
                         android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/textViewInstructor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:src="@drawable/text"
-                            android:id="@+id/textViewInstructor"/>
+                            android:src="@drawable/text"/>
 
                         <TextView
 
@@ -150,7 +159,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_margin="8dp"
                             android:text="@string/text"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Button" />
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
                     </LinearLayout>
 
@@ -164,7 +173,6 @@
         android:id="@+id/recycleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/toolbar" />
+        android:layout_below="@+id/toolbar"/>
 </RelativeLayout>
