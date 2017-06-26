@@ -42,22 +42,17 @@ import java.util.List;
  */
 public class ClassActivity extends AppCompatActivity {
     //RelativeLayout relativeLayout;
-    View linearLayout;
-    ImageView imageView;
     Context context;
     ViewPager pager;
     ArrayList<String> layouts;
     DatabaseReference db;
-    LessonModel lesson;
     String course_id, lesson_id;
     ArrayList<TopicModel> TopicModelList;
     ValueEventListener listener;
-    TextView noTopics;
     FirebaseUser user;
     FirebaseAuth firebaseAuth;
     ImageView imageView2;
     List<Fragment> fragmentList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,89 +65,56 @@ public class ClassActivity extends AppCompatActivity {
         setContentView(R.layout.activity_class_trial);
         pager = (ViewPager) findViewById(R.id.viewPager);
         imageView2 = (ImageView) findViewById(R.id.masha);
-
         Intent iin = getIntent();
         Bundle b = iin.getExtras();
         TopicModelList = new ArrayList<TopicModel>();
         if (b != null) {
-
-            Log.v("Test", "Intent Found");
             course_id = b.getString("courseId");
             lesson_id = b.getString("lessonid");
-            Log.v("Test", "Intent Found" + " lesson " + lesson_id + " Course id " + course_id);
         }
-//        List<Fragment> fragmentList = new ArrayList<>();
-//        fragmentList.add(NestedFrag.newInstance("1"));
-//        fragmentList.add(NestedFrag.newInstance("2"));
-//        fragmentList.add(NestedFrag.newInstance("3"));
-//        fragmentList.add(NestedFrag.newInstance("4"));
-//        pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(), fragmentList));
-
     }
-
-
     @Override
     protected void onStart() {
         super.onStart();
-        Log.v("Pager----", "OnStart");
-//        Log.v("Test","Listener ahu "+ listener.toString());
-        //  lessonModelList = new ArrayList<LessonModel>();
-        listener = new ValueEventListener() {
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.v("Pager----", "OnStart onDataChange");
-                Log.v("Pager----", "OnStart onDataChange :->" +dataSnapshot );
-                TopicModelList = new ArrayList<TopicModel>();
-
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    Log.v("Pager----", "OnStart onDataChange Child:-> " + dataSnapshot1.toString() );
-                    TopicModel topicModel = dataSnapshot1.getValue(TopicModel.class);
-                    TopicModelList.add(topicModel);
-                }
-                layouts = new ArrayList<String>();
-                fragmentList = new ArrayList<>();
-                for (TopicModel modelEntry : TopicModelList) {
-                    if (modelEntry.getTopicType().equals("normal")) {
-                        fragmentList.add(LessonFragment.newInstance(modelEntry.getLayout()));
-                    } else if (modelEntry.getTopicType().equals("multiImageQue")) {
-                        fragmentList.add(MultiImageQuestionFragment.newInstance(modelEntry.getLayout()));
+        Log.v("Pager0000", "OnStart");
+        if (pager.getChildCount() < 1) {
+            listener = new ValueEventListener() {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {}
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    TopicModelList = new ArrayList<TopicModel>();
+                    Log.v("Pager0000", "OnDataChanged");
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        Log.v("Pager----",
+                                "OnStart onDataChange Child:-> " + dataSnapshot1.toString());
+                        TopicModel topicModel = dataSnapshot1.getValue(TopicModel.class);
+                        TopicModelList.add(topicModel);
                     }
+                    layouts = new ArrayList<String>();
+                    fragmentList = new ArrayList<>();
+                    for (TopicModel modelEntry : TopicModelList) {
+                        if (modelEntry.getTopicType().equals("normal")) {
+                            fragmentList.add(LessonFragment.newInstance(modelEntry.getLayout()));
+                        } else if (modelEntry.getTopicType().equals("multiImageQue")) {
+                            fragmentList.add(NestedFrag.newInstance("12"));
+                            fragmentList.add(MultiImageQuestionFragment
+                                    .newInstance(modelEntry.getLayout()));
+                        }
+                    }
+                    pager.setAdapter(
+                            new LessonPagerAdapter(getSupportFragmentManager(), fragmentList));
+                pager.setPageTransformer(true, new CubeOutTransformer()); //set the animation
                 }
+            };
+            db.child("courses").
+                    child(course_id).
+                    child("lessons").
+                    child(lesson_id).
+                    child("topics").
+                    addValueEventListener(listener);
 
-//                Map<String, TopicModel> topicModelHashMap = lesson.getTopics();
-//                for (Map.Entry<String, TopicModel> modelEntry : topicModelHashMap.entrySet()) {
-//                    TopicModel topicModel = modelEntry.getValue();
-//                    Log.e("Test", "Layouts " + topicModel.getLayout());
-//                    layouts.add(topicModel.getLayout());
-//                    //  }
-//                }
-                //  if (getSupportFragmentManager() != null){
-//                fragmentList.add(LessonFragment.newInstance(layouts.get(0)));
-//                fragmentList.add(new NestedFrag());
-//                fragmentList.add(new NestedFrag());
-//                pager.setAdapter(null);
-                pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(), fragmentList));
-//                pager.setPageTransformer(true, new CubeOutTransformer()); //set the animation
-            }
-        };
-
-
-        db.child("courses").
-
-                child(course_id).
-
-                child("lessons").
-
-                child(lesson_id).
-
-                child("topics").
-
-                addValueEventListener(listener);
+        }
 
     }
 
@@ -169,7 +131,6 @@ public class ClassActivity extends AppCompatActivity {
         if (pager != null) {
             pager.setAdapter(null);
         }
-
         super.onDestroy();
     }
 
@@ -177,59 +138,34 @@ public class ClassActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         imageView2.setVisibility(View.VISIBLE);
-        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView2);
+        final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView2);
         Glide.with(this).load(R.raw.source).into(imageViewTarget);
         MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
         mediaPlayer.start();
-        Log.v("Pager0000","Pager Size :" + pager.getChildCount());
-        Log.v("Pager0000","List Size :" + fragmentList.size());
-
-//        pager.setCurrentItem((pager.getCurrentItem() + 1));
-        // imageView2.setVisibility(View.GONE);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                imageView2.setVisibility(View.GONE);
+                pager.setCurrentItem((pager.getCurrentItem() + 1));
+            }
+        });
         if (requestCode == Constants.SPEECH) {
             if (resultCode == Constants.CORRECTANSWER) {
-                Log.v("talayabni", data.getData().toString());
-
-                Log.e("ارنب", " Rabbit");
-
                 Toast.makeText(this, " احسنت \n" + data.getData().toString(), Toast.LENGTH_LONG)
                         .show();
-                Toast.makeText(this, " ya rbbbbbb \n" + data.getData().toString(),
-                        Toast.LENGTH_LONG).show();
-
-//                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
-             /*   db.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(new ValueEventListener() {
-                    int count = 0;
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                            for (DataSnapshot d : dataSnapshot.getChildren()) {
-                                Log.e("ehel8oldah ", d + "");
-
-                            }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });*/
-
-
             } else if (resultCode == Constants.WRONGANSWER) {
                 db.child("users").child(user.getUid()).child("enrolledcourses")
                         .addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-
                                 for (DataSnapshot d : dataSnapshot.getChildren()) {
                                     for (DataSnapshot d1 : d.getChildren())
                                         for (DataSnapshot d2 : d1.getChildren()) {
-                                            ProgressModel progressModel = d2.getValue(ProgressModel.class);
-                                            Log.v("dddddddddddddd", progressModel.getTopicProgressId() + "Welcome");
-
-                                            Log.v("dddddddddddddd", TopicModelList.get(pager.getCurrentItem()).getId() + "Welcome");
-                                            if (progressModel.getTopicProgressId().equals(TopicModelList.get(pager.getCurrentItem()).getId())) {
+                                            ProgressModel progressModel = d2
+                                                    .getValue(ProgressModel.class);
+                                            if (progressModel.getTopicProgressId()
+                                                    .equals(TopicModelList
+                                                            .get(pager.getCurrentItem()).getId())) {
                                                 progressModel.setTopicProgressFlag("true");
                                                 db.child("users").child(user.getUid())
                                                         .child("enrolledcourses")
@@ -238,29 +174,18 @@ public class ClassActivity extends AppCompatActivity {
                                                         .child(progressModel.getProgressid())
                                                         .updateChildren(progressModel.toMap());
                                             }
-
                                         }
                                 }
                             }
-
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
-
                             }
                         });
-                // imageView2.setVisibility(View.INVISIBLE);
-                Log.v("pagr ", pager.getCurrentItem() + "");
-//                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
-
-                Log.v("t3alayabni", "etnyl t3ala");
                 Toast.makeText(this, " حاول مرة أخري \n" + data.getData().toString(),
-                        Toast.LENGTH_LONG).show();
-                Toast.makeText(this, " ya rbbbbbb \n" + data.getData().toString(),
                         Toast.LENGTH_LONG).show();
 
             }
         }
-        Log.v("LessonFragment", "Activity Result " + requestCode + " , " + resultCode);
         if (resultCode == Constants.CORRECTANSWER) {
             if (requestCode == Constants.SIMPLE) {
 //                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
@@ -275,80 +200,24 @@ public class ClassActivity extends AppCompatActivity {
         }
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == Constants.SPEECH) {
-
 //                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
             }
         }
-
-
         //-----------------------------------------------------------------------------------------------------
-
-
         Log.v("LessonFragment", "Activity Result " + requestCode + " , " + resultCode);
-
         //-----------------------------------------------------------------------------------------------------
-
-
         if (resultCode == Constants.CORRECTANSWER) {
             if (requestCode == Constants.Text_Detection) {
-
 //                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
                 Log.v("t3alayabni", "etnyl t3ala enta eltani");
                 Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
             }
         }
-
-
-        /*db.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(new ValueEventListener() {
-            int count = 0;
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot d : dataSnapshot.getChildren()) {
-                    Log.e("ehel8oldahel3b3l3b ",  d.getValue() + "7amada t3ala ya baba engzz");
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
-        Log.v("ezhr w ban ", resultCode + "");
-        Log.v("ezhr w ban ", requestCode + "");
         if (resultCode == Constants.WRONGANSWER) {
             if (requestCode == Constants.Text_Detection) {
-
 //                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
                 Toast.makeText(context, "Result Incorrect", Toast.LENGTH_SHORT).show();
             }
-            Log.v("t3ala yabni", "etnyl t3ala");
         }
     }
-
-    @Override
-    protected void onResume() {
-        if(pager != null){
-            Log.v("Pager0000","onResume : pager size" + pager.getChildCount());
-        }
-        if(fragmentList != null){
-            Log.v("Pager0000","onResume : fragement size" + fragmentList.size());
-        }
-
-        Log.v("Pager0000","onResume : pager size" + pager.getChildCount());
-        if(pager != null){
-            Log.v("Pager0000","onResume : pager size" + pager.getChildCount());
-        }
-        if(fragmentList != null){
-            Log.v("Pager0000","onResume : fragement size" + fragmentList.size());
-
-        }
-
-        super.onResume();
-    }
-//        layouts.add(cursor.getString(cursor.getColumnIndex(TopicColumns.TOPIC_LAYOUT)));
-//        pager.setAdapter(new LessonPagerAdapter(getSupportFragmentManager(),layouts));
-//        layouts.clear();
-
 }
