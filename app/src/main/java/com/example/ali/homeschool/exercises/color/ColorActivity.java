@@ -3,6 +3,7 @@ package com.example.ali.homeschool.exercises.color;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -164,11 +165,22 @@ public class ColorActivity extends AppCompatActivity implements CameraBridgeView
 
                 Core.putText(img, "Detected " + colorName[i], new Point(75, 150), Core.FONT_HERSHEY_DUPLEX, 1.0, new Scalar(209, 150, 98));
 //                Toast.makeText(getApplicationContext(),"Reeed",Toast.LENGTH_LONG).show();
-//                finish();
+                finish();
 
             }
-            else Core.putText(img, "find " + colorName[i], new Point(150, 150), Core.FONT_HERSHEY_DUPLEX, 1.0, new Scalar(209, 150, 98));
+            else {
+                Core.putText(img, "find " + colorName[i], new Point(150, 150), Core.FONT_HERSHEY_DUPLEX, 1.0, new Scalar(209, 150, 98));
 
+                //wait 10 seconds then finsh
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Do something after 5s = 5000ms
+                        finish();
+                    }
+                }, 10000);
+            }
         }
 
         else  Core.putText(img, "Hello", new Point(60, 75), Core.FONT_HERSHEY_DUPLEX, 1.0, new Scalar(207, 150, 98));
