@@ -42,9 +42,6 @@ public class ChildCoursesFragment extends Fragment {
     }
 
     View view;
-    ArrayList prgmName;
-    public static String[] prgmNameList = {"Let Us C", "c++", "JAVA", "Jsp", "Microsoft .Net", "Android", "PHP", "Jquery", "JavaScript"};
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,9 +57,6 @@ public class ChildCoursesFragment extends Fragment {
             c = intent.getParcelableExtra("childModel");
             Log.v("Test", "Name" + c.getId());
         }
-//        lv=(ListView) view.findViewById(R.id.listView);
-//        lv.setAdapter(new CustomListviewAdapter(context , prgmNameList));
-
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         childProgressAdapter = new ChildProgressAdapter();
@@ -85,22 +79,15 @@ public class ChildCoursesFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 enrolledCourseModel = new ArrayList<EnrolledCourseModel>();
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
-                    Log.v("Test11111", "Progress " + d.toString());
                     EnrolledCourseModel e = d.getValue(EnrolledCourseModel.class);
-
-
                     for (DataSnapshot d1 : d.getChildren()) {
-                        Log.v("Test22222", "Progress " + d1.toString());
-
                         for (DataSnapshot d2 : d1.getChildren()) {
-                            Log.v("Test33333", "Progress " + d2.toString());
                             ProgressModel progressModel = d2.getValue(ProgressModel.class);
                             if (progressModel.getTopicProgressFlag().equals("true")) {
                                 progress++;
                             }
 
                             counter++;
-                            Log.v("Progresscounnter", "1-counter : " + progress / counter + "2-progress : " + progress);
                         }
                     }
                     if(counter!=0)
@@ -109,7 +96,6 @@ public class ChildCoursesFragment extends Fragment {
                         e.setProgressaftercalc(""+0);
                     enrolledCourseModel.add(e);
                 }
-                Log.v("Progresscounnter", "1-counter : " + progress / counter + "2-progress : " + progress);
                 ChildProgressAdapter1 childProgressAdapter1 = new ChildProgressAdapter1(
                         enrolledCourseModel, new ChildProgressAdapter1.OnClickHandler() {
                     @Override
@@ -117,8 +103,6 @@ public class ChildCoursesFragment extends Fragment {
 
                     }
                 });
-                Log.v("Progresscounnter", "1-counter111 : " + progress*100 / counter + "2-progress : " + progress);
-                Log.v("Progresscounnter1234", childProgressAdapter1.getProgress()+"");
                 recyclerView.setAdapter(childProgressAdapter1);
             }
 

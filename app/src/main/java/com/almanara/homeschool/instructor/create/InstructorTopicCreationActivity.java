@@ -370,7 +370,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
             public boolean onMenuItemClick(MenuItem item) {
 
                 if (item.getItemId() == R.id.submit) {
-                    Log.v("Test", "Sign IN");
                     String key;
                     databaseReference = databaseReference.child("courses").child(courseId)
                             .child("lessons").child(lessonid).child("topics");

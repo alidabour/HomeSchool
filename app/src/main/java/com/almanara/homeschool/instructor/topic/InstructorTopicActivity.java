@@ -155,16 +155,13 @@ public class InstructorTopicActivity extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                lessonModelList = new ArrayList<TopicModel>();
-                Log.e("dataSnapShot", dataSnapshot + "");
+                lessonModelList = new ArrayList<>();
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
-                    Log.v("Testytesty101", "Lesson " + d.toString());
                     topicModel = d.getValue(TopicModel.class);
                     if (!(topicModel.getLayout() == null))
                         lessonModelList.add(topicModel);
                     if(!topicModel.getId().equals(" "))
                         topicid = topicModel.getId();
-
                     Log.v("Test", "LESSON __ " + topicModel.toString());
                 }
                 InstructorTopicsAdapter lessonAdapter = new InstructorTopicsAdapter(lessonModelList,
@@ -187,7 +184,6 @@ public class InstructorTopicActivity extends AppCompatActivity {
 
             }
         };
-        Log.v("courseId", courseId);
         db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").addValueEventListener(listener);
 
     }
