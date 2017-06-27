@@ -198,13 +198,13 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                         setContentView(fragmentLayout);
                         // Finally , add the fragment
 
-                        if (topicModel.getTopicType().equals("multiImageQue")){
+                        if (topicModel.getTopicType().equals("multiImageQue")) {
                             getSupportFragmentManager()
                                     .beginTransaction()
                                     .add(R.id.multiImageQue,
                                             MultiImageQuestionFragment.newInstance(finalLayout))
                                     .commit();  // 1000 - is the id set for the container layout
-                        }else if(topicModel.getTopicType().equals("animation")){
+                        } else if (topicModel.getTopicType().equals("animation")) {
                             getSupportFragmentManager()
                                     .beginTransaction()
                                     .add(R.id.multiImageQue,
@@ -215,7 +215,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                     }
                 });
 
-            } {
+            }
+            {
 //                String[] parm = parseMutiImageQue(layout);
 
 
@@ -322,7 +323,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                     @Override
                     public void onClick(View v) {
                         dialog.cancel();
-                        animationDialog = new AnimationDialog(InstructorTopicCreationActivity.this,onQuestionLayoutReady);
+                        animationDialog = new AnimationDialog(InstructorTopicCreationActivity.this, onQuestionLayoutReady);
                         animationDialog.setCourseId(courseId);
                         animationDialog.openAnimationDialog();
                         topicType = "animation";
@@ -373,12 +374,16 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                     String key;
                     databaseReference = databaseReference.child("courses").child(courseId)
                             .child("lessons").child(lessonid).child("topics");
-                    if (topicid.equals(" "))
-                        databaseReference = databaseReference.child(topicid);
-                    else {
+                    if (topicid.equals(" ")) {
+
+
                         key = databaseReference.push().getKey();
                         databaseReference = databaseReference.child(key);
+
                         topicid = key;
+                    } else {
+                        databaseReference = databaseReference.child(topicid);
+
                     }
 
                     TopicModel t = new TopicModel();
@@ -603,9 +608,9 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 //        if(fm.)
         fm.popBackStack();
 
-        if (findViewById(R.id.multiImageQue)!=null) {
-            if(findViewById(R.id.multiImageQue).getVisibility() == View.VISIBLE)
-            findViewById(R.id.multiImageQue).setVisibility(View.GONE);
+        if (findViewById(R.id.multiImageQue) != null) {
+            if (findViewById(R.id.multiImageQue).getVisibility() == View.VISIBLE)
+                findViewById(R.id.multiImageQue).setVisibility(View.GONE);
             setContentView(R.layout.activity_instructor_topic);
         } else {
             new AlertDialog.Builder(this)
