@@ -19,6 +19,7 @@ import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.instructor.topic.TopicModel;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.student.course.lesson.topic.template.AnimationFragment;
 import com.example.ali.homeschool.student.course.lesson.topic.template.MultiImageQuestionFragment;
 import com.example.ali.homeschool.childProgress.ProgressModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -96,6 +97,8 @@ public class ClassActivity extends AppCompatActivity {
                             fragmentList.add(NestedFrag.newInstance("12"));
                             fragmentList.add(MultiImageQuestionFragment
                                     .newInstance(modelEntry.getLayout()));
+                        }else if(modelEntry.getTopicType().equals("animation")){
+                            fragmentList.add(AnimationFragment.newInstance(modelEntry.getLayout()));
                         }
                     }
                     pager.setAdapter(

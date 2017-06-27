@@ -58,11 +58,20 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
     <TextView
+        android:padding="8dp"
         android:id="@+id/textDetection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="Text Detection"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
+    <TextView
+        android:padding="8dp"
+        android:id="@+id/animation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Animation"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
 </LinearLayout>

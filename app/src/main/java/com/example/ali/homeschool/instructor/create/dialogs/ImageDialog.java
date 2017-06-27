@@ -138,7 +138,7 @@ public class ImageDialog extends MainDialog {
                 }
                 //and displaying a success toast
                 Toast.makeText(activity, "File Uploaded",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
             }
         }, storagePath);
     }

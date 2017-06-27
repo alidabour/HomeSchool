@@ -8,6 +8,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ali.homeschool.Answer;
+import com.example.ali.homeschool.instructor.create.dialogs.AnimationDialog;
 import com.example.ali.homeschool.instructor.create.dialogs.ColorQuestionDialog;
 import com.example.ali.homeschool.instructor.create.dialogs.ImageDialog;
 import com.example.ali.homeschool.instructor.create.dialogs.MultiImageQueDialog;
@@ -45,6 +47,7 @@ import com.example.ali.homeschool.instructor.create.ordering.DoneOrderInterface;
 import com.example.ali.homeschool.instructor.create.ordering.OnStartDragListener;
 import com.example.ali.homeschool.instructor.create.ordering.SimpleItemTouchHelperCallback;
 import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.student.course.lesson.topic.template.AnimationFragment;
 import com.example.ali.homeschool.student.course.lesson.topic.template.MultiImageQuestionFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -68,6 +71,9 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     private static final int PICK_IMAGE_REQUEST = 234;
     private static final int PICK_SOUND_REQUEST = 235;
     private static final int PICK_IMAGE_MULTI_QUE = 236;
+    final public int PICK_IMAGE_ANIMATION = 237;
+    final public int PICK_SOUND_ANIMATION = 238;
+
     private final String HOLD = " ,HO##LD,";
     private MediaPlayer mediaPlayer;
     StorageReference storageReference;
@@ -84,6 +90,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
     int textColor = -11177216;
 
+    //Dialogs
     SpeechDialog speechDialog;
     MultiQuestionDialog multiQuestionDialog;
     ColorQuestionDialog colorQuestionDialog;
@@ -92,6 +99,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     TextViewDialog textViewDialog;
     TextDetectionDialog textDetectionDialog;
     MultiImageQueDialog multiImageQueDialog;
+    AnimationDialog animationDialog;
+
     ProgressImage progressImage;
     //Parmaters
     String parms;
@@ -158,7 +167,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
             topicname = intent.getStringExtra("topicname");
         }
         if (intent != null && intent.hasExtra("topicPar")) {
-            TopicModel topicModel = intent.getParcelableExtra("topicPar");
+            final TopicModel topicModel = intent.getParcelableExtra("topicPar");
             String topicType = topicModel.getTopicType();
             Log.v("Test", "Topic Model :" + topicType);
             Log.v("Test", "Topic Model :" + topicModel.getName());
@@ -176,18 +185,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                         addLayout(x);
                     }
                 }
-            } else if (topicModel.getTopicType().equals("multiImageQue")) {
-//                String[] parm = parseMutiImageQue(layout);
+            } else {
                 openFragment.setVisibility(View.VISIBLE);
-                final String finalLayout1 = layout;
+                final String finalLayout = layout;
                 openFragment.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        findViewById(R.id.fragmentQue).setVisibility(View.VISIBLE);
-//                        Fragment fragment = MultiImageQuestionFragment.newInstance(finalLayout);
-//
-//                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                        transaction.replace(R.id.fragmentQue, fragment).commit();
                         // create a frame layout
                         fragmentLayout = new FrameLayout(InstructorTopicCreationActivity.this);
                         // set the layout params to fill the activity
@@ -199,14 +202,27 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                         // set the layout as Activity content
                         setContentView(fragmentLayout);
                         // Finally , add the fragment
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .add(R.id.multiImageQue,
-                                        MultiImageQuestionFragment.newInstance(finalLayout1))
-                                .commit();  // 1000 - is the id set for the container layout
 
+                        if (topicModel.getTopicType().equals("multiImageQue")){
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .add(R.id.multiImageQue,
+                                            MultiImageQuestionFragment.newInstance(finalLayout))
+                                    .commit();  // 1000 - is the id set for the container layout
+                        }else if(topicModel.getTopicType().equals("animation")){
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .add(R.id.multiImageQue,
+                                            AnimationFragment.newInstance(finalLayout))
+                                    .commit();  // 1000 - is the id set for the container layout
+
+                        }
                     }
                 });
+
+            } {
+//                String[] parm = parseMutiImageQue(layout);
+
 
             }
         }
@@ -248,6 +264,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                 final TextView textDetection = (TextView) someLayout
                         .findViewById(R.id.textDetection);
                 final TextView multiImageQue = (TextView) someLayout.findViewById(R.id.imagesMulti);
+                final TextView animation = (TextView) someLayout.findViewById(R.id.animation);
 
                 builder.setView(someLayout);
                 final AlertDialog dialog = builder.create();
@@ -303,6 +320,18 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                                 InstructorTopicCreationActivity.this, onQuestionLayoutReady);
                         multiImageQueDialog.setCourseId(courseId);
                         multiImageQueDialog.openMultiImageQueDialog();
+                        topicType = "multiImageQue";
+                    }
+                });
+                animation.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                        animationDialog = new AnimationDialog(InstructorTopicCreationActivity.this,onQuestionLayoutReady);
+                        animationDialog.setCourseId(courseId);
+                        animationDialog.openAnimationDialog();
+                        topicType = "animation";
+
                     }
                 });
 
@@ -365,7 +394,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                         }
                         t.setLayout(start + layouts + end);
                     } else {
-                        topicType = "multiImageQue";
                         t.setTopicType(topicType);
                         t.setLayout(parms);
                     }
@@ -417,6 +445,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         }
         if (requestCode == PICK_IMAGE_MULTI_QUE && resultCode == Activity.RESULT_OK) {
             multiImageQueDialog.setFilePath(data.getData());
+        }
+        if (requestCode == PICK_IMAGE_ANIMATION && resultCode == Activity.RESULT_OK) {
+            animationDialog.setFilePath(data.getData());
+        }
+        if (requestCode == PICK_SOUND_ANIMATION && resultCode == Activity.RESULT_OK) {
+            animationDialog.setFilePath(data.getData());
         }
     }
 

@@ -65,7 +65,7 @@ public class UploadFile {
                             fileString = link;
 
                             Toast.makeText(context, "File Uploaded",
-                                    Toast.LENGTH_LONG).show();
+                                    Toast.LENGTH_SHORT).show();
 
                         }
                     })

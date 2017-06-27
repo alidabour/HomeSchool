@@ -37,12 +37,6 @@ public class MultiImageQueDialog  implements View.OnClickListener {
     String courseId;
     private final String HOLD  = " ,HO##LD,";
     private OnQuestionLayoutReady onQuestionLayoutReady;
-
-    public View getFinalView() {
-        return finalView;
-    }
-
-    private View finalView;
     ImageView imageView1=null;
     ImageView imageView2=null;
     ImageView imageView3=null;
@@ -209,7 +203,6 @@ public class MultiImageQueDialog  implements View.OnClickListener {
                             }else {
                                 Toast.makeText(activity, "Cancel or Complete fields", Toast.LENGTH_SHORT).show();
                             }
-                            finalView =relativeLT;
                     }
                 });
     }
@@ -277,7 +270,7 @@ public class MultiImageQueDialog  implements View.OnClickListener {
                 }
                 //and displaying a success toast
                 Toast.makeText(activity, "File Uploaded",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
             }
         }, storagePath);
     }
