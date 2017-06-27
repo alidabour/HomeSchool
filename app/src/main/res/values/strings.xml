@@ -24,15 +24,15 @@
     <string name="my_courses">My Courses</string>
     <string name="featured_courses">Courses</string>
     <string name="sign_out">Sign out</string>
-    <string name="Sign_up">Sign up</string>
+    <string name="Sign_up" translatable="false">Sign up</string>
     <string name="Email">Email</string>
     <string name="enter_url">Enter Url</string>
     <string name="choose_from_gallery">Choose from Gallery</string>
     <string name="support">support</string>
     <string name="no_course">Press add for new course</string>
     <string name="no_lesson">press + to add more lessons</string>
-    <string name="no_topics">Press + for more topics</string>
-    <string name="no_mycourse">you have no enrolled courses</string>
+    <string name="no_topics" translatable="false">Press + for more topics</string>
+    <string name="no_mycourse" translatable="false">you have no enrolled courses</string>
     <string name="sign_in_here">  Sign in here</string>
     <string name="have_an_account">Have an account?</string>
     <string name="create_account">Create account</string>
@@ -55,7 +55,7 @@
     <string name="submit">submit</string>
     <string name="courses">Courses</string>
 
-    <string-array name="color_array">
+    <string-array name="color_array" translatable="false">
         <item>Red</item>
         <item>Yellow</item>
         <item>Orange</item>
@@ -64,7 +64,7 @@
         <item>Blue</item>
         <item>Violet</item>
     </string-array>
-    <string-array name="text_size_array">
+    <string-array name="text_size_array" translatable="false">
         <item>Button 14sp CAPS</item>
         <item>Caption 12sp</item>
         <item>Body1 14sp</item>
@@ -78,7 +78,7 @@
         <item>Display4 112sp</item>
 
     </string-array>
-    <string-array name="text_lan_array">
+    <string-array name="text_lan_array"  translatable="false">
         <item>English</item>
         <item>Arabic</item>
     </string-array>
