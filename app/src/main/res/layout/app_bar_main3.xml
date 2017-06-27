@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBack"
     android:fitsSystemWindows="true"
-    tools:context="com.example.ali.homeschool.closed.Main3Activitytrial______________">
+    tools:context="com.almanara.ali.homeschool.closed.Main3Activitytrial______________">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"

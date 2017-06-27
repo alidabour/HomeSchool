@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBack"
-    tools:context="com.example.ali.homeschool.childProgress.ChildCourses">
+    tools:context="com.almanara.ali.homeschool.com.almanara.homeschool.childProgress.ChildCourses">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusableInTouchMode="true"
-            tools:context="com.example.ali.homeschool.descriptionActivity.CourseDescriptionActivity">
+            tools:context="com.almanara.ali.homeschool.com.almanara.homeschool.descriptionActivity.CourseDescriptionActivity">
 
             <ImageView
                 android:id="@+id/imageView"

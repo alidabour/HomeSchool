@@ -129,6 +129,37 @@
           "status": 2
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831129464005:android:d46b06be1cb12ec6",
+        "android_client_info": {
+          "package_name": "com.almanara.homeschool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831129464005-e947sdbpmnbbo0bos0iuj0pjqpr1ce0m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeygHwnatT477qD1PeV3-8NGEGijqfF9M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
     }
   ],
   "configuration_version": "1"

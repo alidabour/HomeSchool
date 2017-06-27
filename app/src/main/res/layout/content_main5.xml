@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment2"
-    android:name="com.example.ali.homeschool.instructor.home.InstructorFragment"
+    android:name="com.almanara.homeschool.instructor.home.InstructorFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"

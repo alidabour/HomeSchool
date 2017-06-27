@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ali.homeschool.home.MainActivity"
+    tools:context="com.almanara.ali.homeschool.com.almanara.homeschool.home.MainActivity"
     android:clickable="true">
 
 

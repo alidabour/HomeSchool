@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back222"
-    tools:context="com.example.ali.homeschool.student.course.CoursesFragment">
+    tools:context="com.almanara.ali.homeschool.com.almanara.homeschool.student.course.CoursesFragment">
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="4.5"/>
-    <com.example.ali.homeschool.module.utils.DebugRecyclerView
+    <com.almanara.homeschool.module.utils.DebugRecyclerView
         android:id="@+id/courses"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
