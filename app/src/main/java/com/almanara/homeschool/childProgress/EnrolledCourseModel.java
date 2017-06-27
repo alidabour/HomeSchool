@@ -15,6 +15,16 @@ public class EnrolledCourseModel implements Parcelable {
     String name;
     String enrolledcoursemodelid;
     Map<String,ProgressModel> progress;
+    String progressaftercalc;
+
+    public String getProgressaftercalc() {
+        return progressaftercalc;
+    }
+
+    public void setProgressaftercalc(String progressaftercalc) {
+        this.progressaftercalc = progressaftercalc;
+    }
+
     public String getEnrolledcoursemodelid() {
         return enrolledcoursemodelid;
     }
@@ -69,6 +79,7 @@ public class EnrolledCourseModel implements Parcelable {
             dest.writeString(entry.getKey());
             dest.writeParcelable(entry.getValue(), flags);
         }
+        dest.writeString(this.progressaftercalc);
     }
 
     protected EnrolledCourseModel(Parcel in) {
@@ -82,6 +93,7 @@ public class EnrolledCourseModel implements Parcelable {
             ProgressModel value = in.readParcelable(ProgressModel.class.getClassLoader());
             this.progress.put(key, value);
         }
+        this.progressaftercalc = in.readString();
     }
 
     public static final Creator<EnrolledCourseModel> CREATOR = new Creator<EnrolledCourseModel>() {

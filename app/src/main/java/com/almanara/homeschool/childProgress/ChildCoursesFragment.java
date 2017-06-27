@@ -35,34 +35,36 @@ public class ChildCoursesFragment extends Fragment {
     ChildModel c;
     List<EnrolledCourseModel> enrolledCourseModel;
     ValueEventListener listener;
-    int counter=0;
-    double progress=0.0;
+    int counter = 1;
+    int progress = 1;
+
     public ChildCoursesFragment() {
     }
+
     View view;
     ArrayList prgmName;
-    public static String [] prgmNameList={"Let Us C","c++","JAVA","Jsp","Microsoft .Net","Android","PHP","Jquery","JavaScript"};
+    public static String[] prgmNameList = {"Let Us C", "c++", "JAVA", "Jsp", "Microsoft .Net", "Android", "PHP", "Jquery", "JavaScript"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view =inflater.inflate(R.layout.fragment_child_courses, container, false);
+        view = inflater.inflate(R.layout.fragment_child_courses, container, false);
         context = getContext();
         db = FirebaseDatabase.getInstance().getReference();
 
-        counter=0;
-        progress=0.0;
-        Intent intent  =getActivity().getIntent();
-        if (intent != null && intent.hasExtra("childModel")){
-            Log.v("Test","Intent found");
+        counter = 0;
+        progress = 0;
+        Intent intent = getActivity().getIntent();
+        if (intent != null && intent.hasExtra("childModel")) {
+            Log.v("Test", "Intent found");
             c = intent.getParcelableExtra("childModel");
-            Log.v("Test","Name" +c.getId());
+            Log.v("Test", "Name" + c.getId());
         }
 //        lv=(ListView) view.findViewById(R.id.listView);
 //        lv.setAdapter(new CustomListviewAdapter(context , prgmNameList));
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         childProgressAdapter = new ChildProgressAdapter();
         return view;
     }
@@ -78,41 +80,53 @@ public class ChildCoursesFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        listener    =    new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        enrolledCourseModel = new ArrayList<EnrolledCourseModel>();
-                        for (DataSnapshot d : dataSnapshot.getChildren()){
-                            Log.v("Test","Progress "+d.toString());
-                            EnrolledCourseModel e = d.getValue(EnrolledCourseModel.class);
-                            enrolledCourseModel.add(e);
-                            for (DataSnapshot d1 : d.getChildren()){
-                                for (DataSnapshot d2 : d1.getChildren()) {
-                                    ProgressModel progressModel = d2.getValue(ProgressModel.class);
-                                    if(progressModel.getTopicProgressFlag().equals("true"))
-                                        progress++;
+        listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                enrolledCourseModel = new ArrayList<EnrolledCourseModel>();
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
+                    Log.v("Test11111", "Progress " + d.toString());
+                    EnrolledCourseModel e = d.getValue(EnrolledCourseModel.class);
 
-                                        counter++;
-                                    Log.v("Progress+counnter","1-counter : " +progress/counter +"2-progress : "+progress);
-                                }
-                                }
-                        }
-                        ChildProgressAdapter1 childProgressAdapter1 = new ChildProgressAdapter1(
-                                enrolledCourseModel, new ChildProgressAdapter1.OnClickHandler() {
-                            @Override
-                            public void onClick(EnrolledCourseModel test) {
 
+                    for (DataSnapshot d1 : d.getChildren()) {
+                        Log.v("Test22222", "Progress " + d1.toString());
+
+                        for (DataSnapshot d2 : d1.getChildren()) {
+                            Log.v("Test33333", "Progress " + d2.toString());
+                            ProgressModel progressModel = d2.getValue(ProgressModel.class);
+                            if (progressModel.getTopicProgressFlag().equals("true")) {
+                                progress++;
                             }
-                        });
-                        childProgressAdapter1.setProgress(progress/counter);
-                        recyclerView.setAdapter(childProgressAdapter1);
-                    }
 
+                            counter++;
+                            Log.v("Progresscounnter", "1-counter : " + progress / counter + "2-progress : " + progress);
+                        }
+                    }
+                    if(counter!=0)
+                    e.setProgressaftercalc(""+progress*100/counter);
+                    else
+                        e.setProgressaftercalc(""+0);
+                    enrolledCourseModel.add(e);
+                }
+                Log.v("Progresscounnter", "1-counter : " + progress / counter + "2-progress : " + progress);
+                ChildProgressAdapter1 childProgressAdapter1 = new ChildProgressAdapter1(
+                        enrolledCourseModel, new ChildProgressAdapter1.OnClickHandler() {
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                    public void onClick(EnrolledCourseModel test) {
 
                     }
-                };
+                });
+                Log.v("Progresscounnter", "1-counter111 : " + progress*100 / counter + "2-progress : " + progress);
+                Log.v("Progresscounnter1234", childProgressAdapter1.getProgress()+"");
+                recyclerView.setAdapter(childProgressAdapter1);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
         db.child("users").child(c.getId()).child("enrolledcourses").addValueEventListener(listener);
     }
 

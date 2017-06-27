@@ -38,20 +38,21 @@ public class ChildProgressAdapter1 extends RecyclerView.Adapter<ChildProgressAda
         this.enrolledCourseModels = enrolledCourseModels;
         this.onClickHandler = onClickHandler;
     }
+
     @Override
     public ChildProgressViewHolder onCreateViewHolder(ViewGroup parent,
                                                       int viewType) {
         View itemView = LayoutInflater
-                .from(parent.getContext()).inflate(R.layout.child_progress_item,parent,false);
+                .from(parent.getContext()).inflate(R.layout.child_progress_item, parent, false);
         return new ChildProgressViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ChildProgressViewHolder holder,
                                  int position) {
-        EnrolledCourseModel enrolledCourseModel= enrolledCourseModels.get(position);
+        EnrolledCourseModel enrolledCourseModel = enrolledCourseModels.get(position);
         holder.courseName.setText(enrolledCourseModel.getName());
-        holder.progressBar.setProgress((int) Progress*100);
+        holder.progressBar.setProgress(Integer.parseInt(enrolledCourseModel.getProgressaftercalc()));
     }
 
     @Override
@@ -62,6 +63,7 @@ public class ChildProgressAdapter1 extends RecyclerView.Adapter<ChildProgressAda
     public class ChildProgressViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView courseName;
         ProgressBar progressBar;
+
         public ChildProgressViewHolder(View itemView) {
             super(itemView);
             courseName = (TextView) itemView.findViewById(R.id.courseName);
