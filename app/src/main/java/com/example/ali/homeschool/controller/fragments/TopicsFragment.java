@@ -19,7 +19,7 @@
 //import com.example.ali.homeschool.R;
 //import com.example.ali.homeschool.RecyclerTouchListener;
 //import com.example.ali.homeschool.adapter.TopicsAdapter;
-//import com.example.ali.homeschool.childClass.ClassActivity;
+//import com.example.ali.homeschool.student.course.lesson.topic.ClassActivity;
 //import com.example.ali.homeschool.data.DataProvider;
 //import com.example.ali.homeschool.data.Entry.LessonColumns;
 //

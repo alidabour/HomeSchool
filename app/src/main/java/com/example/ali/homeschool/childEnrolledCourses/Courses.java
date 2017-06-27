@@ -4,7 +4,7 @@ package com.example.ali.homeschool.childEnrolledCourses;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.ali.homeschool.InstructorLessons.LessonModel;
+import com.example.ali.homeschool.instructor.lesson.LessonModel;
 
 import java.util.HashMap;
 import java.util.Map;

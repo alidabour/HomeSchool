@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.instructor.InstructorActivity;
-import com.example.ali.homeschool.ParentHome.ParentActivity;
+import com.example.ali.homeschool.parent.ParentActivity;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.controller.activities.Home;
 import com.example.ali.homeschool.controller.activities.StudentHomeActivity;

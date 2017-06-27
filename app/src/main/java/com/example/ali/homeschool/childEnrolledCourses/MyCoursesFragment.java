@@ -14,10 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.ali.homeschool.InstructorHome.CourseCreated;
+import com.example.ali.homeschool.instructor.home.CourseCreated;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.childProgress.EnrolledCourseModel;
-import com.example.ali.homeschool.studentlessons.LessonActivity;
+import com.example.ali.homeschool.student.course.lesson.LessonActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

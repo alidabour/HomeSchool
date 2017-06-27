@@ -3,7 +3,7 @@ package com.example.ali.homeschool.InstructorLessons;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.ali.homeschool.InstructorTopic.TopicModel;
+import com.example.ali.homeschool.instructor.topic.TopicModel;
 
 import java.util.ArrayList;
 

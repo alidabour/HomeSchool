@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.example.ali.homeschool.ParentHome.ChildModel;
+import com.example.ali.homeschool.parent.home.ChildModel;
 import com.example.ali.homeschool.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

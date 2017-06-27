@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ali.homeschool.InstructorHome.Classroom">
+    tools:context="com.example.ali.homeschool.instructor.home.Classroom">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_below="@id/appbarlayout123"
-        tools:context="com.example.ali.homeschool.ParentHome.ParentActivityFragment"
+        tools:context="com.example.ali.homeschool.parent.home.ParentActivityFragment"
         tools:showIn="@layout/activity_parent">
 
         <android.support.v7.widget.RecyclerView

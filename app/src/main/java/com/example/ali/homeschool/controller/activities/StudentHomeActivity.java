@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ali.homeschool.CircleTransform;
-import com.example.ali.homeschool.InstructorHome.CourseCreated;
+import com.example.ali.homeschool.instructor.home.CourseCreated;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.UserModelHelper.UserModelFirebase;
 import com.example.ali.homeschool.UserModelHelper.UserModelFirebaseClass;

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back222"
-    tools:context="com.example.ali.homeschool.studenthome.CoursesFragment">
+    tools:context="com.example.ali.homeschool.student.course.CoursesFragment">
 
 <LinearLayout
     android:layout_width="match_parent"

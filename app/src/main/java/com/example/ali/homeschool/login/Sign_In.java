@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.register.Register;
 import com.example.ali.homeschool.data.InternetConnectionChecker;
-import com.example.ali.homeschool.studenthome.StudentHomeActivityNew;
+import com.example.ali.homeschool.student.StudentHomeActivityNew;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

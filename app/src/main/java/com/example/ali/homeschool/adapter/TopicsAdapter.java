@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.ali.homeschool.InstructorTopic.InstructorTopicCreationActivity;
-import com.example.ali.homeschool.InstructorTopic.TopicModel;
+import com.example.ali.homeschool.instructor.create.InstructorTopicCreationActivity;
+import com.example.ali.homeschool.instructor.topic.TopicModel;
 import com.example.ali.homeschool.R;
 
 import java.util.List;

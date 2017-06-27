@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/colorBack"
-    tools:context="com.example.ali.homeschool.InstructorLessons.InstructorLessonsActivity">
+    tools:context="com.example.ali.homeschool.instructor.lesson.InstructorLessonsActivity">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar1"

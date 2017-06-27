@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import com.example.ali.homeschool.InstructorTopic.TextAppInterface;
+import com.example.ali.homeschool.instructor.create.xmlinterface.TextAppInterface;
 import com.jrummyapps.android.colorpicker.ColorPickerDialog;
 
 

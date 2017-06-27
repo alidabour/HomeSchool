@@ -18,7 +18,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.ali.homeschool.InstructorHome.CourseCreated;
+import com.example.ali.homeschool.instructor.home.CourseCreated;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.CourseSectionListAdapter;
 import com.example.ali.homeschool.adapter.SampleCoursesToolbarAdapter;

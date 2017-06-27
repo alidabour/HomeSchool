@@ -23,9 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.ali.homeschool.InstructorHome.CourseCreated;
-import com.example.ali.homeschool.InstructorLessons.LessonModel;
-import com.example.ali.homeschool.InstructorTopic.TopicModel;
+import com.example.ali.homeschool.instructor.home.CourseCreated;
+import com.example.ali.homeschool.instructor.lesson.LessonModel;
+import com.example.ali.homeschool.instructor.topic.TopicModel;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.adapter.TopicsAdapter;
 import com.example.ali.homeschool.childProgress.EnrolledCourseModel;

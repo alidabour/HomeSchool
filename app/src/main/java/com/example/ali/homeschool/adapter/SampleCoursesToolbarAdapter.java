@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.ali.homeschool.InstructorHome.CourseCreated;
-import com.example.ali.homeschool.R;
+import com.example.ali.homeschool.instructor.home.CourseCreated;
 import com.example.ali.homeschool.descriptionActivity.CourseDescriptionActivity;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**

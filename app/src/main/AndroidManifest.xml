@@ -43,7 +43,7 @@
         <!--android:windowSoftInputMode="stateAlwaysHidden"/>-->
         <!--<activity android:name=".exercises.textdetection.PreferencesActivity"/>-->
 
-        <activity android:name=".childClass.ClassActivity"/>
+        <activity android:name=".student.course.lesson.topic.ClassActivity"/>
         <activity android:name=".home.Guest"/>
         <activity android:name=".controller.activities.StudentFeaturedCourses"/>
         <activity
@@ -62,7 +62,7 @@
         <!--android:label="@string/title_activity_enrolled_course"-->
         <!--android:theme="@style/AppTheme"/>-->
         <activity
-            android:name=".ParentHome.ParentActivity"
+            android:name=".parent.ParentActivity"
             android:label="@string/title_activity_parent"
             android:parentActivityName=".login.SignInAs"
             android:theme="@style/AppTheme">
@@ -73,34 +73,29 @@
         <activity
             android:name=".childProgress.ChildCourses"
             android:label="@string/title_activity_child_courses"
-            android:parentActivityName=".ParentHome.ParentActivity"
+            android:parentActivityName=".parent.ParentActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.ali.homeschool.ParentHome.ParentActivity"/>
+                android:value="com.example.ali.homeschool.parent.ParentActivity"/>
         </activity>
         <activity android:name=".instructor.InstructorActivity"/>
         <activity
-            android:name=".InstructorLessons.InstructorLessonsActivity"
+            android:name=".instructor.lesson.InstructorLessonsActivity"
             android:parentActivityName=".instructor.InstructorActivity">
         </activity>
         <activity
-            android:name=".InstructorTopic.InstructorTopicCreationActivity"
+            android:name=".instructor.create.InstructorTopicCreationActivity"
             android:windowSoftInputMode="adjustPan"
             />
         >
         <activity android:name=".exercises.simple.SimpleExercises"/>
-        <activity android:name=".studentlessons.LessonActivity"/>
+        <activity android:name=".student.course.lesson.LessonActivity"/>
         <activity android:name=".exercises.speech.Speech"/>
-        <activity android:name=".InstructorTopic.InstructorTopicActivity"/>
-        <activity android:name=".InstructorHome.Classroom"/>
-        <activity android:name=".exercises.color.ColorActivity"/>
-        <activity android:name=".InstructorTopic.OrderingActivity">
-        </activity>
-        <activity android:name=".AliSecretActivity">
-        </activity>
+        <activity android:name=".instructor.topic.InstructorTopicActivity"/>
+        <activity android:name=".instructor.home.Classroom"/>
         <activity
-            android:name="com.example.ali.homeschool.studenthome.StudentHomeActivityNew"
+            android:name="com.example.ali.homeschool.student.StudentHomeActivityNew"
             android:label="@string/Student">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -108,7 +103,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".childClass.GenResult"/>
+        <activity android:name=".student.course.lesson.topic.GenResult"/>
 
     </application>
 
