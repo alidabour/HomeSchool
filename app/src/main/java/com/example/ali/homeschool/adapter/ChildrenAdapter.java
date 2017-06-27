@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.data.CategoryInformation;
-import com.example.ali.homeschool.data.Entry.ChildColumns;
 
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Catego
 //        Log.v("Test","test");
 //        Log.v("Test","Inf:"+categoryInformation.getCategoryName()+" "+categoryInformation.getCategoryImage());
         mCursor.moveToPosition(position);
-        holder.childrenName.setText(mCursor.getString(mCursor.getColumnIndex(ChildColumns.CHILD_NAME)));
+//        holder.childrenName.setText(mCursor.getString(mCursor.getColumnIndex(ChildColumns.CHILD_NAME)));
         holder.childrenImage.setImageResource(R.drawable.photoid);
     }
 

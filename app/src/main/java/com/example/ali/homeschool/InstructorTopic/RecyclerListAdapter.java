@@ -46,7 +46,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import edu.sfsu.cs.orange.ocr.Answer;
 
 
 /**

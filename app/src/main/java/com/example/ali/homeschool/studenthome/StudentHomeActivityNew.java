@@ -1,15 +1,13 @@
 package com.example.ali.homeschool.studenthome;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.support.annotation.IntRange;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.controller.activities.Sign_In;
+import com.example.ali.homeschool.login.Sign_In;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

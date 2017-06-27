@@ -13,12 +13,12 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.ali.homeschool.Answer;
 import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.InstructorTopic.InstructorTopicCreationActivity;
 import com.example.ali.homeschool.InstructorTopic.ParseXMLInstructor;
 import com.example.ali.homeschool.InstructorTopic.XMLClick;
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.exercises.color.ColorActivity;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -28,7 +28,6 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Random;
 
-import edu.sfsu.cs.orange.ocr.Answer;
 
 import static com.example.ali.homeschool.Constants.Color_Request;
 import static com.example.ali.homeschool.Constants.Text_Detection;
@@ -97,17 +96,17 @@ public class LessonFragment extends Fragment {
 
             @Override
             public void openActivity(String activity, Answer answer) {
-                if (activity.equals("ColorActivity")) {
-                    Intent intent = new Intent(getActivity(), ColorActivity.class);
-                    intent.putExtra("Answer", answer);
-                    startActivityForResult(intent, Color_Request);
-                } else if (activity.equals("TextDetection")) {
-                    Intent intent = new Intent(getActivity(), edu.sfsu.cs.orange.ocr.CaptureActivity.class);
-                    intent.putExtra("Answer", answer);
-//                                intent.putExtra("lan", InstructorTopicCreationActivity.selectlanguageString);
-                    //Comment
-                    startActivityForResult(intent, Text_Detection);
-                }
+//                if (activity.equals("ColorActivity")) {
+//                    Intent intent = new Intent(getActivity(), ColorActivity.class);
+//                    intent.putExtra("Answer", answer);
+//                    startActivityForResult(intent, Color_Request);
+//                } else if (activity.equals("TextDetection")) {
+//                    Intent intent = new Intent(getActivity(), edu.sfsu.cs.orange.ocr.CaptureActivity.class);
+//                    intent.putExtra("Answer", answer);
+////                                intent.putExtra("lan", InstructorTopicCreationActivity.selectlanguageString);
+//                    //Comment
+//                    startActivityForResult(intent, Text_Detection);
+//                }
             }
 
             @Override

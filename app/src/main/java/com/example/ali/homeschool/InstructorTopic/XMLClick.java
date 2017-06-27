@@ -2,7 +2,8 @@ package com.example.ali.homeschool.InstructorTopic;
 
 import android.view.View;
 
-import edu.sfsu.cs.orange.ocr.Answer;
+import com.example.ali.homeschool.Answer;
+
 
 /**
  * Created by Ali on 6/8/2017.

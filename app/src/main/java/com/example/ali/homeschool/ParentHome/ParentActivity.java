@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.Utils;
 
 public class ParentActivity extends AppCompatActivity {
 
@@ -20,16 +19,7 @@ public class ParentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_parent);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (savedInstanceState == null){
-            try {
-                Utils.addChildTest(getApplicationContext());
-                Utils.addChildProgressTest(getApplicationContext());
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            } catch (OperationApplicationException e) {
-                e.printStackTrace();
-            }
-        }
+
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override

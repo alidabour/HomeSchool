@@ -10,7 +10,6 @@ import android.widget.Spinner;
 import com.example.ali.homeschool.InstructorTopic.TextAppInterface;
 import com.jrummyapps.android.colorpicker.ColorPickerDialog;
 
-import edu.sfsu.cs.orange.ocr.Answer;
 
 /**
  * Created by Ali on 6/2/2017.

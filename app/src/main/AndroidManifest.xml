@@ -25,17 +25,16 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.activities.MainActivity">
+        <activity android:name=".home.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".controller.activities.Register"/>
-        <activity android:name=".controller.activities.Sign_In"/>
-        <activity android:name=".controller.activities.SignInAs"/>
-        <activity android:name=".closed.Guesttrial______________"/>
+        <activity android:name=".register.Register"/>
+        <activity android:name=".login.Sign_In"/>
+        <activity android:name=".login.SignInAs"/>
         <!--<activity-->
         <!--android:name=".exercises.textdetection.CaptureActivity"-->
         <!--android:configChanges="orientation|keyboardHidden|screenSize"-->
@@ -44,14 +43,8 @@
         <!--android:windowSoftInputMode="stateAlwaysHidden"/>-->
         <!--<activity android:name=".exercises.textdetection.PreferencesActivity"/>-->
 
-        <provider
-            android:name=".data.generated.DataProvider"
-            android:authorities="com.example.ali.homeschool.data.DataProvider"
-            android:exported="false"
-            android:grantUriPermissions="true"/>
-
         <activity android:name=".childClass.ClassActivity"/>
-        <activity android:name=".controller.activities.Guest"/>
+        <activity android:name=".home.Guest"/>
         <activity android:name=".controller.activities.StudentFeaturedCourses"/>
         <activity
             android:name=".descriptionActivity.CourseDescriptionActivity"
@@ -71,11 +64,11 @@
         <activity
             android:name=".ParentHome.ParentActivity"
             android:label="@string/title_activity_parent"
-            android:parentActivityName=".controller.activities.SignInAs"
+            android:parentActivityName=".login.SignInAs"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.ali.homeschool.controller.activities.SignInAs"/>
+                android:value="com.example.ali.homeschool.login.SignInAs"/>
         </activity>
         <activity
             android:name=".childProgress.ChildCourses"
@@ -86,10 +79,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ali.homeschool.ParentHome.ParentActivity"/>
         </activity>
-        <activity android:name=".InstructorHome.InstructorActivity"/>
+        <activity android:name=".instructor.InstructorActivity"/>
         <activity
             android:name=".InstructorLessons.InstructorLessonsActivity"
-            android:parentActivityName=".InstructorHome.InstructorActivity">
+            android:parentActivityName=".instructor.InstructorActivity">
         </activity>
         <activity
             android:name=".InstructorTopic.InstructorTopicCreationActivity"
@@ -115,7 +108,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Gen"/>
+        <activity android:name=".childClass.GenResult"/>
 
     </application>
 

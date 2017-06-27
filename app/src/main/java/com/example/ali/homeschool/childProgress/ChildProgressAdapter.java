@@ -9,7 +9,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.data.Entry.ChildProgressColumns;
 
 /**
  * Created by Ali on 3/1/2017.
@@ -26,8 +25,8 @@ public class ChildProgressAdapter extends RecyclerView.Adapter<ChildProgressAdap
     @Override
     public void onBindViewHolder(ChildProgressViewHolder holder, int position) {
         mCursor.moveToPosition(position);
-        holder.courseName.setText(mCursor.getString(mCursor.getColumnIndex(ChildProgressColumns.COURSE_NAME)));
-        holder.progressBar.setProgress(mCursor.getInt(mCursor.getColumnIndex(ChildProgressColumns.COURSE_PROGRESS)));
+//        holder.courseName.setText(mCursor.getString(mCursor.getColumnIndex(ChildProgressColumns.COURSE_NAME)));
+//        holder.progressBar.setProgress(mCursor.getInt(mCursor.getColumnIndex(ChildProgressColumns.COURSE_PROGRESS)));
     }
 
     @Override

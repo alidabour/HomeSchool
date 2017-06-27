@@ -30,6 +30,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ali.homeschool.Answer;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.ColorQuestionDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.ImageDialog;
 import com.example.ali.homeschool.InstructorTopic.CreationHelper.MultiImageQueDialog;
@@ -47,7 +48,6 @@ import com.example.ali.homeschool.InstructorTopic.helper.OnStartDragListener;
 import com.example.ali.homeschool.InstructorTopic.helper.SimpleItemTouchHelperCallback;
 import com.example.ali.homeschool.R;
 import com.example.ali.homeschool.childClass.topicsfragment.MultiImageQuestionFragment;
-import com.example.ali.homeschool.exercises.color.ColorActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -57,7 +57,6 @@ import com.jrummyapps.android.colorpicker.ColorPickerDialogListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.sfsu.cs.orange.ocr.Answer;
 
 import static com.example.ali.homeschool.Constants.ARRANGE;
 import static com.example.ali.homeschool.Constants.Color_Request;
@@ -453,16 +452,16 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
     @Override
     public void openActivity(String activity, Answer answer) {
-        if (activity.equals("ColorActivity")) {
-            Intent intent = new Intent(this, ColorActivity.class);
-            intent.putExtra("Answer", answer);
-            startActivityForResult(intent, Color_Request);
-        } else if (activity.equals("TextDetection")) {
-            Intent intent = new Intent(this, edu.sfsu.cs.orange.ocr.CaptureActivity.class);
-            intent.putExtra("Answer", answer);
-//            intent.putExtra("lan", "eng");
-            startActivityForResult(intent, Text_Detection);
-        }
+//        if (activity.equals("ColorActivity")) {
+//            Intent intent = new Intent(this, ColorActivity.class);
+//            intent.putExtra("Answer", answer);
+//            startActivityForResult(intent, Color_Request);
+//        } else if (activity.equals("TextDetection")) {
+//            Intent intent = new Intent(this, edu.sfsu.cs.orange.ocr.CaptureActivity.class);
+//            intent.putExtra("Answer", answer);
+////            intent.putExtra("lan", "eng");
+//            startActivityForResult(intent, Text_Detection);
+//        }
     }
 
     @Override

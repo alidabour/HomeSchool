@@ -3,18 +3,12 @@
     <string name="app_name">المناره</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="TeacherName">Ahmed Ali</string>
     <string name="CourseName">الحيوانات</string>
-    <string name="ratingValue">544 نجمة</string>
     <string name="CourseDescription">وصف الكورس</string>
     <string name="CourseDescriptionBody">Learn about animals Learn about animals Learn about animals Learn about animals Learn about animalsLearn about animals Learn about animals Learn about animals Learn about animals</string>
-    <string name="title_activity_main3">Main3Activity</string>
 
-    <string name="New">New!</string>
     <string name="signin">تسجيل الدخول</string>
-    <string name="category">Category:</string>
-    <string name="topVisited">Top Visited</string>
     <string name="guest">ضيف</string>
     <string name="password">كلمة المرور</string>
     <string name="name">أدخل اسمك</string>
@@ -23,29 +17,15 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
     <string name="enroll">تسجيل</string>
-    <string name="youMustSignIn">You have to Sign In</string>
-    <string name="enrollDone">You have Successfully enrolled</string>
     <string name="title_activity_main4">Courses</string>
-    <string name="title_activity_enrolled_course">EnrolledCourse</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_parent">ParentActivity</string>
     <string name="title_activity_child_courses">ChildCourses</string>
-    <string name="home_welcome_msg_h1">علم طفلك في راحة منزلك</string>
-    <string name="home_welcome_h2">علم طفلك في راحة منزلك علم طفلك في راحة منزلك</string>
-    <string name="math">رياضة</string>
-    <string name="science">علوم</string>
-    <string name="economics">اقتصاد</string>
     <string name="my_courses">دروسي</string>
     <string name="featured_courses">المفضلة</string>
-    <string name="settings">اعدادات</string>
     <string name="sign_out">خروج</string>
-    <string name="name_nav">منار مصطفي</string>
     <string name="Email">البريد الإلكترونى</string>
-    <string name="Username">إسم المسنخدم</string>
     <string name="topics_description">الدروس</string>
-    <string name="ratings">Ratings</string>
     <string name="enter_url">Enter Url</string>
     <string name="choose_from_gallery">Choose from Gallery</string>
     <string name="support">الدعم</string>
@@ -66,7 +46,6 @@
     <string name="instructor">مدرس :</string>
     <string name="Courses">الكورسات</string>
     <string name="smart_easy_efficient">ذكى .. سهل .. فعال</string>
-    <string name="start">ابدأ</string>
     <string name="image">صوره</string>
     <string name="sound">صوت</string>
     <string name="question">أسئله</string>

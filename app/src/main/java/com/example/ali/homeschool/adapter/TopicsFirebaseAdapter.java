@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.ali.homeschool.R;
-import com.example.ali.homeschool.data.Entry.LessonColumns;
 import com.example.ali.homeschool.data.firebase.Topics;
 
 import java.util.List;

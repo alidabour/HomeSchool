@@ -9,11 +9,11 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.ali.homeschool.Answer;
 import com.example.ali.homeschool.Constants;
 
 import java.util.ArrayList;
 
-import edu.sfsu.cs.orange.ocr.Answer;
 
 /**
  * Created by Ali on 6/4/2017.

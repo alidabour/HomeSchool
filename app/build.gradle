@@ -28,8 +28,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile project(path: ':OCRTest')
-    compile project(':openCVLibrary249')
     // If you want to use the GPU Filters
 
     compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'

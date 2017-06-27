@@ -11,7 +11,6 @@ import com.example.ali.homeschool.Constants;
 import com.example.ali.homeschool.InstructorTopic.TextAppInterface;
 import com.example.ali.homeschool.R;
 
-import edu.sfsu.cs.orange.ocr.Answer;
 
 import static com.example.ali.homeschool.Constants.PUT_SOUND_LINK_HERE;
 import static com.example.ali.homeschool.Constants.mButton;
