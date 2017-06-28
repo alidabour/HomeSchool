@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
         <item android:id="@+id/Preview"
-            android:title="Preview Classroom" />
+            android:title="@string/preview_classroom" />
         <item android:id="@+id/EditCourse"
-            android:title="Edit Course" />
+            android:title="@string/edit_course" />
 </menu>

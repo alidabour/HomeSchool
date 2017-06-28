@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:gravity="center_horizontal"
-        android:text="Color Question"
+        android:text="@string/color_question"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:gravity="center_horizontal"
-        android:text="Speech"
+        android:text="@string/speech"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
     <!--<TextView-->
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:gravity="center_horizontal"
-        android:text="Multiple Choice"
+        android:text="@string/multiple_choice"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
     <TextView
@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Images Multiple Choice"
+        android:text="@string/images_multiple_choice"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
     <TextView
@@ -63,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Text Detection"
+        android:text="@string/text_detection"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
     <TextView
         android:padding="8dp"
@@ -71,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Animation"
+        android:text="@string/animation"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
 </LinearLayout>

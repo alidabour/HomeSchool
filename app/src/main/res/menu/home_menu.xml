@@ -8,7 +8,7 @@
             app:showAsAction="always"/>
         <item
             android:icon="@android:drawable/ic_menu_search"
-            android:title="Sea"
+            android:title="@string/sea"
             android:id="@+id/search_action"
             android:orderInCategory="1"
             app:showAsAction="always"

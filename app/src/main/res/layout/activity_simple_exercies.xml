@@ -7,7 +7,7 @@
     tools:context="com.almanara.ali.homeschool.com.almanara.homeschool.exercises.simple.SimpleExercises">
 
     <Button
-        android:text="End"
+        android:text="@string/end"
         android:id="@+id/end"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

@@ -28,7 +28,7 @@
                 android:layout_margin="16dp"
                 android:layout_weight="9.75"
                 android:gravity="start"
-                android:text="هاى"
+                android:text="@string/hi"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorPrimary" />
 

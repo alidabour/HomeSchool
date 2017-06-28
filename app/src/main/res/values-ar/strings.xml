@@ -3,10 +3,10 @@
     <string name="app_name">المناره</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="TeacherName">Ahmed Ali</string>
+    <string name="TeacherName">احمد على</string>
     <string name="CourseName">الحيوانات</string>
-    <string name="CourseDescription">وصف الكورس</string>
-    <string name="CourseDescriptionBody">Learn about animals Learn about animals Learn about animals Learn about animals Learn about animalsLearn about animals Learn about animals Learn about animals Learn about animals</string>
+    <string name="CourseDescription">وصف المنهج</string>
+    <string name="CourseDescriptionBody">تعلم معلومات عن الحيوانات</string>
 
     <string name="signin">تسجيل الدخول</string>
     <string name="guest">ضيف</string>
@@ -14,13 +14,13 @@
     <string name="name">أدخل اسمك</string>
     <string name="register">إنشاء حساب</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">افتح</string>
+    <string name="navigation_drawer_close">اغلق </string>
 
     <string name="enroll">تسجيل</string>
-    <string name="title_activity_main4">Courses</string>
-    <string name="title_activity_parent">ParentActivity</string>
-    <string name="title_activity_child_courses">ChildCourses</string>
+    <string name="title_activity_main4">مناهج</string>
+    <string name="title_activity_parent">الاب</string>
+    <string name="title_activity_child_courses">مناهج الاطفال </string>
     <string name="my_courses">دروسي</string>
     <string name="featured_courses">المفضلة</string>
     <string name="sign_out">خروج</string>
@@ -29,8 +29,8 @@
     <string name="enter_url">ادخل رابط صورة</string>
     <string name="choose_from_gallery">اختار من المعرض</string>
     <string name="support">الدعم</string>
-    <string name="no_course">Press add for new course</string>
-    <string name="no_lesson">press + to add more lessons</string>
+    <string name="no_course">اضغط اضاف لاضافه منهج</string>
+    <string name="no_lesson">اضغط + لاضافه دروس </string>
     <string name="sign_in_here"> تسجيل الدخول</string>
     <string name="have_an_account">هل لديك حساب؟</string>
     <string name="create_account">إنشاء حساب</string>
@@ -44,14 +44,14 @@
     <string name="Student">طالب</string>
     <string name="Parents">ولى أمر</string>
     <string name="instructor">مدرس :</string>
-    <string name="Courses">الكورسات</string>
+    <string name="Courses">المناهج</string>
     <string name="smart_easy_efficient">ذكى .. سهل .. فعال</string>
     <string name="image">صوره</string>
     <string name="sound">صوت</string>
     <string name="question">أسئله</string>
     <string name="text">مقال</string>
     <string name="submit">تم</string>
-    <string name="courses">Courses</string>
+    <string name="courses">مناهج</string>
     <string name="select_text_color">اللون</string>
     <string name="open_color_picker">اللون</string>
     <string name="select_text_size">حجم الخط</string>
@@ -73,5 +73,29 @@
     <string name="answer">اجابة</string>
     <string name="check">تحقق</string>
     <string name="animation">التحريك</string>
+    <string name="on_click">اضغط</string>
+    <string name="preview">Preview</string>
+    <string name="end">النهاية</string>
+    <string name="iam_here">انا هنا</string>
+    <string name="android">اندرويد</string>
+    <string name="course_name">اسم المنهج</string>
+    <string name="course_descriptions">وصف المنهج</string>
+    <string name="subject">درس</string>
+    <string name="audio_link">رابط الملف الصوتى</string>
+    <string name="hi">هاى</string>
+    <string name="lesson_name">اسم الدرس :</string>
+    <string name="upload_lesson_photo">ضع صور للدرس</string>
+    <string name="textview">اظهار النص</string>
+    <string name="answer_1">اجابه_1</string>
+    <string name="color_question">لون السؤال</string>
+    <string name="speech">النطق</string>
+    <string name="multiple_choice">اختر من بين الاتى</string>
+    <string name="images_multiple_choice">اختر من بين الصور</string>
+    <string name="text_detection">تحديد النص </string>
+    <string name="elmanara_app">المنارة</string>
+    <string name="all_rights_reserved_2017">جميع الحقوق محفوظه 2017</string>
+    <string name="edit_course">تعديل المنهج</string>
+    <string name="preview_classroom">مشاهده الفصل </string>
+    <string name="sea">بحر</string>
 
 </resources>

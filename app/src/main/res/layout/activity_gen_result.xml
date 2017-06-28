@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:text="On Click"
+        android:text="@string/on_click"
         android:onClick="GoBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

@@ -5,7 +5,7 @@
     <string name="TeacherName">Ahmed Ali</string>
     <string name="CourseName">Animals Vol.1</string>
     <string name="CourseDescription">Course Description</string>
-    <string name="CourseDescriptionBody">Learn about animals Learn about animals Learn about animals Learn about animals Learn about animalsLearn about animals Learn about animals Learn about animals Learn about animals</string>
+    <string name="CourseDescriptionBody">Learn about animals </string>
 
     <string name="signin">Sign in</string>
     <string name="guest">Guest</string>
@@ -75,6 +75,30 @@
     <string name="answer">Answer</string>
     <string name="check">Check</string>
     <string name="animation">Animation</string>
+    <string name="on_click">On Click</string>
+    <string name="preview">Preview</string>
+    <string name="end">End</string>
+    <string name="iam_here">iam here</string>
+    <string name="android">android</string>
+    <string name="course_name">Course Name</string>
+    <string name="course_descriptions">Course descriptionS</string>
+    <string name="subject">Subject</string>
+    <string name="audio_link">Audio Link</string>
+    <string name="hi">hi</string>
+    <string name="lesson_name">Lesson name:</string>
+    <string name="upload_lesson_photo">Upload Lesson Photo</string>
+    <string name="textview">TextView</string>
+    <string name="answer_1">Answer 1</string>
+    <string name="color_question">Color Question</string>
+    <string name="speech">Speech</string>
+    <string name="multiple_choice">Multiple Choice</string>
+    <string name="images_multiple_choice">Images Multiple Choice</string>
+    <string name="text_detection">Text Detection</string>
+    <string name="elmanara_app">Elmanara App</string>
+    <string name="all_rights_reserved_2017">All Rights Reserved 2017</string>
+    <string name="edit_course">Edit Course</string>
+    <string name="preview_classroom">Preview Classroom</string>
+    <string name="sea">Sea</string>
 
     <string-array name="color_array" translatable="false">
         <item>Red</item>

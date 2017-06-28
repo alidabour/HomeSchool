@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Elmanara App"
+            android:text="@string/elmanara_app"
             android:textColor="@color/colorBack"
             android:textSize="10dp"/>
 
@@ -52,7 +52,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="All Rights Reserved 2017"
+            android:text="@string/all_rights_reserved_2017"
             android:textColor="@color/colorBack"
             android:textSize="10dp"/>
 
