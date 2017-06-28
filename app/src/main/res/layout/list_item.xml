@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="3dp"
         android:textSize="25dp"
-        android:text="TextView" />
+        android:text="@string/textview" />
     <android.support.v4.widget.ContentLoadingProgressBar
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

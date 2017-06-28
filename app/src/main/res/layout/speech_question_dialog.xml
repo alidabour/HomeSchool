@@ -5,7 +5,7 @@
               android:orientation="vertical">
 
     <android.support.design.widget.TextInputLayout
-        android:hint="Word :"
+        android:hint="@string/word"
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

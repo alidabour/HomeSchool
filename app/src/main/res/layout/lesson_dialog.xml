@@ -13,13 +13,13 @@
             android:id="@+id/lessonName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Lesson name:"/>
+            android:hint="@string/lesson_name"/>
 
     </android.support.design.widget.TextInputLayout>
     <TextView
         android:layout_margin="8dp"
         android:gravity="center_horizontal"
-        android:text="Upload Lesson Photo"
+        android:text="@string/upload_lesson_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView

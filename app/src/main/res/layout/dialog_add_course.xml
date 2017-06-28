@@ -6,19 +6,19 @@
     <EditText
         android:id="@+id/courseName"
         android:inputType="text"
-        android:hint="Course Name"
+        android:hint="@string/course_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
         android:id="@+id/descriptionS"
         android:inputType="text"
-        android:hint="Course descriptionS"
+        android:hint="@string/course_descriptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
         android:id="@+id/subjectS"
         android:inputType="text"
-        android:hint="Subject"
+        android:hint="@string/subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
