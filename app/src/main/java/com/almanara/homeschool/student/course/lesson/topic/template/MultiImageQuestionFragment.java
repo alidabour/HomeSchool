@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.almanara.homeschool.student.course.lesson.topic.ClassActivity;
 import com.bumptech.glide.Glide;
 import com.almanara.ali.homeschool.R;
 
@@ -101,6 +103,10 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
     LinearLayout line2;
     LinearLayout line3;
     LinearLayout line4;
+    CardView cardView1;
+    CardView cardView2;
+    CardView cardView3;
+    CardView cardView4;
     Button submit;
 
     @Override
@@ -114,6 +120,10 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
         imageView2 = (ImageView) view.findViewById(R.id.image2);
         imageView3 = (ImageView) view.findViewById(R.id.image3);
         imageView4 = (ImageView) view.findViewById(R.id.image4);
+        cardView1 = (CardView) view.findViewById(R.id.card1);
+        cardView2 = (CardView) view.findViewById(R.id.card2);
+        cardView3 = (CardView) view.findViewById(R.id.card3);
+        cardView4 = (CardView) view.findViewById(R.id.card4);
         Glide.with(getActivity()).load(url1).into(imageView1);
         Glide.with(getActivity()).load(url2).into(imageView2);
         Glide.with(getActivity()).load(url3).into(imageView3);
@@ -131,6 +141,11 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
         radioButton2.setOnClickListener(this);
         radioButton3.setOnClickListener(this);
         radioButton4.setOnClickListener(this);
+        cardView1.setOnClickListener(this);
+        cardView2.setOnClickListener(this);
+        cardView3.setOnClickListener(this);
+        cardView4.setOnClickListener(this);
+
         line1 = (LinearLayout) view.findViewById(R.id.line1);
         line2 = (LinearLayout) view.findViewById(R.id.line2);
         line3 = (LinearLayout) view.findViewById(R.id.line3);
@@ -152,6 +167,7 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.card1:
             case R.id.radioButton1:
                 clear();
                 radioButton1.setChecked(true);
@@ -160,6 +176,7 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
                 lineBackgroudColor();
                 line1.setBackgroundColor(Color.parseColor("#ff0000"));
                 break;
+            case R.id.card2:
             case R.id.radioButton2:
                 clear();
                 radioButton2.setChecked(true);
@@ -169,6 +186,7 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
                 line2.setBackgroundColor(Color.parseColor("#ff0000"));
 
                 break;
+            case R.id.card3:
             case R.id.radioButton3:
                 clear();
                 radioButton3.setChecked(true);
@@ -178,6 +196,7 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
                 line3.setBackgroundColor(Color.parseColor("#ff0000"));
 
                 break;
+            case R.id.card4:
             case R.id.radioButton4:
                 clear();
                 radioButton4.setChecked(true);
@@ -192,19 +211,33 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
                 Log.v("MultiImageQuestion", "3 : " + isCorrect3 + " " + radioButton3.isChecked());
                 Log.v("MultiImageQuestion", "4 : " + isCorrect4 + " " + radioButton4.isChecked());
 
+
                 if (radioButton1.isChecked() && isCorrect1) {
-                    Toast.makeText(getActivity(), "Correct", Toast.LENGTH_LONG).show();
-                    Log.v("MultiImageQuestion", "Correct----------");
+//                    Toast.makeText(getActivity(), "Correct", Toast.LENGTH_LONG).show();
+                    ((ClassActivity)getActivity()).onAnswer(true);
+//                    Log.v("MultiImageQuestion", "Correct----------");
+                }else if(radioButton1.isChecked()){
+                    ((ClassActivity)getActivity()).onAnswer(false);
                 }
                 if (radioButton2.isChecked() && isCorrect2) {
-                    Log.v("MultiImageQuestion", "Correct----------");
-                    Toast.makeText(getActivity(), "Correct", Toast.LENGTH_LONG).show();
+//                    Log.v("MultiImageQuestion", "Correct----------");
+//                    Toast.makeText(getActivity(), "Correct", Toast.LENGTH_LONG).show();
+                    ((ClassActivity)getActivity()).onAnswer(true);
+                }else if(radioButton2.isChecked()){
+                    ((ClassActivity)getActivity()).onAnswer(false);
                 }
                 if (radioButton3.isChecked() && isCorrect3) {
-                    Toast.makeText(getActivity(), "Correct", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getActivity(), "Correct", Toast.LENGTH_LONG).show();
+                    ((ClassActivity)getActivity()).onAnswer(true);
+                }else if(radioButton3.isChecked()){
+                    ((ClassActivity)getActivity()).onAnswer(false);
                 }
+
                 if (radioButton4.isChecked() && isCorrect4) {
-                    Toast.makeText(getActivity(), "Correct", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getActivity(), "Correct", Toast.LENGTH_LONG).show();
+                    ((ClassActivity)getActivity()).onAnswer(true);
+                }else if(radioButton4.isChecked()){
+                    ((ClassActivity)getActivity()).onAnswer(false);
                 }
                 break;
             default:

@@ -219,4 +219,21 @@ public class ClassActivity extends AppCompatActivity {
             }
         }
     }
+    public void onAnswer(boolean isCorrect){
+        if(isCorrect){
+            imageView2.setVisibility(View.VISIBLE);
+            final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView2);
+            Glide.with(this).load(R.raw.source).into(imageViewTarget);
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
+            mediaPlayer.start();
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    imageView2.setVisibility(View.GONE);
+                    pager.setCurrentItem((pager.getCurrentItem() + 1));
+                }
+            });
+        }
+
+    }
 }
