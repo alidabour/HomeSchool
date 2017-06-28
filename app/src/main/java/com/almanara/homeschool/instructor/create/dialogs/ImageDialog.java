@@ -53,11 +53,11 @@ public class ImageDialog extends MainDialog {
     public void openImageDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(
                 activity);
-        builder.setTitle("Select image");
+        builder.setTitle(R.string.choose_image);
         LayoutInflater li = LayoutInflater.from(activity);
         LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.image_dialog, null);
         builder.setView(someLayout);
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -94,14 +94,15 @@ public class ImageDialog extends MainDialog {
 
     private void openImageURLDialog() {
         final EditText input = new EditText(activity);
+        input.setHint(R.string.enter_url);
         input.setInputType(
                 InputType.TYPE_CLASS_TEXT);
         input.setText(url);
         final AlertDialog.Builder urlBuilder = new AlertDialog.Builder(
                 activity);
-        urlBuilder.setTitle("Title");
+        urlBuilder.setTitle(R.string.choose_image);
         urlBuilder.setView(input);
-        urlBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        urlBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 url = input.getText().toString();
@@ -114,7 +115,7 @@ public class ImageDialog extends MainDialog {
                 }
             }
         });
-        urlBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        urlBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -136,8 +137,8 @@ public class ImageDialog extends MainDialog {
                     onEditLayoutReady.setLayoutAt(layout,index);
                 }
                 //and displaying a success toast
-                Toast.makeText(activity, "File Uploaded",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(activity, R.string.file_uploaded,
+//                        Toast.LENGTH_SHORT).show();
             }
         }, storagePath);
     }

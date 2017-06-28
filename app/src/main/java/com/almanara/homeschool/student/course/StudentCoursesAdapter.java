@@ -17,7 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.bumptech.glide.Glide;
-import com.almanara.homeschool.instructor.home.CourseCreated;
+import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.student.course.lesson.LessonActivity;
 

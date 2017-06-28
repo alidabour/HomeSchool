@@ -11,6 +11,7 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
+import com.almanara.ali.homeschool.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -64,7 +65,7 @@ public class UploadFile {
                             //and displaying a success toast
                             fileString = link;
 
-                            Toast.makeText(context, "File Uploaded",
+                            Toast.makeText(context,  R.string.file_uploaded,
                                     Toast.LENGTH_SHORT).show();
 
                         }

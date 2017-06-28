@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.almanara.ali.homeschool.R;
+import com.almanara.homeschool.data.firebase.EnrolledCourseModel;
 
 import java.util.List;
 

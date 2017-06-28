@@ -16,7 +16,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.almanara.homeschool.instructor.create.InstructorTopicCreationActivity;
-import com.almanara.homeschool.instructor.topic.TopicModel;
+import com.almanara.homeschool.data.firebase.TopicModel;
 import com.almanara.ali.homeschool.R;
 
 import java.util.List;

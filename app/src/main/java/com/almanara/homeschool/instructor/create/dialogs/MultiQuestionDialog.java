@@ -35,7 +35,7 @@ public class MultiQuestionDialog  extends MainDialog {
 
     public void openMultiQuestionDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("Questions :");
+        builder.setTitle(R.string.question);
         LayoutInflater li = LayoutInflater.from(activity);
         final RelativeLayout relativeLT = (RelativeLayout) li
                 .inflate(R.layout.mulit_choice_dialog, null);
@@ -51,7 +51,7 @@ public class MultiQuestionDialog  extends MainDialog {
                 linearLayout.addView(question);
             }
         });
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 ArrayList<String> radioLayout = new ArrayList<String>();

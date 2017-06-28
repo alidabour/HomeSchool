@@ -14,9 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.almanara.homeschool.instructor.home.CourseCreated;
+import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.ali.homeschool.R;
-import com.almanara.homeschool.childProgress.EnrolledCourseModel;
+import com.almanara.homeschool.data.firebase.EnrolledCourseModel;
 import com.almanara.homeschool.student.course.lesson.LessonActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

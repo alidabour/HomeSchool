@@ -34,14 +34,14 @@ public class TextViewDialog extends MainTextDialog implements TextAppInterface {
     public void openTextViewDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(
                 activity);
-        builder.setTitle("TextView :");
+        builder.setTitle(R.string.text);
         LayoutInflater li = LayoutInflater.from(activity);
         final LinearLayout linearLayout = (LinearLayout) li
                 .inflate(R.layout.text_view_dialog, null);
         final EditText word = (EditText) linearLayout.findViewById(R.id.text);
         word.setText(text);
         Constants.textViewProperties(linearLayout, activity, this);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(!isEditing){

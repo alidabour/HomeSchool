@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.almanara.homeschool.data.HeaderRVData;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.almanara.homeschool.instructor.home.CourseCreated;
+import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.adapter.CourseSectionListAdapter;
 import com.google.firebase.database.DataSnapshot;

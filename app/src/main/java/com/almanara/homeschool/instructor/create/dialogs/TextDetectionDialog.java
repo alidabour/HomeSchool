@@ -34,7 +34,7 @@ public class TextDetectionDialog extends MainTextDialog {
     public void openTextDetectionDialog(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(
                 activity);
-        builder.setTitle("Questions :");
+        builder.setTitle(R.string.question);
         LayoutInflater li = LayoutInflater.from(activity);
         final LinearLayout linearLayout = (LinearLayout) li
                 .inflate(R.layout.text_detection_dialog, null);
@@ -52,6 +52,10 @@ public class TextDetectionDialog extends MainTextDialog {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                /*
+                *                         Do not translate
+                *
+                 */
                 if (i == 0) {
                     selectlanguageString = "eng";
                 } else if (i == 1) {

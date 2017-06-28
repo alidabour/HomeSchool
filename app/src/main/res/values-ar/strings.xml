@@ -26,8 +26,8 @@
     <string name="sign_out">خروج</string>
     <string name="Email">البريد الإلكترونى</string>
     <string name="topics_description">الدروس</string>
-    <string name="enter_url">Enter Url</string>
-    <string name="choose_from_gallery">Choose from Gallery</string>
+    <string name="enter_url">ادخل رابط صورة</string>
+    <string name="choose_from_gallery">اختار من المعرض</string>
     <string name="support">الدعم</string>
     <string name="no_course">Press add for new course</string>
     <string name="no_lesson">press + to add more lessons</string>
@@ -52,5 +52,26 @@
     <string name="text">مقال</string>
     <string name="submit">تم</string>
     <string name="courses">Courses</string>
+    <string name="select_text_color">اللون</string>
+    <string name="open_color_picker">اللون</string>
+    <string name="select_text_size">حجم الخط</string>
+    <string name="select_color">اختار اللون</string>
+    <string name="enter_question">ادخل سؤال</string>
+    <string name="ok">حسنا</string>
+    <string name="choose_image">اختار صورة</string>
+    <string name="cancel">انهاء</string>
+    <string name="file_uploaded">تم التحميل</string>
+    <string name="choose_que_type">اختار نوع السؤال :</string>
+    <string name="cancel_or_comple_data">اختار انهاء او اكمل البيانات</string>
+    <string name="complete_data">اكمل البيانات</string>
+    <string name="select_sound_file">اختر ملف صوت</string>
+    <string name="sound_btn_text">كلمة الزر</string>
+    <string name="start">ابدا</string>
+    <string name="word">كلمة</string>
+    <string name="select_text_language">اختار اللغة</string>
+    <string name="enter_text">ادخل نص</string>
+    <string name="answer">اجابة</string>
+    <string name="check">تحقق</string>
+    <string name="animation">التحريك</string>
 
 </resources>

@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.almanara.homeschool.parent.home.ChildModel;
+import com.almanara.homeschool.data.firebase.EnrolledCourseModel;
+import com.almanara.homeschool.data.firebase.ProgressModel;
+import com.almanara.homeschool.data.firebase.ChildModel;
 import com.almanara.ali.homeschool.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

@@ -4,7 +4,7 @@ package com.almanara.homeschool.childEnrolledCourses;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.almanara.homeschool.instructor.lesson.LessonModel;
+import com.almanara.homeschool.data.firebase.LessonModel;
 
 import java.util.HashMap;
 import java.util.Map;

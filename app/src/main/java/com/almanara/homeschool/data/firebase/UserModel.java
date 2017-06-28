@@ -3,18 +3,16 @@ package com.almanara.homeschool.data.firebase;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.almanara.homeschool.childProgress.EnrolledCourseModel;
-
 /**
  * Created by Ali on 4/21/2017.
  */
 
 public class UserModel implements Parcelable {
-    String uid;
-    String name;
-    String email;
-    String photo;
-    EnrolledCourseModel enrolledcourses;
+    public String uid;
+    public  String name;
+    public  String email;
+    public  String photo;
+    public  EnrolledCourseModel enrolledcourses;
 
     @Override
     public int describeContents() {
@@ -33,7 +31,7 @@ public class UserModel implements Parcelable {
     public UserModel() {
     }
 
-    protected UserModel(Parcel in) {
+    public UserModel(Parcel in) {
         this.uid = in.readString();
         this.name = in.readString();
         this.email = in.readString();

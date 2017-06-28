@@ -27,7 +27,7 @@ import com.almanara.homeschool.adapter.SampleCoursesToolbarAdapter;
 import com.almanara.homeschool.childEnrolledCourses.MyCoursesFragment;
 import com.almanara.homeschool.controller.fragments.StudentFeaturedCoursesFragment;
 import com.almanara.homeschool.home.MainActivity;
-import com.almanara.homeschool.instructor.home.CourseCreated;
+import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.bumptech.glide.Glide;
 import com.almanara.homeschool.CircleTransform;
 import com.almanara.ali.homeschool.R;

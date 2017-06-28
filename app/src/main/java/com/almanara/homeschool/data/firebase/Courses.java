@@ -34,7 +34,7 @@ public class Courses implements Parcelable {
         this.course_id = course_id;
     }
 
-    protected Courses(Parcel in) {
+    public Courses(Parcel in) {
         this.name = (String) in.readValue((String.class.getClassLoader()));
         this.rate = (String) in.readValue((String.class.getClassLoader()));
         this.subject = (String) in.readValue((String.class.getClassLoader()));

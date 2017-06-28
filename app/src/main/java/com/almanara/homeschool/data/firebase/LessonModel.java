@@ -1,9 +1,7 @@
-package com.almanara.homeschool.instructor.lesson;
+package com.almanara.homeschool.data.firebase;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.almanara.homeschool.instructor.topic.TopicModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,10 +11,10 @@ import java.util.Map;
  */
 
 public class LessonModel implements Parcelable {
-    String id;
-    String name;
-    String photo_url;
-    Map<String, TopicModel> topics;
+    public String id;
+    public String name;
+    public String photo_url;
+    public Map<String, TopicModel> topics;
 
     public String getPhoto_url() {
         return photo_url;
@@ -72,7 +70,7 @@ public class LessonModel implements Parcelable {
     public LessonModel() {
     }
 
-    protected LessonModel(Parcel in) {
+    public LessonModel(Parcel in) {
         this.id = in.readString();
         this.name = in.readString();
         this.photo_url = in.readString();

@@ -18,7 +18,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.almanara.homeschool.instructor.home.CourseCreated;
+import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.adapter.CourseSectionListAdapter;
 import com.almanara.homeschool.adapter.SampleCoursesToolbarAdapter;

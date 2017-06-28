@@ -58,7 +58,7 @@ public class MultiImageQueDialog  implements View.OnClickListener {
 
     public void openMultiImageQueDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("Questions :");
+        builder.setTitle(R.string.question);
         LayoutInflater li = LayoutInflater.from(activity);
         final LinearLayout relativeLT = (LinearLayout) li
                 .inflate(R.layout.mulit_image_question, null);
@@ -139,14 +139,14 @@ public class MultiImageQueDialog  implements View.OnClickListener {
 
         builder.setView(relativeLT);
 //
-        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(checkifAnswerEmpty(answer1,answer2,answer3,answer4,question)){
@@ -169,7 +169,7 @@ public class MultiImageQueDialog  implements View.OnClickListener {
                     @Override
                     public void onClick(View v) {
                             if(!checkifAnswerEmpty(answer1,answer2,answer3,answer4,question)) {
-                                Toast.makeText(activity, "Hiiiiiiii", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(activity, "Hiiiiiiii", Toast.LENGTH_SHORT).show();
                                 String layout = "";
                                 layout += question.getText().toString();
                                 layout += HOLD;
@@ -201,7 +201,7 @@ public class MultiImageQueDialog  implements View.OnClickListener {
                                 Log.v("ImageQue", "Layout " + layout);
                                 dialog.dismiss();
                             }else {
-                                Toast.makeText(activity, "Cancel or Complete fields", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity, R.string.cancel_or_comple_data, Toast.LENGTH_SHORT).show();
                             }
                     }
                 });
@@ -210,7 +210,7 @@ public class MultiImageQueDialog  implements View.OnClickListener {
     private boolean checkifAnswerEmpty(EditText... editText) {
         for(EditText x:editText){
             if(x.getText().toString().isEmpty()){
-                Toast.makeText(activity, "Please insert answer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, R.string.complete_data, Toast.LENGTH_SHORT).show();
                 return true;
             }
         }
@@ -269,8 +269,6 @@ public class MultiImageQueDialog  implements View.OnClickListener {
                         break;
                 }
                 //and displaying a success toast
-                Toast.makeText(activity, "File Uploaded",
-                        Toast.LENGTH_SHORT).show();
             }
         }, storagePath);
     }

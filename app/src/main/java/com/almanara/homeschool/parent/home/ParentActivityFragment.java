@@ -22,7 +22,8 @@ import com.almanara.homeschool.adapter.ChildrenAdapter;
 import com.almanara.homeschool.childProgress.ChildCourses;
 import com.almanara.homeschool.controller.activities.StudentFeaturedCourses;
 import com.almanara.homeschool.data.CategoryInformation;
-import com.almanara.homeschool.data.firebase.Users;
+import com.almanara.homeschool.data.firebase.ChildModel;
+import com.almanara.homeschool.data.firebase.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -86,10 +87,10 @@ import java.util.List;
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         for (DataSnapshot d : dataSnapshot.getChildren()) {
-                                            Users userHS = new Users();
+                                            UserModel userHS = new UserModel();
                                             for (DataSnapshot x : dataSnapshot.getChildren()) {
                                                 Log.v("Test", "X ______" + x.toString());
-                                                userHS = x.getValue(Users.class);
+                                                userHS = x.getValue(UserModel.class);
                                                 Log.v("Test", "USer :" + userHS);
                                                 Log.v("Test", "User" + userHS.getPhoto());
                                             }

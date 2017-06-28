@@ -78,8 +78,6 @@ public class SoundDialog extends MainDialog {
                     onEditLayoutReady.setLayoutAt(layout, index);
                 }
                 //and displaying a success toast
-                Toast.makeText(activity, "File Uploaded",
-                        Toast.LENGTH_SHORT).show();
             }
         }, storagePath);
     }
@@ -92,13 +90,13 @@ public class SoundDialog extends MainDialog {
         final AlertDialog.Builder builder = new AlertDialog.Builder(
                 activity);
 
-        builder.setTitle("Select sound file");
+        builder.setTitle(R.string.select_sound_file);
         LayoutInflater li = LayoutInflater.from(activity);
         LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.sound_dialog, null);
         final EditText soundET = (EditText) someLayout.findViewById(R.id.soundtext);
         soundET.setText(soundText);
         builder.setView(someLayout);
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -137,7 +135,7 @@ public class SoundDialog extends MainDialog {
 
     private void openSoundURLDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("Sound Button");
+        builder.setTitle(R.string.sound_btn_text);
         LayoutInflater li = LayoutInflater.from(activity);
         LinearLayout someLayout;
         someLayout = (LinearLayout) li.inflate(R.layout.dialog_button, null);
@@ -148,7 +146,7 @@ public class SoundDialog extends MainDialog {
         builder.setView(someLayout);
 
         // Set up the buttons
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 audioLink = audioIn.getText().toString();
@@ -161,7 +159,7 @@ public class SoundDialog extends MainDialog {
                 }
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

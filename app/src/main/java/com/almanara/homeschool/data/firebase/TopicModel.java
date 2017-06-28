@@ -1,4 +1,4 @@
-package com.almanara.homeschool.instructor.topic;
+package com.almanara.homeschool.data.firebase;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,11 +8,11 @@ import java.util.Map;
 
 
 public class TopicModel implements Parcelable {
-    String id;
-    String name;
-    String layout;
-    String question = "false";
-    String topicType = "normal";
+    public String id;
+    public String name;
+    public String layout;
+    public String question = "false";
+    public String topicType = "normal";
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> topic = new HashMap<>();

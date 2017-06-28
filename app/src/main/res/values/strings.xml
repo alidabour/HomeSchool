@@ -54,6 +54,27 @@
     <string name="text">text</string>
     <string name="submit">submit</string>
     <string name="courses">Courses</string>
+    <string name="select_text_color">Select Text Color :</string>
+    <string name="open_color_picker">Open color picker</string>
+    <string name="select_text_size">Select Text Size:</string>
+    <string name="select_color">Select Color :</string>
+    <string name="enter_question">Enter question :</string>
+    <string name="ok">OK</string>
+    <string name="choose_image">Choose image</string>
+    <string name="cancel">Cancel</string>
+    <string name="file_uploaded">File Uploaded</string>
+    <string name="choose_que_type">Choose type :</string>
+    <string name="cancel_or_comple_data">Cancel or Complete fields</string>
+    <string name="complete_data">Please insert answer</string>
+    <string name="select_sound_file">Select sound file</string>
+    <string name="sound_btn_text">Sound button text</string>
+    <string name="start">Start</string>
+    <string name="word">Word</string>
+    <string name="select_text_language">Select Text Language :</string>
+    <string name="enter_text">Enter text :</string>
+    <string name="answer">Answer</string>
+    <string name="check">Check</string>
+    <string name="animation">Animation</string>
 
     <string-array name="color_array" translatable="false">
         <item>Red</item>

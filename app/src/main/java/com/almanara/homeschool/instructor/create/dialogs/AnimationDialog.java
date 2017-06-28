@@ -51,7 +51,7 @@ public class AnimationDialog implements View.OnClickListener {
     ImageView letter_sound;
     public void openAnimationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("Animation");
+        builder.setTitle(R.string.animation);
         LayoutInflater li = LayoutInflater.from(activity);
         final RelativeLayout relativeLT = (RelativeLayout) li
                 .inflate(R.layout.animation_dialog, null);
@@ -66,14 +66,14 @@ public class AnimationDialog implements View.OnClickListener {
         word_sound.setOnClickListener(this);
         letter_sound.setOnClickListener(this);
         builder.setView(relativeLT);
-        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (checkifEmpty(uris)) {
@@ -90,7 +90,7 @@ public class AnimationDialog implements View.OnClickListener {
                     @Override
                     public void onClick(View v) {
                         if (checkifEmpty(uris)) {
-                            Toast.makeText(activity, "Cancel or Complete fields",
+                            Toast.makeText(activity, R.string.cancel_or_comple_data,
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             String layout = "";
@@ -114,7 +114,7 @@ public class AnimationDialog implements View.OnClickListener {
     private boolean checkifEmpty(String... links) {
         for (String x : links) {
             if (x ==null) {
-                Toast.makeText(activity, "Please insert answer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity,R.string.complete_data, Toast.LENGTH_SHORT).show();
                 return true;
             }
         }

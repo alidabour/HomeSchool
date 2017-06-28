@@ -3,7 +3,7 @@ package com.almanara.homeschool.childEnrolledCourses;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.almanara.homeschool.instructor.topic.TopicModel;
+import com.almanara.homeschool.data.firebase.TopicModel;
 
 import java.util.ArrayList;
 

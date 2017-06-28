@@ -1,4 +1,4 @@
-package com.almanara.homeschool.parent.home;
+package com.almanara.homeschool.data.firebase;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,6 +8,10 @@ import android.os.Parcelable;
  */
 
 public class ChildModel implements Parcelable {
+    public String id;
+    public String photo;
+    public String name;
+
     public String getName() {
         return name;
     }
@@ -16,9 +20,6 @@ public class ChildModel implements Parcelable {
         this.name = name;
     }
 
-    String id;
-    String name;
-
     public String getPhoto() {
         return photo;
     }
@@ -26,8 +27,6 @@ public class ChildModel implements Parcelable {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
-
-    String photo ;
 
     @Override
     public int describeContents() {
@@ -44,7 +43,7 @@ public class ChildModel implements Parcelable {
     public ChildModel() {
     }
 
-    protected ChildModel(Parcel in) {
+    public ChildModel(Parcel in) {
         this.id = in.readString();
         this.name = in.readString();
         this.photo = in.readString();

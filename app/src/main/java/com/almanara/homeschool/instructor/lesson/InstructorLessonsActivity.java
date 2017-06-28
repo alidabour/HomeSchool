@@ -21,7 +21,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.almanara.homeschool.instructor.home.CourseCreated;
+import com.almanara.homeschool.data.firebase.LessonModel;
+import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.homeschool.instructor.topic.InstructorTopicActivity;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.UserModelHelper.FileUploadHelper;
@@ -138,9 +139,15 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("course")) {
             courseCreated = intent.getParcelableExtra("course");
-            Log.v("TestingTesting", "" + courseCreated.getName().toString());
-            toolbar.setTitle(courseCreated.getName().toString());
-            courseID = courseCreated.getCourse_id().toString();
+            if(courseCreated != null){
+                if(courseCreated.getName()!=null){
+                    toolbar.setTitle(courseCreated.getName().toString());
+                }
+                if(courseCreated.getCourse_id() != null){
+                    courseID = courseCreated.getCourse_id().toString();
+                }
+            }
+//            Log.v("TestingTesting", "" + courseCreated.getName().toString());
         }
 
         toolbar.setTitleTextColor(

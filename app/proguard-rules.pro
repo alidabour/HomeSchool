@@ -15,3 +15,8 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-keepattributes Signature
+
+-keepclassmembers class com.almanara.homeschool.data.firebase.** {
+  *;
+}

@@ -29,14 +29,14 @@ public class SpeechDialog extends MainTextDialog {
     public void openSpeechDialog(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(
                 activity);
-        builder.setTitle("Questions :");
+        builder.setTitle(R.string.question);
         LayoutInflater li = LayoutInflater.from(activity);
         final LinearLayout linearLayout = (LinearLayout) li
                 .inflate(R.layout.speech_question_dialog, null);
         final EditText word = (EditText) linearLayout.findViewById(R.id.word);
         Constants.textViewProperties(linearLayout, activity, this);
         Constants.setColorButton(linearLayout, textColor);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Log.v("TESTAPP", "onClick :" + textAppearance);
@@ -48,8 +48,15 @@ public class SpeechDialog extends MainTextDialog {
                 onLayoutReadyInterface.setLayout(textview);
                 Answer answer = new Answer();
                 answer.setAnswer(word.getText().toString());
+                /*
+                *               Hi please do not
+                *                       translate word "" Speech ""
+                *               Thanks,
+                *               Ali.
+                *
+                 */
                 onLayoutReadyInterface.setLayout(Constants
-                        .mButton(++id, "Start", "Speech", answer, Constants.PUT_SOUND_LINK_HERE));
+                        .mButton(++id, activity.getString(R.string.start), "Speech", answer, Constants.PUT_SOUND_LINK_HERE));
                 progressImage.setImageOrSound(true,true);
                 dialogInterface.cancel();
             }

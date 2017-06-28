@@ -1,4 +1,4 @@
-package com.almanara.homeschool.instructor.home;
+package com.almanara.homeschool.data.firebase;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,14 +9,14 @@ import android.os.Parcelable;
 
 public class CourseCreated implements Parcelable {
 
-    String course_id;
-    String descriptionS;
-    String name;
-    String photo_url;
-    String rate;
-    String subjectS;
-    String teacher_id;
-    String teacher_name;
+    public String course_id;
+    public String descriptionS;
+    public String name;
+    public String photo_url;
+    public String rate;
+    public String subjectS;
+    public String teacher_id;
+    public String teacher_name;
 
     public String getCourse_id() {
         return course_id;
@@ -102,7 +102,7 @@ public class CourseCreated implements Parcelable {
     public CourseCreated() {
     }
 
-    protected CourseCreated(Parcel in) {
+    public CourseCreated(Parcel in) {
         this.course_id = in.readString();
         this.descriptionS = in.readString();
         this.name = in.readString();

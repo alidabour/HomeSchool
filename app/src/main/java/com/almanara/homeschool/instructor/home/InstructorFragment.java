@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.homeschool.instructor.lesson.InstructorLessonsActivity;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.UserModelHelper.FileUploadHelper;

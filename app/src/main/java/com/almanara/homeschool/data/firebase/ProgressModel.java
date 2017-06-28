@@ -1,4 +1,4 @@
-package com.almanara.homeschool.childProgress;
+package com.almanara.homeschool.data.firebase;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,10 +11,10 @@ import java.util.Map;
  */
 
 public class ProgressModel implements Parcelable {
-    String topicProgressFlag;
-    String topicProgressId;
-    String enrolledcourseid;
-    String progressid;
+    public String topicProgressFlag;
+    public String topicProgressId;
+    public String enrolledcourseid;
+    public String progressid;
 
 
     public String getProgressid() {

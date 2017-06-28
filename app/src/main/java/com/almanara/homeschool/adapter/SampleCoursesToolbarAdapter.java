@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.almanara.homeschool.descriptionActivity.CourseDescriptionActivity;
 import com.bumptech.glide.Glide;
-import com.almanara.homeschool.instructor.home.CourseCreated;
+import com.almanara.homeschool.data.firebase.CourseCreated;
 
 import java.util.ArrayList;
 

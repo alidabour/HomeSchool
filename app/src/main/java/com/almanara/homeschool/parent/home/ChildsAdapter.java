@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.almanara.homeschool.data.firebase.ChildModel;
 import com.bumptech.glide.Glide;
 import com.almanara.ali.homeschool.R;
 
@@ -18,7 +19,7 @@ import java.util.List;
  */
 
 public class ChildsAdapter extends RecyclerView.Adapter<ChildsAdapter.ChildViewHolder> {
-    public ChildsAdapter(List<ChildModel> childList,Context context ,
+    public ChildsAdapter(List<ChildModel> childList, Context context ,
                          OnClickHandler onClickHandler) {
         this.childList = childList;
         this.onClickHandler = onClickHandler;

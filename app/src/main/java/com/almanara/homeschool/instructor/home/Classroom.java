@@ -7,7 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.almanara.homeschool.parent.home.ChildModel;
+import com.almanara.homeschool.data.firebase.ChildModel;
 import com.almanara.homeschool.parent.home.ChildsAdapter;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.childProgress.ChildCourses;

@@ -16,8 +16,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.almanara.homeschool.instructor.home.CourseCreated;
-import com.almanara.homeschool.instructor.lesson.LessonModel;
+import com.almanara.homeschool.data.firebase.TopicModel;
+import com.almanara.homeschool.data.firebase.CourseCreated;
+import com.almanara.homeschool.data.firebase.LessonModel;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.adapter.InstructorTopicsAdapter;
 import com.almanara.homeschool.instructor.create.InstructorTopicCreationActivity;

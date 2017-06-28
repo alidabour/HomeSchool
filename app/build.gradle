@@ -2,6 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'keynew'
+            keyPassword 'HomeS2018'
+            storeFile file('C:/Users/Ali/AndroidStudioProjects/HomeSchool/newKey.jks')
+            storePassword 'HomeS2018'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
@@ -11,12 +19,15 @@ android {
         versionCode 2
         versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    productFlavors {
     }
 }
 repositories {
@@ -29,7 +40,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     // If you want to use the GPU Filters
-
     compile 'com.android.support:support-v4:25.3.1'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
     compile 'com.android.support:recyclerview-v7:25.3.1'
@@ -48,7 +58,6 @@ dependencies {
     compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
     compile 'me.relex:circleindicator:1.2.2@aar'
     testCompile 'junit:junit:4.12'
-
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
 }
 

@@ -9,17 +9,21 @@
                   android:layout_height="wrap_content"
                   android:orientation="horizontal">
         <TextView
+            android:layout_weight="1"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Select Text Color :"/>
+            android:text="@string/select_text_color"/>
+
         <Button
-            android:text="Open color picker"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"
+            android:layout_weight="1"
+            android:layout_gravity="center"
             android:id="@+id/colorsButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/open_color_picker"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
         <!--<Spinner-->
             <!--android:id="@+id/textColors"-->
@@ -34,15 +38,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
+            android:layout_weight="1"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Select Text Size:"/>
+            android:text="@string/select_text_size"/>
 
         <Spinner
+            android:layout_weight="1"
             android:id="@+id/textSizes"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </Spinner>
 

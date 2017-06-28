@@ -13,9 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.almanara.homeschool.instructor.home.CourseCreated;
+import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.ali.homeschool.R;
-import com.almanara.homeschool.childProgress.EnrolledCourseModel;
+import com.almanara.homeschool.data.firebase.EnrolledCourseModel;
 import com.almanara.homeschool.module.layoutmanager.LondonEyeLayoutManager;
 import com.almanara.homeschool.module.layoutmanager.scroller.IScrollHandler;
 import com.almanara.homeschool.module.utils.DebugRecyclerView;

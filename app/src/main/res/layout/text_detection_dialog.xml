@@ -4,7 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <android.support.design.widget.TextInputLayout
-        android:hint="Question :"
+        android:hint="@string/question"
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
-        android:hint="Word :"
+        android:hint="@string/word"
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -35,15 +35,17 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Select Text Language :"
+            android:text="@string/select_text_language"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"/>
 
         <Spinner
+            android:layout_weight="1"
             android:id="@+id/textLan"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </Spinner>
 

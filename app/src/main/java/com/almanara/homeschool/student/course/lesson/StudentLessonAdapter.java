@@ -12,7 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.almanara.homeschool.instructor.lesson.LessonModel;
+import com.almanara.homeschool.data.firebase.LessonModel;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.student.course.lesson.topic.ClassActivity;
 

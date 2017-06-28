@@ -41,7 +41,7 @@ public class MainQuestionDialog extends MainDialog {
     public void openMainQuestionDialog(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(
                 activity);
-        builder.setTitle("Choose type :");
+        builder.setTitle(R.string.choose_que_type);
         LayoutInflater li = LayoutInflater.from(activity);
         LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.question_list, null);
         final TextView colorQue = (TextView) someLayout.findViewById(R.id.color);

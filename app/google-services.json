@@ -139,6 +139,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "831129464005-4t13qg4jed97e639la39ma6qq5bmh5gu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.almanara.homeschool",
+            "certificate_hash": "bd89f0b2c484f6c8668593bd4f0bdf02751a9cc1"
+          }
+        },
+        {
           "client_id": "831129464005-e947sdbpmnbbo0bos0iuj0pjqpr1ce0m.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -153,8 +161,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831129464005-e947sdbpmnbbo0bos0iuj0pjqpr1ce0m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

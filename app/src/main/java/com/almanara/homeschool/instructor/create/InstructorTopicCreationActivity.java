@@ -39,7 +39,7 @@ import com.almanara.homeschool.instructor.create.dialogs.TextDetectionDialog;
 import com.almanara.homeschool.instructor.create.dialogs.TextViewDialog;
 import com.almanara.homeschool.instructor.ParseXMLInstructor;
 import com.almanara.homeschool.instructor.RecyclerListAdapter;
-import com.almanara.homeschool.instructor.topic.TopicModel;
+import com.almanara.homeschool.data.firebase.TopicModel;
 import com.almanara.homeschool.instructor.create.xmlinterface.XMLClick;
 import com.almanara.homeschool.instructor.create.xmlinterface.XMLEditClick;
 import com.almanara.homeschool.instructor.create.ordering.DoneOrderInterface;
