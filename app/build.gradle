@@ -6,7 +6,7 @@ android {
         config {
             keyAlias 'keynew'
             keyPassword 'HomeS2018'
-            storeFile file('C:/Users/Ali/AndroidStudioProjects/HomeSchool/newKey.jks')
+            storeFile file('newKey.jks')
             storePassword 'HomeS2018'
         }
     }
