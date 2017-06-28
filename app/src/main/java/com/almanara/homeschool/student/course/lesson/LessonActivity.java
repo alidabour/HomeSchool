@@ -15,9 +15,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.almanara.homeschool.CircleTransform;
 import com.almanara.homeschool.data.firebase.LessonModel;
 import com.bumptech.glide.Glide;
 import com.almanara.homeschool.data.firebase.CourseCreated;
@@ -32,6 +34,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class LessonActivity extends AppCompatActivity {
 
     List<CourseCreated> enrolledLessonList;
@@ -43,8 +47,8 @@ public class LessonActivity extends AppCompatActivity {
     DatabaseReference db;
     ValueEventListener queryListener;
     GridLayoutManager gridLayoutManager;
-    RelativeLayout viewRoot;
-    RelativeLayout line;
+    LinearLayout viewRoot;
+    LinearLayout line;
     int cx;
     int cy;
     int finalRadius;
@@ -57,11 +61,11 @@ public class LessonActivity extends AppCompatActivity {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 
         setContentView(R.layout.activity_lesson);
-        viewRoot = (RelativeLayout) findViewById(R.id.viewRoot);
+        viewRoot = (LinearLayout) findViewById(R.id.viewRoot);
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
 
-        line = (RelativeLayout) findViewById(R.id.line);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)
+        line = (LinearLayout) findViewById(R.id.line);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)
                 line.getLayoutParams();
         params.setMargins(-1 * line.getWidth(), 0, 0, 0);
         line.setLayoutParams(params);
@@ -81,7 +85,8 @@ public class LessonActivity extends AppCompatActivity {
         course = intent.getParcelableExtra("course");
         ((TextView) findViewById(R.id.course_name)).setText(course.getName());
         Glide.with(getApplicationContext()).load(course.getPhoto_url())
-                .override(25,25).dontTransform().into((ImageView)findViewById(R.id.course_image));
+//                .transform(new CircleTransform(getApplicationContext()))
+                .into((CircleImageView)findViewById(R.id.course_image));
         Explode enterTransition = new Explode();
         enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
         getWindow().setEnterTransition(enterTransition);

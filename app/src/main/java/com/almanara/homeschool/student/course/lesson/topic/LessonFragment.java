@@ -3,6 +3,7 @@ package com.almanara.homeschool.student.course.lesson.topic;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -88,13 +89,15 @@ public class LessonFragment extends Fragment {
 
             @Override
             public void openActivity(String activity, Answer answer) {
-//                if (activity.equals("ColorActivity")) {
+                if (activity.equals("ColorActivity")) {
 //                    Intent intent = new Intent(getActivity(), ColorActivity.class);
 //                    intent.putExtra("Answer", answer);
 //                    startActivityForResult(intent, Color_Request);
-//                } else
-//
-                if (activity.equals("TextDetection")) {
+                    if (!openApp(getActivity(), "com.example.android.color_detection",
+                            answer.getAnswer(), Constants.Color_Request)) {
+                        Toast.makeText(getActivity(), "No app found", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (activity.equals("TextDetection")) {
                     if (!openApp(getActivity(), "edu.sfsu.cs.orange.ocr",
                             answer.getAnswer() + "," + answer.getLan(), Constants.Text_Detection)) {
                         Toast.makeText(getActivity(), "No app found", Toast.LENGTH_SHORT).show();
@@ -130,6 +133,7 @@ public class LessonFragment extends Fragment {
 //
 //        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
 //        container.setBackgroundColor(color);
+        linearLayout.setBackgroundColor(Color.parseColor("#ffffff"));
         return linearLayout;
     }
 
