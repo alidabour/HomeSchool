@@ -2,58 +2,37 @@
     <string name="app_name">al-manara</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="TeacherName">Ahmed Ali</string>
     <string name="CourseName">Animals Vol.1</string>
-    <string name="ratingValue">554 Ratings</string>
     <string name="CourseDescription">Course Description</string>
     <string name="CourseDescriptionBody">Learn about animals Learn about animals Learn about animals Learn about animals Learn about animalsLearn about animals Learn about animals Learn about animals Learn about animals</string>
-    <string name="title_activity_main3">Main3Activity</string>
 
-    <string name="New">New!</string>
     <string name="signin">Sign in</string>
-    <string name="category">Category:</string>
-    <string name="topVisited">Top Visited</string>
     <string name="guest">Guest</string>
     <string name="register">Create account</string>
-    <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="name">Enter your name</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
     <string name="topics_description">Topics</string>
     <string name="enroll">Enroll</string>
-    <string name="youMustSignIn">You have to Sign In</string>
-    <string name="enrollDone">You have Successfully enrolled</string>
     <string name="title_activity_main4">Courses</string>
-    <string name="title_activity_enrolled_course">EnrolledCourse</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_parent">ParentActivity</string>
     <string name="title_activity_child_courses">ChildCourses</string>
-    <string name="home_welcome_msg_h1">علم طفلك في راحة منزلك</string>
-    <string name="home_welcome_h2">علم طفلك في راحة منزلك علم طفلك في راحة منزلك</string>
-    <string name="math">Math</string>
-    <string name="science">Science</string>
-    <string name="economics">Economics</string>
     <string name="my_courses">My Courses</string>
     <string name="featured_courses">Courses</string>
-    <string name="settings">Settings</string>
     <string name="sign_out">Sign out</string>
-    <string name="name_nav">Manar Mostafa</string>
-    <string name="Sign_up">Sign up</string>
+    <string name="Sign_up" translatable="false">Sign up</string>
     <string name="Email">Email</string>
-    <string name="Username">Username</string>
-    <string name="ratings">Ratings</string>
     <string name="enter_url">Enter Url</string>
     <string name="choose_from_gallery">Choose from Gallery</string>
     <string name="support">support</string>
     <string name="no_course">Press add for new course</string>
     <string name="no_lesson">press + to add more lessons</string>
-    <string name="no_topics">Press + for more topics</string>
-    <string name="no_mycourse">you have no enrolled courses</string>
+    <string name="no_topics" translatable="false">Press + for more topics</string>
+    <string name="no_mycourse" translatable="false">you have no enrolled courses</string>
     <string name="sign_in_here">  Sign in here</string>
     <string name="have_an_account">Have an account?</string>
     <string name="create_account">Create account</string>
@@ -69,25 +48,35 @@
     <string name="instructor">Instructor :</string>
     <string name="Courses">Courses</string>
     <string name="smart_easy_efficient">Smart .. Easy .. Efficient</string>
-    <string name="start">Start</string>
     <string name="image">Image</string>
     <string name="sound">Sound</string>
     <string name="question">Question</string>
     <string name="text">text</string>
     <string name="submit">submit</string>
     <string name="courses">Courses</string>
+    <string name="select_text_color">Select Text Color :</string>
+    <string name="open_color_picker">Open color picker</string>
+    <string name="select_text_size">Select Text Size:</string>
+    <string name="select_color">Select Color :</string>
+    <string name="enter_question">Enter question :</string>
+    <string name="ok">OK</string>
+    <string name="choose_image">Choose image</string>
+    <string name="cancel">Cancel</string>
+    <string name="file_uploaded">File Uploaded</string>
+    <string name="choose_que_type">Choose type :</string>
+    <string name="cancel_or_comple_data">Cancel or Complete fields</string>
+    <string name="complete_data">Please insert answer</string>
+    <string name="select_sound_file">Select sound file</string>
+    <string name="sound_btn_text">Sound button text</string>
+    <string name="start">Start</string>
+    <string name="word">Word</string>
+    <string name="select_text_language">Select Text Language :</string>
+    <string name="enter_text">Enter text :</string>
+    <string name="answer">Answer</string>
+    <string name="check">Check</string>
+    <string name="animation">Animation</string>
 
-    <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-    </string-array>
-    <string-array name="color_array">
+    <string-array name="color_array" translatable="false">
         <item>Red</item>
         <item>Yellow</item>
         <item>Orange</item>
@@ -96,7 +85,7 @@
         <item>Blue</item>
         <item>Violet</item>
     </string-array>
-    <string-array name="text_size_array">
+    <string-array name="text_size_array" translatable="false">
         <item>Button 14sp CAPS</item>
         <item>Caption 12sp</item>
         <item>Body1 14sp</item>
@@ -110,7 +99,7 @@
         <item>Display4 112sp</item>
 
     </string-array>
-    <string-array name="text_lan_array">
+    <string-array name="text_lan_array"  translatable="false">
         <item>English</item>
         <item>Arabic</item>
     </string-array>

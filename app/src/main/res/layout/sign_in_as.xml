@@ -10,6 +10,8 @@
         android:layout_height="match_parent"
         android:background="@drawable/back"/>
 
+
+
     <TextView
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
@@ -20,36 +22,23 @@
         android:textColor="@color/colorBack"
         android:textStyle="bold"/>
 
-    <ImageButton
-        android:id="@+id/previous"
-        android:src="@drawable/arrow_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleX=".5"
-        android:scaleY=".5"
-        android:background="@drawable/transparent"
-        android:layout_gravity="start|center"
-        android:padding="40dp"
-     />
-
-    <ImageButton
-        android:id="@+id/next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleX=".5"
-        android:scaleY=".5"
-        android:background="@drawable/transparent"
-        android:layout_gravity="end|center"
-        android:padding="40dp"
-
-        android:src="@drawable/arrow_1"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/line"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
         android:orientation="vertical"
         android:padding="16dp">
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/indicator"
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            app:ci_height="28dp"
+            app:ci_width="28dp"
+            app:ci_drawable="@drawable/catimage"
+            app:ci_drawable_unselected="@drawable/catimage"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,6 +49,7 @@
             android:textSize="10dp"/>
 
         <TextView
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="All Rights Reserved 2017"
