@@ -104,7 +104,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), InstructorTopicCreationActivity.class);
 
                         intent.putExtra("topicname", m_Text);
-                        intent.putExtra("topicid", topicid);
+//                        intent.putExtra("topicid", topicid);
                         intent.putExtra("lessonid", lessonid);
                         intent.putExtra("courseId", courseId);
                         startActivity(intent);

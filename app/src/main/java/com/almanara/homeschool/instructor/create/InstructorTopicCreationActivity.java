@@ -157,6 +157,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         }
         if (intent != null && intent.hasExtra("topicid")) {
             topicid = intent.getStringExtra("topicid");
+            Log.v("Par---","Topic id :" + topicid);
         }
         if (intent != null && intent.hasExtra("topicname")) {
             topicname = intent.getStringExtra("topicname");
