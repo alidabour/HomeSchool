@@ -143,6 +143,18 @@ import java.util.List;
 
         return view;
     }
+
+    @Override
+    public void onDetach() {
+        if (listener != null)
+            db.removeEventListener(listener);
+        if (queryListener!= null)
+            db.removeEventListener(queryListener);
+        super.onDetach();
+    }
+
+
+
     @Override
     public void onPause(){
         if (listener != null)
