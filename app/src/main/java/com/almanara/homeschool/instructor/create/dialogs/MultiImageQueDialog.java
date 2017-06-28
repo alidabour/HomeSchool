@@ -16,11 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.almanara.homeschool.instructor.create.OnQuestionLayoutReady;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.UserModelHelper.FileUploadHelper;
 import com.almanara.homeschool.UserModelHelper.UploadFile;
+import com.almanara.homeschool.instructor.create.OnQuestionLayoutReady;
+import com.almanara.homeschool.instructor.create.ProgressImage;
+import com.bumptech.glide.Glide;
 
 import java.util.UUID;
 
@@ -45,6 +46,11 @@ public class MultiImageQueDialog  implements View.OnClickListener {
     LinearLayout line2;
     LinearLayout line3;
     LinearLayout line4;
+    ProgressImage progressImage;
+    public void setProgressImage(
+            ProgressImage progressImage) {
+        this.progressImage = progressImage;
+    }
     public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
@@ -197,6 +203,7 @@ public class MultiImageQueDialog  implements View.OnClickListener {
                                 layout += HOLD;
                                 layout += radioButton4.isChecked();
                                 layout += HOLD;
+                                progressImage.setImageOrSound(true,true);
                                 onQuestionLayoutReady.onLayoutReady(layout);
                                 Log.v("ImageQue", "Layout " + layout);
                                 dialog.dismiss();

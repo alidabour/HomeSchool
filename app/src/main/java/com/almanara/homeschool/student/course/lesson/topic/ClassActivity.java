@@ -14,14 +14,14 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.almanara.homeschool.Constants;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.almanara.homeschool.data.firebase.TopicModel;
 import com.almanara.ali.homeschool.R;
+import com.almanara.homeschool.Constants;
+import com.almanara.homeschool.data.firebase.ProgressModel;
+import com.almanara.homeschool.data.firebase.TopicModel;
 import com.almanara.homeschool.student.course.lesson.topic.template.AnimationFragment;
 import com.almanara.homeschool.student.course.lesson.topic.template.MultiImageQuestionFragment;
-import com.almanara.homeschool.data.firebase.ProgressModel;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +46,7 @@ public class ClassActivity extends AppCompatActivity {
     String course_id, lesson_id;
     ArrayList<TopicModel> TopicModelList;
     ValueEventListener listener;
+    ValueEventListener listener2;
     FirebaseUser user;
     FirebaseAuth firebaseAuth;
     ImageView imageView2;
@@ -230,9 +231,39 @@ public class ClassActivity extends AppCompatActivity {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                     imageView2.setVisibility(View.GONE);
+
+                    db.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(listener2);
                     pager.setCurrentItem((pager.getCurrentItem() + 1));
                 }
             });
+
+
+            listener2 = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot d : dataSnapshot.getChildren()) {
+                        for (DataSnapshot d1 : d.getChildren())
+                            for (DataSnapshot d2 : d1.getChildren()) {
+                                ProgressModel progressModel = d2
+                                        .getValue(ProgressModel.class);
+                                if (progressModel.getTopicProgressId()
+                                        .equals(TopicModelList
+                                                .get(pager.getCurrentItem()-2).getId())) {
+                                    progressModel.setTopicProgressFlag("true");
+                                    db.child("users").child(user.getUid())
+                                            .child("enrolledcourses")
+                                            .child(progressModel.getEnrolledcourseid())
+                                            .child("progress")
+                                            .child(progressModel.getProgressid())
+                                            .updateChildren(progressModel.toMap());
+                                }
+                            }
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            };
         }
 
     }
