@@ -138,7 +138,7 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
 
 
 
-    private void registering(String Email, String Password, String Repeated_Password) {
+    private void registering(String Email, final String Password, String Repeated_Password) {
         if (!validateForm()) {
             return;
         }
@@ -163,20 +163,24 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
                                 newUser.setName(String.valueOf(userName.getText()));
                                 newUser.setPhoto(photoString);
                                 user = mAuth.getCurrentUser();
-
+                                Toast.makeText(Register.this, "Registered Successfully , Logging In", Toast.LENGTH_SHORT).show();
                                 myRef.child("users").child(user.getUid()).setValue(newUser);
                                 String Uid = myRef.child("users").child(user.getUid()).getKey();
                                 myRef.child("users").child(user.getUid()).child("uid").setValue(Uid);
                                 finish();
                                 startActivity(new Intent(getBaseContext(), SignInAs.class));
                             } else {
-                                if (internetConnectionChecker.isInternetOn()) {
+                                if (Password.length()<=6) {
+                                    Toast.makeText(Register.this, "Password is less than 6 characters",
+                                            Toast.LENGTH_SHORT).show();
+                                } else if(!internetConnectionChecker.isInternetOn()){
+
                                     Toast.makeText(Register.this, "Email is Either not Created or Doesn't Exist",
                                             Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(Register.this, "Internet Connection Not Available",
-                                            Toast.LENGTH_SHORT).show();
                                 }
+                                else Toast.makeText(Register.this, "Internet Connection Not Available",
+                                        Toast.LENGTH_SHORT).show();
+
                             }
                         }
                     });
