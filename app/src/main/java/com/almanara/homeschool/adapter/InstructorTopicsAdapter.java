@@ -68,6 +68,7 @@ public class InstructorTopicsAdapter extends RecyclerView.Adapter<InstructorTopi
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.Preview:{
+
                                 startIntentFromAdapter(activity,topicModelInFocus);
                             }
                             break;
