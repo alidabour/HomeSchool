@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.adapter.ChildrenAdapter;
@@ -81,18 +82,16 @@ import java.util.List;
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         emailText = input.getText().toString();
-
-
                         listener=  new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if(dataSnapshot.getValue()==null)
+                                            Toast.makeText(getActivity(), "This Child is not in Our DataBase ," +
+                                                    " Please Check if the email entered is correct", Toast.LENGTH_SHORT).show();
                                         for (DataSnapshot d : dataSnapshot.getChildren()) {
                                             UserModel userHS = new UserModel();
                                             for (DataSnapshot x : dataSnapshot.getChildren()) {
-                                                Log.v("Test", "X ______" + x.toString());
                                                 userHS = x.getValue(UserModel.class);
-                                                Log.v("Test", "USer :" + userHS);
-                                                Log.v("Test", "User" + userHS.getPhoto());
                                             }
 
                                             Log.v("Test", "Data" + d.toString());
