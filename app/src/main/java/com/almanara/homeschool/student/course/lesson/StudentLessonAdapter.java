@@ -108,7 +108,7 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
 
     @Override
     public int getItemViewType(int position) {
-        return isOneRow(position) ? ITEM_VIEW_TYPE_HEADER : ITEM_VIEW_TYPE_ITEM;
+        return position;
     }
 
     public class LessonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

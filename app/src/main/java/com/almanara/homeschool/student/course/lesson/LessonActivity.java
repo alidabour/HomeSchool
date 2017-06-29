@@ -80,7 +80,7 @@ public class LessonActivity extends AppCompatActivity {
         enrolledRecyclerView.setHasFixedSize(true);
 //        LinearLayoutManager categoryLayoutManger = new LinearLayoutManager(getApplicationContext(),
 //                LinearLayoutManager.VERTICAL, false);
-        gridLayoutManager = new GridLayoutManager(this, 2);
+        gridLayoutManager = new GridLayoutManager(this, 3);
         enrolledRecyclerView.setLayoutManager(gridLayoutManager);
 
         Log.e("Test", "myLessonActivity");
@@ -94,9 +94,7 @@ public class LessonActivity extends AppCompatActivity {
 //                .transform(new CircleTransform(getApplicationContext()))
                 .into((CircleImageView)findViewById(R.id.course_image));
 
-        Fade enterTransition = new Fade();
-        enterTransition.setDuration(500);
-        getWindow().setEnterTransition(enterTransition);
+
         Log.e("courseinLessonActivity", course.toString());
         getWindow().setAllowEnterTransitionOverlap(false);
         cx = (viewRoot.getLeft() + viewRoot.getRight()) / 2;
@@ -184,15 +182,15 @@ public class LessonActivity extends AppCompatActivity {
                         }, LessonActivity.this, course.getCourse_id());
                 studentLessonAdapter.setCourseId(course.getCourse_id());
                 enrolledRecyclerView.setAdapter(studentLessonAdapter);
-                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                    @Override
-                    public int getSpanSize(int position) {
-                        Log.v("getSpanSize", " positon" + position);
-                        Log.v("getSpanSize", " isOneRow" + studentLessonAdapter.isOneRow(position));
-
-                        return studentLessonAdapter.isOneRow(position) ? 2 : 1;
-                    }
-                });
+//                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//                    @Override
+//                    public int getSpanSize(int position) {
+//                        Log.v("getSpanSize", " positon" + position);
+//                        Log.v("getSpanSize", " isOneRow" + studentLessonAdapter.isOneRow(position));
+//
+//                        return studentLessonAdapter.isOneRow(position) ? 2 : 1;
+//                    }
+//                });
 
 
                 enrolledRecyclerView.setOnLongClickListener(new View.OnLongClickListener() {

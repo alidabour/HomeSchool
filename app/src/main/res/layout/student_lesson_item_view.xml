@@ -7,15 +7,15 @@
     android:adjustViewBounds="true"
     android:orientation="vertical">
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_margin="8dp"
         android:id="@+id/lesson_image"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:src="@drawable/profile"
         app:civ_border_width="4dp"
-        app:civ_border_color="#00ff00"/>
+        app:civ_border_color="#FFD93E"/>
     <TextView
         android:id="@+id/lesson_name"
         android:layout_gravity="center"
