@@ -87,6 +87,7 @@ public class ClassActivity extends AppCompatActivity {
         imageView2 = (ImageView) findViewById(R.id.masha);
         Intent iin = getIntent();
         Bundle b = iin.getExtras();
+
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

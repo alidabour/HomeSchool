@@ -15,11 +15,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.student.course.lesson.topic.ClassActivity;
 import com.bumptech.glide.Glide;
-import com.almanara.ali.homeschool.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -244,6 +243,8 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
                 break;
 
         }
+
+
     }
 
     void lineBackgroudColor() {
@@ -253,6 +254,8 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
         line4.setBackgroundColor(Color.parseColor("#ffffff"));
 
     }
+
+
 
 
 }
