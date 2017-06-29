@@ -30,7 +30,7 @@ public class CourseSectionListAdapter extends RecyclerView.Adapter<CourseSection
     int userViewType;
     ArrayList<String> subject ;
     String userid;
-    String mychild;
+    String mychild="no";
 
     public void setUserId(String userid, String mychild) {
         this.mychild=mychild;

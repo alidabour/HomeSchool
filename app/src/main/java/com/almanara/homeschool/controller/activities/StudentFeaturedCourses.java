@@ -59,7 +59,7 @@ public class StudentFeaturedCourses extends AppCompatActivity {
     DatabaseReference myRef ;
     ImageView gifImage;
     String userId="Hello";
-    String mychild=null;
+    String mychild="no";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

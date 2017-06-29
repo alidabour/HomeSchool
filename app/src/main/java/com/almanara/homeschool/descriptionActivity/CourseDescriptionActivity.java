@@ -50,7 +50,7 @@ and supposely later on i would use the data base to fetch this data
  */
 public class CourseDescriptionActivity extends AppCompatActivity {
     Toolbar toolbar;
-    String mychild =null;
+    String mychild ="no";
     ListView topicsListView;
     RecyclerView topicsRecyclerView;
     Button enroll;
