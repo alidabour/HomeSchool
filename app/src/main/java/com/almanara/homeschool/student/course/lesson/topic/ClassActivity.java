@@ -3,6 +3,7 @@ package com.almanara.homeschool.student.course.lesson.topic;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,14 +16,13 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.Constants;
-import com.almanara.homeschool.student.course.lesson.topic.template.MatchingFragment;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.almanara.homeschool.data.firebase.ProgressModel;
 import com.almanara.homeschool.data.firebase.TopicModel;
 import com.almanara.homeschool.student.course.lesson.topic.template.AnimationFragment;
+import com.almanara.homeschool.student.course.lesson.topic.template.MatchingFragment;
 import com.almanara.homeschool.student.course.lesson.topic.template.MultiImageQuestionFragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
@@ -59,6 +59,9 @@ public class ClassActivity extends AppCompatActivity {
     ImageView imageView2;
     List<Fragment> fragmentList;
     MediaPlayer mediaPlayer = null;
+
+    RoundCornerProgressBar progress1;
+    int counter = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,17 +71,45 @@ public class ClassActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         context = getApplicationContext();
+
         setContentView(R.layout.activity_class_trial);
+
+
+        progress1 = (RoundCornerProgressBar) findViewById(R.id.progress_1);
+        progress1.setProgressColor(Color.parseColor("#08aac7"));
+        progress1.setProgressBackgroundColor(Color.parseColor("#efeeee"));
+        progress1.setPadding(16);
+        progress1.setMax(100);
+        progress1.setProgress(50);
+
+
         pager = (ViewPager) findViewById(R.id.viewPager);
         imageView2 = (ImageView) findViewById(R.id.masha);
         Intent iin = getIntent();
         Bundle b = iin.getExtras();
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                progress1.setProgress((100*(position))/TopicModelList.size());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         TopicModelList = new ArrayList<TopicModel>();
         if (b != null) {
             course_id = b.getString("courseId");
             lesson_id = b.getString("lessonid");
         }
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -89,7 +120,9 @@ public class ClassActivity extends AppCompatActivity {
         if (pager.getChildCount() < 1) {
             listener = new ValueEventListener() {
                 @Override
-                public void onCancelled(DatabaseError databaseError) {}
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     TopicModelList = new ArrayList<TopicModel>();
@@ -109,15 +142,15 @@ public class ClassActivity extends AppCompatActivity {
                             fragmentList.add(NestedFrag.newInstance("12"));
                             fragmentList.add(MultiImageQuestionFragment
                                     .newInstance(modelEntry.getLayout()));
-                        }else if(modelEntry.getTopicType().equals("animation")){
+                        } else if (modelEntry.getTopicType().equals("animation")) {
                             fragmentList.add(AnimationFragment.newInstance(modelEntry.getLayout()));
-                        }else if(modelEntry.getTopicType().equals("matching")){
+                        } else if (modelEntry.getTopicType().equals("matching")) {
                             fragmentList.add(MatchingFragment.newInstance(modelEntry.getLayout()));
                         }
                     }
                     pager.setAdapter(
                             new LessonPagerAdapter(getSupportFragmentManager(), fragmentList));
-                pager.setPageTransformer(true, new CubeOutTransformer()); //set the animation
+                    pager.setPageTransformer(true, new CubeOutTransformer()); //set the animation
                 }
             };
             db.child("courses").
@@ -135,7 +168,7 @@ public class ClassActivity extends AppCompatActivity {
         if (listener != null) {
             db.removeEventListener(listener);
         }
-        if(mediaPlayer != null){
+        if (mediaPlayer != null) {
             mediaPlayer.reset();
         }
         super.onPause();
@@ -157,7 +190,7 @@ public class ClassActivity extends AppCompatActivity {
         Glide.with(this).load(R.raw.source).into(imageViewTarget);
 //        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
         try {
-            mediaPlayer.setDataSource(getApplicationContext(),Uri.parse(RES_PREFIX + R.raw.yay));
+            mediaPlayer.setDataSource(getApplicationContext(), Uri.parse(RES_PREFIX + R.raw.yay));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -166,7 +199,7 @@ public class ClassActivity extends AppCompatActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 imageView2.setVisibility(View.GONE);
-                pager.setCurrentItem((pager.getCurrentItem() + 1));
+                swipPager();
             }
         });
         if (requestCode == Constants.SPEECH) {
@@ -197,6 +230,7 @@ public class ClassActivity extends AppCompatActivity {
                                         }
                                 }
                             }
+
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
                             }
@@ -240,8 +274,9 @@ public class ClassActivity extends AppCompatActivity {
             }
         }
     }
-    public void onAnswer(boolean isCorrect){
-        if(isCorrect){
+
+    public void onAnswer(boolean isCorrect) {
+        if (isCorrect) {
             imageView2.setVisibility(View.VISIBLE);
             final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView2);
             Glide.with(this).load(R.raw.source).into(imageViewTarget);
@@ -261,24 +296,24 @@ public class ClassActivity extends AppCompatActivity {
 //                Log.v("ClassActivity","not Playing");
 //                mediaPlayer.start();
 //            }
-            int mpPosition =0 ;
-            if(mediaPlayer != null){
-                mpPosition=  mediaPlayer.getCurrentPosition();
+            int mpPosition = 0;
+            if (mediaPlayer != null) {
+                mpPosition = mediaPlayer.getCurrentPosition();
                 mediaPlayer.pause();
             }
-            mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.yay);
+            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.yay);
             mediaPlayer.start();
             final int finalMpPosition = mpPosition;
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.backgroundsound);
+                    mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.backgroundsound);
                     mediaPlayer.seekTo(finalMpPosition);
                     mediaPlayer.start();
                     imageView2.setVisibility(View.GONE);
 
                     db.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(listener2);
-                    pager.setCurrentItem((pager.getCurrentItem() + 1));
+                    swipPager();
                 }
             });
 
@@ -293,7 +328,7 @@ public class ClassActivity extends AppCompatActivity {
                                         .getValue(ProgressModel.class);
                                 if (progressModel.getTopicProgressId()
                                         .equals(TopicModelList
-                                                .get(pager.getCurrentItem()-2).getId())) {
+                                                .get(pager.getCurrentItem() - 2).getId())) {
                                     progressModel.setTopicProgressFlag("true");
                                     db.child("users").child(user.getUid())
                                             .child("enrolledcourses")
@@ -305,6 +340,7 @@ public class ClassActivity extends AppCompatActivity {
                             }
                     }
                 }
+
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
@@ -312,8 +348,11 @@ public class ClassActivity extends AppCompatActivity {
         }
 
     }
-    public void swipPager(){
-        pager.setCurrentItem(pager.getCurrentItem()+1);
+
+    public void swipPager() {
+        progress1.setProgress((100*(pager.getCurrentItem()))/TopicModelList.size());
+        pager.setCurrentItem(pager.getCurrentItem() + 1);
+
     }
 
 }

@@ -60,6 +60,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+    compile 'com.cleveroad:fan-layout-manager:1.0.4'
 
 }
 

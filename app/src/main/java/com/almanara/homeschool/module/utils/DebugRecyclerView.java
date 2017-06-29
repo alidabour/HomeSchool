@@ -68,11 +68,11 @@ public class DebugRecyclerView extends RecyclerView {
 
     private void init(){
         mPaintForCircle = new Paint();
-        mPaintForCircle.setColor(Color.WHITE);
+        mPaintForCircle.setColor(Color.GRAY);
         mPaintForCircle.setAlpha(100 /*This is not percents*/);
 
         mPaintForCross = new Paint();
-        mPaintForCross.setColor(Color.WHITE);
+        mPaintForCross.setColor(Color.GRAY);
         mPaintForCross.setStrokeWidth(5);
     }
 

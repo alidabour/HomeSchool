@@ -13,12 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.ali.homeschool.R;
+import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.homeschool.data.firebase.EnrolledCourseModel;
 import com.almanara.homeschool.module.layoutmanager.LondonEyeLayoutManager;
-import com.almanara.homeschool.module.layoutmanager.scroller.IScrollHandler;
 import com.almanara.homeschool.module.utils.DebugRecyclerView;
+import com.cleveroad.fanlayoutmanager.FanLayoutManager;
+import com.cleveroad.fanlayoutmanager.FanLayoutManagerSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +47,7 @@ public class CoursesFragment extends Fragment {
     List<CourseCreated> coursesNames;
     FirebaseUser firebaseUser;
     LondonEyeLayoutManager mLondonEyeLayoutManager;
+    FanLayoutManager fanLayoutManager;
 
 //    private OnFragmentInteractionListener mListener;
 
@@ -110,7 +112,7 @@ public class CoursesFragment extends Fragment {
 
 
         //----------------------------------------------------------------------------------
-        int screenWidth = getActivity().getResources().getDisplayMetrics().widthPixels;
+       /* int screenWidth = getActivity().getResources().getDisplayMetrics().widthPixels;
 
 
         // define circle radius
@@ -128,8 +130,36 @@ public class CoursesFragment extends Fragment {
                 coursesRecycleView,
                 // define scroll strategy NATURAL / PIXEL_PERFECT
                 IScrollHandler.Strategy.NATURAL);
-        coursesRecycleView.setLayoutManager(mLondonEyeLayoutManager);
+        coursesRecycleView.setLayoutManager(mLondonEyeLayoutManager);*/
+
+
+
 //------------------------------------------------------------------------------------
+
+        /*
+                Fan Trial
+         */
+//------------------------------------------------------------------------------------
+        FanLayoutManagerSettings fanLayoutManagerSettings = FanLayoutManagerSettings
+                .newBuilder(getContext())
+                .withFanRadius(true)
+                .withAngleItemBounce(5)
+                .withViewWidthDp(120)
+                .withViewHeightDp(160)
+                .build();
+
+        fanLayoutManager = new FanLayoutManager(getContext(), fanLayoutManagerSettings);
+        coursesRecycleView.setLayoutManager(fanLayoutManager);
+
+
+//------------------------------------------------------------------------------------
+
+
+
+
+
+
+
 
 
         db = FirebaseDatabase.getInstance().getReference();
