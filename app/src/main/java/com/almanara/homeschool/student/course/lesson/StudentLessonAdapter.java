@@ -8,14 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.almanara.homeschool.data.firebase.LessonModel;
 import com.almanara.ali.homeschool.R;
+import com.almanara.homeschool.data.firebase.LessonModel;
 import com.almanara.homeschool.student.course.lesson.topic.ClassActivity;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,8 +129,18 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
             final int p = getAdapterPosition();
             final MediaPlayer mediaPlayer = MediaPlayer.create(activity,R.raw.onpresss);
             mediaPlayer.start();
+
+            Intent intent = new Intent(activity,
+                    ClassActivity.class);
+            if (courseId != null) {
+                intent.putExtra("courseId", courseId);
+            }
+            intent.putExtra("lessonid", lessonModelList.get(p).getId());
+
+            activity.startActivity(intent);
+        }
 //            onClickHandler.onClick(lessonModelList.get(p));
-            Animation animation = AnimationUtils.loadAnimation(activity, R.anim.course_image);
+            /*Animation animation = AnimationUtils.loadAnimation(activity, R.anim.course_image);
             animation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
@@ -162,7 +170,8 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
 
                 }
             });
-            view.startAnimation(animation);
-        }
+            view.startAnimation(animation);*/
+
+
     }
 }

@@ -80,7 +80,7 @@ public class ClassActivity extends AppCompatActivity {
         progress1.setProgressBackgroundColor(Color.parseColor("#efeeee"));
         progress1.setPadding(16);
         progress1.setMax(100);
-        progress1.setProgress(50);
+        progress1.setProgress(0);
 
 
         pager = (ViewPager) findViewById(R.id.viewPager);
