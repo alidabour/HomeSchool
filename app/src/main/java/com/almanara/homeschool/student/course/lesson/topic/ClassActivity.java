@@ -121,7 +121,6 @@ public class ClassActivity extends AppCompatActivity {
                     child(lesson_id).
                     child("topics").
                     addValueEventListener(listener);
-
         }
 
     }

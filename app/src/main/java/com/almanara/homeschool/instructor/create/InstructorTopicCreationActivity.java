@@ -355,8 +355,6 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                         topicType = "matching";
                     }
                 });
-
-
             }
         });
 

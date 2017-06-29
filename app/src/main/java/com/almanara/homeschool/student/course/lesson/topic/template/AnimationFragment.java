@@ -17,8 +17,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.almanara.ali.homeschool.R;
+import com.almanara.homeschool.student.course.lesson.topic.ClassActivity;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 
 /**
@@ -29,11 +32,9 @@ public class AnimationFragment extends Fragment {
 
     ImageView letter;
     ImageView word;
-    Timer myTimer;
     String layout;
     String[] parms;
-
-
+    ArrayList<Integer> random;
     private final String HOLD = " ,HO##LD,";
 
     public AnimationFragment() {
@@ -50,6 +51,7 @@ public class AnimationFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        random = new ArrayList<Integer>();
         if (getArguments() != null) {
             layout = getArguments().getString("layout");
             if (layout != null) {
@@ -69,9 +71,12 @@ public class AnimationFragment extends Fragment {
 
 //        clockwise(view);
 //        zoom(view);
+        Random r = new Random();
+        final int letterIndex = r.nextInt(6 - 0) + 0;
+        final int workIndex = r.nextInt(6 - 0) + 0;
         final MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), Uri.parse(parms[2]));
 
-        final MediaPlayer mediaPlayerword = MediaPlayer.create(getActivity(),  Uri.parse(parms[3]));
+        final MediaPlayer mediaPlayerword = MediaPlayer.create(getActivity(), Uri.parse(parms[3]));
         letter = (ImageView) view.findViewById(R.id.letter);
         word = (ImageView) view.findViewById(R.id.word);
         Glide.with(getActivity()).load(parms[0]).into(letter);
@@ -80,7 +85,28 @@ public class AnimationFragment extends Fragment {
             @Override
             public void onClick(final View v) {
 
-                clockwise(v);
+                int id = R.id.letter;
+                switch (letterIndex) {
+                    case 0:
+                        clockwise(v, id);
+                        break;
+                    case 1:
+                        zoom(v, id);
+                        break;
+                    case 2:
+                        fade(v, id);
+                        break;
+                    case 3:
+                        blink(v, id);
+                        break;
+                    case 4:
+                        move(v, id);
+                        break;
+                    case 5:
+                        slide(v, id);
+                        break;
+                }
+
                 mediaPlayer.start();
                 v.animate().alpha(0).setDuration(2000).withEndAction(new Runnable() {
                     @Override
@@ -95,60 +121,75 @@ public class AnimationFragment extends Fragment {
         word.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int id = R.id.word;
+                switch (workIndex) {
+                    case 0:
+                        clockwise(v, id);
+                        break;
+                    case 1:
+                        zoom(v, id);
+                        break;
+                    case 2:
+                        fade(v, id);
+                        break;
+                    case 3:
+                        blink(v, id);
+                        break;
+                    case 4:
+                        move(v, id);
+                        break;
+                    case 5:
+                        slide(v, id);
+                        break;
+                }
                 mediaPlayerword.start();
-                moveword(v);
+
+                ((ClassActivity)getActivity()).swipPage();
             }
         });
 
         return view;
     }
 
-    public void clockwise(View view) {
-        ImageView image = (ImageView) view.findViewById(R.id.letter);
+    public void clockwise(View view,int id) {
+        ImageView image = (ImageView) view.findViewById(id);
         Animation animation = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.myanimation);
         image.startAnimation(animation);
     }
 
-    public void zoom(View view) {
-        ImageView image = (ImageView) view.findViewById(R.id.word);
+    public void zoom(View view , int id) {
+        ImageView image = (ImageView) view.findViewById(id);
         Animation animation1 = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.clockwise);
         image.startAnimation(animation1);
     }
 
-    public void fade(View view) {
-        ImageView image = (ImageView) view.findViewById(R.id.word);
+    public void fade(View view, int id ) {
+        ImageView image = (ImageView) view.findViewById(id);
         Animation animation1 =
                 AnimationUtils.loadAnimation(getActivity(),
                         R.anim.fade);
         image.startAnimation(animation1);
     }
 
-    public void blink(View view) {
-        ImageView image = (ImageView) view.findViewById(R.id.word);
+    public void blink(View view, int id ) {
+        ImageView image = (ImageView) view.findViewById(id);
         Animation animation1 =
                 AnimationUtils.loadAnimation(getActivity(),
                         R.anim.blink);
         image.startAnimation(animation1);
     }
 
-    public void move(View view) {
-        ImageView image = (ImageView) view.findViewById(R.id.letter);
+    public void move(View view, int id ) {
+        ImageView image = (ImageView) view.findViewById(id);
         Animation animation1 =
                 AnimationUtils.loadAnimation(getActivity(), R.anim.move);
         image.startAnimation(animation1);
     }
 
-    public void moveword(View view) {
-        ImageView image = (ImageView) view.findViewById(R.id.word);
-        Animation animation1 =
-                AnimationUtils.loadAnimation(getActivity(), R.anim.move);
-        image.startAnimation(animation1);
-    }
-
-    public void slide(View view) {
-        ImageView image = (ImageView) view.findViewById(R.id.letter);
+    public void slide(View view, int id ) {
+        ImageView image = (ImageView) view.findViewById(id);
         Animation animation1 =
                 AnimationUtils.loadAnimation(getActivity(), R.anim.slide);
         image.startAnimation(animation1);

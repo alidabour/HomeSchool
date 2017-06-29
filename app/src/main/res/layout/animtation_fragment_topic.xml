@@ -6,11 +6,6 @@
                 android:background="@drawable/back3"
                 android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/iam_here"/>
-
     <ImageView
         android:id="@+id/letter"
         android:layout_width="wrap_content"

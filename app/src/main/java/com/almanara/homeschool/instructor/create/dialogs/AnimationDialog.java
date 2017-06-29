@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -108,6 +109,7 @@ public class AnimationDialog implements View.OnClickListener {
                             layout += uris[3];
                             layout += HOLD;
                             progressImage.setImageOrSound(true,true);
+                            Log.v("Animation " , layout);
                             onQuestionLayoutReady.onLayoutReady(layout);
                             dialog.dismiss();
                         }
@@ -176,9 +178,11 @@ public class AnimationDialog implements View.OnClickListener {
                 uris[postion] = url;
                 switch (postion) {
                     case 0:
+                        Log.v("Animation ",uris[0]);
                         Glide.with(activity).load(uris[0]).into(word);
                         break;
                     case 1:
+                        Log.v("Animation ",uris[1]);
                         Glide.with(activity).load(uris[1]).into(letter_image);
                         break;
                     case 2:
