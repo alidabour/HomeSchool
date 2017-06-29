@@ -328,6 +328,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                         multiImageQueDialog = new MultiImageQueDialog(id,
                                 InstructorTopicCreationActivity.this, onQuestionLayoutReady);
                         multiImageQueDialog.setCourseId(courseId);
+                        multiImageQueDialog.setProgressImage(progressImage);
                         multiImageQueDialog.openMultiImageQueDialog();
                         topicType = "multiImageQue";
                     }
