@@ -677,6 +677,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 //        }
     }
 
+
     String[] parseMutiImageQue(String layout) {
         return layout.split("(?<=" + HOLD + ")");
     }

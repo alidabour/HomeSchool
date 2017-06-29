@@ -11,12 +11,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.UserModelHelper.FileUploadHelper;
-import com.almanara.homeschool.UserModelHelper.UploadFile;
 import com.almanara.homeschool.instructor.create.OnQuestionLayoutReady;
 import com.almanara.homeschool.instructor.create.ProgressImage;
 import com.bumptech.glide.Glide;
+import com.almanara.ali.homeschool.R;
+import com.almanara.homeschool.UserModelHelper.UploadFile;
 
 import java.util.UUID;
 
@@ -32,15 +32,15 @@ public class AnimationDialog implements View.OnClickListener {
     int postion = 0;
     String[] uris = new String[4];
     private OnQuestionLayoutReady onQuestionLayoutReady;
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
     ProgressImage progressImage;
     public void setProgressImage(
             ProgressImage progressImage) {
         this.progressImage = progressImage;
     }
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+
     String courseId;
     private final String HOLD = " ,HO##LD,";
 

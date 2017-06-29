@@ -205,6 +205,7 @@ public class MultiImageQueDialog  implements View.OnClickListener {
                                 layout += HOLD;
                                 progressImage.setImageOrSound(true,true);
                                 onQuestionLayoutReady.onLayoutReady(layout);
+
                                 Log.v("ImageQue", "Layout " + layout);
                                 dialog.dismiss();
                             }else {
