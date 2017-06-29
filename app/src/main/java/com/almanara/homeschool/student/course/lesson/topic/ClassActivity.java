@@ -55,6 +55,7 @@ public class ClassActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     ImageView imageView2;
     List<Fragment> fragmentList;
+    MediaPlayer mediaPlayer = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +79,7 @@ public class ClassActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        final MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.backgroundsound);
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.backgroundsound);
         mediaPlayer.start();
         Log.v("Pager0000", "OnStart");
         if (pager.getChildCount() < 1) {
@@ -129,6 +130,9 @@ public class ClassActivity extends AppCompatActivity {
     protected void onPause() {
         if (listener != null) {
             db.removeEventListener(listener);
+        }
+        if(mediaPlayer != null){
+            mediaPlayer.stop();
         }
         super.onPause();
     }
