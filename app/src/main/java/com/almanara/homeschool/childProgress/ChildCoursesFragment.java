@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.almanara.homeschool.data.firebase.EnrolledCourseModel;
 import com.almanara.homeschool.data.firebase.ProgressModel;
@@ -57,7 +58,7 @@ public class ChildCoursesFragment extends Fragment {
         if (intent != null && intent.hasExtra("childModel")) {
             Log.v("Test", "Intent found");
             c = intent.getParcelableExtra("childModel");
-            Log.v("Test", "Name" + c.getId());
+            Log.v("Test", "Name" + c.getName());
         }
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -113,7 +114,11 @@ public class ChildCoursesFragment extends Fragment {
 
             }
         };
-        db.child("users").child(c.getId()).child("enrolledcourses").addValueEventListener(listener);
+        try {
+            db.child("users").child(c.getId()).child("enrolledcourses").addValueEventListener(listener);
+        }catch (NullPointerException e){
+            Toast.makeText(context, "ID Null", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

@@ -59,6 +59,8 @@ dependencies {
     compile 'me.relex:circleindicator:1.2.2@aar'
     testCompile 'junit:junit:4.12'
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
+    compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

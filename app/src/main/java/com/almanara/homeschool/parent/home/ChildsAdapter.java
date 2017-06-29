@@ -19,12 +19,15 @@ import java.util.List;
  */
 
 public class ChildsAdapter extends RecyclerView.Adapter<ChildsAdapter.ChildViewHolder> {
+
+
     public ChildsAdapter(List<ChildModel> childList, Context context ,
                          OnClickHandler onClickHandler) {
         this.childList = childList;
         this.onClickHandler = onClickHandler;
         this.context = context ;
     }
+
 
     Context context ;
     List<ChildModel> childList;

@@ -66,13 +66,17 @@ public class Classroom extends AppCompatActivity {
                                             break;
                                         }
                                     }
+                                    if(flag)
+                                        break;
                                 }
+                                if(flag)
+                                    break;
                             }
                             if(flag)
                             {
                                 flag =false;
-                                Log.e("dataSnapShot",d.getValue()+"");
                                 childModel = d.getValue(ChildModel.class);
+                                Log.e("dataSnapShot",childModel.getId()+"");
                                 childModelList.add(childModel);
                             }
                         }
@@ -80,7 +84,13 @@ public class Classroom extends AppCompatActivity {
                                 new ChildsAdapter.OnClickHandler() {
                                     @Override
                                     public void onClick(ChildModel test) {
-                                        Log.v("Test",test.toString());
+                                        Log.v("Testttttt",test.toString());
+                                        try {
+
+                                        }catch (Exception e){
+
+                                        }
+
                                         Intent intent = new Intent(Classroom.this,ChildCourses.class);
                                         intent.putExtra("childModel",test);
                                         startActivity(intent);
