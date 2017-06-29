@@ -2,48 +2,47 @@
 
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_instructor"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="16dp">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/activity_instructor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/courses"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-         />
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:layout_marginRight="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:tint="@color/colorPrimary"/>
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:src="@android:drawable/ic_input_add"/>
 
     <ProgressBar
+        android:id="@+id/instructor_progressbas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:id="@+id/instructor_progressbas"
         android:visibility="gone"/>
 
 
     <TextView
+        android:id="@+id/no_course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_course"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:id="@+id/no_course"
+        android:text="@string/no_course"
         android:visibility="gone"/>
 
 </RelativeLayout>

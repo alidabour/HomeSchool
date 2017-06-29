@@ -42,7 +42,7 @@ public class UploadFile {
         if (filePath != null) {
             //displaying a progress dialog while upload is going on
             final ProgressDialog progressDialog = new ProgressDialog(context);
-            progressDialog.setTitle("Uploading");
+            progressDialog.setTitle("قيد التحميل");
             progressDialog.show();
             Log.v("ITA", "Type: " + getMimeType(context, filePath));
             Log.v("ITA", "FileName: " + getFileName(context, filePath));
@@ -90,7 +90,7 @@ public class UploadFile {
                                     .getBytesTransferred()) / taskSnapshot.getTotalByteCount();
 
                             //displaying percentage in progress dialog
-                            progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
+                            progressDialog.setMessage("تم " + ((int) progress) + "%...");
                         }
                     });
         }

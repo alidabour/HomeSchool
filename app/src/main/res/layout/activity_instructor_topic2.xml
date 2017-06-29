@@ -19,14 +19,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_input_add"
+        android:src="@android:drawable/ic_input_add"
         android:layout_marginRight="18dp"
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="13dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:tint="@color/colorPrimary"/>
+        android:layout_alignParentEnd="true"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lessonsRV"

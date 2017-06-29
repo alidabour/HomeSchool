@@ -96,13 +96,34 @@ public class LessonFragment extends Fragment {
 //                    startActivityForResult(intent, Color_Request);
                     if (!openApp(getActivity(), "com.example.android.color_detection",
                             answer.getAnswer(), Constants.Color_Request)) {
-                        Snackbar.make(getView(),"من فضلك قم بتحميل برنامج الالوان",Snackbar.LENGTH_INDEFINITE).show();
+                        Snackbar.make(getView(),"من فضلك قم بتحميل برنامج الالوان",Snackbar.LENGTH_INDEFINITE)
+                                .setAction("تحميل", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        String url = "https://dl.dropboxusercontent.com/s/wol3h7olint9z03/app-debug.apk?dl=0";
+                                        Intent i = new Intent(Intent.ACTION_VIEW);
+                                        i.setData(Uri.parse(url));
+                                        startActivity(i);
+                                    }
+                                })
+                                .show();
 //                        Toast.makeText(getActivity(), "No app found", Toast.LENGTH_SHORT).show();
                     }
                 } else if (activity.equals("TextDetection")) {
                     if (!openApp(getActivity(), "edu.sfsu.cs.orange.ocr",
                             answer.getAnswer() + "," + answer.getLan(), Constants.Text_Detection)) {
-                        Toast.makeText(getActivity(), "من فضلك قم بتحميل برنامج الكلمات", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(getView(),"من فضلك قم بتحميل برنامج الالوان",Snackbar.LENGTH_INDEFINITE)
+                                .setAction("تحميل", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        String url = "https://dl.dropboxusercontent.com/s/23y3fc3t6z9ou79/OCRTest-debug.apk?dl=0";
+                                        Intent i = new Intent(Intent.ACTION_VIEW);
+                                        i.setData(Uri.parse(url));
+                                        startActivity(i);
+                                    }
+                                })
+                                .show();
+//                        Toast.makeText(getActivity(), "من فضلك قم بتحميل برنامج الكلمات", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

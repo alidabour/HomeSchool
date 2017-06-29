@@ -66,7 +66,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(
                         InstructorLessonsActivity.this);
-                builder.setTitle("Title");
+                builder.setTitle("عنوان الدرس");
                 LayoutInflater li = LayoutInflater.from(InstructorLessonsActivity.this);
                 LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.lesson_dialog, null);
                 TextView gallery = (TextView) someLayout.findViewById(R.id.choosefromGallery);

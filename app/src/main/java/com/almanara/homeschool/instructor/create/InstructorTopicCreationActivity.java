@@ -636,20 +636,26 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         if (findViewById(R.id.multiImageQue) != null) {
             if (findViewById(R.id.multiImageQue).getVisibility() == View.VISIBLE)
                 findViewById(R.id.multiImageQue).setVisibility(View.GONE);
+            setSupportActionBar(toolbar);
+
+            onRestart();
+//            Button button = new Button(getApplicationContext());
+//            button.setText("hiiii");
+//            toolbar.addView(button);
             setContentView(R.layout.activity_instructor_topic);
         } else {
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("Closing Activity")
-                    .setMessage("Are you sure you want to close this activity?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    .setTitle("انهاء الدرس")
+                    .setMessage("هل تريد الانهاء بدون حفظ؟")
+                    .setPositiveButton("نعم", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
                         }
 
                     })
-                    .setNegativeButton("No", null)
+                    .setNegativeButton("لا", null)
                     .show();
         }
     }
@@ -667,6 +673,45 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     public void onLayoutReady(String layout) {
         Log.v("ImageQue", "Layout -" + layout);
         parms = layout;
+        openFragment.setVisibility(View.VISIBLE);
+        openFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // create a frame layout
+                fragmentLayout = new FrameLayout(InstructorTopicCreationActivity.this);
+                // set the layout params to fill the activity
+                fragmentLayout.setLayoutParams(
+                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.MATCH_PARENT));
+                // set an id to the layout
+                fragmentLayout.setId(R.id.multiImageQue); // some positive integer
+                // set the layout as Activity content
+                setContentView(fragmentLayout);
+                // Finally , add the fragment
+
+                if (topicType.equals("multiImageQue")) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.multiImageQue,
+                                    MultiImageQuestionFragment.newInstance(parms))
+                            .commit();  // 1000 - is the id set for the container layout
+                } else if (topicType.equals("animation")) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.multiImageQue,
+                                    AnimationFragment.newInstance(parms))
+                            .commit();  // 1000 - is the id set for the container layout
+
+                }else if(topicType.equals("matching")){
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.multiImageQue,
+                                    MatchingFragment.newInstance(parms))
+                            .commit();  // 1000 - is the id set for the container layout
+
+                }
+            }
+        });
 //        relativeLayout.addView(multiImageQueDialog.getFinalView());
 //        relativeLayout  = (RelativeLayout) multiImageQueDialog.getFinalView();
 //        parms = layout.split("(?<=" + HOLD + ")");

@@ -75,7 +75,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(InstructorTopicActivity.this);
-                builder.setTitle("Title");
+                builder.setTitle("عنوان الحصة");
 
                 // Set up the input
                 final EditText input = new EditText(InstructorTopicActivity.this);
