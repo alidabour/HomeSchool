@@ -85,7 +85,7 @@ import static com.almanara.ali.homeschool.R.id.colors;
                 builder.setView(input);
 
                 // Set up the buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         emailText = input.getText().toString();
@@ -128,7 +128,7 @@ import static com.almanara.ali.homeschool.R.id.colors;
                         db.child("users").orderByChild("email").equalTo(emailText).addValueEventListener(listener);
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();

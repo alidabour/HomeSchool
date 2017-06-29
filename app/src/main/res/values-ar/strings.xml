@@ -102,5 +102,6 @@
     <string name="chooseanOption"> الاختيارات </string>
     <string name="enrollMyChild"> اضف ابنى لهذا المنهج </string>
     <string name="viewThisChild">اعرض التقدم فى المستوى لابنى فى هذا المنهج</string>
+    <string name="addCourse">اضافة منهج</string>
 
 </resources>

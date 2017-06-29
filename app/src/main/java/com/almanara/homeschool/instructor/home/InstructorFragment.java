@@ -82,7 +82,7 @@ public class InstructorFragment extends Fragment {
             public void onClick(final View view) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Add Course");
+                builder.setTitle(R.string.addCourse);
                 LayoutInflater li = LayoutInflater.from(getActivity());
                 LinearLayout someLayout;
                 someLayout = (LinearLayout) li.inflate(R.layout.dialog_add_course, null);
@@ -110,7 +110,7 @@ public class InstructorFragment extends Fragment {
                 builder.setView(someLayout);
 
                 // Set up the buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         coursName = input.getText().toString();
@@ -187,7 +187,7 @@ public class InstructorFragment extends Fragment {
                     }
                 });
 
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
