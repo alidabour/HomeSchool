@@ -15,20 +15,18 @@ import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.UserModelHelper.FileUploadHelper;
 import com.almanara.homeschool.UserModelHelper.UploadFile;
 import com.almanara.homeschool.instructor.create.OnQuestionLayoutReady;
-import com.almanara.homeschool.instructor.create.ProgressImage;
 import com.bumptech.glide.Glide;
 
 import java.util.UUID;
 
 /**
- * Created by Ali on 6/27/2017.
+ * Created by Ali on 6/29/2017.
  */
 
-public class AnimationDialog implements View.OnClickListener {
+public class MatchingDialog implements View.OnClickListener {
     Activity activity;
 
-    final public int PICK_IMAGE_ANIMATION = 237;
-    final public int PICK_SOUND_ANIMATION = 238;
+    final public int PICK_IMAGE_MATCHING = 239;
     int postion = 0;
     String[] uris = new String[4];
     private OnQuestionLayoutReady onQuestionLayoutReady;
@@ -36,40 +34,36 @@ public class AnimationDialog implements View.OnClickListener {
     public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
-    ProgressImage progressImage;
-    public void setProgressImage(
-            ProgressImage progressImage) {
-        this.progressImage = progressImage;
-    }
+
     String courseId;
     private final String HOLD = " ,HO##LD,";
 
-    public AnimationDialog(Activity activity,
-                           OnQuestionLayoutReady onQuestionLayoutReady) {
+    public MatchingDialog(Activity activity,
+                          OnQuestionLayoutReady onQuestionLayoutReady) {
         this.activity = activity;
         this.onQuestionLayoutReady = onQuestionLayoutReady;
     }
 
-    ImageView word;
-    ImageView letter_image;
-    ImageView word_sound;
-    ImageView letter_sound;
-    public void openAnimationDialog() {
+    ImageView imageView1;
+    ImageView imageView2;
+    ImageView imageView3;
+    ImageView imageView4;
+
+    public void openMatchingDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.animation);
         LayoutInflater li = LayoutInflater.from(activity);
         final RelativeLayout relativeLT = (RelativeLayout) li
-                .inflate(R.layout.animation_dialog, null);
+                .inflate(R.layout.matching_dialog, null);
 
-        word = (ImageView) relativeLT.findViewById(R.id.word);
-        letter_image = (ImageView) relativeLT.findViewById(R.id.letter);
-        word_sound = (ImageView) relativeLT.findViewById(R.id.sound1);
-        letter_sound = (ImageView) relativeLT.findViewById(R.id.sound2);
-
-        word.setOnClickListener(this);
-        letter_image.setOnClickListener(this);
-        word_sound.setOnClickListener(this);
-        letter_sound.setOnClickListener(this);
+        imageView1 = (ImageView) relativeLT.findViewById(R.id.image1);
+        imageView2 = (ImageView) relativeLT.findViewById(R.id.image2);
+        imageView3 = (ImageView) relativeLT.findViewById(R.id.image3);
+        imageView4 = (ImageView) relativeLT.findViewById(R.id.image4);
+        imageView1.setOnClickListener(this);
+        imageView2.setOnClickListener(this);
+        imageView3.setOnClickListener(this);
+        imageView4.setOnClickListener(this);
         builder.setView(relativeLT);
         builder.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
@@ -107,7 +101,6 @@ public class AnimationDialog implements View.OnClickListener {
                             layout += HOLD;
                             layout += uris[3];
                             layout += HOLD;
-                            progressImage.setImageOrSound(true,true);
                             onQuestionLayoutReady.onLayoutReady(layout);
                             dialog.dismiss();
                         }
@@ -119,8 +112,8 @@ public class AnimationDialog implements View.OnClickListener {
 
     private boolean checkifEmpty(String... links) {
         for (String x : links) {
-            if (x ==null) {
-                Toast.makeText(activity,R.string.complete_data, Toast.LENGTH_SHORT).show();
+            if (x == null) {
+                Toast.makeText(activity, R.string.complete_data, Toast.LENGTH_SHORT).show();
                 return true;
             }
         }
@@ -131,32 +124,24 @@ public class AnimationDialog implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.word:
+            case R.id.image1:
                 postion = 0;
                 openImageActivity();
                 break;
-            case R.id.letter:
-                postion =1;
+            case R.id.image2:
+                postion = 1;
                 openImageActivity();
                 break;
-            case R.id.sound1:
+            case R.id.image3:
                 postion = 2;
-                openSoundActivity();
+                openImageActivity();
                 break;
-            case R.id.sound2:
+            case R.id.image4:
                 postion = 3;
-                openSoundActivity();
+                openImageActivity();
                 break;
         }
 
-    }
-
-    private void openSoundActivity() {
-        Intent intent = new Intent();
-        intent.setType("audio/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        activity.startActivityForResult(Intent.createChooser(intent, "Select Sound"),
-                PICK_SOUND_ANIMATION);
     }
 
     private void openImageActivity() {
@@ -164,7 +149,7 @@ public class AnimationDialog implements View.OnClickListener {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         activity.startActivityForResult(Intent.createChooser(intent, "Select Picture"),
-                PICK_IMAGE_ANIMATION
+                PICK_IMAGE_MATCHING
         );
     }
 
@@ -176,13 +161,16 @@ public class AnimationDialog implements View.OnClickListener {
                 uris[postion] = url;
                 switch (postion) {
                     case 0:
-                        Glide.with(activity).load(uris[0]).into(word);
+                        Glide.with(activity).load(uris[0]).into(imageView1);
                         break;
                     case 1:
-                        Glide.with(activity).load(uris[1]).into(letter_image);
+                        Glide.with(activity).load(uris[1]).into(imageView2);
                         break;
                     case 2:
+                        Glide.with(activity).load(uris[2]).into(imageView3);
+                        break;
                     case 3:
+                        Glide.with(activity).load(uris[3]).into(imageView4);
                         break;
 
                 }

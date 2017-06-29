@@ -15,11 +15,11 @@
     <LinearLayout
         android:id="@+id/welcome"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             style="@style/Base.TextAppearance.AppCompat.Display1"
@@ -27,17 +27,19 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/welcome"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"/>
+
         <TextView
             style="@style/Base.TextAppearance.AppCompat.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginTop="16dp"
-            android:text="@string/enter_your_email_to_sign_in_to_your_account" />
+            android:gravity="center"
+            android:text="@string/enter_your_email_to_sign_in_to_your_account"/>
 
     </LinearLayout>
-<LinearLayout
+
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_weight="1"
