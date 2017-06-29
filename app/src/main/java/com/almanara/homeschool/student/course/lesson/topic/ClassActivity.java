@@ -34,6 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +44,8 @@ import java.util.List;
  */
 public class ClassActivity extends AppCompatActivity {
     //RelativeLayout relativeLayout;
+    final String RES_PREFIX = "android.resource://com.almanara.homeschool/";
+
     Context context;
     ViewPager pager;
     ArrayList<String> layouts;
@@ -80,6 +83,7 @@ public class ClassActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.backgroundsound);
+        mediaPlayer.setLooping(true);
         mediaPlayer.start();
         Log.v("Pager0000", "OnStart");
         if (pager.getChildCount() < 1) {
@@ -132,7 +136,7 @@ public class ClassActivity extends AppCompatActivity {
             db.removeEventListener(listener);
         }
         if(mediaPlayer != null){
-            mediaPlayer.stop();
+            mediaPlayer.reset();
         }
         super.onPause();
     }
@@ -151,7 +155,12 @@ public class ClassActivity extends AppCompatActivity {
         imageView2.setVisibility(View.VISIBLE);
         final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView2);
         Glide.with(this).load(R.raw.source).into(imageViewTarget);
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
+//        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
+        try {
+            mediaPlayer.setDataSource(getApplicationContext(),Uri.parse(RES_PREFIX + R.raw.yay));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         mediaPlayer.start();
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -236,11 +245,36 @@ public class ClassActivity extends AppCompatActivity {
             imageView2.setVisibility(View.VISIBLE);
             final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView2);
             Glide.with(this).load(R.raw.source).into(imageViewTarget);
-            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
+//            if(mediaPlayer != null){
+//                mediaPlayer.reset();
+//            }
+//            try {
+//                mediaPlayer.setDataSource(getApplicationContext(),Uri.parse(RES_PREFIX + R.raw.yay));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            if(mediaPlayer.isPlaying()){
+//                Log.v("ClassActivity","Playing");
+//                mediaPlayer.pause();
+//                mediaPlayer.start();
+//            }else {
+//                Log.v("ClassActivity","not Playing");
+//                mediaPlayer.start();
+//            }
+            int mpPosition =0 ;
+            if(mediaPlayer != null){
+                mpPosition=  mediaPlayer.getCurrentPosition();
+                mediaPlayer.pause();
+            }
+            mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.yay);
             mediaPlayer.start();
+            final int finalMpPosition = mpPosition;
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
+                    mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.backgroundsound);
+                    mediaPlayer.seekTo(finalMpPosition);
+                    mediaPlayer.start();
                     imageView2.setVisibility(View.GONE);
 
                     db.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(listener2);

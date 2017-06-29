@@ -150,7 +150,6 @@ public class AnimationFragment extends Fragment {
                 });
                 mediaPlayerword.start();
 
-             //   ((ClassActivity)getActivity()).swipPage();
             }
         });
 
