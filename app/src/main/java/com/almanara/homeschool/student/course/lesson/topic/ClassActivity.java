@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -77,6 +78,8 @@ public class ClassActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        final MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.backgroundsound);
+        mediaPlayer.start();
         Log.v("Pager0000", "OnStart");
         if (pager.getChildCount() < 1) {
             listener = new ValueEventListener() {
@@ -272,4 +275,8 @@ public class ClassActivity extends AppCompatActivity {
         }
 
     }
+    public void swipPager(){
+        pager.setCurrentItem(pager.getCurrentItem()+1);
+    }
+
 }
