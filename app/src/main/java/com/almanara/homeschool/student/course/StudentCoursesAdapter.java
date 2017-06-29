@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,6 +89,8 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
 
         @Override
         public void onClick(View v) {
+            final MediaPlayer mediaPlayer = MediaPlayer.create(context,R.raw.onpresss);
+            mediaPlayer.start();
             Animation animation = AnimationUtils.loadAnimation(context, R.anim.course_image);
             animation.setAnimationListener(new Animation.AnimationListener() {
                 @Override

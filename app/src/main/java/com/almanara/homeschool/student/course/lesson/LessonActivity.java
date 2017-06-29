@@ -3,6 +3,7 @@ package com.almanara.homeschool.student.course.lesson;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -52,6 +53,7 @@ public class LessonActivity extends AppCompatActivity {
     int cx;
     int cy;
     int finalRadius;
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,12 +134,17 @@ public class LessonActivity extends AppCompatActivity {
     protected void onPause() {
         if (listener != null)
             db.removeEventListener(listener);
+        if(mediaPlayer != null){
+            mediaPlayer.stop();
+        }
         super.onPause();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.backgroundsound3);
+        mediaPlayer.start();
 //        Animation animation = new TranslateAnimation(0, 200,0, 0);
 //        animation.setDuration(3000);
 //        animation.setFillAfter(true);

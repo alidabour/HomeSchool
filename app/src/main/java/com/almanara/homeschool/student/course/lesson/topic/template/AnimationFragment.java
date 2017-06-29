@@ -142,9 +142,15 @@ public class AnimationFragment extends Fragment {
                         slide(v, id);
                         break;
                 }
+                mediaPlayerword.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        ((ClassActivity)getActivity()).swipPager();
+                    }
+                });
                 mediaPlayerword.start();
 
-                ((ClassActivity)getActivity()).swipPager();
+                ((ClassActivity)getActivity()).swipPage();
             }
         });
 

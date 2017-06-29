@@ -1,6 +1,7 @@
 package com.almanara.homeschool.student;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class StudentHomeActivityNew extends AppCompatActivity {
     ViewPager viewPager ;
     FirebaseUser firebaseUser;
+    MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,5 +33,20 @@ public class StudentHomeActivityNew extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         StudentHomeAdapter studentHomeAdapter = new StudentHomeAdapter(getSupportFragmentManager());
         viewPager.setAdapter(studentHomeAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.backgroundsound2);
+        mediaPlayer.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mediaPlayer != null){
+            mediaPlayer.stop();
+        }
     }
 }

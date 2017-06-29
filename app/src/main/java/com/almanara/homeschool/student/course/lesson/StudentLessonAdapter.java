@@ -3,6 +3,7 @@ package com.almanara.homeschool.student.course.lesson;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -128,6 +129,8 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
         @Override
         public void onClick(View view) {
             final int p = getAdapterPosition();
+            final MediaPlayer mediaPlayer = MediaPlayer.create(activity,R.raw.onpresss);
+            mediaPlayer.start();
 //            onClickHandler.onClick(lessonModelList.get(p));
             Animation animation = AnimationUtils.loadAnimation(activity, R.anim.course_image);
             animation.setAnimationListener(new Animation.AnimationListener() {
