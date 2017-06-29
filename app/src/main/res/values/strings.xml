@@ -99,6 +99,11 @@
     <string name="edit_course">Edit Course</string>
     <string name="preview_classroom">Preview Classroom</string>
     <string name="sea">Sea</string>
+    <string name="enter_email">Enter email</string>
+    <string name="message">    This Child is not in Our DataBase ,Please Check if the email entered is correct</string>
+    <string name="chooseanOption"> Choose an Option</string>
+    <string name="enrollMyChild"> Enroll My Child into Course </string>
+    <string name="viewThisChild">View This Child\'s Progress</string>
 
     <string-array name="color_array" translatable="false">
         <item>Red</item>

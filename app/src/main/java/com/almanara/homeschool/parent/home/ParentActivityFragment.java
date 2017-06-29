@@ -37,6 +37,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.almanara.ali.homeschool.R.id.colors;
+
 /**
  * A placeholder fragment containing a simple view.
      */
@@ -70,12 +72,16 @@ import java.util.List;
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Enter Email");
+                //builder.setTitle("Enter Email");
+                builder.setTitle(R.string.enter_email);
+
                 // Set up the input
                 final EditText input = new EditText(getActivity());
                 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
-                input.setHint("Email");
+
+                input.setHint(R.string.Email);
+
                 builder.setView(input);
 
                 // Set up the buttons
@@ -87,8 +93,9 @@ import java.util.List;
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         if(dataSnapshot.getValue()==null)
-                                            Toast.makeText(getActivity(), "This Child is not in Our DataBase ," +
-                                                    " Please Check if the email entered is correct", Toast.LENGTH_SHORT).show();
+
+                                        Toast.makeText(getActivity(), R.string.message, Toast.LENGTH_SHORT).show();
+
                                         for (DataSnapshot d : dataSnapshot.getChildren()) {
                                             UserModel userHS = new UserModel();
                                             for (DataSnapshot x : dataSnapshot.getChildren()) {
@@ -183,10 +190,13 @@ import java.util.List;
                                     public void onClick(final ChildModel test) {
                                         Log.v("Test",test.toString());
 
-                                        CharSequence colors[] = new CharSequence[] {"Enroll My Child into Course", "View This Child's Progress"};
+                                         // CharSequence colors[] = new CharSequence[] {"Enroll My Child into Course", "View This Child's Progress"};
+                                       CharSequence colors[] = new CharSequence[] {getString(R.string.enrollMyChild),getString(R.string.viewThisChild)};
 
                                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                        builder.setTitle("Choose an Option");
+//                                        builder.setTitle("Choose an Option");
+                                        builder.setTitle(R.string.chooseanOption);
+
                                         builder.setItems(colors, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int i) {

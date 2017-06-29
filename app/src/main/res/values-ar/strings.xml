@@ -97,5 +97,10 @@
     <string name="edit_course">تعديل المنهج</string>
     <string name="preview_classroom">مشاهده الفصل </string>
     <string name="sea">بحر</string>
+    <string name="enter_email">ادخل البريد الاليكترونى</string>
+    <string name="message">    هذا الطفل غير مسجل لدينا , تاكد من ان البريد الاليكترونى صحيح</string>
+    <string name="chooseanOption"> الاختيارات </string>
+    <string name="enrollMyChild"> اضف ابنى لهذا المنهج </string>
+    <string name="viewThisChild">اعرض التقدم فى المستوى لابنى فى هذا المنهج</string>
 
 </resources>
