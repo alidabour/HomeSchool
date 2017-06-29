@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.Constants;
+import com.almanara.homeschool.student.course.lesson.topic.template.MatchingFragment;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.almanara.homeschool.data.firebase.ProgressModel;
 import com.almanara.homeschool.data.firebase.TopicModel;
 import com.almanara.homeschool.student.course.lesson.topic.template.AnimationFragment;
@@ -100,6 +103,8 @@ public class ClassActivity extends AppCompatActivity {
                                     .newInstance(modelEntry.getLayout()));
                         }else if(modelEntry.getTopicType().equals("animation")){
                             fragmentList.add(AnimationFragment.newInstance(modelEntry.getLayout()));
+                        }else if(modelEntry.getTopicType().equals("matching")){
+                            fragmentList.add(MatchingFragment.newInstance(modelEntry.getLayout()));
                         }
                     }
                     pager.setAdapter(

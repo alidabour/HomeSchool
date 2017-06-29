@@ -74,4 +74,13 @@
         android:text="@string/animation"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
 
+    <TextView
+        android:padding="8dp"
+        android:id="@+id/matching"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Matching"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
+
 </LinearLayout>

@@ -31,6 +31,7 @@ import com.almanara.homeschool.Answer;
 import com.almanara.homeschool.instructor.create.dialogs.AnimationDialog;
 import com.almanara.homeschool.instructor.create.dialogs.ColorQuestionDialog;
 import com.almanara.homeschool.instructor.create.dialogs.ImageDialog;
+import com.almanara.homeschool.instructor.create.dialogs.MatchingDialog;
 import com.almanara.homeschool.instructor.create.dialogs.MultiImageQueDialog;
 import com.almanara.homeschool.instructor.create.dialogs.MultiQuestionDialog;
 import com.almanara.homeschool.instructor.create.dialogs.SoundDialog;
@@ -47,6 +48,7 @@ import com.almanara.homeschool.instructor.create.ordering.OnStartDragListener;
 import com.almanara.homeschool.instructor.create.ordering.SimpleItemTouchHelperCallback;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.student.course.lesson.topic.template.AnimationFragment;
+import com.almanara.homeschool.student.course.lesson.topic.template.MatchingFragment;
 import com.almanara.homeschool.student.course.lesson.topic.template.MultiImageQuestionFragment;
 import com.almanara.homeschool.Constants;
 import com.google.firebase.database.DatabaseReference;
@@ -69,6 +71,8 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     private static final int PICK_IMAGE_MULTI_QUE = 236;
     final public int PICK_IMAGE_ANIMATION = 237;
     final public int PICK_SOUND_ANIMATION = 238;
+    final public int PICK_IMAGE_MATCHING = 239;
+
 
     private final String HOLD = " ,HO##LD,";
     private MediaPlayer mediaPlayer;
@@ -96,7 +100,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     TextDetectionDialog textDetectionDialog;
     MultiImageQueDialog multiImageQueDialog;
     AnimationDialog animationDialog;
-
+    MatchingDialog matchingDialog;
     ProgressImage progressImage;
     //Parmaters
     String parms;
@@ -213,6 +217,13 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                                             AnimationFragment.newInstance(finalLayout))
                                     .commit();  // 1000 - is the id set for the container layout
 
+                        }else if(topicModel.getTopicType().equals("matching")){
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .add(R.id.multiImageQue,
+                                            MatchingFragment.newInstance(finalLayout))
+                                    .commit();  // 1000 - is the id set for the container layout
+
                         }
                     }
                 });
@@ -263,7 +274,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                         .findViewById(R.id.textDetection);
                 final TextView multiImageQue = (TextView) someLayout.findViewById(R.id.imagesMulti);
                 final TextView animation = (TextView) someLayout.findViewById(R.id.animation);
-
+                final TextView matching = (TextView) someLayout.findViewById(R.id.matching);
                 builder.setView(someLayout);
                 final AlertDialog dialog = builder.create();
                 dialog.show();
@@ -328,8 +339,19 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                         animationDialog = new AnimationDialog(InstructorTopicCreationActivity.this, onQuestionLayoutReady);
                         animationDialog.setCourseId(courseId);
                         animationDialog.openAnimationDialog();
+                        animationDialog.setProgressImage(progressImage);
                         topicType = "animation";
 
+                    }
+                });
+                matching.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                        matchingDialog = new MatchingDialog(InstructorTopicCreationActivity.this,onQuestionLayoutReady);
+                        matchingDialog.setCourseId(courseId);
+                        matchingDialog.openMatchingDialog();
+                        topicType = "matching";
                     }
                 });
 
@@ -452,6 +474,9 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         }
         if (requestCode == PICK_SOUND_ANIMATION && resultCode == Activity.RESULT_OK) {
             animationDialog.setFilePath(data.getData());
+        }
+        if(requestCode == PICK_IMAGE_MATCHING && resultCode == Activity.RESULT_OK){
+            matchingDialog.setFilePath(data.getData());
         }
     }
 

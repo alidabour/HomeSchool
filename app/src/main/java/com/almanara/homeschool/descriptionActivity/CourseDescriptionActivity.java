@@ -91,7 +91,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
         drawable.setColorFilter(Color.parseColor("#0C75DE"),PorterDuff.Mode.SRC_ATOP);
 
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab = (FloatingActionButton) findViewById(R.id.fab);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Animals Vol. 1");
         enroll = (Button) findViewById(R.id.enroll);
