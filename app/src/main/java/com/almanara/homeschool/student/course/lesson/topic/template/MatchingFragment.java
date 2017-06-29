@@ -110,6 +110,9 @@ public class MatchingFragment extends Fragment {
             imageView1.setId(i);
             imageView.setId(i);
 
+            imageView1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
+
             if (i % 2 == 0) part1.addView(imageView, lp);
             else part3.addView(imageView, lp);
 
@@ -122,8 +125,8 @@ public class MatchingFragment extends Fragment {
 
 
         for (int i = 0; i < imageViews.size(); i++) {
-
-            imageViews.get(i).setOnLongClickListener(onClickListener);
+            imageViews.get(i).setOnClickListener(onClickListener);
+//            imageViews.get(i).setOnLongClickListener(onClickListener);
             imageViews_black.get(i).setOnDragListener(onDragListener);
 
 
@@ -141,17 +144,25 @@ public class MatchingFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
-
-    View.OnLongClickListener onClickListener = new View.OnLongClickListener() {
-
+    View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
-        public boolean onLongClick(View v) {
+        public void onClick(View v) {
             ClipData data = ClipData.newPlainText("", "");
             View.DragShadowBuilder dragShadowBuilder = new View.DragShadowBuilder(v);
             v.startDrag(data, dragShadowBuilder, v, 0);
-            return true;
         }
     };
+
+//    View.OnLongClickListener onClickListener = new View.OnLongClickListener() {
+//
+//        @Override
+//        public boolean onLongClick(View v) {
+//            ClipData data = ClipData.newPlainText("", "");
+//            View.DragShadowBuilder dragShadowBuilder = new View.DragShadowBuilder(v);
+//            v.startDrag(data, dragShadowBuilder, v, 0);
+//            return true;
+//        }
+//    };
     View.OnDragListener onDragListener = new View.OnDragListener() {
         @Override
         public boolean onDrag(View v, DragEvent event) {

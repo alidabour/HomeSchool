@@ -5,6 +5,7 @@ package com.almanara.homeschool.student.course.lesson.topic.template;
  */
 
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.almanara.ali.homeschool.R;
+import com.bumptech.glide.Glide;
 
 import java.util.Timer;
 
@@ -67,10 +69,13 @@ public class AnimationFragment extends Fragment {
 
 //        clockwise(view);
 //        zoom(view);
-        final MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), R.raw.catname);
-        final MediaPlayer mediaPlayerword = MediaPlayer.create(getActivity(), R.raw.catname);
+        final MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), Uri.parse(parms[2]));
+
+        final MediaPlayer mediaPlayerword = MediaPlayer.create(getActivity(),  Uri.parse(parms[3]));
         letter = (ImageView) view.findViewById(R.id.letter);
         word = (ImageView) view.findViewById(R.id.word);
+        Glide.with(getActivity()).load(parms[0]).into(letter);
+        Glide.with(getActivity()).load(parms[1]).into(word);
         letter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
