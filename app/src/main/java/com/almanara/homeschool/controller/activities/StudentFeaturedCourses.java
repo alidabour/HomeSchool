@@ -59,7 +59,7 @@ public class StudentFeaturedCourses extends AppCompatActivity {
     DatabaseReference myRef ;
     ImageView gifImage;
     String userId="Hello";
-
+    String mychild=null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +84,7 @@ public class StudentFeaturedCourses extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent.hasExtra("userid")) {
             userId = intent.getStringExtra("userid");
+            mychild= intent.getStringExtra("mychild");
             Log.v("userid",userId);
         }
 
@@ -152,7 +153,7 @@ public class StudentFeaturedCourses extends AppCompatActivity {
                 }
                 courseSectionListAdapter = new CourseSectionListAdapter(StudentFeaturedCourses.this,
                         headerRVDatas, 1, subject);
-                courseSectionListAdapter.setUserId(userId);
+                courseSectionListAdapter.setUserId(userId,mychild);
                 courseSectionRV.setAdapter(courseSectionListAdapter);
 
                 // [END_EXCLUDE]
@@ -175,4 +176,5 @@ public class StudentFeaturedCourses extends AppCompatActivity {
     }
 
 }
+
 

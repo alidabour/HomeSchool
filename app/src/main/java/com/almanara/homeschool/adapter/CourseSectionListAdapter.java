@@ -18,6 +18,8 @@ import com.almanara.homeschool.descriptionActivity.CourseDescriptionActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * Created by Ali on 3/1/2017.
  */
@@ -28,8 +30,10 @@ public class CourseSectionListAdapter extends RecyclerView.Adapter<CourseSection
     int userViewType;
     ArrayList<String> subject ;
     String userid;
+    String mychild;
 
-    public void setUserId(String userid) {
+    public void setUserId(String userid, String mychild) {
+        this.mychild=mychild;
         this.userid = userid;
     }
 
@@ -58,6 +62,7 @@ public class CourseSectionListAdapter extends RecyclerView.Adapter<CourseSection
                 intent.putExtra("type",userViewType);
                 if(userid!=null) {
                     intent.putExtra("userid", userid);
+                    intent.putExtra("mychild",mychild);
                     Log.v("userid: ", userid);
                 }
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

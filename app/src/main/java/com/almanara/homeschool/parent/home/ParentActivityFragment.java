@@ -190,11 +190,9 @@ import static com.almanara.ali.homeschool.R.id.colors;
                                     public void onClick(final ChildModel test) {
                                         Log.v("Test",test.toString());
 
-                                         // CharSequence colors[] = new CharSequence[] {"Enroll My Child into Course", "View This Child's Progress"};
                                        CharSequence colors[] = new CharSequence[] {getString(R.string.enrollMyChild),getString(R.string.viewThisChild)};
 
                                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//                                        builder.setTitle("Choose an Option");
                                         builder.setTitle(R.string.chooseanOption);
 
                                         builder.setItems(colors, new DialogInterface.OnClickListener() {
@@ -203,9 +201,9 @@ import static com.almanara.ali.homeschool.R.id.colors;
                                                 if(i==0){
                                                     Intent intent = new Intent(getContext(),StudentFeaturedCourses.class);
                                                     Log.v("Test","Child id"+test.getId());
-
                                                     intent.putExtra("childModel",test);
                                                     intent.putExtra("userid",test.getId());
+                                                    intent.putExtra("mychild","hello");
                                                     startActivity(intent);
                                                 }
                                                 else {
@@ -229,6 +227,8 @@ import static com.almanara.ali.homeschool.R.id.colors;
                         parentRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
                         parentRecycleView.setAdapter(childAdapter);
                         progressBar.setVisibility(View.INVISIBLE);
+
+
                     }
 
                     @Override

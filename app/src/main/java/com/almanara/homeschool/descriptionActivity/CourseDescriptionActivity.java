@@ -41,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
 import static com.almanara.ali.homeschool.R.id.textView;
 
 /*
@@ -49,6 +50,7 @@ and supposely later on i would use the data base to fetch this data
  */
 public class CourseDescriptionActivity extends AppCompatActivity {
     Toolbar toolbar;
+    String mychild =null;
     ListView topicsListView;
     RecyclerView topicsRecyclerView;
     Button enroll;
@@ -117,6 +119,8 @@ public class CourseDescriptionActivity extends AppCompatActivity {
         }
         if(intent.hasExtra("userid")){
             userid = intent.getStringExtra("userid");
+            mychild=intent.getStringExtra("mychild");
+            Log.e(TAG, "onCreate: _____________"+mychild );
             Log.v("ElidZaahr",userid);
         }
         else
@@ -158,7 +162,10 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                                                     String key2 = myRef1.child("users").child(userid).child("enrolledcourses").child(key).child("progress").push().getKey();
 
                                                     courseExists = true;
-                                                    Toast.makeText(CourseDescriptionActivity.this, "Enrolled Successfully", Toast.LENGTH_SHORT).show();
+                                                    if(mychild.equals("hello"))
+                                                        Toast.makeText(CourseDescriptionActivity.this, "your child Enrolled Successfully", Toast.LENGTH_SHORT).show();
+                                                    else
+                                                        Toast.makeText(CourseDescriptionActivity.this, "Enrolled Successfully", Toast.LENGTH_SHORT).show();
 
                                                     databaseReference.child("courses").child(enrolledCourseModel.getCourse_id()).child("lessons").addValueEventListener(new ValueEventListener() {
                                                         @Override
