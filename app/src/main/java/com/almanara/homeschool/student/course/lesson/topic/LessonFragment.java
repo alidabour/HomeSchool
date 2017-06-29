@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -95,12 +96,13 @@ public class LessonFragment extends Fragment {
 //                    startActivityForResult(intent, Color_Request);
                     if (!openApp(getActivity(), "com.example.android.color_detection",
                             answer.getAnswer(), Constants.Color_Request)) {
-                        Toast.makeText(getActivity(), "No app found", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(getView(),"من فضلك قم بتحميل برنامج الالوان",Snackbar.LENGTH_INDEFINITE).show();
+//                        Toast.makeText(getActivity(), "No app found", Toast.LENGTH_SHORT).show();
                     }
                 } else if (activity.equals("TextDetection")) {
                     if (!openApp(getActivity(), "edu.sfsu.cs.orange.ocr",
                             answer.getAnswer() + "," + answer.getLan(), Constants.Text_Detection)) {
-                        Toast.makeText(getActivity(), "No app found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "من فضلك قم بتحميل برنامج الكلمات", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

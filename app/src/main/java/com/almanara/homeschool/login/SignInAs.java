@@ -138,7 +138,14 @@ public class SignInAs extends AppCompatActivity {
     private int getItem(int i) {
         return pager.getCurrentItem() + i;
     }
-//
+
+    @Override
+    public void onBackPressed() {
+        ActivityCompat.finishAffinity(SignInAs.this);
+        finish();
+//        super.onBackPressed();
+    }
+    //
 //    @Override
 //    public void onBackPressed() {
 ////        new AlertDialog.Builder(this)

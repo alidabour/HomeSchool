@@ -2,15 +2,12 @@ package com.almanara.homeschool.student.course.lesson.topic.template;
 
 import android.content.ClipData;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,20 +15,24 @@ import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.almanara.ali.homeschool.R;
+import com.almanara.homeschool.RotateTransformation;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.util.ArrayList;
 
 public class MatchingFragment extends Fragment {
-    int countToResult=0;
+    int countToResult = 0;
     Drawable drawable;
     boolean flage;
-    ArrayList<ImageView> imageViews = new ArrayList<>();
-    ArrayList<ImageView> imageViews_black = new ArrayList<>();
+    ArrayList<ImageView> matchImageList = new ArrayList<>();
+    ArrayList<ImageView> blackMatchList = new ArrayList<>();
     ArrayList<String> object;
     private final String HOLD = " ,HO##LD,";
 
@@ -59,12 +60,12 @@ public class MatchingFragment extends Fragment {
             if (layout != null) {
                 String[] parms = layout.split("(?<=" + HOLD + ")");
                 for (int i = 0; i < parms.length; i++) {
-                    Log.v("Matching","Parms :" + parms[i]);
+                    Log.v("Matching", "Parms :" + parms[i]);
                     parms[i] = parms[i].replaceAll(HOLD, " ");
                     object.add(parms[i]);
                 }
             }
-            Log.v("Matching","Object size :" + object.size());
+            Log.v("Matching", "Object size :" + object.size());
 
 //            object = (ArrayList<Uri>) args.getSerializable("ARRAYLIST");
 
@@ -89,47 +90,72 @@ public class MatchingFragment extends Fragment {
         LinearLayout part3 = (LinearLayout) mainView.findViewById(R.id.part3);
 
 
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(200, 150);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,1.0f);
 
         lp.setMargins(25, 50, 25, 50);
         for (int i = 0; i < object.size(); i++) {
 
+            ImageView matchImageView = new ImageView(getActivity());
+            matchImageView.setAdjustViewBounds(true);
+            matchImageView.setLayoutParams(
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT, 1.0f));
 
-            ImageView imageView = new ImageView(getActivity());
-            ImageView imageView1 = new ImageView(getActivity());
-            Glide.with(getActivity()).load(object.get(i)).into(imageView);
-            Glide.with(getActivity()).load(object.get(i)).into(imageView1);
+            final ImageView blackImageView = new ImageView(getActivity());
+            Glide.with(getActivity()).load(object.get(i))
+                    .transform(new RotateTransformation(getActivity(),5.0f))
+                    .into(matchImageView);
+            matchImageView.setLayoutParams(
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT, 1.0f));
+//            Glide.with(getActivity()).load(object.get(i)).into(blackImageView);
+            Glide.with(getActivity())
+                    .load(object.get(i))
+                    .asBitmap()
+                    .into(new SimpleTarget<Bitmap>(100, 100) {
+                        @Override
+                        public void onResourceReady(Bitmap resource,
+                                                    GlideAnimation glideAnimation) {
+                            resource = toGrayscale(resource);
+                            blackImageView.setImageBitmap(resource); // Possibly runOnUiThread()
+                            blackImageView.setLayoutParams(
+                                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                            ViewGroup.LayoutParams.MATCH_PARENT, 1.0f));
+                        }
+                    });
+//            blackImageView.setAdjustViewBounds(true);
+//            blackImageView.setImageURI(object.get(i));
+//            matchImageView.setImageURI(object.get(i));
 
-//            imageView1.setImageURI(object.get(i));
-//            imageView.setImageURI(object.get(i));
-
-            drawable = imageView.getDrawable();
+            drawable = matchImageView.getDrawable();
 //            Bitmap mBitmap = ((BitmapDrawable) drawable).getBitmap();
 //            Bitmap newBitMap = toGrayscale(mBitmap);
-//            imageView1.setImageBitmap(newBitMap);
-            imageView1.setId(i);
-            imageView.setId(i);
+//            blackImageView.setImageBitmap(newBitMap);
+            blackImageView.setId(i);
+            matchImageView.setId(i);
 
-            imageView1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT,1.0f));
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT,1.0f));
+            blackImageView.setLayoutParams(
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT, 1.0f));
 
-            if (i % 2 == 0) part1.addView(imageView, lp);
-            else part3.addView(imageView, lp);
 
-            part2.addView(imageView1, lp);
+            if (i % 2 == 0) part1.addView(matchImageView, lp);
+            else part3.addView(matchImageView, lp);
 
-            imageViews.add(imageView);
-            imageViews_black.add(imageView1);
+
+            part2.addView(blackImageView, lp);
+
+            matchImageList.add(matchImageView);
+            blackMatchList.add(blackImageView);
 
         }
 
 
-        for (int i = 0; i < imageViews.size(); i++) {
-//            imageViews.get(i).setOnClickListener(onClickListener);
-            imageViews.get(i).setOnLongClickListener(onClickListener);
-            imageViews_black.get(i).setOnDragListener(onDragListener);
+        for (int i = 0; i < matchImageList.size(); i++) {
+//            matchImageList.get(i).setOnClickListener(onClickListener);
+            matchImageList.get(i).setOnLongClickListener(onClickListener);
+            blackMatchList.get(i).setOnDragListener(onDragListener);
 
 
         }
@@ -169,37 +195,37 @@ public class MatchingFragment extends Fragment {
         @Override
         public boolean onDrag(View v, DragEvent event) {
             int dragEbvent = event.getAction();
-            final View view =(View) event.getLocalState();
+            final View view = (View) event.getLocalState();
             switch (dragEbvent) {
                 case DragEvent.ACTION_DRAG_STARTED:
-                    flage=false;
-                    imageViews.get(view.getId()).setVisibility(View.INVISIBLE);
+                    flage = false;
+                    matchImageList.get(view.getId()).setVisibility(View.INVISIBLE);
                     break;
 
                 case DragEvent.ACTION_DRAG_ENDED:
-                    if(flage){
-//                        imageViews_black.get(view.getId()).setImageURI(object.get(view.getId()));
-                        Glide.with(getActivity()).load(object.get(view.getId())).into(imageViews_black.get(view.getId()));
-                        imageViews.get(view.getId()).setVisibility(View.INVISIBLE);
-                    }
-                    else {
-                        imageViews.get(view.getId()).setVisibility(View.VISIBLE);
+                    if (flage) {
+//                        blackMatchList.get(view.getId()).setImageURI(object.get(view.getId()));
+                        Glide.with(getActivity()).load(object.get(view.getId())).into(
+                                blackMatchList.get(view.getId()));
+                        matchImageList.get(view.getId()).setVisibility(View.INVISIBLE);
+                    } else {
+                        matchImageList.get(view.getId()).setVisibility(View.VISIBLE);
 
                     }
                     break;
 
                 case DragEvent.ACTION_DROP:
 
-                    imageViews.get(view.getId()).setVisibility(View.INVISIBLE);
-                    if(v.getId()==view.getId()){
-                        flage=true;
+                    matchImageList.get(view.getId()).setVisibility(View.INVISIBLE);
+                    if (v.getId() == view.getId()) {
+                        flage = true;
                         countToResult++;
-//                        imageViews_black.get(view.getId()).setImageURI(object.get(view.getId()));
-                        Glide.with(getActivity()).load(object.get(view.getId())).into(imageViews_black.get(view.getId()));
-                        imageViews.get(view.getId()).setVisibility(View.INVISIBLE);
-                    }
-                    else flage=false;
-                    if(countToResult==imageViews.size()) {
+//                        blackMatchList.get(view.getId()).setImageURI(object.get(view.getId()));
+                        Glide.with(getActivity()).load(object.get(view.getId())).into(
+                                blackMatchList.get(view.getId()));
+                        matchImageList.get(view.getId()).setVisibility(View.INVISIBLE);
+                    } else flage = false;
+                    if (countToResult == matchImageList.size()) {
 //                        Intent intent =new Intent(RealTime.this,Result.class);
 //                        startActivity(intent);
                     }
@@ -214,9 +240,7 @@ public class MatchingFragment extends Fragment {
     };
 
 
-
-    public Bitmap toGrayscale(Bitmap bmpOriginal)
-    {
+    public Bitmap toGrayscale(Bitmap bmpOriginal) {
         int width, height;
         height = bmpOriginal.getHeight();
         width = bmpOriginal.getWidth();

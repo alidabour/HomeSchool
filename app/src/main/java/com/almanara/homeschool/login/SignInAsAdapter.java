@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.almanara.homeschool.student.StudentHomeActivityNew;
 import com.bumptech.glide.Glide;
 import com.almanara.homeschool.instructor.InstructorActivity;
 import com.almanara.homeschool.parent.ParentActivity;
@@ -84,7 +85,7 @@ public class SignInAsAdapter extends PagerAdapter {
                     mContext.startActivity(intent);
 
                 } else if (position == 2) {
-                    Intent intent =new Intent(mContext, StudentHomeActivity.class);
+                    Intent intent =new Intent(mContext, StudentHomeActivityNew.class);
                     intent.putExtra("FLAG_ACTIVITY_NEW_TASK" , true );
                     mContext.startActivity(intent);
 

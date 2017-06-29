@@ -33,9 +33,9 @@
         <me.relex.circleindicator.CircleIndicator
             android:id="@+id/indicator"
             android:layout_width="fill_parent"
-            android:layout_height="48dp"
-            app:ci_height="28dp"
-            app:ci_width="28dp"
+            android:layout_height="24dp"
+            app:ci_height="16dp"
+            app:ci_width="16dp"
             app:ci_drawable="@drawable/selected"
             app:ci_drawable_unselected="@drawable/empty"
             />

@@ -91,6 +91,8 @@ public class LessonActivity extends AppCompatActivity {
         course = intent.getParcelableExtra("course");
         ((TextView) findViewById(R.id.course_name)).setText(course.getName());
         Glide.with(getApplicationContext()).load(course.getPhoto_url())
+                .override(200,200)
+                .fitCenter()
 //                .transform(new CircleTransform(getApplicationContext()))
                 .into((CircleImageView)findViewById(R.id.course_image));
 

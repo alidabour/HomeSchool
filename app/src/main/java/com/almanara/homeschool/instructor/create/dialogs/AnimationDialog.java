@@ -133,11 +133,11 @@ public class AnimationDialog implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.word:
+            case R.id.letter:
                 postion = 0;
                 openImageActivity();
                 break;
-            case R.id.letter:
+            case R.id.word:
                 postion =1;
                 openImageActivity();
                 break;
@@ -179,11 +179,11 @@ public class AnimationDialog implements View.OnClickListener {
                 switch (postion) {
                     case 0:
                         Log.v("Animation ",uris[0]);
-                        Glide.with(activity).load(uris[0]).into(word);
+                        Glide.with(activity).load(uris[0]).into(letter_image);
                         break;
                     case 1:
                         Log.v("Animation ",uris[1]);
-                        Glide.with(activity).load(uris[1]).into(letter_image);
+                        Glide.with(activity).load(uris[1]).into(word);
                         break;
                     case 2:
                     case 3:
