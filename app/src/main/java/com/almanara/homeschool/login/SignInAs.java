@@ -33,18 +33,20 @@ public class SignInAs extends AppCompatActivity {
         Log.v("pager ", pager.toString());
         ArrayList<Home> res = new ArrayList<>();
         Home home = new Home();
-        home.setImage(R.drawable.student_icon);
-        home.setName(getString(R.string.Student));
+        home.setImage(R.drawable.parents_icon);
+        home.setName(getString(R.string.Parents));
         res.add(home);
         home = new Home();
         home.setImage(R.drawable.instructor_icon);
         home.setName(getString(R.string.Instructor));
         res.add(home);
         home = new Home();
-        home.setImage(R.drawable.parents_icon);
-        home.setName(getString(R.string.Parents));
+        home.setImage(R.drawable.student_icon);
+        home.setName(getString(R.string.Student));
         res.add(home);
-        pager.setAdapter(new SignInAsAdapter(this, res));
+        SignInAsAdapter signInAsAdapter = new SignInAsAdapter(this, res);
+        pager.setAdapter(signInAsAdapter);
+        pager.setCurrentItem(signInAsAdapter.getCount() - 1);
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(pager);
 
@@ -136,26 +138,26 @@ public class SignInAs extends AppCompatActivity {
     private int getItem(int i) {
         return pager.getCurrentItem() + i;
     }
-
-    @Override
-    public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Closing Activity")
-                .setMessage("Are you sure you want to close this activity?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ActivityCompat.finishAffinity(SignInAs.this);
-                        finish();
-                    }
-
-                })
-                .setNegativeButton("No", null)
-                .show();
-      /*  Intent intent = new Intent(SignInAs.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        overridePendingTransition(R.anim.left_to_right,R.anim.right_to_left);*/
-    }
+//
+//    @Override
+//    public void onBackPressed() {
+////        new AlertDialog.Builder(this)
+////                .setIcon(android.R.drawable.ic_dialog_alert)
+////                .setTitle("Closing Activity")
+////                .setMessage("Are you sure you want to close this activity?")
+////                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+////                    @Override
+////                    public void onClick(DialogInterface dialog, int which) {
+////                        ActivityCompat.finishAffinity(SignInAs.this);
+////                        finish();
+////                    }
+////
+////                })
+////                .setNegativeButton("No", null)
+////                .show();
+//      /*  Intent intent = new Intent(SignInAs.this, MainActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
+//        overridePendingTransition(R.anim.left_to_right,R.anim.right_to_left);*/
+//    }
 }

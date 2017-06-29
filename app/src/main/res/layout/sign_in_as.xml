@@ -36,8 +36,8 @@
             android:layout_height="48dp"
             app:ci_height="28dp"
             app:ci_width="28dp"
-            app:ci_drawable="@drawable/catimage"
-            app:ci_drawable_unselected="@drawable/catimage"
+            app:ci_drawable="@drawable/selected"
+            app:ci_drawable_unselected="@drawable/empty"
             />
 
         <TextView

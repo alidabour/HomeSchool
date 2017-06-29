@@ -145,7 +145,9 @@ public class AnimationFragment extends Fragment {
                 mediaPlayerword.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        ((ClassActivity)getActivity()).swipPager();
+                        if(getActivity() instanceof  ClassActivity){
+                            ((ClassActivity)getActivity()).swipPager();
+                        }
                     }
                 });
                 mediaPlayerword.start();

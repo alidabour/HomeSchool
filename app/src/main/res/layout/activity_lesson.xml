@@ -1,62 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/viewRoot"
-              android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/back2">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/viewRoot"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/back2"
+              android:orientation="vertical">
+
     <LinearLayout
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:orientation="horizontal"
         android:id="@+id/line"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-<!--<ImageView-->
-    <!--android:id="@+id/course_image"-->
-    <!--android:layout_width="100dp"-->
-    <!--android:layout_height="100dp"-->
-    <!--tools:src="@drawable/profile"-->
-    <!--android:adjustViewBounds="true"-->
-    <!--android:layout_gravity="center"-->
-    <!--app:civ_border_color="@color/colorPrimary"-->
-    <!--app:civ_border_width="4dp"/>-->
-
+        <!--<ImageView-->
+        <!--android:id="@+id/course_image"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--tools:src="@drawable/profile"-->
+        <!--android:adjustViewBounds="true"-->
+        <!--android:layout_gravity="center"-->
+        <!--app:civ_border_color="@color/colorPrimary"-->
+        <!--app:civ_border_width="4dp"/>-->
         <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_centerInParent="true"
             android:id="@+id/course_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            tools:src="@drawable/profile"
             android:layout_gravity="center"
             app:civ_border_color="@color/colorPrimary"
-            app:civ_border_width="4dp"/>
+            app:civ_border_width="4dp"
+            tools:src="@drawable/profile"/>
 
         <TextView
-            android:layout_toEndOf="@+id/course_image"
             android:id="@+id/course_name"
+            android:layout_margin="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="8dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
             tools:text="Course Name"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"/>
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_weight="9"
         android:id="@+id/lessonsRV2"
-        android:layout_alignBottom="@+id/line"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
+        android:layout_gravity="center"
         android:layout_marginBottom="24dp"
+        android:layout_weight="9"
         />
     <!--android:layout_below="@+id/toolbar1"-->
 
