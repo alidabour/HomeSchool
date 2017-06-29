@@ -7,10 +7,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.almanara.homeschool.data.firebase.ChildModel;
-import com.almanara.homeschool.parent.home.ChildsAdapter;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.childProgress.ChildCourses;
+import com.almanara.homeschool.data.firebase.ChildModel;
+import com.almanara.homeschool.parent.home.ChildsAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -87,13 +87,16 @@ public class Classroom extends AppCompatActivity {
                                         Log.v("Testttttt",test.toString());
                                         try {
 
+                                            if(test.getId()!=null) {
+                                                Intent intent = new Intent(Classroom.this, ChildCourses.class);
+                                                intent.putExtra("childModel", test);
+                                                startActivity(intent);
+                                            }
                                         }catch (Exception e){
 
                                         }
 
-                                        Intent intent = new Intent(Classroom.this,ChildCourses.class);
-                                        intent.putExtra("childModel",test);
-                                        startActivity(intent);
+
                                     }
                                 });
                         studentsRecycleView.setHasFixedSize(true);
