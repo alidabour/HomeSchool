@@ -41,7 +41,7 @@ public class CoursesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-   DebugRecyclerView coursesRecycleView;
+    DebugRecyclerView coursesRecycleView;
     DatabaseReference db;
     List<CourseCreated> coursesNames;
     FirebaseUser firebaseUser;
@@ -79,7 +79,9 @@ public class CoursesFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
     View viewRoot;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -91,8 +93,6 @@ public class CoursesFragment extends Fragment {
         coursesRecycleView.setHasFixedSize(true);
       /*  GridLayoutManager gridLayoutManger = new GridLayoutManager(getActivity(), 3);
         coursesRecycleView.setLayoutManager(gridLayoutManger);*/
-
-
 
 
 //        gridLayoutManger.generateLayoutParams(new GridLayoutManager.LayoutParams(
@@ -115,7 +115,7 @@ public class CoursesFragment extends Fragment {
 
         // define circle radius
         int circleRadius = screenWidth;
-        circleRadius = (int) (circleRadius*0.85);
+        circleRadius = (int) (circleRadius * 0.85);
         // define center of the circle
         int xOrigin = -400;
         int yOrigin = 0;
@@ -130,17 +130,6 @@ public class CoursesFragment extends Fragment {
                 IScrollHandler.Strategy.NATURAL);
         coursesRecycleView.setLayoutManager(mLondonEyeLayoutManager);
 //------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
 
 
         db = FirebaseDatabase.getInstance().getReference();
@@ -166,7 +155,7 @@ public class CoursesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if(firebaseUser != null) {
+        if (firebaseUser != null) {
             db.child("users").child(firebaseUser.getUid()).child("enrolledcourses")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
@@ -184,7 +173,7 @@ public class CoursesFragment extends Fragment {
                                             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                             @Override
                                             public void onDataChange(DataSnapshot inside) {
-                                                Log.v("WhyInternet?", "Inside :"+ inside);
+                                                Log.v("WhyInternet?", "Inside :" + inside);
                                                 CourseCreated courses = inside
                                                         .getValue(CourseCreated.class);
                                                 for (DataSnapshot x : inside.getChildren()) {

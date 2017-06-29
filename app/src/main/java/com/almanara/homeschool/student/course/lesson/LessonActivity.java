@@ -10,11 +10,15 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -89,8 +93,9 @@ public class LessonActivity extends AppCompatActivity {
         Glide.with(getApplicationContext()).load(course.getPhoto_url())
 //                .transform(new CircleTransform(getApplicationContext()))
                 .into((CircleImageView)findViewById(R.id.course_image));
-        Explode enterTransition = new Explode();
-        enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
+
+        Fade enterTransition = new Fade();
+        enterTransition.setDuration(500);
         getWindow().setEnterTransition(enterTransition);
         Log.e("courseinLessonActivity", course.toString());
         getWindow().setAllowEnterTransitionOverlap(false);
