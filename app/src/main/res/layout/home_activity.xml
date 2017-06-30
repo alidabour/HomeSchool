@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_margin="32dp"
+        android:layout_margin="50dp"
         android:src="@drawable/logo" />
 
     <LinearLayout
@@ -36,6 +36,7 @@
             android:text="@string/signin"
             android:textColor="@color/colorBack"
             android:textAllCaps="false"
+
             android:layout_margin="16dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
