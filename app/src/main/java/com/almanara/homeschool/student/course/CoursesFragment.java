@@ -145,7 +145,7 @@ public class CoursesFragment extends Fragment {
                 .newBuilder(getContext())
                 .withFanRadius(true)
                 .withAngleItemBounce(5)
-                .withViewWidthDp(120)
+                .withViewWidthDp(85)
                 .withViewHeightDp(160)
                 .build();
 
