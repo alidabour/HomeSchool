@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true" android:state_enabled="true">
-        <set>
-            <objectAnimator android:propertyName="translationZ"
-                android:duration="10"
-                android:valueTo="10"
-                android:valueType="floatType"/>
-            <objectAnimator android:propertyName="elevation"
-                android:duration="0"
-                android:valueTo="10"
-                android:valueType="floatType"/>
-        </set>
-    </item>
-    <!-- base state -->
-    <item android:state_enabled="true">
-        <set>
-            <objectAnimator android:propertyName="translationZ"
-                android:duration="10"
-                android:valueTo="0"
-                android:startDelay="10"
-                android:valueType="floatType"/>
-            <objectAnimator android:propertyName="elevation"
-                android:duration="0"
-                android:valueTo="10"
-                android:valueType="floatType" />
-        </set>
-    </item>
-    ...
-</selector>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="3dp" />
+    <stroke android:width="5px" android:color="#FFFFFF" />
+</shape>

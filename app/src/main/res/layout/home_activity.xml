@@ -11,12 +11,12 @@
     android:weightSum="4"
     tools:context="com.almanara.ali.homeschool.com.almanara.homeschool.home.MainActivity">
 
-
     <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_margin="32dp"
         android:src="@drawable/logo" />
 
     <LinearLayout
@@ -29,30 +29,39 @@
 
         <Button
             android:id="@+id/Signin"
-            android:layout_width="wrap_content"
+            android:padding="8dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/ripple"
-            android:stateListAnimator="@drawable/button_animation"
+            android:background="@drawable/button_animation"
             android:text="@string/signin"
+            android:textColor="@color/colorBack"
             android:textAllCaps="false"
+            android:layout_margin="16dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
         <Button
             android:id="@+id/Register"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/ripple"
             android:text="@string/register"
+            android:padding="8dp"
+            android:textColor="@color/colorBack"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/button_animation"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
         <Button
             android:id="@+id/Guest"
-            android:layout_width="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/ripple"
             android:text="@string/guest"
             android:textAllCaps="false"
+            android:padding="8dp"
+            android:textColor="@color/colorBack"
+            android:background="@drawable/button_animation"
             android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
     </LinearLayout>
