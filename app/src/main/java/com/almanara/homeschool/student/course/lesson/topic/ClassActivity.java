@@ -97,7 +97,7 @@ public class ClassActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                progress1.setProgress((100*(position))/TopicModelList.size());
+                progress1.setProgress((100*(position+1))/TopicModelList.size());
             }
 
             @Override
