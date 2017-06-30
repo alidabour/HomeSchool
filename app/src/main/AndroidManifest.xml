@@ -49,8 +49,6 @@
             android:name="com.almanara.homeschool.descriptionActivity.CourseDescriptionActivity"
             android:parentActivityName="com.almanara.homeschool.controller.activities.StudentHomeActivity">
 
-
-
         </activity>
         <activity
             android:name="com.almanara.homeschool.controller.activities.StudentHomeActivity"
@@ -95,8 +93,8 @@
         <activity android:name="com.almanara.homeschool.instructor.home.Classroom"/>
         <activity
             android:name="com.almanara.homeschool.student.StudentHomeActivityNew"
-            android:icon="@drawable/earlymath"
-            android:label="@string/Student">
+            android:label="@string/Student"
+            android:icon="@drawable/icon2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:background="@drawable/back11"
+             android:background="@drawable/start_1"
              tools:context="com.almanara.ali.homeschool.com.almanara.homeschool.student.main.MainStudentFragment">
 
     <!-- TODO: Update blank fragment layout -->

@@ -5,12 +5,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.transition.Slide;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.almanara.ali.homeschool.R;
@@ -42,7 +44,7 @@ public class CoursesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    DebugRecyclerView coursesRecycleView;
+    RecyclerView coursesRecycleView;
     DatabaseReference db;
     List<CourseCreated> coursesNames;
     FirebaseUser firebaseUser;
@@ -90,8 +92,8 @@ public class CoursesFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_courses, container, false);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        viewRoot = (RelativeLayout) view.findViewById(R.id.viewRoot);
-        coursesRecycleView = (DebugRecyclerView) view.findViewById(R.id.courses);
+        viewRoot = (LinearLayout) view.findViewById(R.id.viewRoot);
+        coursesRecycleView = (RecyclerView) view.findViewById(R.id.courses);
         coursesRecycleView.setHasFixedSize(true);
       /*  GridLayoutManager gridLayoutManger = new GridLayoutManager(getActivity(), 3);
         coursesRecycleView.setLayoutManager(gridLayoutManger);*/
