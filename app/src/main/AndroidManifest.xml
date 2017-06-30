@@ -96,7 +96,8 @@
             android:label="@string/Student">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                />
+
+                 />
             </intent-filter>
         </activity>
         <activity android:name="com.almanara.homeschool.student.course.lesson.topic.GenResult" />

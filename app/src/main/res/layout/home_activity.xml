@@ -8,14 +8,14 @@
     android:gravity="center"
     android:orientation="vertical"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:weightSum="4"
+    android:weightSum="6"
     tools:context="com.almanara.ali.homeschool.com.almanara.homeschool.home.MainActivity">
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0"
         android:layout_margin="50dp"
         android:src="@drawable/logo" />
 
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_margin="16dp"
-        android:layout_weight="4"
+        android:layout_weight="6"
         android:orientation="vertical"
         android:padding="8dp">
 
@@ -36,7 +36,6 @@
             android:text="@string/signin"
             android:textColor="@color/colorBack"
             android:textAllCaps="false"
-
             android:layout_margin="16dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
