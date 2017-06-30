@@ -40,6 +40,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     // If you want to use the GPU Filters
+    
+
     compile 'com.android.support:support-v4:25.3.1'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
     compile 'com.android.support:recyclerview-v7:25.3.1'
@@ -57,11 +59,10 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
     compile 'me.relex:circleindicator:1.2.2@aar'
-    testCompile 'junit:junit:4.12'
-    apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
     compile 'com.cleveroad:fan-layout-manager:1.0.4'
-
+    testCompile 'junit:junit:4.12'
+    apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
 }
 
 apply plugin: 'com.google.gms.google-services'
