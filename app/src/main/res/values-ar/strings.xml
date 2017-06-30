@@ -100,8 +100,8 @@
     <string name="enter_email">ادخل البريد الاليكترونى</string>
     <string name="message">    هذا الطفل غير مسجل لدينا , تاكد من ان البريد الاليكترونى صحيح</string>
     <string name="chooseanOption"> الاختيارات </string>
-    <string name="enrollMyChild"> اضف ابنى لهذا المنهج </string>
-    <string name="viewThisChild">اعرض التقدم فى المستوى لابنى فى هذا المنهج</string>
+    <string name="enrollMyChild"> ادخل طفلك في درس </string>
+    <string name="viewThisChild"> اعرض ل مستوى ابني في دروسه </string>
     <string name="addCourse">اضافة منهج</string>
 
 </resources>
