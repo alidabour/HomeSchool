@@ -1,15 +1,19 @@
 package com.almanara.homeschool.login;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +27,8 @@ import com.almanara.homeschool.controller.activities.Home;
 import com.almanara.homeschool.controller.activities.StudentHomeActivity;
 
 import java.util.ArrayList;
+
+import static android.R.drawable.title_bar;
 
 /**
  * Created by Ali on 6/20/2017.
@@ -62,10 +68,16 @@ public class SignInAsAdapter extends PagerAdapter {
         int w = bmp.getWidth();
         int h = bmp.getHeight();
          Log.v("Size " , w + " " +h) ;
+
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
         Glide.with(mContext).load(mResources.get(position).getImage()).override(w,h).into(imageView);
         TextView textView = (TextView) itemView.findViewById(R.id.textView);
         textView.setText(mResources.get(position).getName());
+        FrameLayout layout = (FrameLayout) itemView.findViewById(R.id.framePager);
+        layout.setBackground(ContextCompat.getDrawable(mContext,mResources.get(position).getBackGround()));
+        TextView slogan = (TextView) itemView.findViewById(R.id.slogan);
+        slogan.setText(mResources.get(position).getSlogan());
+
         container.addView(itemView);
 
         itemView.setOnClickListener(new View.OnClickListener() {

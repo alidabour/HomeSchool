@@ -104,5 +104,8 @@
     <string name="viewThisChild"> اعرض ل مستوى ابني في دروسه </string>
     <string name="addCourse">اضافة منهج</string>
     <string name="matching">التوصيل</string>
+    <string name="Efficent">Efficent</string>
+    <string name="Smart">Smart</string>
+    <string name="Easy">Easy</string>
 
 </resources>

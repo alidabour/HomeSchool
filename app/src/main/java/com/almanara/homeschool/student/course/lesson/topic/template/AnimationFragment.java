@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.student.course.lesson.topic.ClassActivity;
@@ -36,6 +37,7 @@ public class AnimationFragment extends Fragment {
     String[] parms;
     ArrayList<Integer> random;
     private final String HOLD = " ,HO##LD,";
+    RelativeLayout relativelayout ;
 
     public AnimationFragment() {
     }
@@ -69,14 +71,16 @@ public class AnimationFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.animtation_fragment_topic, container, false);
 
+
 //        clockwise(view);
 //        zoom(view);
         Random r = new Random();
         final int letterIndex = r.nextInt(6 - 0) + 0;
         final int workIndex = r.nextInt(6 - 0) + 0;
         final MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), Uri.parse(parms[2]));
-
         final MediaPlayer mediaPlayerword = MediaPlayer.create(getActivity(), Uri.parse(parms[3]));
+        relativelayout = (RelativeLayout) view.findViewById(R.id.animation_layout);
+
         letter = (ImageView) view.findViewById(R.id.letter);
         word = (ImageView) view.findViewById(R.id.word);
         Glide.with(getActivity()).load(parms[0]).into(letter);
@@ -145,8 +149,8 @@ public class AnimationFragment extends Fragment {
                 mediaPlayerword.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        if(getActivity() instanceof  ClassActivity){
-                            ((ClassActivity)getActivity()).swipPager();
+                        if (getActivity() instanceof ClassActivity) {
+                            ((ClassActivity) getActivity()).swipPager();
                         }
                     }
                 });
@@ -158,21 +162,21 @@ public class AnimationFragment extends Fragment {
         return view;
     }
 
-    public void clockwise(View view,int id) {
+    public void clockwise(View view, int id) {
         ImageView image = (ImageView) view.findViewById(id);
         Animation animation = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.myanimation);
         image.startAnimation(animation);
     }
 
-    public void zoom(View view , int id) {
+    public void zoom(View view, int id) {
         ImageView image = (ImageView) view.findViewById(id);
         Animation animation1 = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.clockwise);
         image.startAnimation(animation1);
     }
 
-    public void fade(View view, int id ) {
+    public void fade(View view, int id) {
         ImageView image = (ImageView) view.findViewById(id);
         Animation animation1 =
                 AnimationUtils.loadAnimation(getActivity(),
@@ -180,7 +184,7 @@ public class AnimationFragment extends Fragment {
         image.startAnimation(animation1);
     }
 
-    public void blink(View view, int id ) {
+    public void blink(View view, int id) {
         ImageView image = (ImageView) view.findViewById(id);
         Animation animation1 =
                 AnimationUtils.loadAnimation(getActivity(),
@@ -188,14 +192,14 @@ public class AnimationFragment extends Fragment {
         image.startAnimation(animation1);
     }
 
-    public void move(View view, int id ) {
+    public void move(View view, int id) {
         ImageView image = (ImageView) view.findViewById(id);
         Animation animation1 =
                 AnimationUtils.loadAnimation(getActivity(), R.anim.move);
         image.startAnimation(animation1);
     }
 
-    public void slide(View view, int id ) {
+    public void slide(View view, int id) {
         ImageView image = (ImageView) view.findViewById(id);
         Animation animation1 =
                 AnimationUtils.loadAnimation(getActivity(), R.anim.slide);

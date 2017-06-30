@@ -1,41 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:id="@+id/activity_class"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
+    android:orientation="vertical"
     tools:context="com.almanara.ali.homeschool.com.almanara.homeschool.student.course.lesson.topic.ClassActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="5"
-        >
+        android:weightSum="5">
+
         <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+            android:id="@+id/progress_1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:id="@+id/progress_1"
-            android:layout_weight="0.2"
             android:layout_margin="16dp"
-            >
-        </com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar>
+            android:layout_weight="0.2"></com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar>
         <!--<include layout="@layout/topics_flow_progress_bar"
             />-->
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_weight="4.8"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-    </android.support.v4.view.ViewPager>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4.8"></android.support.v4.view.ViewPager>
 
     </LinearLayout>
+
     <ImageView
+        android:id="@+id/masha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/masha"
-        android:visibility="gone"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 </RelativeLayout>

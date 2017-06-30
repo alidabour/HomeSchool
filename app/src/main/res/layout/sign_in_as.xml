@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/back"/>
-
-
-
-    <TextView
-        style="@style/TextAppearance.AppCompat.Medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center"
-        android:padding="40dp"
-        android:text="@string/smart_easy_efficient"
-        android:textColor="@color/colorBack"
-        android:textStyle="bold"/>
+        android:background="@drawable/back" />
 
 
     <LinearLayout
@@ -30,15 +18,16 @@
         android:layout_gravity="center|bottom"
         android:orientation="vertical"
         android:padding="16dp">
+
         <me.relex.circleindicator.CircleIndicator
             android:id="@+id/indicator"
             android:layout_width="fill_parent"
             android:layout_height="24dp"
-            app:ci_height="16dp"
-            app:ci_width="16dp"
+            android:layout_margin="16dp"
             app:ci_drawable="@drawable/selected"
             app:ci_drawable_unselected="@drawable/empty"
-            />
+            app:ci_height="16dp"
+            app:ci_width="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -46,15 +35,15 @@
             android:layout_gravity="center"
             android:text="@string/elmanara_app"
             android:textColor="@color/colorBack"
-            android:textSize="10dp"/>
+            android:textSize="10dp" />
 
         <TextView
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:text="@string/all_rights_reserved_2017"
             android:textColor="@color/colorBack"
-            android:textSize="10dp"/>
+            android:textSize="10dp" />
 
     </LinearLayout>
 </FrameLayout>

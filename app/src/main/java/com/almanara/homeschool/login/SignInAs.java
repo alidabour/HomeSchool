@@ -1,5 +1,6 @@
 package com.almanara.homeschool.login;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.controller.activities.Home;
@@ -21,6 +24,8 @@ import me.relex.circleindicator.CircleIndicator;
 public class SignInAs extends AppCompatActivity {
 
     ViewPager pager;
+    int [] colors = new int []{R.color.colorPrimary , R.color.rate , R.color.colorBack};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +40,20 @@ public class SignInAs extends AppCompatActivity {
         Home home = new Home();
         home.setImage(R.drawable.parents_icon);
         home.setName(getString(R.string.Parents));
+        home.setSlogan(getString(R.string.Efficent));
+        home.setBackGround(R.drawable.parent_background);
         res.add(home);
         home = new Home();
         home.setImage(R.drawable.instructor_icon);
         home.setName(getString(R.string.Instructor));
+        home.setSlogan(getString(R.string.Smart));
+        home.setBackGround(R.drawable.instructor_background);
         res.add(home);
         home = new Home();
         home.setImage(R.drawable.student_icon);
         home.setName(getString(R.string.Student));
+        home.setSlogan(getString(R.string.Easy));
+        home.setBackGround(R.drawable.student_background);
         res.add(home);
         SignInAsAdapter signInAsAdapter = new SignInAsAdapter(this, res);
         pager.setAdapter(signInAsAdapter);
@@ -50,6 +61,25 @@ public class SignInAs extends AppCompatActivity {
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(pager);
 
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Window window = getWindow();
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                window.setStatusBarColor(getResources().getColor(R.color.colorBack));
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 //        final ImageButton previous = (ImageButton) findViewById(R.id.previous);
 //        final ImageButton next = (ImageButton) findViewById(R.id.next);
 //        next.setOnClickListener(new View.OnClickListener() {
