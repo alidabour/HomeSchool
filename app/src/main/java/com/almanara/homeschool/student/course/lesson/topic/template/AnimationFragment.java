@@ -111,7 +111,18 @@ public class AnimationFragment extends Fragment {
                         break;
                 }
 
+                if(getActivity() instanceof  ClassActivity){
+                    ((ClassActivity)getActivity()).pauseSound(true);
+                }
                 mediaPlayer.start();
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        if(getActivity() instanceof  ClassActivity){
+                            ((ClassActivity)getActivity()).pauseSound(false);
+                        }
+                    }
+                });
                 v.animate().alpha(0).setDuration(2000).withEndAction(new Runnable() {
                     @Override
                     public void run() {
@@ -146,15 +157,21 @@ public class AnimationFragment extends Fragment {
                         slide(v, id);
                         break;
                 }
+
+
+                if(getActivity() instanceof  ClassActivity){
+                    ((ClassActivity)getActivity()).pauseSound(true);
+                }
+                mediaPlayerword.start();
                 mediaPlayerword.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        if (getActivity() instanceof ClassActivity) {
-                            ((ClassActivity) getActivity()).swipPager();
+                        if(getActivity() instanceof  ClassActivity){
+                            ((ClassActivity)getActivity()).swipPager();
+                            ((ClassActivity)getActivity()).pauseSound(false);
                         }
                     }
                 });
-                mediaPlayerword.start();
 
             }
         });

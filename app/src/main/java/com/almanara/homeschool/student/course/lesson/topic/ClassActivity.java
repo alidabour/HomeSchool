@@ -111,7 +111,14 @@ public class ClassActivity extends AppCompatActivity {
             lesson_id = b.getString("lessonid");
         }
     }
+    public void pauseSound(boolean pause){
+        if(pause){
+            mediaPlayer.pause();
+        }else{
+            mediaPlayer.start();
+        }
 
+    }
     @Override
     protected void onStart() {
         super.onStart();

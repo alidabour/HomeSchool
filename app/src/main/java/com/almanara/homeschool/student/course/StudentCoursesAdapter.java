@@ -132,6 +132,7 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
                                 LessonActivity.class);
                         intent.putExtra("course", courseCreated);
                         context.startActivity(intent, options.toBundle());
+//                    ((Activity) context).finish();
 //                    }
 //                    viewRoot.setBackgroundColor(Color.parseColor("#ff0000"));
 
