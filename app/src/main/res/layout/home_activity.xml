@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     android:background="@drawable/screen"
     android:clickable="true"
+    android:gravity="center"
     android:orientation="vertical"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:gravity="center"
     android:weightSum="4"
     tools:context="com.almanara.ali.homeschool.com.almanara.homeschool.home.MainActivity">
 
@@ -18,17 +18,21 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:src="@drawable/logo" />
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="0dp"
-    android:orientation="vertical"
-    android:layout_weight="4">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:layout_weight="4"
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <Button
             android:id="@+id/Signin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ripple"
+            android:stateListAnimator="@drawable/button_animation"
             android:text="@string/signin"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Button" />
@@ -51,5 +55,5 @@
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
-</LinearLayout>
+    </LinearLayout>
 </LinearLayout>
