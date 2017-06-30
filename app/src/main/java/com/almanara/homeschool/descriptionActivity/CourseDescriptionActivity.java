@@ -106,6 +106,8 @@ public class CourseDescriptionActivity extends AppCompatActivity {
         topicsRecyclerView = (RecyclerView) findViewById(R.id.listViewDes);
         topicsRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         Intent intent = getIntent();
+
+        final int type = intent.getIntExtra("type", 0);
         if (intent.hasExtra("course")) {
             courseCreated = intent.getParcelableExtra("course");
             courseDescription.setText(courseCreated.getDescriptionS());
@@ -123,15 +125,13 @@ public class CourseDescriptionActivity extends AppCompatActivity {
             Log.e(TAG, "onCreate: _____________"+mychild );
             Log.v("ElidZaahr",userid);
         }
-        else
+        else if(type != 0)
             userid = user.getUid();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         List<String> names = new ArrayList<>();
-
-        final int type = intent.getIntExtra("type", 0);
 
         enroll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,6 +295,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
 
             }
         };
+        if(userid!=null)
         databaseReference.child("users").child(userid).child("enrolledcourses").addValueEventListener(listener1);
         databaseReference.child("courses").child(String.valueOf(courseCreated.getCourse_id())).child("lessons").addValueEventListener(listener2);
 //
