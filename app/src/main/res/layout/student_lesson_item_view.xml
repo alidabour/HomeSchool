@@ -18,6 +18,7 @@
         app:civ_border_color="#FFD93E"/>
     <TextView
         android:id="@+id/lesson_name"
+        android:gravity="center"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
