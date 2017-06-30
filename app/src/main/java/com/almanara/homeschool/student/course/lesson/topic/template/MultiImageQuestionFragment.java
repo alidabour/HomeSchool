@@ -243,8 +243,6 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
                 break;
 
         }
-
-
     }
 
     void lineBackgroudColor() {
@@ -254,8 +252,6 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
         line4.setBackgroundColor(Color.parseColor("#ffffff"));
 
     }
-
-
 
 
 }

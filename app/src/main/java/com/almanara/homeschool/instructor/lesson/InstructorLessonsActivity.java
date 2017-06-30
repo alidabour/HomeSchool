@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -21,12 +20,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.almanara.homeschool.data.firebase.LessonModel;
-import com.almanara.homeschool.data.firebase.CourseCreated;
-import com.almanara.homeschool.instructor.topic.InstructorTopicActivity;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.UserModelHelper.FileUploadHelper;
 import com.almanara.homeschool.UserModelHelper.UploadFile;
+import com.almanara.homeschool.data.firebase.CourseCreated;
+import com.almanara.homeschool.data.firebase.LessonModel;
+import com.almanara.homeschool.instructor.topic.InstructorTopicActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -130,10 +129,10 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.VERTICAL, false);
         lessonsRV.setLayoutManager(layoutManager);
-
+/*
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 lessonsRV.getContext(), layoutManager.getOrientation());
-        lessonsRV.addItemDecoration(dividerItemDecoration);
+        lessonsRV.addItemDecoration(dividerItemDecoration);*/
 
         db = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();

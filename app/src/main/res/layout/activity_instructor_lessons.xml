@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/colorBack"
+    android:background="@color/bkgrnd"
     tools:context="com.almanara.ali.homeschool.com.almanara.homeschool.instructor.lesson.InstructorLessonsActivity">
 
         <android.support.v7.widget.Toolbar
@@ -30,7 +30,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lessonsRV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/toolbar1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
