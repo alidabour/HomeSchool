@@ -140,7 +140,7 @@ public class ClassActivity extends AppCompatActivity {
                         if (modelEntry.getTopicType().equals("normal")) {
                             fragmentList.add(LessonFragment.newInstance(modelEntry.getLayout()));
                         } else if (modelEntry.getTopicType().equals("multiImageQue")) {
-                            fragmentList.add(NestedFrag.newInstance("12"));
+//                            fragmentList.add(NestedFrag.newInstance("12"));
                             fragmentList.add(MultiImageQuestionFragment
                                     .newInstance(modelEntry.getLayout()));
                         } else if (modelEntry.getTopicType().equals("animation")) {
