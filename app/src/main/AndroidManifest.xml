@@ -95,6 +95,7 @@
         <activity android:name="com.almanara.homeschool.instructor.home.Classroom"/>
         <activity
             android:name="com.almanara.homeschool.student.StudentHomeActivityNew"
+            android:icon="@drawable/earlymath"
             android:label="@string/Student">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

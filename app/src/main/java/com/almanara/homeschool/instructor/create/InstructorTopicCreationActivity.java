@@ -114,6 +114,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     RecyclerListAdapter adapter;
     Toolbar toolbar;
     RelativeLayout relativeLayout;
+    RelativeLayout mainRe;
     Button openFragment;
     FrameLayout fragmentLayout;
 
@@ -127,6 +128,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         setContentView(R.layout.activity_instructor_topic);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         relativeLayout = (RelativeLayout) findViewById(R.id.activiy_main);
+        mainRe =  (RelativeLayout) findViewById(R.id.mainRe);
         setSupportActionBar(toolbar);
         openFragment = (Button) findViewById(R.id.openFragment);
         parseXMLInstructor = new ParseXMLInstructor(InstructorTopicCreationActivity.this);
@@ -636,13 +638,13 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         if (findViewById(R.id.multiImageQue) != null) {
             if (findViewById(R.id.multiImageQue).getVisibility() == View.VISIBLE)
                 findViewById(R.id.multiImageQue).setVisibility(View.GONE);
-            setSupportActionBar(toolbar);
+            if(fragmentLayout != null)
+            relativeLayout.removeView(fragmentLayout);
+            openFragment.setVisibility(View.VISIBLE);
+            mainRe.setVisibility(View.VISIBLE);
+//            setSupportActionBar(toolbar);
+//            setContentView(R.layout.activity_instructor_topic);
 
-            onRestart();
-//            Button button = new Button(getApplicationContext());
-//            button.setText("hiiii");
-//            toolbar.addView(button);
-            setContentView(R.layout.activity_instructor_topic);
         } else {
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
@@ -686,7 +688,10 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                 // set an id to the layout
                 fragmentLayout.setId(R.id.multiImageQue); // some positive integer
                 // set the layout as Activity content
-                setContentView(fragmentLayout);
+                mainRe.setVisibility(View.GONE);
+                openFragment.setVisibility(View.GONE);
+//                setContentView(fragmentLayout);
+                relativeLayout.addView(fragmentLayout);
                 // Finally , add the fragment
 
                 if (topicType.equals("multiImageQue")) {
