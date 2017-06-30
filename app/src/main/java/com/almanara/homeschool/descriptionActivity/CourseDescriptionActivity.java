@@ -163,9 +163,9 @@ public class CourseDescriptionActivity extends AppCompatActivity {
 
                                                     courseExists = true;
                                                     if(mychild.equals("hello"))
-                                                        Toast.makeText(CourseDescriptionActivity.this, "your child Enrolled Successfully", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(CourseDescriptionActivity.this, "تم التسجيل بنجاح", Toast.LENGTH_SHORT).show();
                                                     else
-                                                        Toast.makeText(CourseDescriptionActivity.this, "Enrolled Successfully", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(CourseDescriptionActivity.this, "تم التسجيل بنجاح", Toast.LENGTH_SHORT).show();
 
                                                     databaseReference.child("courses").child(enrolledCourseModel.getCourse_id()).child("lessons").addValueEventListener(new ValueEventListener() {
                                                         @Override
@@ -211,7 +211,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                     databaseReference.child("users").child(userid).child("enrolledcourses").addValueEventListener(listener1);
 
                 } else
-                    Toast.makeText(CourseDescriptionActivity.this, "You Need To Sign In", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CourseDescriptionActivity.this, "يجب تسجيل دخول", Toast.LENGTH_SHORT).show();
             }
         });
 

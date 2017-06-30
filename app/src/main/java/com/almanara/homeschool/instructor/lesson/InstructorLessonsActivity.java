@@ -79,7 +79,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                 builder.setView(someLayout);
 
                 // Set up the buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         m_Text = input.getText().toString();
@@ -99,7 +99,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                                 .child(key).child("photo_url").setValue(photo_url);
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();

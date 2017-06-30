@@ -39,6 +39,7 @@ public class StudentHomeActivityNew extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.backgroundsound2);
+        mediaPlayer.setLooping(true);
         mediaPlayer.start();
     }
 

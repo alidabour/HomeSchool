@@ -22,6 +22,7 @@ import com.almanara.homeschool.UserModelHelper.UploadFile;
 import com.almanara.homeschool.instructor.create.OnQuestionLayoutReady;
 import com.almanara.homeschool.instructor.create.ProgressImage;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.SimpleResource;
 
 import java.util.UUID;
 
@@ -174,8 +175,22 @@ public class MultiImageQueDialog  implements View.OnClickListener {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                            if(!checkifAnswerEmpty(answer1,answer2,answer3,answer4,question)) {
+                            if(!checkifAnswerEmpty(question) &&
+                                    checkIfOneSelected(radioButton1,radioButton2,radioButton3,radioButton4)
+                                    && checkifImagesEmpty()) {
 //                                Toast.makeText(activity, "Hiiiiiiii", Toast.LENGTH_SHORT).show();
+                                if(answer1.getText().toString().isEmpty()){
+                                    answer1.setText(" ");
+                                }
+                                if(answer2.getText().toString().isEmpty()){
+                                    answer2.setText(" ");
+                                }
+                                if(answer3.getText().toString().isEmpty()){
+                                    answer3.setText(" ");
+                                }
+                                if(answer4.getText().toString().isEmpty()){
+                                    answer4.setText(" ");
+                                }
                                 String layout = "";
                                 layout += question.getText().toString();
                                 layout += HOLD;
@@ -215,9 +230,28 @@ public class MultiImageQueDialog  implements View.OnClickListener {
                 });
     }
 
+    private boolean checkIfOneSelected(RadioButton... radio) {
+        boolean goodToGo = false;
+        for(RadioButton x:radio){
+            if(x.isChecked()){
+                goodToGo =true;
+            }
+        }
+        return goodToGo;
+    }
+    private boolean checkifImagesEmpty() {
+        for(String x:uris){
+            if(x == null){
+                return false;
+            }
+        }
+        return true;
+    }
+
     private boolean checkifAnswerEmpty(EditText... editText) {
         for(EditText x:editText){
             if(x.getText().toString().isEmpty()){
+
                 Toast.makeText(activity, R.string.complete_data, Toast.LENGTH_SHORT).show();
                 return true;
             }

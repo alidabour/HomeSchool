@@ -175,6 +175,9 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
             Log.v("Test", "Topic Model :" + topicType);
             Log.v("Test", "Topic Model :" + topicModel.getName());
             String layout = topicModel.getLayout();
+            parms =layout;
+            this.topicType = topicModel.getTopicType();
+            isQuestion = topicModel.getQuestion().trim().equals("true");
             if (topicModel.getTopicType().equals("normal")) {
                 if ((layout.contains("ImageView")) || (layout.contains("RadioButton"))
                         || (layout.contains("RadioGroup")) || (layout.contains("TextView")))
@@ -270,7 +273,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                 }
                 final AlertDialog.Builder builder = new AlertDialog.Builder(
                         InstructorTopicCreationActivity.this);
-                builder.setTitle("Choose type :");
+                builder.setTitle("اختار النوع :");
                 LayoutInflater li = LayoutInflater.from(InstructorTopicCreationActivity.this);
                 LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.question_list, null);
                 final TextView colorQue = (TextView) someLayout.findViewById(R.id.color);

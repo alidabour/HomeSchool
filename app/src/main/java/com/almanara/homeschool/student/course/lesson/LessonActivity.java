@@ -149,6 +149,7 @@ public class LessonActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.backgroundsound3);
+        mediaPlayer.setLooping(true );
         mediaPlayer.start();
 //        Animation animation = new TranslateAnimation(0, 200,0, 0);
 //        animation.setDuration(3000);

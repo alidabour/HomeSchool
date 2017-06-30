@@ -74,7 +74,7 @@
     <string name="check">تحقق</string>
     <string name="animation">التحريك</string>
     <string name="on_click">اضغط</string>
-    <string name="preview">Preview</string>
+    <string name="preview">اعرض</string>
     <string name="end">النهاية</string>
     <string name="iam_here">انا هنا</string>
     <string name="android">اندرويد</string>
@@ -103,5 +103,6 @@
     <string name="enrollMyChild"> ادخل طفلك في درس </string>
     <string name="viewThisChild"> اعرض ل مستوى ابني في دروسه </string>
     <string name="addCourse">اضافة منهج</string>
+    <string name="matching">التوصيل</string>
 
 </resources>

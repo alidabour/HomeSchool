@@ -26,12 +26,14 @@
         android:src="@drawable/image"/>
     <ImageView
         android:id="@+id/sound1"
-        android:src="@drawable/a4"
+        android:src="@drawable/ic_audiotrack_black_24dp"
+        android:tint="@color/colorAccent"
         android:layout_width="match_parent"
         android:layout_height="60dp"/>
     <ImageView
-        android:src="@drawable/a4"
         android:id="@+id/sound2"
+        android:src="@drawable/ic_audiotrack_black_24dp"
+        android:tint="@color/colorAccent"
         android:layout_width="match_parent"
         android:layout_height="60dp"/>
     </LinearLayout>

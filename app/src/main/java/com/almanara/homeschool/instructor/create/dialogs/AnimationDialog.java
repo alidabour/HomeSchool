@@ -135,18 +135,22 @@ public class AnimationDialog implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.letter:
                 postion = 0;
+                letter_image.setEnabled(false);
                 openImageActivity();
                 break;
             case R.id.word:
                 postion =1;
+                word.setEnabled(false);
                 openImageActivity();
                 break;
             case R.id.sound1:
                 postion = 2;
+                word_sound.setEnabled(false);
                 openSoundActivity();
                 break;
             case R.id.sound2:
                 postion = 3;
+                letter_sound.setEnabled(false);
                 openSoundActivity();
                 break;
         }

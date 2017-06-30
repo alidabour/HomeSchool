@@ -20,3 +20,4 @@
 -keepclassmembers class com.almanara.homeschool.data.firebase.** {
   *;
 }
+-dontwarn com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
