@@ -15,8 +15,8 @@
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
         android:layout_margin="50dp"
+        android:layout_weight="0"
         android:src="@drawable/logo" />
 
     <LinearLayout
@@ -29,40 +29,45 @@
 
         <Button
             android:id="@+id/Signin"
-            android:padding="8dp"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_animation"
-            android:text="@string/signin"
-            android:textColor="@color/colorBack"
-            android:textAllCaps="false"
             android:layout_margin="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+            android:background="@drawable/button_animation"
+            android:elevation="5dp"
+            android:padding="8dp"
+            android:text="@string/signin"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@color/colorBack"
+            android:translationZ="5dp" />
 
         <Button
             android:id="@+id/Register"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="@string/register"
-            android:padding="8dp"
-            android:textColor="@color/colorBack"
-            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/button_animation"
+            android:layout_marginStart="16dp"
+            android:elevation="20dp"
+            android:padding="8dp"
+            android:text="@string/register"
             android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@color/colorBack"
+            android:translationZ="20dp" />
 
         <Button
             android:id="@+id/Guest"
-            android:layout_margin="16dp"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/button_animation"
+            android:elevation="5dp"
+            android:padding="8dp"
             android:text="@string/guest"
             android:textAllCaps="false"
-            android:padding="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textColor="@color/colorBack"
-            android:background="@drawable/button_animation"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+            android:translationZ="5dp" />
 
     </LinearLayout>
 </LinearLayout>

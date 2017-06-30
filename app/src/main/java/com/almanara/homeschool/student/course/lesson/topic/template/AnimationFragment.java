@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class AnimationFragment extends Fragment {
     ArrayList<Integer> random;
     private final String HOLD = " ,HO##LD,";
     RelativeLayout relativelayout ;
-
+    int page ;
     public AnimationFragment() {
     }
 
@@ -80,6 +81,17 @@ public class AnimationFragment extends Fragment {
         final MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), Uri.parse(parms[2]));
         final MediaPlayer mediaPlayerword = MediaPlayer.create(getActivity(), Uri.parse(parms[3]));
         relativelayout = (RelativeLayout) view.findViewById(R.id.animation_layout);
+
+        if (getActivity() instanceof ClassActivity) {
+            page = ((ClassActivity) getActivity()).getCurrentPage();
+            Log.v("Animation page " ,page+"" );
+        }
+        if(page % 2 == 0 ){
+
+            relativelayout.setBackground(getActivity().getResources().getDrawable(R.drawable.characteres_1));
+        } else {
+            relativelayout.setBackground(getActivity().getResources().getDrawable(R.drawable.characteres_2));
+        }
 
         letter = (ImageView) view.findViewById(R.id.letter);
         word = (ImageView) view.findViewById(R.id.word);

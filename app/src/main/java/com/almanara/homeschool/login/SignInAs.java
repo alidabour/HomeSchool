@@ -67,7 +67,7 @@ public class SignInAs extends AppCompatActivity {
                 Window window = getWindow();
                 window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                window.setStatusBarColor(getResources().getColor(R.color.colorBack));
+                window.setStatusBarColor(getResources().getColor(colors[position]));
             }
 
             @Override

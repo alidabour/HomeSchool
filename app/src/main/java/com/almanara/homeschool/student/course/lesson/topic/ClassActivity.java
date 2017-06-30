@@ -364,4 +364,9 @@ public class ClassActivity extends AppCompatActivity {
 
     }
 
+    public int getCurrentPage(){
+        return pager.getCurrentItem();
+
+    }
+
 }

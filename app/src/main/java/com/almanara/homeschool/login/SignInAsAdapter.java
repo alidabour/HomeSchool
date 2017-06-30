@@ -73,8 +73,8 @@ public class SignInAsAdapter extends PagerAdapter {
         Glide.with(mContext).load(mResources.get(position).getImage()).override(w,h).into(imageView);
         TextView textView = (TextView) itemView.findViewById(R.id.textView);
         textView.setText(mResources.get(position).getName());
-        FrameLayout layout = (FrameLayout) itemView.findViewById(R.id.framePager);
-        layout.setBackground(ContextCompat.getDrawable(mContext,mResources.get(position).getBackGround()));
+        ImageView layout = (ImageView) itemView.findViewById(R.id.framePager);
+        Glide.with(mContext).load(mResources.get(position).getBackGround()).into(layout);
         TextView slogan = (TextView) itemView.findViewById(R.id.slogan);
         slogan.setText(mResources.get(position).getSlogan());
 

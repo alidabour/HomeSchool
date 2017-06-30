@@ -171,18 +171,18 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
                 clear();
                 radioButton1.setChecked(true);
                 submit.setEnabled(true);
-                submit.setBackgroundColor(Color.parseColor("#ff0000"));
+                submit.setBackgroundColor(Color.parseColor("#00ff00"));
                 lineBackgroudColor();
-                line1.setBackgroundColor(Color.parseColor("#ff0000"));
+                line1.setBackgroundColor(Color.parseColor("#00ff00"));
                 break;
             case R.id.card2:
             case R.id.radioButton2:
                 clear();
                 radioButton2.setChecked(true);
                 submit.setEnabled(true);
-                submit.setBackgroundColor(Color.parseColor("#ff0000"));
+                submit.setBackgroundColor(Color.parseColor("#00ff00"));
                 lineBackgroudColor();
-                line2.setBackgroundColor(Color.parseColor("#ff0000"));
+                line2.setBackgroundColor(Color.parseColor("#00ff00"));
 
                 break;
             case R.id.card3:
@@ -190,9 +190,9 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
                 clear();
                 radioButton3.setChecked(true);
                 submit.setEnabled(true);
-                submit.setBackgroundColor(Color.parseColor("#ff0000"));
+                submit.setBackgroundColor(Color.parseColor("#00ff00"));
                 lineBackgroudColor();
-                line3.setBackgroundColor(Color.parseColor("#ff0000"));
+                line3.setBackgroundColor(Color.parseColor("#00ff00"));
 
                 break;
             case R.id.card4:
@@ -200,9 +200,9 @@ public class MultiImageQuestionFragment extends Fragment implements View.OnClick
                 clear();
                 radioButton4.setChecked(true);
                 submit.setEnabled(true);
-                submit.setBackgroundColor(Color.parseColor("#ff0000"));
+                submit.setBackgroundColor(Color.parseColor("#00ff00"));
                 lineBackgroudColor();
-                line4.setBackgroundColor(Color.parseColor("#ff0000"));
+                line4.setBackgroundColor(Color.parseColor("#00ff00"));
                 break;
             case R.id.submit:
                 Log.v("MultiImageQuestion", "1 : " + isCorrect1 + " " + radioButton1.isChecked());
