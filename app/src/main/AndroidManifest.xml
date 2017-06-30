@@ -18,10 +18,8 @@
     <application
         android:allowBackup="false"
         android:fullBackupContent="false"
-        android:hardwareAccelerated="false"
         android:icon="@drawable/icon"
         android:label="المناره"
-        android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.almanara.homeschool.home.Splash">
