@@ -330,7 +330,7 @@ public class ClassActivity extends AppCompatActivity {
                                         .getValue(ProgressModel.class);
                                 if (progressModel.getTopicProgressId()
                                         .equals(TopicModelList
-                                                .get(pager.getCurrentItem() - 2).getId())) {
+                                                .get(pager.getCurrentItem()-1).getId())) {
                                     progressModel.setTopicProgressFlag("true");
                                     db.child("users").child(user.getUid())
                                             .child("enrolledcourses")
