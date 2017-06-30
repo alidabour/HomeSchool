@@ -95,7 +95,7 @@ public class LessonFragment extends Fragment {
 //                    intent.putExtra("Answer", answer);
 //                    startActivityForResult(intent, Color_Request);
                     if (!openApp(getActivity(), "com.example.android.color_detection",
-                            answer.getAnswer(), Constants.Color_Request)) {
+                            answer.getAnswer(), Constants.Color_Request,"MainActivity")) {
                         Snackbar.make(getView(),"من فضلك قم بتحميل برنامج الالوان",Snackbar.LENGTH_INDEFINITE)
                                 .setAction("تحميل", new View.OnClickListener() {
                                     @Override
@@ -111,8 +111,8 @@ public class LessonFragment extends Fragment {
                     }
                 } else if (activity.equals("TextDetection")) {
                     if (!openApp(getActivity(), "edu.sfsu.cs.orange.ocr",
-                            answer.getAnswer() + "," + answer.getLan(), Constants.Text_Detection)) {
-                        Snackbar.make(getView(),"من فضلك قم بتحميل برنامج الالوان",Snackbar.LENGTH_INDEFINITE)
+                            answer.getAnswer() + "," + answer.getLan(), Constants.Text_Detection,"CaptureActivity")) {
+                        Snackbar.make(getView(),"من فضلك قم بتحميل برنامج الحروف",Snackbar.LENGTH_INDEFINITE)
                                 .setAction("تحميل", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -160,7 +160,7 @@ public class LessonFragment extends Fragment {
         return linearLayout;
     }
 
-    public boolean openApp(Context context, String packageName, String data, int requestCode) {
+    public boolean openApp(Context context, String packageName, String data, int requestCode,String activityName) {
         PackageManager manager = context.getPackageManager();
         try {
             Intent i = manager.getLaunchIntentForPackage(packageName);
@@ -170,6 +170,8 @@ public class LessonFragment extends Fragment {
             }
             i.addCategory(Intent.CATEGORY_DEFAULT);
             i.putExtra("Data", data);
+            i.setFlags(0);
+            i.setClassName(packageName,packageName+"."+activityName);
             getActivity().startActivityForResult(i, requestCode);
 
             return true;

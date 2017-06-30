@@ -105,10 +105,10 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
                     int cy = (viewRoot.getTop() + viewRoot.getBottom()) / 2;
                     int finalRadius = Math.max(viewRoot.getWidth(), viewRoot.getHeight());
 
-                    Animator anim = ViewAnimationUtils
-                            .createCircularReveal(viewRoot, cx, cy, 0, finalRadius);
-                    final int color = 0xFFFF0000;
-                    final Drawable drawable = new ColorDrawable(color);
+//                    Animator anim = ViewAnimationUtils
+//                            .createCircularReveal(viewRoot, cx, cy, 0, finalRadius);
+//                    final int color = 0xFFFF0000;
+//                    final Drawable drawable = new ColorDrawable(color);
 //                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //                        viewRoot.setForeground(drawable);
 //                        anim.addListener(new AnimatorListenerAdapter() {
@@ -127,11 +127,20 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
 //                    }else{
                         int p = getAdapterPosition();
                         CourseCreated courseCreated = courses.get(p);
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity)context);
+                    ActivityOptions options = null;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                        options = ActivityOptions.makeSceneTransitionAnimation((Activity)context);
                         Intent intent = new Intent(context,
                                 LessonActivity.class);
                         intent.putExtra("course", courseCreated);
                         context.startActivity(intent, options.toBundle());
+                    }else{
+                        Intent intent = new Intent(context,
+                                LessonActivity.class);
+                        intent.putExtra("course", courseCreated);
+                        context.startActivity(intent);
+                    }
+
 //                    ((Activity) context).finish();
 //                    }
 //                    viewRoot.setBackgroundColor(Color.parseColor("#ff0000"));

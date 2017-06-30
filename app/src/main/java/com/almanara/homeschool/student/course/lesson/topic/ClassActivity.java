@@ -62,6 +62,7 @@ public class ClassActivity extends AppCompatActivity {
 
     RoundCornerProgressBar progress1;
     int counter = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,13 +92,14 @@ public class ClassActivity extends AppCompatActivity {
         pager.canScrollHorizontally(1);
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
 
             }
 
             @Override
             public void onPageSelected(int position) {
-                progress1.setProgress((100*(position+1))/TopicModelList.size());
+                progress1.setProgress((100 * (position + 1)) / TopicModelList.size());
             }
 
             @Override
@@ -111,14 +113,16 @@ public class ClassActivity extends AppCompatActivity {
             lesson_id = b.getString("lessonid");
         }
     }
-    public void pauseSound(boolean pause){
-        if(pause){
+
+    public void pauseSound(boolean pause) {
+        if (pause) {
             mediaPlayer.pause();
-        }else{
+        } else {
             mediaPlayer.start();
         }
 
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -195,7 +199,8 @@ public class ClassActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         imageView2.setVisibility(View.VISIBLE);
-        final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView2);
+        final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
+                imageView2);
         Glide.with(this).load(R.raw.source).into(imageViewTarget);
 //        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
         try {
@@ -268,16 +273,28 @@ public class ClassActivity extends AppCompatActivity {
         }
         //-----------------------------------------------------------------------------------------------------
         Log.v("LessonFragment", "Activity Result " + requestCode + " , " + resultCode);
+        if(data != null){
+            if (data.hasExtra("result"))
+                Log.v("LessonFragment", "Activity Result " + requestCode + " , data " + data
+                        .getIntExtra("result", 999));
+            else
+                Log.v("LessonFragment", "Activity Result " + requestCode + " , " + resultCode);
+
+        }else{
+            Log.v("LessonFragment"," data is null");
+        }
+
         //-----------------------------------------------------------------------------------------------------
         if (resultCode == Constants.CORRECTANSWER) {
             if (requestCode == Constants.Text_Detection) {
 //                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
-                Log.v("t3alayabni", "etnyl t3ala enta eltani");
+                Log.v("yahoo2", "Correct yabnii");
                 Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
             }
         }
         if (resultCode == Constants.WRONGANSWER) {
             if (requestCode == Constants.Text_Detection) {
+                Log.v("yahoo2", "Wrong yabnii");
 //                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
                 Toast.makeText(context, "Result Incorrect", Toast.LENGTH_SHORT).show();
             }
@@ -287,7 +304,8 @@ public class ClassActivity extends AppCompatActivity {
     public void onAnswer(boolean isCorrect) {
         if (isCorrect) {
             imageView2.setVisibility(View.VISIBLE);
-            final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView2);
+            final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
+                    imageView2);
             Glide.with(this).load(R.raw.source).into(imageViewTarget);
 //            if(mediaPlayer != null){
 //                mediaPlayer.reset();
@@ -316,12 +334,14 @@ public class ClassActivity extends AppCompatActivity {
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.backgroundsound);
+                    mediaPlayer = MediaPlayer
+                            .create(getApplicationContext(), R.raw.backgroundsound);
                     mediaPlayer.seekTo(finalMpPosition);
                     mediaPlayer.start();
                     imageView2.setVisibility(View.GONE);
 
-                    db.child("users").child(user.getUid()).child("enrolledcourses").addValueEventListener(listener2);
+                    db.child("users").child(user.getUid()).child("enrolledcourses")
+                            .addValueEventListener(listener2);
                     swipPager();
                 }
             });
@@ -337,7 +357,7 @@ public class ClassActivity extends AppCompatActivity {
                                         .getValue(ProgressModel.class);
                                 if (progressModel.getTopicProgressId()
                                         .equals(TopicModelList
-                                                .get(pager.getCurrentItem()-1).getId())) {
+                                                .get(pager.getCurrentItem() - 1).getId())) {
                                     progressModel.setTopicProgressFlag("true");
                                     db.child("users").child(user.getUid())
                                             .child("enrolledcourses")
@@ -359,12 +379,12 @@ public class ClassActivity extends AppCompatActivity {
     }
 
     public void swipPager() {
-        progress1.setProgress((100*(pager.getCurrentItem()+1))/TopicModelList.size());
+        progress1.setProgress((100 * (pager.getCurrentItem() + 1)) / TopicModelList.size());
         pager.setCurrentItem(pager.getCurrentItem() + 1);
 
     }
 
-    public int getCurrentPage(){
+    public int getCurrentPage() {
         return pager.getCurrentItem();
 
     }

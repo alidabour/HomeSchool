@@ -178,15 +178,19 @@ public class CoursesFragment extends Fragment {
     private void setupWindowAnimations() {
 
         // Re-enter transition is executed when returning back to this activity
-        Slide slideTransition = new Slide();
-        slideTransition.setSlideEdge(Gravity.LEFT); // Use START if using right - to - left locale
-        slideTransition.setDuration(1000);
+        Slide slideTransition = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            slideTransition = new Slide();
 
-        getActivity().getWindow().setReenterTransition(slideTransition);  // When MainActivity Re-enter the Screen
-        getActivity().getWindow().setExitTransition(slideTransition);     // When MainActivity Exits the Screen
+            slideTransition.setSlideEdge(Gravity.LEFT); // Use START if using right - to - left locale
+            slideTransition.setDuration(1000);
 
-        // For overlap of Re Entering Activity - MainActivity.java and Exiting TransitionActivity.java
-        getActivity().getWindow().setAllowReturnTransitionOverlap(false);
+            getActivity().getWindow().setReenterTransition(slideTransition);  // When MainActivity Re-enter the Screen
+            getActivity().getWindow().setExitTransition(slideTransition);     // When MainActivity Exits the Screen
+
+            // For overlap of Re Entering Activity - MainActivity.java and Exiting TransitionActivity.java
+            getActivity().getWindow().setAllowReturnTransitionOverlap(false);
+        }
     }
 
 

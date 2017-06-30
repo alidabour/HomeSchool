@@ -14,7 +14,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.almanara.homeschool"
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 5
         versionName "1.4"

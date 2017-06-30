@@ -11,7 +11,6 @@ import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.instructor.create.xmlinterface.TextAppInterface;
 import com.jrummyapps.android.colorpicker.ColorPickerDialog;
 
-
 /**
  * Created by Ali on 6/2/2017.
  */

@@ -37,6 +37,14 @@ public class StudentHomeActivityNew extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         StudentHomeAdapter studentHomeAdapter = new StudentHomeAdapter(getSupportFragmentManager());
         viewPager.setAdapter(studentHomeAdapter);
+//        viewPager.setNestedScrollingEnabled(true);
+        viewPager.setEnabled(false);
+        viewPager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(1);
+            }
+        });
 
 
 
@@ -51,13 +59,13 @@ public class StudentHomeActivityNew extends AppCompatActivity {
 
 
 
-        viewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-
-        });
+//        viewPager.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                return true;
+//            }
+//
+//        });
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

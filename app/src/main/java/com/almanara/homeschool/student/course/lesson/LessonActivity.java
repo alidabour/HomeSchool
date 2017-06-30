@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -98,7 +99,9 @@ public class LessonActivity extends AppCompatActivity {
 
 
         Log.e("courseinLessonActivity", course.toString());
-        getWindow().setAllowEnterTransitionOverlap(false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setAllowEnterTransitionOverlap(false);
+        }
         cx = (viewRoot.getLeft() + viewRoot.getRight()) / 2;
         cy = (viewRoot.getTop() + viewRoot.getBottom()) / 2;
         finalRadius = Math.max(viewRoot.getWidth(), viewRoot.getHeight());
