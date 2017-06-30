@@ -203,8 +203,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                         // set an id to the layout
                         fragmentLayout.setId(R.id.multiImageQue); // some positive integer
                         // set the layout as Activity content
-                        setContentView(fragmentLayout);
+//                        setContentView(fragmentLayout);
                         // Finally , add the fragment
+                        mainRe.setVisibility(View.GONE);
+                        openFragment.setVisibility(View.GONE);
+//                setContentView(fragmentLayout);
+                        relativeLayout.addView(fragmentLayout);
 
                         if (topicModel.getTopicType().equals("multiImageQue")) {
                             getSupportFragmentManager()
