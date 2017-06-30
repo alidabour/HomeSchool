@@ -107,27 +107,27 @@ public class Guest extends AppCompatActivity {
 
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.home_menu, menu);
-        MenuItem item = menu.findItem(R.id.search_action);
-        SearchView searchView = (SearchView)item.getActionView();
-        Log.v("Searchview" , searchView+"");
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-        return true;
-    }
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        getMenuInflater().inflate(R.menu.home_menu, menu);
+//        MenuItem item = menu.findItem(R.id.search_action);
+//        SearchView searchView = (SearchView)item.getActionView();
+//        Log.v("Searchview" , searchView+"");
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
+//        return true;
+//    }
 
     @Override
     protected void onPause(){
