@@ -8,18 +8,17 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Slide;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.homeschool.data.firebase.EnrolledCourseModel;
 import com.almanara.homeschool.module.layoutmanager.LondonEyeLayoutManager;
-import com.almanara.homeschool.module.utils.DebugRecyclerView;
 import com.cleveroad.fanlayoutmanager.FanLayoutManager;
 import com.cleveroad.fanlayoutmanager.FanLayoutManagerSettings;
 import com.google.firebase.auth.FirebaseAuth;
@@ -155,7 +154,13 @@ public class CoursesFragment extends Fragment {
 
 
 //------------------------------------------------------------------------------------
-
+        GestureDetector gestureDetector ;
+        coursesRecycleView.setOnFlingListener(new RecyclerView.OnFlingListener() {
+            @Override
+            public boolean onFling(int velocityX, int velocityY) {
+                return false;
+            }
+        });
 
 
 
@@ -183,6 +188,7 @@ public class CoursesFragment extends Fragment {
         // For overlap of Re Entering Activity - MainActivity.java and Exiting TransitionActivity.java
         getActivity().getWindow().setAllowReturnTransitionOverlap(false);
     }
+
 
     @Override
     public void onStart() {
@@ -216,6 +222,8 @@ public class CoursesFragment extends Fragment {
                                                 studentCoursesAdapter.setViewRoot(viewRoot);
                                                 coursesRecycleView
                                                         .setAdapter(studentCoursesAdapter);
+
+
 //                                            if(coursesNames.size() <0){
 //                                                noMyCourse.setVisibility(View.VISIBLE);
 //                                            }else{

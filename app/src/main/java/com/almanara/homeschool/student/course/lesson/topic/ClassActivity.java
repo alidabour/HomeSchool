@@ -88,6 +88,7 @@ public class ClassActivity extends AppCompatActivity {
         Intent iin = getIntent();
         Bundle b = iin.getExtras();
 
+        pager.canScrollHorizontally(1);
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
