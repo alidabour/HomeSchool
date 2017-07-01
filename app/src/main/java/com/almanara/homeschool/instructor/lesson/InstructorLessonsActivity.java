@@ -62,8 +62,6 @@ public class InstructorLessonsActivity extends AppCompatActivity {
 //        finish();
         setContentView(R.layout.activity_instructor_lessons);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab3);
-        noLesson = (TextView) findViewById(R.id.no_lesson);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -246,7 +244,16 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         }, InstructorLessonsActivity.this, courseID);
+
+
+                if (lessonModelList.size() <= 0) {
+                    Log.v("mfesh Course", "toz fek");
+                    findViewById(R.id.no_lesson).setVisibility(View.VISIBLE);
+                } else {
+                    findViewById(R.id.no_lesson).setVisibility(View.GONE);
+                }
                 lessonsRV.setAdapter(instructorLessonAdapter);
+
 
             }
 

@@ -26,7 +26,7 @@ import me.relex.circleindicator.CircleIndicator;
 public class SignInAs extends AppCompatActivity {
 
     ViewPager pager;
-    int [] colors = new int []{R.color.colorPrimary , R.color.rate , R.color.colorBack};
+    int [] colors = new int []{R.color.instructor , R.color.parent , R.color.student};
 
 
     @Override

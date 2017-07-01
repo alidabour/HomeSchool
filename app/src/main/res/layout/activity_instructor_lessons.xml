@@ -1,60 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="@color/bkgrnd"
+    android:orientation="vertical"
     tools:context="com.almanara.ali.homeschool.com.almanara.homeschool.instructor.lesson.InstructorLessonsActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar1"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar1"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:src="@android:drawable/ic_input_add"
-        android:layout_marginRight="18dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="13dp"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="13dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:src="@android:drawable/ic_input_add" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lessonsRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar1"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar1" />
 
     <ProgressBar
         android:id="@+id/indeterminateBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-
         android:layout_alignParentTop="true"
+        android:layout_marginEnd="122dp"
+        android:layout_marginRight="122dp"
+        android:layout_marginTop="250dp"
         android:layout_toLeftOf="@+id/fab3"
         android:layout_toStartOf="@+id/fab3"
-        android:layout_marginRight="122dp"
-        android:layout_marginEnd="122dp"
-        android:layout_marginTop="250dp" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/no_lesson"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:visibility="gone" />
+
+    <ImageView
         android:id="@+id/no_lesson"
-        android:visibility="gone"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

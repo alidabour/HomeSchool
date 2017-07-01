@@ -1,21 +1,25 @@
 package com.almanara.homeschool.student.course.lesson.topic;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -63,9 +67,7 @@ public class ClassActivity extends AppCompatActivity {
     MediaPlayer mediaPlayer = null;
 
     RoundCornerProgressBar progress1;
-    ProgressBar progress2;
-
-    int whichProgressIsRunning = 0;
+    int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,43 +81,16 @@ public class ClassActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_class_trial);
 
-/*
+
         progress1 = (RoundCornerProgressBar) findViewById(R.id.progress_1);
         progress1.setProgressColor(Color.parseColor("#08aac7"));
         progress1.setProgressBackgroundColor(Color.parseColor("#efeeee"));
         progress1.setPadding(16);
         progress1.setMax(100);
         progress1.setProgress(0);
-        */
-        progress1 = (RoundCornerProgressBar) findViewById(R.id.progress_1);
-        progress1.setProgressColor(Color.parseColor("#08aac7"));
-        progress1.setProgressBackgroundColor(Color.parseColor("#efeeee"));
-        progress1.setPadding(16);
-        progress1.setMax(100);
-        progress1.setProgress(0);
-
-        progress2 = (ProgressBar) findViewById(R.id.progress_2);
-        progress2.setMax(100);
-        progress2.setProgress(0);
-        progress2.setScaleY(4f);
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            // Do something for lollipop and above versions
-            whichProgressIsRunning=0;
-            progress2.setVisibility(View.GONE);
-            progress1.setVisibility(View.VISIBLE);
-        } else{
-            // do something for phones running an SDK before lollipop
-            progress1.setVisibility(View.GONE);
-            progress2.setVisibility(View.VISIBLE);
-            whichProgressIsRunning=1;
-
-        }
-
-
 
 
         pager = (ViewPager) findViewById(R.id.viewPager);
-        imageView2 = (ImageView) findViewById(R.id.masha);
         Intent iin = getIntent();
         Bundle b = iin.getExtras();
 
@@ -129,10 +104,7 @@ public class ClassActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if(whichProgressIsRunning == 1)
-                progress2.setProgress((100 * (position + 1)) / TopicModelList.size());
-                else
-                    progress1.setProgress((100 * (position + 1)) / TopicModelList.size());
+                progress1.setProgress((100 * (position + 1)) / TopicModelList.size());
             }
 
             @Override
@@ -231,24 +203,9 @@ public class ClassActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        imageView2.setVisibility(View.VISIBLE);
-        final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
-                imageView2);
-        Glide.with(this).load(R.raw.source).into(imageViewTarget);
-//        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
-        try {
-            mediaPlayer.setDataSource(getApplicationContext(), Uri.parse(RES_PREFIX + R.raw.yay));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mediaPlayer.start();
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                imageView2.setVisibility(View.GONE);
-                swipPager();
-            }
-        });
+
+        correct();
+
         if (requestCode == Constants.SPEECH) {
             if (resultCode == Constants.CORRECTANSWER) {
                 Toast.makeText(this, " احسنت \n" + data.getData().toString(), Toast.LENGTH_LONG)
@@ -306,15 +263,15 @@ public class ClassActivity extends AppCompatActivity {
         }
         //-----------------------------------------------------------------------------------------------------
         Log.v("LessonFragment", "Activity Result " + requestCode + " , " + resultCode);
-        if(data != null){
+        if (data != null) {
             if (data.hasExtra("result"))
                 Log.v("LessonFragment", "Activity Result " + requestCode + " , data " + data
                         .getIntExtra("result", 999));
             else
                 Log.v("LessonFragment", "Activity Result " + requestCode + " , " + resultCode);
 
-        }else{
-            Log.v("LessonFragment"," data is null");
+        } else {
+            Log.v("LessonFragment", " data is null");
         }
 
         //-----------------------------------------------------------------------------------------------------
@@ -336,6 +293,7 @@ public class ClassActivity extends AppCompatActivity {
 
     public void onAnswer(boolean isCorrect) {
         if (isCorrect) {
+//            correct();
             imageView2.setVisibility(View.VISIBLE);
             final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
                     imageView2);
@@ -412,10 +370,7 @@ public class ClassActivity extends AppCompatActivity {
     }
 
     public void swipPager() {
-        if(whichProgressIsRunning==1)
-        progress2.setProgress((100 * (pager.getCurrentItem() + 1)) / TopicModelList.size());
-        else
-            progress1.setProgress((100 * (pager.getCurrentItem() + 1)) / TopicModelList.size());
+        progress1.setProgress((100 * (pager.getCurrentItem() + 1)) / TopicModelList.size());
         pager.setCurrentItem(pager.getCurrentItem() + 1);
 
     }
@@ -425,4 +380,37 @@ public class ClassActivity extends AppCompatActivity {
 
     }
 
+    public void correct() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(
+                this);
+
+        builder.setTitle("هييييييييييييييييه");
+        LayoutInflater li = LayoutInflater.from(this);
+        LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.correct_answer, null);
+        imageView2 = (ImageView) someLayout.findViewById(R.id.masha);
+        Log.v("Dialogue " , someLayout.toString());
+        final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
+                imageView2);
+        Glide.with(this).load(R.raw.source).into(imageViewTarget);
+//        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
+//
+        builder.setView(someLayout);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+//        try {
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
+//            mediaPlayer.setDataSource(getApplicationContext(), Uri.parse(RES_PREFIX + R.raw.yay));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        mediaPlayer.start();
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                dialog.dismiss();
+                swipPager();
+            }
+        });
+
+    }
 }
