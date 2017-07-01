@@ -1,7 +1,9 @@
 package com.almanara.homeschool.student.course.lesson.topic;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -11,9 +13,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -85,7 +91,6 @@ public class ClassActivity extends AppCompatActivity {
 
 
         pager = (ViewPager) findViewById(R.id.viewPager);
-        imageView2 = (ImageView) findViewById(R.id.masha);
         Intent iin = getIntent();
         Bundle b = iin.getExtras();
 
@@ -198,24 +203,9 @@ public class ClassActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        imageView2.setVisibility(View.VISIBLE);
-        final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
-                imageView2);
-        Glide.with(this).load(R.raw.source).into(imageViewTarget);
-//        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
-        try {
-            mediaPlayer.setDataSource(getApplicationContext(), Uri.parse(RES_PREFIX + R.raw.yay));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mediaPlayer.start();
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                imageView2.setVisibility(View.GONE);
-                swipPager();
-            }
-        });
+
+        correct();
+
         if (requestCode == Constants.SPEECH) {
             if (resultCode == Constants.CORRECTANSWER) {
                 Toast.makeText(this, " احسنت \n" + data.getData().toString(), Toast.LENGTH_LONG)
@@ -273,15 +263,15 @@ public class ClassActivity extends AppCompatActivity {
         }
         //-----------------------------------------------------------------------------------------------------
         Log.v("LessonFragment", "Activity Result " + requestCode + " , " + resultCode);
-        if(data != null){
+        if (data != null) {
             if (data.hasExtra("result"))
                 Log.v("LessonFragment", "Activity Result " + requestCode + " , data " + data
                         .getIntExtra("result", 999));
             else
                 Log.v("LessonFragment", "Activity Result " + requestCode + " , " + resultCode);
 
-        }else{
-            Log.v("LessonFragment"," data is null");
+        } else {
+            Log.v("LessonFragment", " data is null");
         }
 
         //-----------------------------------------------------------------------------------------------------
@@ -303,6 +293,7 @@ public class ClassActivity extends AppCompatActivity {
 
     public void onAnswer(boolean isCorrect) {
         if (isCorrect) {
+//            correct();
             imageView2.setVisibility(View.VISIBLE);
             final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
                     imageView2);
@@ -389,4 +380,37 @@ public class ClassActivity extends AppCompatActivity {
 
     }
 
+    public void correct() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(
+                this);
+
+        builder.setTitle("هييييييييييييييييه");
+        LayoutInflater li = LayoutInflater.from(this);
+        LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.correct_answer, null);
+        imageView2 = (ImageView) someLayout.findViewById(R.id.masha);
+        Log.v("Dialogue " , someLayout.toString());
+        final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
+                imageView2);
+        Glide.with(this).load(R.raw.source).into(imageViewTarget);
+//        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
+//
+        builder.setView(someLayout);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+//        try {
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
+//            mediaPlayer.setDataSource(getApplicationContext(), Uri.parse(RES_PREFIX + R.raw.yay));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        mediaPlayer.start();
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                dialog.dismiss();
+                swipPager();
+            }
+        });
+
+    }
 }
