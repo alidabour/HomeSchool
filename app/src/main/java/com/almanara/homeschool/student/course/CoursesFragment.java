@@ -45,10 +45,11 @@ public class CoursesFragment extends Fragment {
 
     RecyclerView coursesRecycleView;
     DatabaseReference db;
-    List<CourseCreated> coursesNames;
+    List<CourseCreated> coursesNames= new ArrayList<>();
     FirebaseUser firebaseUser;
     LondonEyeLayoutManager mLondonEyeLayoutManager;
     FanLayoutManager fanLayoutManager;
+    StudentCoursesAdapter studentCoursesAdapter;
 
 //    private OnFragmentInteractionListener mListener;
 
@@ -134,7 +135,6 @@ public class CoursesFragment extends Fragment {
         coursesRecycleView.setLayoutManager(mLondonEyeLayoutManager);*/
 
 
-
 //------------------------------------------------------------------------------------
 
         /*
@@ -154,7 +154,7 @@ public class CoursesFragment extends Fragment {
 
 
 //------------------------------------------------------------------------------------
-        GestureDetector gestureDetector ;
+        GestureDetector gestureDetector;
         coursesRecycleView.setOnFlingListener(new RecyclerView.OnFlingListener() {
             @Override
             public boolean onFling(int velocityX, int velocityY) {
@@ -163,14 +163,11 @@ public class CoursesFragment extends Fragment {
         });
 
 
-
-
-
-
-
-
         db = FirebaseDatabase.getInstance().getReference();
-
+        studentCoursesAdapter = new StudentCoursesAdapter(
+                getActivity(), coursesNames);
+        studentCoursesAdapter.setViewRoot(viewRoot);
+        coursesRecycleView.setAdapter(studentCoursesAdapter);
         setupWindowAnimations();
         return view;
     }
@@ -182,11 +179,14 @@ public class CoursesFragment extends Fragment {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             slideTransition = new Slide();
 
-            slideTransition.setSlideEdge(Gravity.LEFT); // Use START if using right - to - left locale
+            slideTransition
+                    .setSlideEdge(Gravity.LEFT); // Use START if using right - to - left locale
             slideTransition.setDuration(1000);
 
-            getActivity().getWindow().setReenterTransition(slideTransition);  // When MainActivity Re-enter the Screen
-            getActivity().getWindow().setExitTransition(slideTransition);     // When MainActivity Exits the Screen
+            getActivity().getWindow().setReenterTransition(
+                    slideTransition);  // When MainActivity Re-enter the Screen
+            getActivity().getWindow()
+                    .setExitTransition(slideTransition);     // When MainActivity Exits the Screen
 
             // For overlap of Re Entering Activity - MainActivity.java and Exiting TransitionActivity.java
             getActivity().getWindow().setAllowReturnTransitionOverlap(false);
@@ -206,42 +206,53 @@ public class CoursesFragment extends Fragment {
 
                         @Override
                         public void onDataChange(final DataSnapshot dataSnapshot) {
+                            //Get enrolled courses
                             coursesNames = new ArrayList<>();
                             Log.v("WhyInternet?", "Inside ");
                             for (DataSnapshot s : dataSnapshot.getChildren()) {
-                                EnrolledCourseModel c = s.getValue(EnrolledCourseModel.class);
+                                final EnrolledCourseModel c = s.getValue(EnrolledCourseModel.class);
+                                //Get course
+                                Log.v("WhyInternet?", "Inside C:" + c.getCourse_id());
+
                                 db.child("courses").child(c.getCourse_id())
                                         .addValueEventListener(new ValueEventListener() {
-                                            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                             @Override
                                             public void onDataChange(DataSnapshot inside) {
-                                                Log.v("WhyInternet?", "Inside :" + inside);
+//                                                Log.v("WhyInternet?", "Inside /course/ :"+inside);
                                                 CourseCreated courses = inside
                                                         .getValue(CourseCreated.class);
-                                                for (DataSnapshot x : inside.getChildren()) {
+//                                                Log.v("WhyInternet?"," inside value -:- " +inside.getValue() );
+                                                Log.v("WhyInternet?"," inside value -:- !=null" + String.valueOf(inside.getValue()!=null));
+
+                                                if(inside.getValue()!=null){
+//                                                    coursesNames.add(courses);
+                                                    studentCoursesAdapter.addItem(courses,studentCoursesAdapter.getItemCount());
+
+                                                }else {
+                                                    EnrolledCourseModel courseCreated =c;
+                                                    db.child("users").child(firebaseUser.getUid()).child("enrolledcourses").child(courseCreated.getEnrolledcoursemodelid()).removeValue();
+
                                                 }
-                                                coursesNames.add(courses);
-                                                StudentCoursesAdapter studentCoursesAdapter = new StudentCoursesAdapter(
-                                                        getActivity(), coursesNames);
-                                                studentCoursesAdapter.setViewRoot(viewRoot);
-                                                coursesRecycleView
-                                                        .setAdapter(studentCoursesAdapter);
+//                                                for (DataSnapshot x : inside.getChildren()) {
+//                                                }
 
-
-//                                            if(coursesNames.size() <0){
-//                                                noMyCourse.setVisibility(View.VISIBLE);
-//                                            }else{
-//                                                noMyCourse.setVisibility(View.GONE);
-//                                            }
+//                                                studentCoursesAdapter.notifyItemInserted();
+//                                                StudentCoursesAdapter studentCoursesAdapter = new StudentCoursesAdapter(
+//                                                        getActivity(), coursesNames);
+//                                                studentCoursesAdapter.setViewRoot(viewRoot);
+//                                                coursesRecycleView.setAdapter(studentCoursesAdapter);
                                             }
 
                                             @Override
                                             public void onCancelled(DatabaseError databaseError) {
                                             }
                                         });
+                                //end of courses
                             }
                             // [END_EXCLUDE]
-                        }
+
+                        }//end of enrolled courses
+
                     });
         }
     }

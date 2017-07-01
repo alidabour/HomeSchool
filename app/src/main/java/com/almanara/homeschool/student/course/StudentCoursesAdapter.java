@@ -36,6 +36,7 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
     List<CourseCreated> courses;
     View viewRoot;
     List<Integer> colors = new ArrayList<>();
+
     public void setViewRoot(View viewRoot) {
         this.viewRoot = viewRoot;
     }
@@ -62,7 +63,7 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
 
     @Override
     public void onBindViewHolder(CourseViewHolder holder, int position) {
-        if(courses.get(position)!= null){
+        if (courses.get(position) != null) {
             CourseCreated courseCreated = courses.get(position);
             Glide.with(context).load(courseCreated.getPhoto_url()).into(holder.courseImage);
         }
@@ -74,7 +75,15 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
     @Override
     public int getItemCount() {
 //        return 6;
-        return courses.size();
+        if (courses != null) {
+            return courses.size();
+        }
+        return 0;
+    }
+
+    void addItem(CourseCreated courseCreated, int position) {
+        this.courses.add(position, courseCreated);
+        notifyItemInserted(position);
     }
 
     public class CourseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -89,7 +98,7 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
 
         @Override
         public void onClick(View v) {
-            final MediaPlayer mediaPlayer = MediaPlayer.create(context,R.raw.onpresss);
+            final MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.onpresss);
             mediaPlayer.start();
             Animation animation = AnimationUtils.loadAnimation(context, R.anim.course_image);
             animation.setAnimationListener(new Animation.AnimationListener() {
@@ -125,16 +134,16 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
 //                        });
 //                        anim.start();
 //                    }else{
-                        int p = getAdapterPosition();
-                        CourseCreated courseCreated = courses.get(p);
+                    int p = getAdapterPosition();
+                    CourseCreated courseCreated = courses.get(p);
                     ActivityOptions options = null;
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                        options = ActivityOptions.makeSceneTransitionAnimation((Activity)context);
+                        options = ActivityOptions.makeSceneTransitionAnimation((Activity) context);
                         Intent intent = new Intent(context,
                                 LessonActivity.class);
                         intent.putExtra("course", courseCreated);
                         context.startActivity(intent, options.toBundle());
-                    }else{
+                    } else {
                         Intent intent = new Intent(context,
                                 LessonActivity.class);
                         intent.putExtra("course", courseCreated);

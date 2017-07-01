@@ -145,11 +145,14 @@ public class StudentFeaturedCourses extends AppCompatActivity {
                 headerRVDatas = new ArrayList<HeaderRVData>();
                 while (it.hasNext()) {
                     Map.Entry pair = (Map.Entry) it.next();
-                    headerRVDatas.add(new HeaderRVData((String) pair.getKey(),
-                            (List) pair.getValue()));
-                    Log.v("Test", "Map_______" + pair.getKey() + " = " + pair.getValue());
-                    subject.add(pair.getKey().toString());
-                    it.remove(); // avoids a ConcurrentModificationException
+                    if(pair.getKey() !=null && pair.getValue()!=null){
+                        headerRVDatas.add(new HeaderRVData((String) pair.getKey(),
+                                (List) pair.getValue()));
+                        Log.v("Test", "Map_______" + pair.getKey() + " = " + pair.getValue());
+                        subject.add(pair.getKey().toString());
+                        it.remove(); // avoids a ConcurrentModificationException
+                    }
+
                 }
                 courseSectionListAdapter = new CourseSectionListAdapter(StudentFeaturedCourses.this,
                         headerRVDatas, 1, subject);

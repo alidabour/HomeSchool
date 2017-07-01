@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.homeschool.instructor.lesson.InstructorLessonsActivity;
@@ -55,6 +57,7 @@ public class InstructorFragment extends Fragment {
     CourseCreated globalCourseCreated;
     ProgressBar progressBar;
     ValueEventListener listener;
+    ItemTouchHelper.SimpleCallback simpleItemTouchCallback;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,6 +80,54 @@ public class InstructorFragment extends Fragment {
 //        Log.v("Test","User Email"+ user.getProviderId());
         Log.v("Test", "User Email" + user.getUid());
         db = FirebaseDatabase.getInstance().getReference();
+        simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN | ItemTouchHelper.UP) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder target) {
+                Toast.makeText(getActivity(), "on Move", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                Toast.makeText(getActivity(), "on Swiped ", Toast.LENGTH_SHORT).show();
+                //Remove swiped item from list and notify the RecyclerView
+                Log.v("Test", "Course :" + viewHolder.getLayoutPosition());
+                Log.v("Test", "Course :" + viewHolder.getAdapterPosition());
+                final String courseId = coursesList.get(viewHolder.getAdapterPosition()).getCourse_id();
+                instructorCoursesCardAdapter.notifyItemRemoved(
+                        viewHolder.getLayoutPosition());
+                db.child("courses")
+                        .child(courseId)
+                        .removeValue(
+                                new DatabaseReference.CompletionListener() {
+                                    @Override
+                                    public void onComplete(DatabaseError databaseError,
+                                                           DatabaseReference databaseReference) {
+                                        db.child("users").child(user.getUid()).child("CreatedCourse")
+                                                .child(courseId).removeValue(
+                                                new DatabaseReference.CompletionListener() {
+                                                    @Override
+                                                    public void onComplete(DatabaseError databaseError,
+                                                                           DatabaseReference databaseReference) {
+//                                                        if (instructorCoursesCardAdapter != null) {
+//                                                            coursesList.remove(viewHolder.getAdapterPosition());
+
+//                                                        }
+                                                    }
+                                                });
+
+
+                                    }
+                                });
+
+
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(coursesRV);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
