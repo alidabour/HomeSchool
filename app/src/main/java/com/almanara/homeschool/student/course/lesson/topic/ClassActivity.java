@@ -299,9 +299,10 @@ public class ClassActivity extends AppCompatActivity {
     public void onAnswer(boolean isCorrect) {
         if (isCorrect) {
 //            correct();
-            imageView2.setVisibility(View.VISIBLE);
+          imageView2.setVisibility(View.VISIBLE);
             final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
                     imageView2);
+
             Glide.with(this).load(R.raw.source).into(imageViewTarget);
 //            if(mediaPlayer != null){
 //                mediaPlayer.reset();

@@ -21,11 +21,14 @@ import android.widget.LinearLayout;
 
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.RotateTransformation;
+import com.almanara.homeschool.student.course.lesson.topic.ClassActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.util.ArrayList;
+
+import static com.almanara.ali.homeschool.R.id.part3;
 
 public class MatchingFragment extends Fragment {
     int countToResult = 0;
@@ -87,7 +90,7 @@ public class MatchingFragment extends Fragment {
 
         LinearLayout part1 = (LinearLayout) mainView.findViewById(R.id.part1);
         LinearLayout part2 = (LinearLayout) mainView.findViewById(R.id.part2);
-        LinearLayout part3 = (LinearLayout) mainView.findViewById(R.id.part3);
+     //   LinearLayout part3 = (LinearLayout) mainView.findViewById(R.id.part3);
 
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -140,8 +143,9 @@ public class MatchingFragment extends Fragment {
                             ViewGroup.LayoutParams.MATCH_PARENT, 1.0f));
 
 
-            if (i % 2 == 0) part1.addView(matchImageView, lp);
-            else part3.addView(matchImageView, lp);
+            //if (i % 2 == 0)
+          part1.addView(matchImageView, lp);
+            //else part3.addView(matchImageView, lp);
 
 
             part2.addView(blackImageView, lp);
@@ -228,6 +232,10 @@ public class MatchingFragment extends Fragment {
                     if (countToResult == matchImageList.size()) {
 //                        Intent intent =new Intent(RealTime.this,Result.class);
 //                        startActivity(intent);
+                        if(getActivity() instanceof ClassActivity){
+                            ((ClassActivity)getActivity()).onAnswer(true);
+
+                        }
                     }
                     break;
 
