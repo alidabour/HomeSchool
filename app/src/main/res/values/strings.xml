@@ -150,4 +150,5 @@
     <string name="error_form_server">error from server</string>
     <string name="no_speech_input">No speech input</string>
     <string name="try_again">Didn\'t understand, please try again.</string>
+    <string name="text_detection_question">Find This <Word></Word></string>
 </resources>

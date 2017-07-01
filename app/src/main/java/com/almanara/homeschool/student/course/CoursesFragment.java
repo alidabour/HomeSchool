@@ -1,9 +1,7 @@
 package com.almanara.homeschool.student.course;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Slide;
@@ -145,7 +143,7 @@ public class CoursesFragment extends Fragment {
                 .newBuilder(getContext())
                 .withFanRadius(true)
                 .withAngleItemBounce(5)
-                .withViewWidthDp(85)
+                .withViewWidthDp(90)
                 .withViewHeightDp(160)
                 .build();
 

@@ -28,4 +28,22 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+
+    <style name="student" parent="Theme.AppCompat">
+        <item name="colorPrimary">#770fb9</item>
+        <item name="colorPrimaryDark">#770fb9</item>
+        <item name="colorAccent">#770fb9</item>
+    </style>
+
+    <style name="instructor" parent="Theme.AppCompat">
+        <item name="colorPrimary">#eba505</item>
+        <item name="colorPrimaryDark">#eba505</item>
+        <item name="colorAccent">#eba505</item>
+    </style>
+
+    <style name="parent" parent="Theme.AppCompat">
+        <item name="colorPrimary">#03879f</item>
+        <item name="colorPrimaryDark">#03879f</item>
+        <item name="colorAccent">#03879f</item>
+    </style>
 </resources>
