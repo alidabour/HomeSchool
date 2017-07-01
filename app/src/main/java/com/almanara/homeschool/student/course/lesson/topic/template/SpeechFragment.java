@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -42,10 +43,11 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
     private final String HOLD = " ,HO##LD,";
     String[] parms;
     private TextView returnedText;
-    private ToggleButton toggleButton;
+    private ImageView toggleButton;
     private ProgressBar progressBar;
     private SpeechRecognizer speech = null;
     private Intent recognizerIntent;
+    private TextView textSpeech;
     private String LOG_TAG = "VoiceRecognitionActivity";
 
     public SpeechFragment() {
@@ -81,8 +83,9 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
         View view = inflater.inflate(R.layout.speech_fragment, container, false);
         returnedText = (TextView) view.findViewById(R.id.textView1);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar1);
-        toggleButton = (ToggleButton) view.findViewById(R.id.toggleButton1);
-
+        toggleButton = (ImageView) view.findViewById(R.id.toggleButton1);
+        textSpeech = (TextView) view.findViewById(R.id.text2);
+        textSpeech.setText(parms[0]);
         progressBar.setVisibility(View.INVISIBLE);
         speech = SpeechRecognizer.createSpeechRecognizer(getActivity());
         speech.setRecognitionListener(this);
@@ -101,20 +104,27 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
                 RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
 
-        toggleButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
+        final String[] isChecked = {"false"};
+        toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
-                if (isChecked) {
+            public void onClick(View v) {
+
+                if (isChecked[0].equals("true")) {
                     progressBar.setVisibility(View.VISIBLE);
                     progressBar.setIndeterminate(true);
                     speech.startListening(recognizerIntent);
+                    Log.v("speech","true");
+                    isChecked[0] = "true";
                 } else {
                     progressBar.setIndeterminate(false);
                     progressBar.setVisibility(View.INVISIBLE);
                     speech.stopListening();
+                    Log.v("speech","false");
+                    isChecked[0] = "false";
+
                 }
+
             }
         });
         return view;
@@ -147,14 +157,14 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
     @Override
     public void onEndOfSpeech() {
         progressBar.setIndeterminate(true);
-        toggleButton.setChecked(false);
+        toggleButton.setEnabled(false);
     }
 
     @Override
     public void onError(int errorCode) {
         String errorMessage = getErrorText(errorCode);
         returnedText.setText(errorMessage);
-        toggleButton.setChecked(false);
+        toggleButton.setEnabled(false);
     }
 
     @Override

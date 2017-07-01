@@ -59,7 +59,7 @@ public class SpeechDialog {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(!word.getText().toString().trim().isEmpty()){
                     String layout = "";
-                    layout += word;
+                    layout += word.getText().toString().trim();
                     layout += HOLD;
                     progressImage.setImageOrSound(true,true);
                     onQuestionLayoutReady.onLayoutReady(layout);
