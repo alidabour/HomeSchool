@@ -28,8 +28,8 @@ public class Speech extends Activity{
         answer = new Answer();
         Intent intent = getIntent();
         if(intent !=null){
-            Answer answer = intent.getParcelableExtra("Answer");
-            answer.setAnswer(answer.getAnswer());
+            String answerString = intent.getStringExtra("Answer");
+            answer.setAnswer(answerString.trim().toLowerCase());
         }
         start();
     }
@@ -40,7 +40,15 @@ public class Speech extends Activity{
                 getClass().getPackage().getName());
         voicerecogize.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        voicerecogize.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ar-EG");
+        Log.v("Test","Answer" + answer.getAnswer());
+        if(answer.getAnswer().matches("[a-zA-Z]+")){
+            voicerecogize.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
+            Log.v("Test","English");
+
+        }else {
+            voicerecogize.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ar-EG");
+            Log.v("Test","Arabic");
+        }
         startActivityForResult(voicerecogize,33);
 
     }

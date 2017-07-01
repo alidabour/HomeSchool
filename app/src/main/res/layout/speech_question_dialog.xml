@@ -15,5 +15,5 @@
             android:layout_height="wrap_content"/>
     </android.support.design.widget.TextInputLayout>
 
-    <include layout="@layout/layout_parameters"/>
+    <!--<include layout="@layout/layout_parameters"/>-->
 </LinearLayout>

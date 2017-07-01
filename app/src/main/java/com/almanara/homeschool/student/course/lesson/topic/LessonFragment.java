@@ -94,7 +94,7 @@ public class LessonFragment extends Fragment {
 //                    Intent intent = new Intent(getActivity(), ColorActivity.class);
 //                    intent.putExtra("Answer", answer);
 //                    startActivityForResult(intent, Color_Request);
-                    if (!openApp(getActivity(), "com.example.android.color_detection",
+                    if (!openApp(getActivity(), "com.example.android.color",
                             answer.getAnswer(), Constants.Color_Request,"MainActivity")) {
                         Snackbar.make(getView(),"من فضلك قم بتحميل برنامج الالوان",Snackbar.LENGTH_INDEFINITE)
                                 .setAction("تحميل", new View.OnClickListener() {

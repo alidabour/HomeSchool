@@ -40,33 +40,33 @@ public class TextDetectionDialog extends MainTextDialog {
                 .inflate(R.layout.text_detection_dialog, null);
         final EditText word = (EditText) linearLayout.findViewById(R.id.word);
         final EditText questionStart = (EditText) linearLayout.findViewById(R.id.questionStart);
-        final Spinner selectLanguage = (Spinner) linearLayout.findViewById(R.id.textLan);
+//        final Spinner selectLanguage = (Spinner) linearLayout.findViewById(R.id.textLan);
 
         word.setTextColor(ContextCompat.getColor(activity, R.color.colorPrimary));
         ArrayAdapter<CharSequence> textSizes = ArrayAdapter
                 .createFromResource(activity,
                         R.array.text_lan_array, android.R.layout.simple_spinner_item);
 
-        selectLanguage.setAdapter(textSizes);
-        selectLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                /*
-                *                         Do not translate
-                *
-                 */
-                if (i == 0) {
-                    selectlanguageString = "eng";
-                } else if (i == 1) {
-                    selectlanguageString = "ara";
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
+//        selectLanguage.setAdapter(textSizes);
+//        selectLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                /*
+//                *                         Do not translate
+//                *
+//                 */
+//                if (i == 0) {
+//                    selectlanguageString = "eng";
+//                } else if (i == 1) {
+//                    selectlanguageString = "ara";
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//            }
+//        });
         Constants.textViewProperties(linearLayout, activity, this);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -77,8 +77,14 @@ public class TextDetectionDialog extends MainTextDialog {
                 onLayoutReadyInterface.setLayout( Constants
                         .mTextView(++id, word.getText().toString().trim(), Constants.uniqueTextColor,
                         textAppearance));
+                if (word.getText().toString().trim().matches("[a-zA-Z]+")) {
+                    selectlanguageString = "eng";
+                } else {
+                    selectlanguageString = "ara";
+                }
+                Answer answer = new Answer(word.getText().toString().trim(),selectlanguageString);
                 onLayoutReadyInterface.setLayout( Constants.mButton(++id, "Start", "TextDetection",
-                        new Answer(word.getText().toString(), selectlanguageString),
+                        answer,
                         Constants.PUT_SOUND_LINK_HERE));
                 progressImage.setImageOrSound(true,true);
                 dialogInterface.cancel();

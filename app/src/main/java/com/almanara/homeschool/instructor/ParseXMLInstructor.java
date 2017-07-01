@@ -261,7 +261,7 @@ public class ParseXMLInstructor {
                     if (!finalActivity.equals("null")) {
                         if (finalActivity.equals("Speech")) {
                             Intent intent = new Intent(activity, Speech.class);
-                            intent.putExtra("Answer", answer1);
+                            intent.putExtra("Answer", answer1.getAnswer());
                             activity.startActivityForResult(intent, Constants.SPEECH);
 //                        Speech speech = new Speech(activity);
 //                        speech.setWord(answer)

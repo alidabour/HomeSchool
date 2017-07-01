@@ -27,27 +27,4 @@
 
     <include layout="@layout/layout_parameters"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="@string/select_text_language"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"/>
-
-        <Spinner
-            android:layout_weight="1"
-            android:id="@+id/textLan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </Spinner>
-
-    </LinearLayout>
 </LinearLayout>
