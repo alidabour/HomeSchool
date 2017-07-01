@@ -51,6 +51,7 @@ import com.almanara.homeschool.student.course.lesson.topic.template.AnimationFra
 import com.almanara.homeschool.student.course.lesson.topic.template.MatchingFragment;
 import com.almanara.homeschool.student.course.lesson.topic.template.MultiImageQuestionFragment;
 import com.almanara.homeschool.Constants;
+import com.almanara.homeschool.student.course.lesson.topic.template.SpeechFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -233,6 +234,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                                             MatchingFragment.newInstance(finalLayout))
                                     .commit();  // 1000 - is the id set for the container layout
 
+                        }else if (topicModel.getTopicType().equals("speech")){
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .add(R.id.multiImageQue,
+                                            SpeechFragment.newInstance(finalLayout))
+                                    .commit();  // 1000 - is the id set for the container layout
                         }
                     }
                 });
@@ -302,10 +309,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                     @Override
                     public void onClick(View view) {
                         dialog.cancel();
-                        speechDialog = new SpeechDialog(id, InstructorTopicCreationActivity.this,
-                                onLayoutReadyInterface);
+                        speechDialog = new SpeechDialog(InstructorTopicCreationActivity.this,
+                                onQuestionLayoutReady);
                         speechDialog.setProgressImage(progressImage);
+                        speechDialog.setCourseId(courseId);
                         speechDialog.openSpeechDialog();
+                        topicType = "speech";
 
                     }
                 });
@@ -496,9 +505,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
         if (colorQuestionDialog != null) {
             colorQuestionDialog.setTextColor(color);
         }
-        if (speechDialog != null) {
-            speechDialog.setTextColor(color);
-        }
+
     }
 
     @Override
@@ -721,6 +728,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                                     MatchingFragment.newInstance(parms))
                             .commit();  // 1000 - is the id set for the container layout
 
+                }else if (topicid.equals("speech")){
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.multiImageQue,
+                                    SpeechFragment.newInstance(parms))
+                            .commit();  // 1000 - is the id set for the container layout
                 }
             }
         });

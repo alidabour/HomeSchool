@@ -8,15 +8,30 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
-
-
-    <ImageView
-        android:id="@+id/imageView1"
+    <TextView
+        android:id="@+id/text"
+        tools:text="انطق كلمة"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:src="@color/common_google_signin_btn_text_dark_disabled"/>
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/image"
+            android:src="@drawable/a4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            tools:text="ارنب"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/progressBar1"
@@ -24,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/toggleButton1"
+        android:layout_above="@+id/toggleButton1"
         android:layout_marginTop="28dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp" />
@@ -38,10 +53,10 @@
         android:layout_marginTop="47dp" />
 
     <ToggleButton
+        android:layout_alignParentBottom="true"
         android:id="@+id/toggleButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
         android:text="ToggleButton" />

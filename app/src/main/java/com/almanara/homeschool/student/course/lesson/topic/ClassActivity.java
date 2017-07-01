@@ -30,6 +30,7 @@ import com.almanara.homeschool.data.firebase.TopicModel;
 import com.almanara.homeschool.student.course.lesson.topic.template.AnimationFragment;
 import com.almanara.homeschool.student.course.lesson.topic.template.MatchingFragment;
 import com.almanara.homeschool.student.course.lesson.topic.template.MultiImageQuestionFragment;
+import com.almanara.homeschool.student.course.lesson.topic.template.SpeechFragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.google.firebase.auth.FirebaseAuth;
@@ -164,6 +165,8 @@ public class ClassActivity extends AppCompatActivity {
                             fragmentList.add(AnimationFragment.newInstance(modelEntry.getLayout()));
                         } else if (modelEntry.getTopicType().equals("matching")) {
                             fragmentList.add(MatchingFragment.newInstance(modelEntry.getLayout()));
+                        }else if(modelEntry.getTopicType().equals("speech")){
+                            fragmentList.add(SpeechFragment.newInstance(modelEntry.getLayout()));
                         }
                     }
                     pager.setAdapter(

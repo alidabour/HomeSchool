@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.almanara.homeschool.Answer;
 import com.almanara.homeschool.Constants;
@@ -24,15 +25,23 @@ import static com.almanara.homeschool.Constants.mButton;
 
 public class SpeechDialog {
     Activity activity;
-    ProgressImage progressImage;
 
     private OnQuestionLayoutReady onQuestionLayoutReady;
     public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
-
     String courseId;
+    ProgressImage progressImage;
+    public void setProgressImage(
+            ProgressImage progressImage) {
+        this.progressImage = progressImage;
+    }
     private final String HOLD = " ,HO##LD,";
+    public SpeechDialog(Activity activity,
+                        OnQuestionLayoutReady onQuestionLayoutReady) {
+        this.activity = activity;
+        this.onQuestionLayoutReady = onQuestionLayoutReady;
+    }
 
     public void openSpeechDialog(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(
@@ -42,14 +51,23 @@ public class SpeechDialog {
         final LinearLayout linearLayout = (LinearLayout) li
                 .inflate(R.layout.speech_question_dialog, null);
         final EditText word = (EditText) linearLayout.findViewById(R.id.word);
-        if(!word.getText().toString().trim().isEmpty()){
 
-        }
 //        Constants.textViewProperties(linearLayout, activity, this);
 //        Constants.setColorButton(linearLayout, textColor);
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                if(!word.getText().toString().trim().isEmpty()){
+                    String layout = "";
+                    layout += word;
+                    layout += HOLD;
+                    progressImage.setImageOrSound(true,true);
+                    onQuestionLayoutReady.onLayoutReady(layout);
+//                    progressImage.setImageOrSound(true,true);
+                    dialogInterface.cancel();
+                }else {
+                    Toast.makeText(activity, "ادخل كلمة", Toast.LENGTH_SHORT).show();
+                }
 //                Log.v("TESTAPP", "onClick :" + textAppearance);
 
 //                onLayoutReadyInterface.setLayout(
@@ -68,8 +86,7 @@ public class SpeechDialog {
                  */
 //                onLayoutReadyInterface.setLayout(Constants
 //                        .mButton(++id, activity.getString(R.string.start), "Speech", answer, Constants.PUT_SOUND_LINK_HERE));
-                progressImage.setImageOrSound(true,true);
-                dialogInterface.cancel();
+
             }
         });
         builder.setView(linearLayout);

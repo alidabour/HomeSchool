@@ -107,7 +107,6 @@ public class LessonFragment extends Fragment {
                                     }
                                 })
                                 .show();
-//                        Toast.makeText(getActivity(), "No app found", Toast.LENGTH_SHORT).show();
                     }
                 } else if (activity.equals("TextDetection")) {
                     if (!openApp(getActivity(), "edu.sfsu.cs.orange.ocr",

@@ -78,7 +78,7 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.speech_fragment, container, false);
         returnedText = (TextView) view.findViewById(R.id.textView1);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar1);
         toggleButton = (ToggleButton) view.findViewById(R.id.toggleButton1);
