@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -61,7 +63,9 @@ public class ClassActivity extends AppCompatActivity {
     MediaPlayer mediaPlayer = null;
 
     RoundCornerProgressBar progress1;
-    int counter = 0;
+    ProgressBar progress2;
+
+    int whichProgressIsRunning = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +79,39 @@ public class ClassActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_class_trial);
 
-
+/*
         progress1 = (RoundCornerProgressBar) findViewById(R.id.progress_1);
         progress1.setProgressColor(Color.parseColor("#08aac7"));
         progress1.setProgressBackgroundColor(Color.parseColor("#efeeee"));
         progress1.setPadding(16);
         progress1.setMax(100);
         progress1.setProgress(0);
+        */
+        progress1 = (RoundCornerProgressBar) findViewById(R.id.progress_1);
+        progress1.setProgressColor(Color.parseColor("#08aac7"));
+        progress1.setProgressBackgroundColor(Color.parseColor("#efeeee"));
+        progress1.setPadding(16);
+        progress1.setMax(100);
+        progress1.setProgress(0);
+
+        progress2 = (ProgressBar) findViewById(R.id.progress_2);
+        progress2.setMax(100);
+        progress2.setProgress(0);
+        progress2.setScaleY(4f);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            // Do something for lollipop and above versions
+            whichProgressIsRunning=0;
+            progress2.setVisibility(View.GONE);
+            progress1.setVisibility(View.VISIBLE);
+        } else{
+            // do something for phones running an SDK before lollipop
+            progress1.setVisibility(View.GONE);
+            progress2.setVisibility(View.VISIBLE);
+            whichProgressIsRunning=1;
+
+        }
+
+
 
 
         pager = (ViewPager) findViewById(R.id.viewPager);
@@ -99,7 +129,10 @@ public class ClassActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                progress1.setProgress((100 * (position + 1)) / TopicModelList.size());
+                if(whichProgressIsRunning == 1)
+                progress2.setProgress((100 * (position + 1)) / TopicModelList.size());
+                else
+                    progress1.setProgress((100 * (position + 1)) / TopicModelList.size());
             }
 
             @Override
@@ -379,7 +412,10 @@ public class ClassActivity extends AppCompatActivity {
     }
 
     public void swipPager() {
-        progress1.setProgress((100 * (pager.getCurrentItem() + 1)) / TopicModelList.size());
+        if(whichProgressIsRunning==1)
+        progress2.setProgress((100 * (pager.getCurrentItem() + 1)) / TopicModelList.size());
+        else
+            progress1.setProgress((100 * (pager.getCurrentItem() + 1)) / TopicModelList.size());
         pager.setCurrentItem(pager.getCurrentItem() + 1);
 
     }
