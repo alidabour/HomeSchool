@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.UserModelHelper.FileUploadHelper;
@@ -47,7 +49,10 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     ArrayList<LessonModel> lessonModelList;
     ValueEventListener listener;
     final int PICK_IMAGE_REQUEST = 234;
-    String photo_url ="";
+    String photo_url = "";
+    ItemTouchHelper.SimpleCallback simpleItemTouchCallback;
+    InstructorLessonAdapter instructorLessonAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +75,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                 LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.lesson_dialog, null);
                 TextView gallery = (TextView) someLayout.findViewById(R.id.choosefromGallery);
                 // Set up the input
-                final EditText input = (EditText)someLayout.findViewById(R.id.lessonName);
+                final EditText input = (EditText) someLayout.findViewById(R.id.lessonName);
 //                final EditText input = (EditText)someLayout.findViewById(R.id.lesson_image);
 
                 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
@@ -86,7 +91,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
 //                        Map<String,String> lesson = new HashMap<String, String>();
                         String key = db.child("courses").child(courseCreated.getCourse_id())
                                 .child("lessons").push().getKey();
-                        if(photo_url.isEmpty()){
+                        if (photo_url.isEmpty()) {
                             photo_url = "https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2Fcourses%2Fphoto_default.png?alt=media&token=a338378b-eb7d-4d65-88ea-a4266fd0c1d5";
                         }
 //                        lesson.put("id",key);
@@ -138,11 +143,11 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("course")) {
             courseCreated = intent.getParcelableExtra("course");
-            if(courseCreated != null){
-                if(courseCreated.getName()!=null){
+            if (courseCreated != null) {
+                if (courseCreated.getName() != null) {
                     toolbar.setTitle(courseCreated.getName().toString());
                 }
-                if(courseCreated.getCourse_id() != null){
+                if (courseCreated.getCourse_id() != null) {
                     courseID = courseCreated.getCourse_id().toString();
                 }
             }
@@ -154,7 +159,30 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN | ItemTouchHelper.UP) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder target) {
+                Toast.makeText(getApplicationContext(), "on Move", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                final String lessonID = lessonModelList.get(viewHolder.getAdapterPosition()).getId();
+                instructorLessonAdapter.notifyItemRemoved(
+                        viewHolder.getLayoutPosition());
+                db.child("courses").child(courseID).child("lessons").child(lessonID).removeValue();
+                Toast.makeText(getApplicationContext(), "on Swip", Toast.LENGTH_SHORT).show();
+
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(lessonsRV);
     }
+
     private void openImageActivity() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -162,6 +190,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"),
                 PICK_IMAGE_REQUEST);
     }
+
     @Override
     protected void onPause() {
         if (listener != null)
@@ -172,16 +201,16 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK){
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
             Uri filePath = data.getData();
-            String storagePath = "images/coursesPhoto/"+courseID+  UUID.randomUUID();
+            String storagePath = "images/coursesPhoto/" + courseID + UUID.randomUUID();
 
             new UploadFile(filePath, InstructorLessonsActivity.this, new FileUploadHelper() {
                 @Override
                 public void fileUploaded(String url) {
                     photo_url = url;
                 }
-            },storagePath);
+            }, storagePath);
         }
     }
 
@@ -201,7 +230,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                     lessonModel = d.getValue(LessonModel.class);
                     lessonModelList.add(lessonModel);
                 }
-                InstructorLessonAdapter instructorLessonAdapter = new InstructorLessonAdapter(
+                instructorLessonAdapter = new InstructorLessonAdapter(
                         lessonModelList,
                         new InstructorLessonAdapter.OnClickHandler() {
                             @Override

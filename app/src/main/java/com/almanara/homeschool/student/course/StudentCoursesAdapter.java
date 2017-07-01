@@ -67,7 +67,7 @@ public class StudentCoursesAdapter extends RecyclerView.Adapter<StudentCoursesAd
             CourseCreated courseCreated = courses.get(position);
             Glide.with(context).load(courseCreated.getPhoto_url()).into(holder.courseImage);
         }
-        holder.courseImage.setBorderColor(colors.get(position));
+        holder.courseImage.setBorderColor(colors.get(position%6));
 
 
     }

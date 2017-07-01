@@ -78,7 +78,9 @@ public class StudentLessonAdapter extends RecyclerView.Adapter<StudentLessonAdap
 
     @Override
     public void onBindViewHolder(LessonViewHolder holder, int position) {
-        Glide.with(activity).load(lessonModelList.get(position).getPhoto_url()).into(holder.circleImageView);
+        Glide.with(activity).load(lessonModelList.get(position).getPhoto_url())
+//                .placeholder(R.drawable.my_course)
+ .into(holder.circleImageView);
         holder.lessonName.setText(lessonModelList.get(position).getName());
 //        final LessonModel lessonModel = lessonModelList.get(position);
 //        Log.v("Lesson " , lessonModel.getName());

@@ -10,11 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.almanara.homeschool.data.firebase.TopicModel;
 import com.almanara.homeschool.data.firebase.CourseCreated;
@@ -45,7 +47,9 @@ public class InstructorTopicActivity extends AppCompatActivity {
     String topicid=" ";
     ValueEventListener listener;
     TextView noTopic;
-
+    ItemTouchHelper.SimpleCallback simpleItemTouchCallback;
+    InstructorTopicsAdapter lessonAdapter;
+    List<TopicModel> lessonModelList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,14 +148,34 @@ public class InstructorTopicActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN | ItemTouchHelper.UP) {
 
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder target) {
+                Toast.makeText(getApplicationContext(), "on Move", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                final String topicId = lessonModelList.get(viewHolder.getAdapterPosition()).getId();
+                lessonAdapter.notifyItemRemoved(
+                        viewHolder.getLayoutPosition());
+                db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(topicId).removeValue();
+                Toast.makeText(getApplicationContext(), "on Swip", Toast.LENGTH_SHORT).show();
+
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(lessonsRV);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         listener = new ValueEventListener() {
-            List<TopicModel> lessonModelList;
 
 
             @Override
@@ -165,7 +189,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
                         topicid = topicModel.getId();
                     Log.v("Test", "LESSON __ " + topicModel.toString());
                 }
-                InstructorTopicsAdapter lessonAdapter = new InstructorTopicsAdapter(lessonModelList,
+                lessonAdapter = new InstructorTopicsAdapter(lessonModelList,
                         new InstructorTopicsAdapter.OnClickHandler() {
                             @Override
                             public void onClick(TopicModel test) {

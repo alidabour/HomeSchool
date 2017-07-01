@@ -198,6 +198,7 @@ public class CoursesFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (firebaseUser != null) {
+            coursesRecycleView.setVisibility(View.GONE);
             db.child("users").child(firebaseUser.getUid()).child("enrolledcourses")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
@@ -249,6 +250,7 @@ public class CoursesFragment extends Fragment {
                                         });
                                 //end of courses
                             }
+                            coursesRecycleView.setVisibility(View.VISIBLE);
                             // [END_EXCLUDE]
 
                         }//end of enrolled courses

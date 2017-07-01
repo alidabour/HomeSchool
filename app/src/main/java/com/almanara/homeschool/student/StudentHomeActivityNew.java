@@ -113,4 +113,10 @@ public class StudentHomeActivityNew extends AppCompatActivity {
             mediaPlayer.stop();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        finish();
+    }
 }

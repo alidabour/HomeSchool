@@ -13,9 +13,10 @@
         android:id="@+id/lesson_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/profile"
+        android:src="@drawable/my_course"
         app:civ_border_width="4dp"
         app:civ_border_color="#FFD93E"/>
+
     <TextView
         android:id="@+id/lesson_name"
         android:gravity="center"
