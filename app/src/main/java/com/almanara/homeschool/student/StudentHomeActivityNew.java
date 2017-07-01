@@ -8,8 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.almanara.ali.homeschool.R;
@@ -102,7 +100,7 @@ public class StudentHomeActivityNew extends AppCompatActivity {
                 transaction.commit();
 //                viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
             }
-        },2000);
+        },1500);
 
     }
 
