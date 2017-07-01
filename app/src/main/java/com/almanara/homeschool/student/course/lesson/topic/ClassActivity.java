@@ -179,7 +179,6 @@ public class ClassActivity extends AppCompatActivity {
                         TopicModel topicModel = dataSnapshot1.getValue(TopicModel.class);
                         TopicModelList.add(topicModel);
                     }
-
                     layouts = new ArrayList<String>();
                     fragmentList = new ArrayList<>();
                     for (TopicModel modelEntry : TopicModelList) {
