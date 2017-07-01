@@ -93,7 +93,7 @@ public class TextDetectionFragment extends Fragment  {
 
                 {
                     if (!openApp(getActivity(), "edu.sfsu.cs.orange.ocr",
-                            answer.getAnswer() + "," + answer.getLan(), Constants.Text_Detection,"CaptureActivity")) {
+                            parms[0] + "," + parms[1], Constants.Text_Detection,"CaptureActivity")) {
                         Snackbar.make(getView(),"من فضلك قم بتحميل برنامج الحروف",Snackbar.LENGTH_INDEFINITE)
                                 .setAction("تحميل", new View.OnClickListener() {
                                     @Override

@@ -92,7 +92,7 @@ public class ColorFragment extends Fragment  {
             public void onClick(View v) {
 
                 if (!openApp(getActivity(), "com.example.android.color",
-                        answer.getAnswer(), Constants.Color_Request,"MainActivity")) {
+                        parms[0], Constants.Color_Request,"MainActivity")) {
                     Snackbar.make(getView(),"من فضلك قم بتحميل برنامج الالوان",Snackbar.LENGTH_INDEFINITE)
                             .setAction("تحميل", new View.OnClickListener() {
                                 @Override

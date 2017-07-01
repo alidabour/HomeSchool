@@ -48,15 +48,19 @@ import com.almanara.homeschool.instructor.create.ordering.OnStartDragListener;
 import com.almanara.homeschool.instructor.create.ordering.SimpleItemTouchHelperCallback;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.student.course.lesson.topic.template.AnimationFragment;
+import com.almanara.homeschool.student.course.lesson.topic.template.ColorFragment;
 import com.almanara.homeschool.student.course.lesson.topic.template.MatchingFragment;
 import com.almanara.homeschool.student.course.lesson.topic.template.MultiImageQuestionFragment;
 import com.almanara.homeschool.Constants;
 import com.almanara.homeschool.student.course.lesson.topic.template.SpeechFragment;
+import com.almanara.homeschool.student.course.lesson.topic.template.TextDetectionFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.jrummyapps.android.colorpicker.ColorPickerDialogListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -240,6 +244,18 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                                     .add(R.id.multiImageQue,
                                             SpeechFragment.newInstance(finalLayout))
                                     .commit();  // 1000 - is the id set for the container layout
+                        }else if(topicModel.equals("textDetection")){
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .add(R.id.multiImageQue,
+                                            TextDetectionFragment.newInstance(finalLayout))
+                                    .commit();  // 1000 - is the id set for the container layout
+                        }else if(topicModel.equals("colorDetection")){
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .add(R.id.multiImageQue,
+                                            ColorFragment.newInstance(finalLayout))
+                                    .commit();  // 1000 - is the id set for the container layout
                         }
                     }
                 });
@@ -298,10 +314,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                     @Override
                     public void onClick(View view) {
                         dialog.cancel();
-                        colorQuestionDialog = new ColorQuestionDialog(id,
-                                InstructorTopicCreationActivity.this, onLayoutReadyInterface);
+                        colorQuestionDialog = new ColorQuestionDialog(
+                                InstructorTopicCreationActivity.this, onQuestionLayoutReady);
+                        colorQuestionDialog.setCourseId(courseId);
                         colorQuestionDialog.setProgressImage(progressImage);
                         colorQuestionDialog.openColorQuestionDialog();
+                        topicType = "colorDetection";
 
                     }
                 });
@@ -333,10 +351,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                     @Override
                     public void onClick(View view) {
                         dialog.cancel();
-                        textDetectionDialog = new TextDetectionDialog(id,
-                                InstructorTopicCreationActivity.this, onLayoutReadyInterface);
+                        textDetectionDialog = new TextDetectionDialog(
+                                InstructorTopicCreationActivity.this, onQuestionLayoutReady);
                         textDetectionDialog.setProgressImage(progressImage);
+                        textDetectionDialog.setCourseId(courseId);
                         textDetectionDialog.openTextDetectionDialog();
+                        topicType ="textDetection";
                     }
                 });
                 multiImageQue.setOnClickListener(new View.OnClickListener() {
@@ -499,12 +519,12 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
     @Override
     public void onColorSelected(int dialogId, @ColorInt int color) {
-        if (textDetectionDialog != null) {
-            textDetectionDialog.setTextColor(color);
-        }
-        if (colorQuestionDialog != null) {
-            colorQuestionDialog.setTextColor(color);
-        }
+//        if (textDetectionDialog != null) {
+//            textDetectionDialog.setTextColor(color);
+//        }
+//        if (colorQuestionDialog != null) {
+//            colorQuestionDialog.setTextColor(color);
+//        }
 
     }
 
@@ -575,14 +595,14 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
 
     @Override
     public void onEditColorQuestion(int id, String questionTitle, String layout) {
-        int index = layoutsList.indexOf(layout);
-        colorQuestionDialog = new ColorQuestionDialog(id, InstructorTopicCreationActivity.this,
-                onLayoutReadyInterface);
-        colorQuestionDialog.setQuestionTitle(questionTitle);
-        colorQuestionDialog.setOnEditLayoutReady(this);
-        colorQuestionDialog.setIndex(index);
-        colorQuestionDialog.setEditing(true);
-        colorQuestionDialog.openColorQuestionDialog();
+//        int index = layoutsList.indexOf(layout);
+//        colorQuestionDialog = new ColorQuestionDialog(id, InstructorTopicCreationActivity.this,
+//                onLayoutReadyInterface);
+//        colorQuestionDialog.setQuestionTitle(questionTitle);
+//        colorQuestionDialog.setOnEditLayoutReady(this);
+//        colorQuestionDialog.setIndex(index);
+//        colorQuestionDialog.setEditing(true);
+//        colorQuestionDialog.openColorQuestionDialog();
     }
 
     @Override
@@ -728,11 +748,23 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                                     MatchingFragment.newInstance(parms))
                             .commit();  // 1000 - is the id set for the container layout
 
-                }else if (topicid.equals("speech")){
+                }else if (topicType.equals("speech")){
                     getSupportFragmentManager()
                             .beginTransaction()
                             .add(R.id.multiImageQue,
                                     SpeechFragment.newInstance(parms))
+                            .commit();  // 1000 - is the id set for the container layout
+                }else if(topicType.equals("textDetection")){
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.multiImageQue,
+                                    TextDetectionFragment.newInstance(parms))
+                            .commit();  // 1000 - is the id set for the container layout
+                }else if(topicType.equals("colorDetection")){
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.multiImageQue,
+                                    ColorFragment.newInstance(parms))
                             .commit();  // 1000 - is the id set for the container layout
                 }
             }
