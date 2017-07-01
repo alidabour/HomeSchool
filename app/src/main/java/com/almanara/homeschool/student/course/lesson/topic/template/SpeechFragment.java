@@ -105,7 +105,7 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
 
 
-        final String[] isChecked = {"false"};
+        final String[] isChecked = {"true"};
         toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,13 +115,13 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
                     progressBar.setIndeterminate(true);
                     speech.startListening(recognizerIntent);
                     Log.v("speech","true");
-                    isChecked[0] = "true";
+                    isChecked[0] = "false";
                 } else {
                     progressBar.setIndeterminate(false);
                     progressBar.setVisibility(View.INVISIBLE);
                     speech.stopListening();
                     Log.v("speech","false");
-                    isChecked[0] = "false";
+                    isChecked[0] = "true";
 
                 }
 

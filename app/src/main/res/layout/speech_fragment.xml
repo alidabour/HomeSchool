@@ -11,8 +11,7 @@
     <TextView
         android:padding="8dp"
         android:id="@+id/text"
-        tools:text="انطق كلمة"
-        android:background="@color/colorAccent"
+        android:text="اضغط علي الميكروفون وقول"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"

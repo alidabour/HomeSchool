@@ -27,10 +27,8 @@ public class ColorFragment extends Fragment  {
     String layout;
     private final String HOLD = " ,HO##LD,";
     String[] parms;
-    private TextView questionText , colorText;
+    private TextView  colorText;
     private ImageView cameraIcon;
-    private Intent recognizerIntent;
-    private String LOG_TAG = "VoiceRecognitionActivity";
 
     public ColorFragment() {
     }
@@ -82,8 +80,9 @@ public class ColorFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.color_fragment, container, false);
-        questionText = (TextView) view.findViewById(R.id.textView1);
+//        questionText = (TextView) view.findViewById(R.id.textView1);
         colorText = (TextView) view.findViewById(R.id.textView2);
+        colorText.setText(parms[0]);
         cameraIcon = (ImageView) view.findViewById(R.id.camera_icon);
 
 

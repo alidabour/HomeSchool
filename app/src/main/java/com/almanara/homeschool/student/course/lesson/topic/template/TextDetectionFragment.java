@@ -27,11 +27,8 @@ public class TextDetectionFragment extends Fragment  {
     String layout;
     private final String HOLD = " ,HO##LD,";
     String[] parms;
-    private TextView questionText , textDetectionTextView;
     private ImageView cameraIcon;
-    private Intent recognizerIntent;
-    private String LOG_TAG = "VoiceRecognitionActivity";
-
+    private TextView word;
     public TextDetectionFragment() {
     }
 
@@ -81,9 +78,9 @@ public class TextDetectionFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.color_fragment, container, false);
-        questionText = (TextView) view.findViewById(R.id.textView1);
-        textDetectionTextView = (TextView) view.findViewById(R.id.textView2);
+        final View view = inflater.inflate(R.layout.text_detection_fragment, container, false);
+        word = (TextView) view.findViewById(R.id.textView1);
+        word.setText(parms[0]);
         cameraIcon = (ImageView) view.findViewById(R.id.camera_icon);
 
 
