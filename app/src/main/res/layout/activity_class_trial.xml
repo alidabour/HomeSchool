@@ -18,21 +18,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.1"/>
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:maxHeight="24dp"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:indeterminateDrawable="@drawable/customprogress"
-            android:visibility="gone"
-            android:id="@+id/progress_2"/>
         <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
             android:id="@+id/progress_1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="16dp"
-            android:visibility="gone"
             android:layout_weight="0.2">
 
         </com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar>

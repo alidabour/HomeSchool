@@ -62,7 +62,7 @@
             android:name="com.almanara.homeschool.parent.ParentActivity"
             android:label="@string/title_activity_parent"
             android:parentActivityName="com.almanara.homeschool.login.SignInAs"
-            android:theme="@style/parent">
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.almanara.homeschool.login.SignInAs" />
