@@ -18,7 +18,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.almanara.homeschool.controller.activities.Utility;
 import com.almanara.homeschool.student.StudentHomeActivityNew;
+import com.almanara.homeschool.student.course.lesson.topic.ClassActivity;
 import com.bumptech.glide.Glide;
 import com.almanara.homeschool.instructor.InstructorActivity;
 import com.almanara.homeschool.parent.ParentActivity;
@@ -89,6 +91,8 @@ public class SignInAsAdapter extends PagerAdapter {
                     Intent intent =new Intent(mContext, ParentActivity.class);
                     intent.putExtra("FLAG_ACTIVITY_NEW_TASK" , true );
                     mContext.startActivity(intent);
+                    Utility.setTheme(mContext, 1);
+                   // ((SignInAs)mContext).recreateActivity();
 
 
                 } else if (position == 1) {
@@ -96,6 +100,8 @@ public class SignInAsAdapter extends PagerAdapter {
                     Intent intent =new Intent(mContext, InstructorActivity.class);
                     intent.putExtra("FLAG_ACTIVITY_NEW_TASK" , true );
                     mContext.startActivity(intent);
+                    Utility.setTheme(mContext, 2);
+                   // ((SignInAs)mContext).recreateActivity();
 
                 } else if (position == 2) {
                     Intent intent =new Intent(mContext, StudentHomeActivityNew.class);
@@ -113,4 +119,5 @@ public class SignInAsAdapter extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((FrameLayout) object);
     }
+
 }

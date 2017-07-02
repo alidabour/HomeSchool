@@ -3,6 +3,7 @@ package com.almanara.homeschool.login;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -28,11 +29,10 @@ import me.relex.circleindicator.CircleIndicator;
 public class SignInAs extends AppCompatActivity {
 
     ViewPager pager;
-    int [] colors = new int []{R.color.instructor , R.color.parent , R.color.splash};
 
 
     ViewPager pagerIndicator;
-    int [] colors = new int []{R.color.instructor , R.color.parent , R.color.student};
+    int [] colors = new int []{R.color.instructor , R.color.parent , R.color.splash};
     ArrayList<Integer> indicators = new ArrayList<>();
     boolean isArabic= false;
     @Override
@@ -257,4 +257,12 @@ public class SignInAs extends AppCompatActivity {
 //        startActivity(intent);
 //        overridePendingTransition(R.anim.left_to_right,R.anim.right_to_left);*/
 //    }
+    public void recreateActivity() {
+        Intent intent = getIntent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
 }

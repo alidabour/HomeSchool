@@ -7,7 +7,13 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorBack</item>
+    </style>
 
+    <style name="AppTheme.Instructor" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/parent</item>
+        <item name="colorPrimaryDark">@color/parent</item>
+        <item name="colorAccent">@color/parent</item>
+        <item name="colorControlNormal">@color/colorBack</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -29,21 +35,21 @@
     </style>
 
 
-    <style name="student" parent="Theme.AppCompat">
-        <item name="colorPrimary">#770fb9</item>
-        <item name="colorPrimaryDark">#770fb9</item>
-        <item name="colorAccent">#770fb9</item>
-    </style>
+    <!--<style name="student" parent="Theme.AppCompat">-->
+        <!--<item name="colorPrimary">#770fb9</item>-->
+        <!--<item name="colorPrimaryDark">#770fb9</item>-->
+        <!--<item name="colorAccent">#770fb9</item>-->
+    <!--</style>-->
 
-    <style name="instructor" parent="Theme.AppCompat">
-        <item name="colorPrimary">#eba505</item>
-        <item name="colorPrimaryDark">#eba505</item>
-        <item name="colorAccent">#eba505</item>
-    </style>
+    <!--<style name="instructor" parent="Theme.AppCompat">-->
+        <!--<item name="colorPrimary">#eba505</item>-->
+        <!--<item name="colorPrimaryDark">#eba505</item>-->
+        <!--<item name="colorAccent">#eba505</item>-->
+    <!--</style>-->
 
-    <style name="parent" parent="Theme.AppCompat">
-        <item name="colorPrimary">#03879f</item>
-        <item name="colorPrimaryDark">#03879f</item>
-        <item name="colorAccent">#03879f</item>
-    </style>
+    <!--<style name="parent" parent="Theme.AppCompat">-->
+        <!--<item name="colorPrimary">#03879f</item>-->
+        <!--<item name="colorPrimaryDark">#03879f</item>-->
+        <!--<item name="colorAccent">#03879f</item>-->
+    <!--</style>-->
 </resources>

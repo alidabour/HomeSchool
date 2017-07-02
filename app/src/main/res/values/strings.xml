@@ -6,6 +6,7 @@
     <string name="CourseName">Animals Vol.1</string>
     <string name="CourseDescription">Course Description</string>
     <string name="CourseDescriptionBody">Learn about animals </string>
+    <string name="prefs_theme_key">theme</string>
 
     <string name="signin">Sign in</string>
     <string name="guest">Guest</string>

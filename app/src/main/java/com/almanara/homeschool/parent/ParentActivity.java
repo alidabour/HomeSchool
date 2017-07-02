@@ -1,5 +1,6 @@
 package com.almanara.homeschool.parent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,13 +9,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.almanara.ali.homeschool.R;
+import com.almanara.homeschool.controller.activities.BaseActivity;
+import com.almanara.homeschool.controller.activities.Utility;
 
-public class ParentActivity extends AppCompatActivity {
+public class ParentActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parent);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
       setSupportActionBar(toolbar);
 

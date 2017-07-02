@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.almanara.homeschool.UserModelHelper.UploadFile;
 import com.almanara.homeschool.UserModelHelper.UserModelFirebaseClass;
+import com.almanara.homeschool.controller.activities.BaseActivity;
+import com.almanara.homeschool.controller.activities.Utility;
 import com.bumptech.glide.Glide;
 import com.almanara.homeschool.CircleTransform;
 import com.almanara.ali.homeschool.R;
@@ -28,7 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class InstructorActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class InstructorActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     AppBarLayout appBarLayout;
     FirebaseAuth mAuth;
@@ -42,7 +44,7 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
     private Uri filePath;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.instructor_drawer_layout);
         mAuth = FirebaseAuth.getInstance();
@@ -66,6 +68,7 @@ public class InstructorActivity extends AppCompatActivity implements NavigationV
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
