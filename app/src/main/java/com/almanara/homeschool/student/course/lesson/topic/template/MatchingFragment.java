@@ -28,6 +28,8 @@ import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static com.almanara.ali.homeschool.R.id.part3;
 
 public class MatchingFragment extends Fragment {
@@ -87,20 +89,21 @@ public class MatchingFragment extends Fragment {
 //        Bundle args = intent.getBundleExtra("BUNDLE");
 
 //        Log.e(object.size() + "", "onCreate: ");
+        //   LinearLayout part3 = (LinearLayout) mainView.findViewById(R.id.part3);
+
 
         LinearLayout part1 = (LinearLayout) mainView.findViewById(R.id.part1);
         LinearLayout part2 = (LinearLayout) mainView.findViewById(R.id.part2);
-     //   LinearLayout part3 = (LinearLayout) mainView.findViewById(R.id.part3);
-
-
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT,1.0f);
-
         lp.setMargins(25, 50, 25, 50);
+
+
         for (int i = 0; i < object.size(); i++) {
 
             ImageView matchImageView = new ImageView(getActivity());
-            matchImageView.setAdjustViewBounds(true);
+
+          matchImageView.setAdjustViewBounds(true);
             matchImageView.setLayoutParams(
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.MATCH_PARENT, 1.0f));
@@ -146,8 +149,6 @@ public class MatchingFragment extends Fragment {
             //if (i % 2 == 0)
           part1.addView(matchImageView, lp);
             //else part3.addView(matchImageView, lp);
-
-
             part2.addView(blackImageView, lp);
 
             matchImageList.add(matchImageView);
@@ -200,6 +201,7 @@ public class MatchingFragment extends Fragment {
         public boolean onDrag(View v, DragEvent event) {
             int dragEbvent = event.getAction();
             final View view = (View) event.getLocalState();
+
             switch (dragEbvent) {
                 case DragEvent.ACTION_DRAG_STARTED:
                     flage = false;
