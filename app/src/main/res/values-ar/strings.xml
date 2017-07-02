@@ -41,7 +41,7 @@
     <string name="welcome">مرحباً بك!</string>
     <string name="enter_your_email_to_sign_in_to_your_account">أدخل بريدك الإلكترونى للدخول إلى حسابك</string>
     <string name="Instructor">مدرس</string>
-    <string name="Student">المناره</string>
+    <string name="Student">طالب</string>
     <string name="Parents">ولى أمر</string>
     <string name="instructor">مدرس :</string>
     <string name="Courses">المناهج</string>
@@ -104,7 +104,7 @@
     <string name="viewThisChild"> اعرض ل مستوى ابني في دروسه </string>
     <string name="addCourse"> اضافة منهج </string>
     <string name="matching">سؤال وصل </string>
-    <string name="Efficent">Efficent</string>
+    <string name="Efficent">فاعليه</string>
     <string name="Smart">ذكى</string>
     <string name="Easy">سهل</string>
     <string name="audio_recording_error">خطأ في تسجيل الصوت</string>
