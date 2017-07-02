@@ -101,8 +101,8 @@ public class SignInAs extends AppCompatActivity {
             pager.setCurrentItem(signInAsAdapter.getCount() - 1);
             pagerIndicator.setCurrentItem(indicatorViewPagerAdapter.getCount() - 1);
         }
-        CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
-        indicator.setViewPager(pager);
+//        CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
+//        indicator.setViewPager(pager);
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
