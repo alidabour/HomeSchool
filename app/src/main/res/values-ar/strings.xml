@@ -148,5 +148,6 @@
     <string name="wrongw">خطا اعد المحاوله</string>
     <string name="in_correct"> خطا اعد المحاوله</string>
     <string name="ondowload">قيد التحميل</string>
+    <string name="registering">جارى التسجيل...</string>
     y
 </resources>

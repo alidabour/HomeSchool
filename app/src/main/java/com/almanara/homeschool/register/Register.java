@@ -142,7 +142,7 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
         if (!validateForm()) {
             return;
         }
-        progressDialog.setMessage("Registering user ...");
+        progressDialog.setMessage(getString(R.string.registering));
         progressDialog.show();
 
         if (Password.equals(Repeated_Password)) {
@@ -217,7 +217,7 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
         }
         String repeatedPasswordString = repeated_password.getText().toString();
         if (TextUtils.isEmpty(repeatedPasswordString)) {
-            repeated_password.setError(getString(R.string.dont_match));
+            repeated_password.setError(getString(R.string.require));
             valid = false;
         } else {
             repeated_password.setError(null);
