@@ -395,7 +395,7 @@ public class ClassActivity extends AppCompatActivity {
 //    }
 
     public void swipPager() {
-        progress1.setProgress((100 * (pager.getCurrentItem() + 1)) / TopicModelList.size());
+        progress1.setProgress((100 * (pager.getCurrentItem() )) / TopicModelList.size());
         pager.setCurrentItem(pager.getCurrentItem() + 1);
 
     }
