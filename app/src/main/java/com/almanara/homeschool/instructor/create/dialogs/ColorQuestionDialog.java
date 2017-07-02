@@ -83,7 +83,7 @@ public class ColorQuestionDialog {
 //            }
 //        });
         builder.setView(someLayout);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String questionText = questionET.getText().toString();
@@ -107,7 +107,7 @@ public class ColorQuestionDialog {
 //                    progressImage.setImageOrSound(true,true);
                     dialogInterface.cancel();
                 } else {
-                    Toast.makeText(activity, "ادخل كلمة", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, R.string.enter_word, Toast.LENGTH_SHORT).show();
                 }
             }
         });

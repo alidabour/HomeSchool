@@ -92,8 +92,8 @@ public class ColorFragment extends Fragment  {
 
                 if (!openApp(getActivity(), "com.example.android.color",
                         parms[0], Constants.Color_Request,"MainActivity")) {
-                    Snackbar.make(getView(),"من فضلك قم بتحميل برنامج الالوان",Snackbar.LENGTH_INDEFINITE)
-                            .setAction("تحميل", new View.OnClickListener() {
+                    Snackbar.make(getView(), R.string.please,Snackbar.LENGTH_INDEFINITE)
+                            .setAction(R.string.download, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     String url = "https://dl.dropboxusercontent.com/s/wol3h7olint9z03/app-debug.apk?dl=0";

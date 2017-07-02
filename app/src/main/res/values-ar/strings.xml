@@ -117,5 +117,36 @@
     <string name="no_speech_input">ادخل صوت </string>
     <string name="try_again">اعد المحاوله</string>
     <string name="text_detection_question">اوجد الكلمة</string>
-
+    <string name="you_click">تم</string>
+    <string name="id_null">خطا فى الرقم التعريفى </string>
+    <string name="failure_to_load">اخفاق فى التحميل اعد المحاوله.</string>
+    <string name="connect_from">تم الاتصال من</string>
+    <string name="animal_vlaue1">حيوان رقم1</string>
+    <string name="sign_in">تم التسجيل بنجاح</string>
+    <string name="sign_in_correct">يجب تسجيل دخول</string>
+    <string name="good">" أحسنت  "</string>
+    <string name="enter_word">ادخل كلمة</string>
+    <string name="choose_kind">اختار النوع :</string>
+    <string name="on_move">اثناء الحركه</string>
+    <string name="on_swiped">اثناء التقليب </string>
+    <string name="lesson_title">عنوان الدرس</string>
+    <string name="anwan_7sa">عنوان الحصة</string>
+    <string name="on_double_click">انقر مرتين</string>
+    <string name="wrong">خطا فى اسم المستخدم او الرقم السرى</string>
+    <string name="no_internet">لا يوجد شبكه اتصال</string>
+    <string name="register_register">تم التسجيل بنجاح ادخل الى حسابك</string>
+    <string name="password_success">لايجب ان يقل الرقم السرى عن 6 ارقام او حروف</string>
+    <string name="no_matchs">خطا فى الرقم السرى </string>
+    <string name="dont_match">لا يتشابه الرقم السرى </string>
+    <string name="require">ضرورى</string>
+    <string name="please">من فضلك قم بتحميل برنامج الالوان</string>
+    <string name="download">تحميل</string>
+    <string name="pleasee">من فضلك قم بتحميل برنامج الحروف</string>
+    <string name="yaaaaaaaaaaay">هييييييييييييييييه</string>
+    <string name="pleasee_swip">مرر لليمين لتشاهد باقى الدروس</string>
+    <string name="correct">صحيح احسنت</string>
+    <string name="wrongw">خطا اعد المحاوله</string>
+    <string name="in_correct"> خطا اعد المحاوله</string>
+    <string name="ondowload">قيد التحميل</string>
+    y
 </resources>

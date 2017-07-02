@@ -79,7 +79,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(InstructorTopicActivity.this);
-                builder.setTitle("عنوان الحصة");
+                builder.setTitle(R.string.anwan_7sa);
 
                 // Set up the input
                 final EditText input = new EditText(InstructorTopicActivity.this);
@@ -154,7 +154,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
                                   RecyclerView.ViewHolder target) {
-                Toast.makeText(getApplicationContext(), "on Move", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.on_move, Toast.LENGTH_SHORT).show();
                 return false;
             }
 
@@ -164,7 +164,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
                 lessonAdapter.notifyItemRemoved(
                         viewHolder.getLayoutPosition());
                 db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(topicId).removeValue();
-                Toast.makeText(getApplicationContext(), "on Swip", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.on_swiped, Toast.LENGTH_SHORT).show();
 
             }
         };

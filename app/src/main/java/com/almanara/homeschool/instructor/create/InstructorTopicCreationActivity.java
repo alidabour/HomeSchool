@@ -296,7 +296,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
                 }
                 final AlertDialog.Builder builder = new AlertDialog.Builder(
                         InstructorTopicCreationActivity.this);
-                builder.setTitle("اختار النوع :");
+                builder.setTitle(R.string.choose_kind);
                 LayoutInflater li = LayoutInflater.from(InstructorTopicCreationActivity.this);
                 LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.question_list, null);
                 final TextView colorQue = (TextView) someLayout.findViewById(R.id.color);

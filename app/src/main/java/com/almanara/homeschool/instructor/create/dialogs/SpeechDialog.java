@@ -66,7 +66,7 @@ public class SpeechDialog {
 //                    progressImage.setImageOrSound(true,true);
                     dialogInterface.cancel();
                 }else {
-                    Toast.makeText(activity, "ادخل كلمة", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, R.string.enter_word, Toast.LENGTH_SHORT).show();
                 }
 //                Log.v("TESTAPP", "onClick :" + textAppearance);
 

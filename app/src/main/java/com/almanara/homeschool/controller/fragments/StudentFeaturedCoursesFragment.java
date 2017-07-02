@@ -179,7 +179,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
                 // Getting Post failed, log a message
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
                 // [START_EXCLUDE]
-                Toast.makeText(getActivity(), "Failed to load post.",
+                Toast.makeText(getActivity(), getString(R.string.failure_to_load),
                         Toast.LENGTH_SHORT).show();
                 // [END_EXCLUDE]
 

@@ -132,12 +132,12 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener {
                             if (internetConnectionChecker.isInternetOn()) {
                                 Log.w(TAG, "signInWithEmail:failed", task.getException());
                                 progressDialog.dismiss();
-                                Toast.makeText(Sign_In.this, "Wrong Username Or Password",
+                                Toast.makeText(Sign_In.this, R.string.wrong,
                                         Toast.LENGTH_SHORT).show();
                             } else {
                                 progressDialog.dismiss();
                                 Log.w(TAG, "signInWithEmail:failed", task.getException());
-                                Toast.makeText(Sign_In.this, "Internet Connection Not Available",
+                                Toast.makeText(Sign_In.this, R.string.no_internet,
                                         Toast.LENGTH_SHORT).show();
                             }
                         }

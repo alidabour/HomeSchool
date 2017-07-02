@@ -91,8 +91,8 @@ public class TextDetectionFragment extends Fragment  {
                 {
                     if (!openApp(getActivity(), "edu.sfsu.cs.orange.ocr",
                             parms[0] + "," + parms[1], Constants.Text_Detection,"CaptureActivity")) {
-                        Snackbar.make(getView(),"من فضلك قم بتحميل برنامج الحروف",Snackbar.LENGTH_INDEFINITE)
-                                .setAction("تحميل", new View.OnClickListener() {
+                        Snackbar.make(getView(), R.string.pleasee,Snackbar.LENGTH_INDEFINITE)
+                                .setAction(R.string.download, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         String url = "https://dl.dropboxusercontent.com/s/23y3fc3t6z9ou79/OCRTest-debug.apk?dl=0";

@@ -96,8 +96,8 @@ public class LessonFragment extends Fragment {
 //                    startActivityForResult(intent, Color_Request);
                     if (!openApp(getActivity(), "com.example.android.color",
                             answer.getAnswer(), Constants.Color_Request,"MainActivity")) {
-                        Snackbar.make(getView(),"من فضلك قم بتحميل برنامج الالوان",Snackbar.LENGTH_INDEFINITE)
-                                .setAction("تحميل", new View.OnClickListener() {
+                        Snackbar.make(getView(), R.string.please,Snackbar.LENGTH_INDEFINITE)
+                                .setAction(R.string.download, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         String url = "https://dl.dropboxusercontent.com/s/wol3h7olint9z03/app-debug.apk?dl=0";
@@ -111,8 +111,8 @@ public class LessonFragment extends Fragment {
                 } else if (activity.equals("TextDetection")) {
                     if (!openApp(getActivity(), "edu.sfsu.cs.orange.ocr",
                             answer.getAnswer() + "," + answer.getLan(), Constants.Text_Detection,"CaptureActivity")) {
-                        Snackbar.make(getView(),"من فضلك قم بتحميل برنامج الحروف",Snackbar.LENGTH_INDEFINITE)
-                                .setAction("تحميل", new View.OnClickListener() {
+                        Snackbar.make(getView(),R.string.pleasee,Snackbar.LENGTH_INDEFINITE)
+                                .setAction(R.string.download, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         String url = "https://dl.dropboxusercontent.com/s/23y3fc3t6z9ou79/OCRTest-debug.apk?dl=0";
@@ -190,7 +190,7 @@ public class LessonFragment extends Fragment {
         if (resultCode == Constants.CORRECTANSWER) {
             if (requestCode == Constants.Text_Detection) {
                 Log.v("t3ala yabni", "etnyl t3ala enta eltani");
-                Toast.makeText(getActivity(), "Result Correct", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.correct, Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -199,7 +199,7 @@ public class LessonFragment extends Fragment {
         if (resultCode == Constants.WRONGANSWER) {
             if (requestCode == Constants.Text_Detection) {
                 Log.v("t3ala yabni", "etnyl t3ala");
-                Toast.makeText(getActivity(), "Result Incorrect", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.in_correct, Toast.LENGTH_SHORT).show();
             }
         }
 //        if(requestCode== Constants.SPEECH){

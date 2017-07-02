@@ -20,6 +20,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.almanara.ali.homeschool.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
@@ -367,7 +368,7 @@ public class ParseXMLInstructor {
                             if (xmlEditClick != null) {
                                 xmlEditClick.onEditImageView(id, src, layout);
                             }
-                            Toast.makeText(activity, "ON Double Tap", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, R.string.on_double_click, Toast.LENGTH_SHORT).show();
                             return super.onDoubleTap(e);
                         }
                         // implement here other callback methods like onFling, onScroll as necessary

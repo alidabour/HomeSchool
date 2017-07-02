@@ -68,7 +68,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(
                         InstructorLessonsActivity.this);
-                builder.setTitle("عنوان الدرس");
+                builder.setTitle(R.string.lesson_title);
                 LayoutInflater li = LayoutInflater.from(InstructorLessonsActivity.this);
                 LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.lesson_dialog, null);
                 TextView gallery = (TextView) someLayout.findViewById(R.id.choosefromGallery);
@@ -163,7 +163,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
                                   RecyclerView.ViewHolder target) {
-                Toast.makeText(getApplicationContext(), "on Move", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),R.string.on_move, Toast.LENGTH_SHORT).show();
                 return false;
             }
 
@@ -173,7 +173,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                 instructorLessonAdapter.notifyItemRemoved(
                         viewHolder.getLayoutPosition());
                 db.child("courses").child(courseID).child("lessons").child(lessonID).removeValue();
-                Toast.makeText(getApplicationContext(), "on Swip", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.on_swiped, Toast.LENGTH_SHORT).show();
 
             }
         };

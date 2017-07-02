@@ -117,7 +117,7 @@ public class ChildCoursesFragment extends Fragment {
         try {
             db.child("users").child(c.getId()).child("enrolledcourses").addValueEventListener(listener);
         }catch (NullPointerException e){
-            Toast.makeText(context, "ID Null", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.id_null, Toast.LENGTH_SHORT).show();
         }
     }
 

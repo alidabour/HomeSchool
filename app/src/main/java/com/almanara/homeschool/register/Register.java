@@ -163,7 +163,7 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
                                 newUser.setName(String.valueOf(userName.getText()));
                                 newUser.setPhoto(photoString);
                                 user = mAuth.getCurrentUser();
-                                Toast.makeText(Register.this, "Registered Successfully , Logging In", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Register.this, R.string.register_register, Toast.LENGTH_SHORT).show();
                                 myRef.child("users").child(user.getUid()).setValue(newUser);
                                 String Uid = myRef.child("users").child(user.getUid()).getKey();
                                 myRef.child("users").child(user.getUid()).child("uid").setValue(Uid);
@@ -171,22 +171,22 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
                                 startActivity(new Intent(getBaseContext(), SignInAs.class));
                             } else {
                                 if (Password.length()<=6) {
-                                    Toast.makeText(Register.this, "Password is less than 6 characters",
+                                    Toast.makeText(Register.this, R.string.password_success,
                                             Toast.LENGTH_SHORT).show();
                                 } else if(!internetConnectionChecker.isInternetOn()){
 
-                                    Toast.makeText(Register.this, "Email is Either not Created or Doesn't Exist",
+                                    Toast.makeText(Register.this, R.string.email_wrong,
                                             Toast.LENGTH_SHORT).show();
                                 }
-                                else Toast.makeText(Register.this, "Internet Connection Not Available",
+                                else Toast.makeText(Register.this, R.string.no_internerts,
                                         Toast.LENGTH_SHORT).show();
 
                             }
                         }
                     });
         } else {
-            Toast.makeText(this, "Passwords didn't match", Toast.LENGTH_SHORT).show();
-            repeated_password.setError("Doesn't Match.");
+            Toast.makeText(this, R.string.no_matchs, Toast.LENGTH_SHORT).show();
+            repeated_password.setError(getString(R.string.dont_match));
         }
     }
 
@@ -195,14 +195,14 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
 
         String UserName = userName.getText().toString();
         if (TextUtils.isEmpty(UserName)) {
-            userName.setError("Required");
+            userName.setError(getString(R.string.require));
             valid = false;
         } else {
             repeated_password.setError(null);
         }
         String emailString = email.getText().toString();
         if (TextUtils.isEmpty(emailString)) {
-            email.setError("Required.");
+            email.setError(getString(R.string.require));
             valid = false;
         } else {
             email.setError(null);
@@ -210,14 +210,14 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
 
         String passwordString = password.getText().toString();
         if (TextUtils.isEmpty(passwordString)) {
-            password.setError("Required.");
+            password.setError(getString(R.string.require));
             valid = false;
         } else {
             password.setError(null);
         }
         String repeatedPasswordString = repeated_password.getText().toString();
         if (TextUtils.isEmpty(repeatedPasswordString)) {
-            repeated_password.setError("Doesn't Match");
+            repeated_password.setError(getString(R.string.dont_match));
             valid = false;
         } else {
             repeated_password.setError(null);

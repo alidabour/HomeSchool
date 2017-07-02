@@ -95,7 +95,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
 //        fab = (FloatingActionButton) findViewById(R.id.fab);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Animals Vol. 1");
+        toolbar.setTitle(R.string.animal_vlaue1);
         enroll = (Button) findViewById(R.id.enroll);
         courseImage = (ImageView) findViewById(R.id.imageView);
         courseTeacher = (TextView) findViewById(textView);
@@ -163,9 +163,9 @@ public class CourseDescriptionActivity extends AppCompatActivity {
 
                                                     courseExists = true;
                                                     if(mychild.equals("hello"))
-                                                        Toast.makeText(CourseDescriptionActivity.this, "تم التسجيل بنجاح", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(CourseDescriptionActivity.this, R.string.sign_in, Toast.LENGTH_SHORT).show();
                                                     else
-                                                        Toast.makeText(CourseDescriptionActivity.this, "تم التسجيل بنجاح", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(CourseDescriptionActivity.this, R.string.sign_in, Toast.LENGTH_SHORT).show();
 
                                                     databaseReference.child("courses").child(enrolledCourseModel.getCourse_id()).child("lessons").addValueEventListener(new ValueEventListener() {
                                                         @Override
@@ -211,7 +211,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                     databaseReference.child("users").child(userid).child("enrolledcourses").addValueEventListener(listener1);
 
                 } else
-                    Toast.makeText(CourseDescriptionActivity.this, "يجب تسجيل دخول", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CourseDescriptionActivity.this, R.string.sign_in_correct, Toast.LENGTH_SHORT).show();
             }
         });
 

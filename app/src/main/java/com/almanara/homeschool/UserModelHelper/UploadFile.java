@@ -42,7 +42,7 @@ public class UploadFile {
         if (filePath != null) {
             //displaying a progress dialog while upload is going on
             final ProgressDialog progressDialog = new ProgressDialog(context);
-            progressDialog.setTitle("قيد التحميل");
+            progressDialog.setTitle(context.getString(R.string.ondowload));
             progressDialog.show();
             Log.v("ITA", "Type: " + getMimeType(context, filePath));
             Log.v("ITA", "FileName: " + getFileName(context, filePath));

@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.Answer;
 import com.almanara.homeschool.Constants;
 
@@ -62,7 +63,7 @@ public class Speech extends Activity{
                 setResult(Constants.CORRECTANSWER,intent);
                 finish();
                 Log.v("talayabni","t3ala ya nela");
-                Toast.makeText(this, word + " أحسنت  ", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, word + getString(R.string.good), Toast.LENGTH_LONG).show();
             }
         }
         if(!isCorrect){
@@ -70,7 +71,7 @@ public class Speech extends Activity{
             intent.setData(Uri.parse(results.toString()));
             setResult(Constants.WRONGANSWER,intent);
             finish();
-           Toast.makeText(this,"حاول مرة أخري", Toast.LENGTH_LONG).show();
+           Toast.makeText(this,getString(R.string.try_again), Toast.LENGTH_LONG).show();
 
         }
     }

@@ -130,7 +130,7 @@ public class ClassActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(context, "Swipe Right To See All The Topics", Toast.LENGTH_LONG  ).show();
+        Toast.makeText(context, R.string.pleasee_swip, Toast.LENGTH_LONG  ).show();
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.backgroundsound);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
@@ -217,7 +217,7 @@ public class ClassActivity extends AppCompatActivity {
 
         if (requestCode == Constants.SPEECH) {
             if (resultCode == Constants.CORRECTANSWER) {
-                Toast.makeText(this, " احسنت \n" + data.getData().toString(), Toast.LENGTH_LONG)
+                Toast.makeText(this, R.string.good+"  \n" + data.getData().toString(), Toast.LENGTH_LONG)
                         .show();
             } else if (resultCode == Constants.WRONGANSWER) {
                 db.child("users").child(user.getUid()).child("enrolledcourses")
@@ -248,7 +248,7 @@ public class ClassActivity extends AppCompatActivity {
                             public void onCancelled(DatabaseError databaseError) {
                             }
                         });
-                Toast.makeText(this, " حاول مرة أخري \n" + data.getData().toString(),
+                Toast.makeText(this, R.string.try_again+" \n" + data.getData().toString(),
                         Toast.LENGTH_LONG).show();
 
             }
@@ -256,13 +256,13 @@ public class ClassActivity extends AppCompatActivity {
         if (resultCode == Constants.CORRECTANSWER) {
             if (requestCode == Constants.SIMPLE) {
 //                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
-                Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.correct, Toast.LENGTH_SHORT).show();
             }
         }
         if (resultCode == Constants.WRONGANSWER) {
             if (requestCode == Constants.SIMPLE) {
 //                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
-                Toast.makeText(context, "Result Wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.wrongw, Toast.LENGTH_SHORT).show();
             }
         }
         if (resultCode == Activity.RESULT_OK) {
@@ -288,14 +288,14 @@ public class ClassActivity extends AppCompatActivity {
             if (requestCode == Constants.Text_Detection) {
 //                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
                 Log.v("yahoo2", "Correct yabnii");
-                Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,R.string.correct, Toast.LENGTH_SHORT).show();
             }
         }
         if (resultCode == Constants.WRONGANSWER) {
             if (requestCode == Constants.Text_Detection) {
                 Log.v("yahoo2", "Wrong yabnii");
 //                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
-                Toast.makeText(context, "Result Incorrect", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.in_correct, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -395,7 +395,7 @@ public class ClassActivity extends AppCompatActivity {
         final AlertDialog.Builder builder = new AlertDialog.Builder(
                 this);
 
-        builder.setTitle("هييييييييييييييييه");
+        builder.setTitle(R.string.yaaaaaaaaaaay);
         LayoutInflater li = LayoutInflater.from(this);
         LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.correct_answer, null);
         imageView2 = (ImageView) someLayout.findViewById(R.id.masha);

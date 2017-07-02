@@ -65,7 +65,7 @@ public class CustomListviewAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Toast.makeText(context, "You Clicked "+result[position], Toast.LENGTH_LONG).show();
+                Toast.makeText(context, context.getString(R.string.you_click)+result[position], Toast.LENGTH_LONG).show();
             }
         });
         return rowView;

@@ -86,13 +86,13 @@ public class InstructorFragment extends Fragment {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
                                   RecyclerView.ViewHolder target) {
-                Toast.makeText(getActivity(), "on Move", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.on_move, Toast.LENGTH_SHORT).show();
                 return false;
             }
 
             @Override
             public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                Toast.makeText(getActivity(), "on Swiped ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.on_swiped, Toast.LENGTH_SHORT).show();
                 //Remove swiped item from list and notify the RecyclerView
                 Log.v("Test", "Course :" + viewHolder.getLayoutPosition());
                 Log.v("Test", "Course :" + viewHolder.getAdapterPosition());
