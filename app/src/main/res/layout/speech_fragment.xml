@@ -4,41 +4,50 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
+
     <TextView
-        android:padding="8dp"
         android:id="@+id/text"
-        android:text="اضغط علي الميكروفون وقول"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:padding="8dp"
+        android:text=" اضغط علي الميكروفون وقول"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline" />
+
     <RelativeLayout
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/text"
+        android:id="@+id/relativeLayout3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text"
+        android:layout_centerInParent="true">
+
         <ImageView
             android:id="@+id/image"
+            android:layout_width="260dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-           android:background="@color/colorAccent"
-            android:layout_width="200dp"
-            android:layout_height="200dp"/>
+            android:background="@drawable/vte" />
+
         <TextView
-            android:id="@+id/text2"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            tools:text="ارنب"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="55dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/question"
+            android:textSize="56sp"
+            android:textStyle="bold"
+            tools:text="ارنب" />
     </RelativeLayout>
 
     <ProgressBar
@@ -46,8 +55,6 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_above="@+id/toggleButton1"
         android:layout_marginTop="28dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp" />
@@ -56,19 +63,17 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/progressBar1"
+        android:hint="trial"
+        android:layout_below="@+id/camera_icon"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="47dp" />
-
+        android:layout_marginTop="35dp" />
     <ImageView
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/ic_mic_black_24dp"
-        android:id="@+id/toggleButton1"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:tint="@color/colorAccent"
+        android:id="@+id/camera_icon"
+        android:layout_width="90dp"
+        android:layout_height="130dp"
+        android:layout_below="@+id/relativeLayout3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:text="ToggleButton" />
+        android:layout_marginTop="70dp"
+        android:background="@drawable/micro" />
 
 </RelativeLayout>
