@@ -24,6 +24,7 @@ import com.almanara.homeschool.data.firebase.LessonModel;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.adapter.InstructorTopicsAdapter;
 import com.almanara.homeschool.instructor.create.InstructorTopicCreationActivity;
+import com.almanara.homeschool.instructor.lesson.InstructorLessonsActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,12 +45,13 @@ public class InstructorTopicActivity extends AppCompatActivity {
     LessonModel lessonModel;
     String lessonid;
     Intent intent;
-    String topicid=" ";
+    String topicid = " ";
     ValueEventListener listener;
     TextView noTopic;
     ItemTouchHelper.SimpleCallback simpleItemTouchCallback;
     InstructorTopicsAdapter lessonAdapter;
     List<TopicModel> lessonModelList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +107,8 @@ public class InstructorTopicActivity extends AppCompatActivity {
                         String topicid = key;
                         */
 
-                        Intent intent = new Intent(getApplicationContext(), InstructorTopicCreationActivity.class);
+                        Intent intent = new Intent(getApplicationContext(),
+                                InstructorTopicCreationActivity.class);
 
                         intent.putExtra("topicname", m_Text);
 //                        intent.putExtra("topicid", topicid);
@@ -134,7 +137,8 @@ public class InstructorTopicActivity extends AppCompatActivity {
 //        });
         lessonsRV = (RecyclerView) findViewById(R.id.lessonsRV);
         lessonsRV.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),
+                LinearLayoutManager.VERTICAL, false);
         lessonsRV.setLayoutManager(layoutManager);
 
         //   Log.v("Testytesty10001 ", ":------------" + intent.getParcelableExtra("lesson"));
@@ -144,7 +148,8 @@ public class InstructorTopicActivity extends AppCompatActivity {
 
         toolbar.setTitle(lessonModel.getName().toString());
         toolbar.setTitleTextColor(ContextCompat.getColor(InstructorTopicActivity.this,R.color.colorBack));*/
-        toolbar.setTitleTextColor(ContextCompat.getColor(InstructorTopicActivity.this, R.color.colorBack));
+        toolbar.setTitleTextColor(
+                ContextCompat.getColor(InstructorTopicActivity.this, R.color.colorBack));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -154,17 +159,39 @@ public class InstructorTopicActivity extends AppCompatActivity {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
                                   RecyclerView.ViewHolder target) {
-                Toast.makeText(getApplicationContext(), R.string.on_move, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.on_move, Toast.LENGTH_SHORT)
+                        .show();
                 return false;
             }
 
             @Override
             public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                final String topicId = lessonModelList.get(viewHolder.getAdapterPosition()).getId();
-                lessonAdapter.notifyItemRemoved(
-                        viewHolder.getLayoutPosition());
-                db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").child(topicId).removeValue();
-                Toast.makeText(getApplicationContext(), R.string.on_swiped, Toast.LENGTH_SHORT).show();
+
+                final AlertDialog.Builder builder = new AlertDialog.Builder(
+                        InstructorTopicActivity.this);
+                builder.setTitle(R.string.delete_alert);
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        lessonAdapter.notifyDataSetChanged();
+                    }
+                });
+                builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final String topicId = lessonModelList.get(viewHolder.getAdapterPosition())
+                                .getId();
+                        lessonAdapter.notifyItemRemoved(
+                                viewHolder.getLayoutPosition());
+                        db.child("courses").child(courseId).child("lessons").child(lessonid)
+                                .child("topics").child(topicId).removeValue();
+
+                    }
+                });
+                builder.show();
+//              Toast.makeText(getApplicationContext(), R.string.on_swiped, Toast.LENGTH_SHORT).show();
 
             }
         };
@@ -185,7 +212,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
                     topicModel = d.getValue(TopicModel.class);
                     if (!(topicModel.getLayout() == null))
                         lessonModelList.add(topicModel);
-                    if(!topicModel.getId().equals(" "))
+                    if (!topicModel.getId().equals(" "))
                         topicid = topicModel.getId();
                     Log.v("Test", "LESSON __ " + topicModel.toString());
                 }
@@ -193,7 +220,8 @@ public class InstructorTopicActivity extends AppCompatActivity {
                         new InstructorTopicsAdapter.OnClickHandler() {
                             @Override
                             public void onClick(TopicModel test) {
-                                InstructorTopicsAdapter.startIntentFromAdapter(InstructorTopicActivity.this, test);
+                                InstructorTopicsAdapter
+                                        .startIntentFromAdapter(InstructorTopicActivity.this, test);
                             }
                         }, InstructorTopicActivity.this, courseId, lessonid);
                 lessonsRV.setAdapter(lessonAdapter);
@@ -209,11 +237,13 @@ public class InstructorTopicActivity extends AppCompatActivity {
 
             }
         };
-        db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics").addValueEventListener(listener);
+        db.child("courses").child(courseId).child("lessons").child(lessonid).child("topics")
+                .addValueEventListener(listener);
 
     }
+
     @Override
-    protected void onPause(){
+    protected void onPause() {
         if (listener != null)
             db.removeEventListener(listener);
         super.onPause();

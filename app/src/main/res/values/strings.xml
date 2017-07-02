@@ -186,4 +186,7 @@
     <string name="in_correct">Result Incorrect</string>
     <string name="ondowload">on download</string>
     <string name="registering">Registering user ...</string>
+    <string name="delete_alert">Are you sure you want to delete?</string>
+    <string name="delete">Delete</string>
+
 </resources>

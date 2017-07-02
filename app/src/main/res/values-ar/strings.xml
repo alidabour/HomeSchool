@@ -149,5 +149,7 @@
     <string name="in_correct"> خطا اعد المحاوله</string>
     <string name="ondowload">قيد التحميل</string>
     <string name="registering">جارى التسجيل...</string>
-    y
+    <string name="delete_alert">هل انت تريد الحذف؟</string>
+    <string name="delete">مسح</string>
+
 </resources>

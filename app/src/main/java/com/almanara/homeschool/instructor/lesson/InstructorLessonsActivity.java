@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -169,11 +170,29 @@ public class InstructorLessonsActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                final String lessonID = lessonModelList.get(viewHolder.getAdapterPosition()).getId();
-                instructorLessonAdapter.notifyItemRemoved(
-                        viewHolder.getLayoutPosition());
-                db.child("courses").child(courseID).child("lessons").child(lessonID).removeValue();
-                Toast.makeText(getApplicationContext(), R.string.on_swiped, Toast.LENGTH_SHORT).show();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(InstructorLessonsActivity.this);
+                builder.setTitle(R.string.delete_alert);
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        instructorLessonAdapter.notifyDataSetChanged();
+                    }
+                });
+                builder.setPositiveButton(R.string.delete,new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final String lessonID = lessonModelList.get(viewHolder.getAdapterPosition()).getId();
+                        instructorLessonAdapter.notifyItemRemoved(
+                                viewHolder.getLayoutPosition());
+                        db.child("courses").child(courseID).child("lessons").child(lessonID).removeValue();
+                    }
+                });
+                builder.show();
+
+
+//                Toast.makeText(getApplicationContext(), R.string.on_swiped, Toast.LENGTH_SHORT).show();
 
             }
         };

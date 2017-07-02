@@ -92,37 +92,52 @@ public class InstructorFragment extends Fragment {
 
             @Override
             public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                Toast.makeText(getActivity(), R.string.on_swiped, Toast.LENGTH_SHORT).show();
-                //Remove swiped item from list and notify the RecyclerView
-                Log.v("Test", "Course :" + viewHolder.getLayoutPosition());
-                Log.v("Test", "Course :" + viewHolder.getAdapterPosition());
-                final String courseId = coursesList.get(viewHolder.getAdapterPosition()).getCourse_id();
-                instructorCoursesCardAdapter.notifyItemRemoved(
-                        viewHolder.getLayoutPosition());
-                db.child("courses")
-                        .child(courseId)
-                        .removeValue(
-                                new DatabaseReference.CompletionListener() {
-                                    @Override
-                                    public void onComplete(DatabaseError databaseError,
-                                                           DatabaseReference databaseReference) {
-                                        db.child("users").child(user.getUid()).child("CreatedCourse")
-                                                .child(courseId).removeValue(
-                                                new DatabaseReference.CompletionListener() {
-                                                    @Override
-                                                    public void onComplete(DatabaseError databaseError,
-                                                                           DatabaseReference databaseReference) {
+//                Toast.makeText(getActivity(), R.string.on_swiped, Toast.LENGTH_SHORT).show();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.delete_alert);
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        instructorCoursesCardAdapter.notifyDataSetChanged();    
+                    }
+                });
+                builder.setPositiveButton(R.string.delete,new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final String courseId = coursesList.get(viewHolder.getAdapterPosition()).getCourse_id();
+                        instructorCoursesCardAdapter.notifyItemRemoved(
+                                viewHolder.getLayoutPosition());
+                        db.child("courses")
+                                .child(courseId)
+                                .removeValue(
+                                        new DatabaseReference.CompletionListener() {
+                                            @Override
+                                            public void onComplete(DatabaseError databaseError,
+                                                                   DatabaseReference databaseReference) {
+                                                db.child("users").child(user.getUid()).child("CreatedCourse")
+                                                        .child(courseId).removeValue(
+                                                        new DatabaseReference.CompletionListener() {
+                                                            @Override
+                                                            public void onComplete(DatabaseError databaseError,
+                                                                                   DatabaseReference databaseReference) {
 //                                                        if (instructorCoursesCardAdapter != null) {
 //                                                            coursesList.remove(viewHolder.getAdapterPosition());
 
 //                                                        }
-                                                    }
-                                                });
+                                                            }
+                                                        });
 
 
-                                    }
-                                });
+                                            }
+                                        });
 
+
+                    }
+                });
+                builder.show();
+                //Remove swiped item from list and notify the RecyclerView
 
             }
         };
