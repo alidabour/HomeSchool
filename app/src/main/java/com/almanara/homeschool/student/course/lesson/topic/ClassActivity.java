@@ -40,6 +40,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /*
@@ -171,9 +172,12 @@ public class ClassActivity extends AppCompatActivity {
                             fragmentList.add(ColorFragment.newInstance(modelEntry.getLayout()));
                         }
                     }
+                    Collections.reverse(fragmentList);
+                    LessonPagerAdapter lessonPagerAdapter =  new LessonPagerAdapter(getSupportFragmentManager(), fragmentList);
                     pager.setAdapter(
-                            new LessonPagerAdapter(getSupportFragmentManager(), fragmentList));
+                           lessonPagerAdapter);
                     pager.setPageTransformer(true, new CubeOutTransformer()); //set the animation
+                    pager.setCurrentItem(lessonPagerAdapter.getCount() - 1);
                 }
             };
             db.child("courses").
