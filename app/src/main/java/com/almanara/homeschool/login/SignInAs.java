@@ -66,12 +66,6 @@ public class SignInAs extends AppCompatActivity {
             res.add(home);
         }else {
             Home home = new Home();
-            home.setImage(R.drawable.student_icon);
-            home.setName(getString(R.string.Student));
-            home.setSlogan(getString(R.string.Easy));
-            home.setBackGround(R.drawable.student_background);
-            res.add(home);
-            home = new Home();
             home.setImage(R.drawable.parents_icon);
             home.setName(getString(R.string.Parents));
             home.setSlogan(getString(R.string.Efficent));
@@ -82,6 +76,12 @@ public class SignInAs extends AppCompatActivity {
             home.setName(getString(R.string.Instructor));
             home.setSlogan(getString(R.string.Smart));
             home.setBackGround(R.drawable.instructor_background);
+            res.add(home);
+            home = new Home();
+            home.setImage(R.drawable.student_icon);
+            home.setName(getString(R.string.Student));
+            home.setSlogan(getString(R.string.Easy));
+            home.setBackGround(R.drawable.student_background);
             res.add(home);
         }
 
