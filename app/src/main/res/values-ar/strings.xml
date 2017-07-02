@@ -105,17 +105,17 @@
     <string name="addCourse"> اضافة منهج </string>
     <string name="matching">سؤال وصل </string>
     <string name="Efficent">Efficent</string>
-    <string name="Smart">Smart</string>
-    <string name="Easy">Easy</string>
+    <string name="Smart">ذكى</string>
+    <string name="Easy">سهل</string>
     <string name="audio_recording_error">خطأ في تسجيل الصوت</string>
-    <string name="client_error">Client side error</string>
-    <string name="permision">Insufficient permissions</string>
-    <string name="network_error">Network error</string>
-    <string name="no_match">No match</string>
-    <string name="rconize_serivce">RecognitionService busy</string>
-    <string name="error_form_server">error from server</string>
-    <string name="no_speech_input">No speech input</string>
-    <string name="try_again">Didn\'t understand, please try again.</string>
+    <string name="client_error">جارى البحث</string>
+    <string name="permision">اعطى صلاحيه  للمناره</string>
+    <string name="network_error">خطا فى الشبكه</string>
+    <string name="no_match">خطا</string>
+    <string name="rconize_serivce">هناك خطا</string>
+    <string name="error_form_server">عطل فى الخادم</string>
+    <string name="no_speech_input">ادخل صوت </string>
+    <string name="try_again">اعد المحاوله</string>
     <string name="text_detection_question">اوجد الكلمة</string>
 
 </resources>
