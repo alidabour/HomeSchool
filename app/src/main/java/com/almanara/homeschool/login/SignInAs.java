@@ -28,6 +28,9 @@ import me.relex.circleindicator.CircleIndicator;
 public class SignInAs extends AppCompatActivity {
 
     ViewPager pager;
+    int [] colors = new int []{R.color.instructor , R.color.parent , R.color.splash};
+
+
     ViewPager pagerIndicator;
     int [] colors = new int []{R.color.instructor , R.color.parent , R.color.student};
     ArrayList<Integer> indicators = new ArrayList<>();
@@ -42,6 +45,8 @@ public class SignInAs extends AppCompatActivity {
         }
         //ImageView imageView = (ImageView) findViewById(R.id.imageView);
         pager = (ViewPager) findViewById(R.id.viewPager);
+
+
         pagerIndicator = (ViewPager) findViewById(R.id.circlePager);
         Log.v("pager ", pager.toString());
         ArrayList<Home> res = new ArrayList<>();

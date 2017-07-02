@@ -221,12 +221,12 @@ public class ClassActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        correct();
-
         if (requestCode == Constants.SPEECH) {
             if (resultCode == Constants.CORRECTANSWER) {
-                Toast.makeText(this, R.string.good+"  \n" + data.getData().toString(), Toast.LENGTH_LONG)
-                        .show();
+//                Toast.makeText(this, " احسنت \n" + data.getData().toString(), Toast.LENGTH_LONG)
+//                        .show();
+                onAnswer(true);
+
             } else if (resultCode == Constants.WRONGANSWER) {
                 db.child("users").child(user.getUid()).child("enrolledcourses")
                         .addValueEventListener(new ValueEventListener() {
@@ -256,25 +256,30 @@ public class ClassActivity extends AppCompatActivity {
                             public void onCancelled(DatabaseError databaseError) {
                             }
                         });
-                Toast.makeText(this, R.string.try_again+" \n" + data.getData().toString(),
-                        Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, " حاول مرة أخري \n" + data.getData().toString(),
+//                        Toast.LENGTH_LONG).show();
 
             }
         }
         if (resultCode == Constants.CORRECTANSWER) {
             if (requestCode == Constants.SIMPLE) {
 //                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
-                Toast.makeText(context, R.string.correct, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
+                onAnswer(true);
+
             }
         }
         if (resultCode == Constants.WRONGANSWER) {
             if (requestCode == Constants.SIMPLE) {
 //                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
-                Toast.makeText(context, R.string.wrongw, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "Result Wrong", Toast.LENGTH_SHORT).show();
+
             }
         }
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == Constants.SPEECH) {
+                onAnswer(true);
+
 //                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
             }
         }
@@ -295,98 +300,99 @@ public class ClassActivity extends AppCompatActivity {
         if (resultCode == Constants.CORRECTANSWER) {
             if (requestCode == Constants.Text_Detection) {
 //                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
-                Log.v("yahoo2", "Correct yabnii");
-                Toast.makeText(context,R.string.correct, Toast.LENGTH_SHORT).show();
+                onAnswer(true);
+//
+//                Log.v("yahoo2", "Correct yabnii");
+//                Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
             }
         }
         if (resultCode == Constants.WRONGANSWER) {
             if (requestCode == Constants.Text_Detection) {
-                Log.v("yahoo2", "Wrong yabnii");
-//                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
-                Toast.makeText(context, R.string.in_correct, Toast.LENGTH_SHORT).show();
+//                Log.v("yahoo2", "Wrong yabnii");
+////                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
+                Toast.makeText(context, "Result Incorrect", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    public void onAnswer(boolean isCorrect) {
-        if (isCorrect) {
-//            correct();
-            imageView2.setVisibility(View.VISIBLE);
-            final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
-                    imageView2);
+//    public void onAnswer(boolean isCorrect) {
+//        if (isCorrect) {
+////            correct();
+////          imageView2.setVisibility(View.VISIBLE);
+////            final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
+////                    imageView2);
+////
+////            Glide.with(this).load(R.raw.source).into(imageViewTarget);
+////            if(mediaPlayer != null){
+////                mediaPlayer.reset();
+////            }
+////            try {
+////                mediaPlayer.setDataSource(getApplicationContext(),Uri.parse(RES_PREFIX + R.raw.yay));
+////            } catch (IOException e) {
+////                e.printStackTrace();
+////            }
+////            if(mediaPlayer.isPlaying()){
+////                Log.v("ClassActivity","Playing");
+////                mediaPlayer.pause();
+////                mediaPlayer.start();
+////            }else {
+////                Log.v("ClassActivity","not Playing");
+////                mediaPlayer.start();
+////            }
+////            int mpPosition = 0;
+////            if (mediaPlayer != null) {
+////                mpPosition = mediaPlayer.getCurrentPosition();
+////                mediaPlayer.pause();
+////            }
+////            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.yay);
+////            mediaPlayer.start();
+////            final int finalMpPosition = mpPosition;
+////            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+////                @Override
+////                public void onCompletion(MediaPlayer mp) {
+////                    mediaPlayer = MediaPlayer
+////                            .create(getApplicationContext(), R.raw.backgroundsound);
+////                    mediaPlayer.seekTo(finalMpPosition);
+////                    mediaPlayer.start();
+////                    imageView2.setVisibility(View.GONE);
+////
+////                    db.child("users").child(user.getUid()).child("enrolledcourses")
+////                            .addValueEventListener(listener2);
+////                    swipPager();
+////                }
+////            });
+////
+////
+////            listener2 = new ValueEventListener() {
+////                @Override
+////                public void onDataChange(DataSnapshot dataSnapshot) {
+////                    for (DataSnapshot d : dataSnapshot.getChildren()) {
+////                        for (DataSnapshot d1 : d.getChildren())
+////                            for (DataSnapshot d2 : d1.getChildren()) {
+////                                ProgressModel progressModel = d2
+////                                        .getValue(ProgressModel.class);
+////                                if (progressModel.getTopicProgressId()
+////                                        .equals(TopicModelList
+////                                                .get(pager.getCurrentItem() - 1).getId())) {
+////                                    progressModel.setTopicProgressFlag("true");
+////                                    db.child("users").child(user.getUid())
+////                                            .child("enrolledcourses")
+////                                            .child(progressModel.getEnrolledcourseid())
+////                                            .child("progress")
+////                                            .child(progressModel.getProgressid())
+////                                            .updateChildren(progressModel.toMap());
+////                                }
+////                            }
+////                    }
+////                }
+////
+////                @Override
+////                public void onCancelled(DatabaseError databaseError) {
+////                }
+////            };
+//        }
 
-            Glide.with(this).load(R.raw.source).into(imageViewTarget);
-//            if(mediaPlayer != null){
-//                mediaPlayer.reset();
-//            }
-//            try {
-//                mediaPlayer.setDataSource(getApplicationContext(),Uri.parse(RES_PREFIX + R.raw.yay));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            if(mediaPlayer.isPlaying()){
-//                Log.v("ClassActivity","Playing");
-//                mediaPlayer.pause();
-//                mediaPlayer.start();
-//            }else {
-//                Log.v("ClassActivity","not Playing");
-//                mediaPlayer.start();
-//            }
-            int mpPosition = 0;
-            if (mediaPlayer != null) {
-                mpPosition = mediaPlayer.getCurrentPosition();
-                mediaPlayer.pause();
-            }
-            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.yay);
-            mediaPlayer.start();
-            final int finalMpPosition = mpPosition;
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    mediaPlayer = MediaPlayer
-                            .create(getApplicationContext(), R.raw.backgroundsound);
-                    mediaPlayer.seekTo(finalMpPosition);
-                    mediaPlayer.start();
-                    imageView2.setVisibility(View.GONE);
-
-
-                    db.child("users").child(user.getUid()).child("enrolledcourses")
-                            .addValueEventListener(listener2);
-                    swipPager();
-                }
-            });
-
-
-            listener2 = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot d : dataSnapshot.getChildren()) {
-                        for (DataSnapshot d1 : d.getChildren())
-                            for (DataSnapshot d2 : d1.getChildren()) {
-                                ProgressModel progressModel = d2
-                                        .getValue(ProgressModel.class);
-                                if (progressModel.getTopicProgressId()
-                                        .equals(TopicModelList
-                                                .get(pager.getCurrentItem() - 1).getId())) {
-                                    progressModel.setTopicProgressFlag("true");
-                                    db.child("users").child(user.getUid())
-                                            .child("enrolledcourses")
-                                            .child(progressModel.getEnrolledcourseid())
-                                            .child("progress")
-                                            .child(progressModel.getProgressid())
-                                            .updateChildren(progressModel.toMap());
-                                }
-                            }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            };
-        }
-
-    }
+//    }
 
     public void swipPager() {
         progress1.setProgress((100 * (pager.getCurrentItem() + 1)) / TopicModelList.size());
@@ -399,15 +405,15 @@ public class ClassActivity extends AppCompatActivity {
 
     }
 
-    public void correct() {
+    public void onAnswer(boolean correct) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(
                 this);
 
-        builder.setTitle(R.string.yaaaaaaaaaaay);
+       // builder.setTitle("هييييييييييييييييه");
         LayoutInflater li = LayoutInflater.from(this);
         LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.correct_answer, null);
         imageView2 = (ImageView) someLayout.findViewById(R.id.masha);
-        Log.v("Dialogue ", someLayout.toString());
+        Log.v("Dialogue " , someLayout.toString());
         final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
                 imageView2);
         Glide.with(this).load(R.raw.source).into(imageViewTarget);
@@ -417,19 +423,71 @@ public class ClassActivity extends AppCompatActivity {
         final AlertDialog dialog = builder.create();
         dialog.show();
 //        try {
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
-//            mediaPlayer.setDataSource(getApplicationContext(), Uri.parse(RES_PREFIX + R.raw.yay));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+//            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
+////            mediaPlayer.setDataSource(getApplicationContext(), Uri.parse(RES_PREFIX + R.raw.yay));
+////        } catch (Exception e) {
+////            e.printStackTrace();
+////        }
+//        mediaPlayer.start();
+//        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            @Override
+//            public void onCompletion(MediaPlayer mp) {
+//                dialog.dismiss();
+//                swipPager();
+//            }
+//        });
+        int mpPosition = 0;
+        if (mediaPlayer != null) {
+            mpPosition = mediaPlayer.getCurrentPosition();
+            mediaPlayer.pause();
+        }
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.yay);
         mediaPlayer.start();
+        final int finalMpPosition = mpPosition;
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                mediaPlayer = MediaPlayer
+                        .create(getApplicationContext(), R.raw.backgroundsound);
+                mediaPlayer.seekTo(finalMpPosition);
+                mediaPlayer.start();
+                imageView2.setVisibility(View.GONE);
+
+                db.child("users").child(user.getUid()).child("enrolledcourses")
+                        .addValueEventListener(listener2);
                 dialog.dismiss();
                 swipPager();
             }
         });
+
+
+        listener2 = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
+                    for (DataSnapshot d1 : d.getChildren())
+                        for (DataSnapshot d2 : d1.getChildren()) {
+                            ProgressModel progressModel = d2
+                                    .getValue(ProgressModel.class);
+                            if (progressModel.getTopicProgressId()
+                                    .equals(TopicModelList
+                                            .get(pager.getCurrentItem() - 1).getId())) {
+                                progressModel.setTopicProgressFlag("true");
+                                db.child("users").child(user.getUid())
+                                        .child("enrolledcourses")
+                                        .child(progressModel.getEnrolledcourseid())
+                                        .child("progress")
+                                        .child(progressModel.getProgressid())
+                                        .updateChildren(progressModel.toMap());
+                            }
+                        }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
 
     }
 }

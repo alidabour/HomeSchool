@@ -1,9 +1,12 @@
 package com.almanara.homeschool.home;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.almanara.ali.homeschool.R;
 
@@ -18,6 +21,12 @@ public class Splash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
            /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.splash));
+        }
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {

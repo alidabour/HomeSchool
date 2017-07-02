@@ -57,6 +57,7 @@ public class SignInAsAdapter extends PagerAdapter {
         return view == ((FrameLayout) object);
     }
 
+
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
