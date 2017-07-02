@@ -14,9 +14,11 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.almanara.ali.homeschool.R;
+import com.almanara.homeschool.IndicatorViewPagerAdapter;
 import com.almanara.homeschool.controller.activities.Home;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -26,57 +28,106 @@ import me.relex.circleindicator.CircleIndicator;
 public class SignInAs extends AppCompatActivity {
 
     ViewPager pager;
+    ViewPager pagerIndicator;
     int [] colors = new int []{R.color.instructor , R.color.parent , R.color.student};
-
-
+    ArrayList<Integer> indicators = new ArrayList<>();
+    boolean isArabic= false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.sign_in_as);
+        if(!Locale.getDefault().getLanguage().equals("en")){
+            isArabic = true;
+        }
         //ImageView imageView = (ImageView) findViewById(R.id.imageView);
         pager = (ViewPager) findViewById(R.id.viewPager);
-
+        pagerIndicator = (ViewPager) findViewById(R.id.circlePager);
         Log.v("pager ", pager.toString());
         ArrayList<Home> res = new ArrayList<>();
-        Home home = new Home();
-        home.setImage(R.drawable.parents_icon);
-        home.setName(getString(R.string.Parents));
-        home.setSlogan(getString(R.string.Efficent));
-        home.setBackGround(R.drawable.parent_background);
-        res.add(home);
-        home = new Home();
-        home.setImage(R.drawable.instructor_icon);
-        home.setName(getString(R.string.Instructor));
-        home.setSlogan(getString(R.string.Smart));
-        home.setBackGround(R.drawable.instructor_background);
-        res.add(home);
-        home = new Home();
-        home.setImage(R.drawable.student_icon);
-        home.setName(getString(R.string.Student));
-        home.setSlogan(getString(R.string.Easy));
-        home.setBackGround(R.drawable.student_background);
-        res.add(home);
+
+        if(isArabic){
+            Home home = new Home();
+            home.setImage(R.drawable.parents_icon);
+            home.setName(getString(R.string.Parents));
+            home.setSlogan(getString(R.string.Efficent));
+            home.setBackGround(R.drawable.parent_background);
+            res.add(home);
+            home = new Home();
+            home.setImage(R.drawable.instructor_icon);
+            home.setName(getString(R.string.Instructor));
+            home.setSlogan(getString(R.string.Smart));
+            home.setBackGround(R.drawable.instructor_background);
+            res.add(home);
+            home = new Home();
+            home.setImage(R.drawable.student_icon);
+            home.setName(getString(R.string.Student));
+            home.setSlogan(getString(R.string.Easy));
+            home.setBackGround(R.drawable.student_background);
+            res.add(home);
+        }else {
+            Home home = new Home();
+            home.setImage(R.drawable.student_icon);
+            home.setName(getString(R.string.Student));
+            home.setSlogan(getString(R.string.Easy));
+            home.setBackGround(R.drawable.student_background);
+            res.add(home);
+            home.setImage(R.drawable.parents_icon);
+            home.setName(getString(R.string.Parents));
+            home.setSlogan(getString(R.string.Efficent));
+            home.setBackGround(R.drawable.parent_background);
+            res.add(home);
+            home = new Home();
+            home.setImage(R.drawable.instructor_icon);
+            home.setName(getString(R.string.Instructor));
+            home.setSlogan(getString(R.string.Smart));
+            home.setBackGround(R.drawable.instructor_background);
+            res.add(home);
+        }
+
         SignInAsAdapter signInAsAdapter = new SignInAsAdapter(this, res);
         pager.setAdapter(signInAsAdapter);
-        pager.setCurrentItem(signInAsAdapter.getCount() - 1);
+
+        indicators.add(R.drawable.empty);
+        indicators.add(R.drawable.selected);
+        IndicatorViewPagerAdapter indicatorViewPagerAdapter = new IndicatorViewPagerAdapter(getApplicationContext(),indicators,signInAsAdapter.getCount(),isArabic);
+        pagerIndicator.setAdapter(indicatorViewPagerAdapter);
+        if(isArabic){
+            pager.setCurrentItem(signInAsAdapter.getCount() - 1);
+            pagerIndicator.setCurrentItem(indicatorViewPagerAdapter.getCount() - 1);
+        }
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(pager);
-
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Window window = getWindow();
-                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {Window window = getWindow();
+                    window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                     window.setStatusBarColor(getResources().getColor(colors[position]));
                 }
             }
 
             @Override
             public void onPageSelected(int position) {
+                pagerIndicator.setCurrentItem(position);
 
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        pagerIndicator.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                pager.setCurrentItem(position);
             }
 
             @Override

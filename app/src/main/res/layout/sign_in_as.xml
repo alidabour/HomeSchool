@@ -8,6 +8,9 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/line"
@@ -44,4 +47,11 @@
             android:textSize="10dp" />
 
     </LinearLayout>
+    <android.support.v4.view.ViewPager
+        android:clickable="false"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/circlePager"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
+    </RelativeLayout>
 </FrameLayout>

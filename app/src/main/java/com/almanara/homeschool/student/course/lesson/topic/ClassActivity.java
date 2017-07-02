@@ -42,6 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 /*
     This class is for advanced level later on as it is designed to get the images like the cat image and the voice
@@ -131,6 +132,7 @@ public class ClassActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Toast.makeText(context, R.string.pleasee_swip, Toast.LENGTH_LONG  ).show();
+        Toast.makeText(context, "Swipe Right To See All The Topics", Toast.LENGTH_LONG).show();
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.backgroundsound);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
@@ -164,20 +166,26 @@ public class ClassActivity extends AppCompatActivity {
                             fragmentList.add(AnimationFragment.newInstance(modelEntry.getLayout()));
                         } else if (modelEntry.getTopicType().equals("matching")) {
                             fragmentList.add(MatchingFragment.newInstance(modelEntry.getLayout()));
-                        }else if(modelEntry.getTopicType().equals("speech")){
+                        } else if (modelEntry.getTopicType().equals("speech")) {
                             fragmentList.add(SpeechFragment.newInstance(modelEntry.getLayout()));
-                        }else if(modelEntry.getTopicType().equals("textDetection")){
-                            fragmentList.add(TextDetectionFragment.newInstance(modelEntry.getLayout()));
-                        }else if(modelEntry.getTopicType().equals("colorDetection")){
+                        } else if (modelEntry.getTopicType().equals("textDetection")) {
+                            fragmentList
+                                    .add(TextDetectionFragment.newInstance(modelEntry.getLayout()));
+                        } else if (modelEntry.getTopicType().equals("colorDetection")) {
                             fragmentList.add(ColorFragment.newInstance(modelEntry.getLayout()));
                         }
                     }
-                    Collections.reverse(fragmentList);
-                    LessonPagerAdapter lessonPagerAdapter =  new LessonPagerAdapter(getSupportFragmentManager(), fragmentList);
+                    if (!Locale.getDefault().getLanguage().equals("en")) {
+                        Collections.reverse(fragmentList);
+                    }
+                    LessonPagerAdapter lessonPagerAdapter = new LessonPagerAdapter(
+                            getSupportFragmentManager(), fragmentList);
                     pager.setAdapter(
-                           lessonPagerAdapter);
+                            lessonPagerAdapter);
                     pager.setPageTransformer(true, new CubeOutTransformer()); //set the animation
-                    pager.setCurrentItem(lessonPagerAdapter.getCount() - 1);
+                    if (!Locale.getDefault().getLanguage().equals("en")) {
+                        pager.setCurrentItem(lessonPagerAdapter.getCount() - 1);
+                    }
                 }
             };
             db.child("courses").
@@ -303,7 +311,7 @@ public class ClassActivity extends AppCompatActivity {
     public void onAnswer(boolean isCorrect) {
         if (isCorrect) {
 //            correct();
-          imageView2.setVisibility(View.VISIBLE);
+            imageView2.setVisibility(View.VISIBLE);
             final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
                     imageView2);
 
@@ -399,7 +407,7 @@ public class ClassActivity extends AppCompatActivity {
         LayoutInflater li = LayoutInflater.from(this);
         LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.correct_answer, null);
         imageView2 = (ImageView) someLayout.findViewById(R.id.masha);
-        Log.v("Dialogue " , someLayout.toString());
+        Log.v("Dialogue ", someLayout.toString());
         final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
                 imageView2);
         Glide.with(this).load(R.raw.source).into(imageViewTarget);
@@ -409,7 +417,7 @@ public class ClassActivity extends AppCompatActivity {
         final AlertDialog dialog = builder.create();
         dialog.show();
 //        try {
-            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
 //            mediaPlayer.setDataSource(getApplicationContext(), Uri.parse(RES_PREFIX + R.raw.yay));
 //        } catch (Exception e) {
 //            e.printStackTrace();
