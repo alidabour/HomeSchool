@@ -113,6 +113,9 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
                 if (isChecked[0].equals("true")) {
                     progressBar.setVisibility(View.VISIBLE);
                     progressBar.setIndeterminate(true);
+                    if(getActivity() instanceof ClassActivity){
+                        ((ClassActivity)getActivity()).pauseSound(true);
+                    }
                     speech.startListening(recognizerIntent);
                     Log.v("speech","true");
                     isChecked[0] = "false";
@@ -120,6 +123,9 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
                     progressBar.setIndeterminate(false);
                     progressBar.setVisibility(View.INVISIBLE);
                     speech.stopListening();
+                    if(getActivity() instanceof ClassActivity){
+                        ((ClassActivity)getActivity()).pauseSound(false);
+                    }
                     Log.v("speech","false");
                     isChecked[0] = "true";
 

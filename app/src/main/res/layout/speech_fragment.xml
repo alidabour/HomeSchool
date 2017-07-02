@@ -68,7 +68,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp" />
     <ImageView
-        android:id="@+id/camera_icon"
+        android:id="@+id/toggleButton1"
         android:layout_width="90dp"
         android:layout_height="130dp"
         android:layout_below="@+id/relativeLayout3"
