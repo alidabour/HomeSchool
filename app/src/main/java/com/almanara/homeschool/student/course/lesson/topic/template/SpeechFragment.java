@@ -84,7 +84,7 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
         returnedText = (TextView) view.findViewById(R.id.textView1);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar1);
         toggleButton = (ImageView) view.findViewById(R.id.toggleButton1);
-        textSpeech = (TextView) view.findViewById(R.id.text2);
+        textSpeech = (TextView) view.findViewById(R.id.textView2);
         textSpeech.setText(parms[0]);
         progressBar.setVisibility(View.INVISIBLE);
         speech = SpeechRecognizer.createSpeechRecognizer(getActivity());
