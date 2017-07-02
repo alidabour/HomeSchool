@@ -337,6 +337,7 @@ public class ClassActivity extends AppCompatActivity {
                     mediaPlayer.start();
                     imageView2.setVisibility(View.GONE);
 
+
                     db.child("users").child(user.getUid()).child("enrolledcourses")
                             .addValueEventListener(listener2);
                     swipPager();

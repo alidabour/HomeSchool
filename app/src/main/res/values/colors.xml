@@ -10,4 +10,6 @@
     <color name="student">#770fb9</color>
     <color name="parent">#eba505</color>
     <color name="instructor">#03879f</color>
+
+    <color name="question">#f2091f</color>
 </resources>

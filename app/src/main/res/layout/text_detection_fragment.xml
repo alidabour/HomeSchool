@@ -4,41 +4,50 @@
                 android:id="@+id/activity_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+    android:background="@drawable/background"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin">
-<TextView
-    android:padding="8dp"
-    android:id="@+id/text"
-    android:text="حاول العثور علي كلمة"
-    android:layout_centerHorizontal="true"
-    android:gravity="center"
-    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    <TextView
+
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="36sp"
+        android:padding="8dp"
+        android:textColor="@color/colorLesson"
+        android:text="قل كلمة"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline" />
 <RelativeLayout
     android:layout_centerInParent="true"
     android:layout_below="@+id/text"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:id="@+id/relativeLayout2">
     <ImageView
         android:id="@+id/image"
+        android:layout_width="260dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorAccent"
-        android:layout_width="200dp"
-        android:layout_height="200dp"/>
+        android:background="@drawable/vte" />
     <TextView
         android:id="@+id/textView2"
-        android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        tools:text="ارنب"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/question"
+        android:textSize="56sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        tools:text="ارنب"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp" />
 
 </RelativeLayout>
 
@@ -47,19 +56,17 @@
     android:id="@+id/textView1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/progressBar1"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="47dp" />
 
-<ImageView
-    android:layout_alignParentBottom="true"
-    android:src="@drawable/ic_photo_camera_black_24dp"
-    android:id="@+id/camera_icon"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:tint="@color/colorAccent"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="26dp"/>
+    <ImageView
+        android:id="@+id/camera_icon"
+        android:layout_width="90dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="58dp"
+        android:background="@drawable/micro"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
 
