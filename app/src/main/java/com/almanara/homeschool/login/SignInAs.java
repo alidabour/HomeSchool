@@ -1,12 +1,8 @@
 package com.almanara.homeschool.login;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +16,6 @@ import com.almanara.homeschool.controller.activities.Home;
 
 import java.util.ArrayList;
 import java.util.Locale;
-
-import me.relex.circleindicator.CircleIndicator;
 
 /**
  * Created by lenovo on 30/11/2016.
@@ -77,6 +71,7 @@ public class SignInAs extends AppCompatActivity {
             home.setSlogan(getString(R.string.Easy));
             home.setBackGround(R.drawable.student_background);
             res.add(home);
+            home = new Home();
             home.setImage(R.drawable.parents_icon);
             home.setName(getString(R.string.Parents));
             home.setSlogan(getString(R.string.Efficent));
