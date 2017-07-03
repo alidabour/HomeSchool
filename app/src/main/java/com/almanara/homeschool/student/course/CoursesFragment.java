@@ -84,12 +84,12 @@ public class CoursesFragment extends Fragment {
     }
 
     View viewRoot;
-
+    View view ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_courses, container, false);
+        view = inflater.inflate(R.layout.fragment_courses, container, false);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         viewRoot = (LinearLayout) view.findViewById(R.id.viewRoot);
         coursesRecycleView = (RecyclerView) view.findViewById(R.id.courses);
@@ -197,7 +197,7 @@ public class CoursesFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (firebaseUser != null) {
-             viewRoot.findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+             view.findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
             coursesRecycleView.setVisibility(View.GONE);
             db.child("users").child(firebaseUser.getUid()).child("enrolledcourses")
                     .addValueEventListener(new ValueEventListener() {
@@ -250,7 +250,7 @@ public class CoursesFragment extends Fragment {
                                         });
                                 //end of courses
                             }
-                            viewRoot.findViewById(R.id.progressBar).setVisibility(View.GONE);
+                            view.findViewById(R.id.progressBar).setVisibility(View.GONE);
                             coursesRecycleView.setVisibility(View.VISIBLE);
                             // [END_EXCLUDE]
 
