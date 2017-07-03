@@ -104,7 +104,11 @@ public class ClassActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                progress1.setProgress((100 * (TopicModelList.size() - position -1)) / TopicModelList.size());
+                if (!Locale.getDefault().getLanguage().equals("en")) {
+                    progress1.setProgress((100 * (TopicModelList.size() - position - 1)) / TopicModelList.size());
+                }
+                else
+                progress1.setProgress((100 * (position+1)) / TopicModelList.size());
             }
 
             @Override
@@ -368,7 +372,12 @@ public class ClassActivity extends AppCompatActivity {
 //    }
 
     public void swipPager() {
-        progress1.setProgress((100 * (TopicModelList.size()-pager.getCurrentItem() )) / TopicModelList.size());
+        if (!Locale.getDefault().getLanguage().equals("en")) {
+            progress1.setProgress((100 * (TopicModelList.size() - pager.getCurrentItem())) / TopicModelList.size());
+        }
+        else
+            progress1.setProgress((100 * (pager.getCurrentItem() + 1)) / TopicModelList.size());
+
         pager.setCurrentItem(pager.getCurrentItem() + 1);
 
     }
@@ -382,8 +391,11 @@ public class ClassActivity extends AppCompatActivity {
         final AlertDialog.Builder builder = new AlertDialog.Builder(
                 this);
         if (correct) {
-            progress1.setProgress((100 * (TopicModelList.size()-pager.getCurrentItem()+1 )) / TopicModelList.size());
-
+            if (!Locale.getDefault().getLanguage().equals("en")) {
+                progress1.setProgress((100 * (TopicModelList.size() - pager.getCurrentItem() + 1)) / TopicModelList.size());
+            }
+            else
+                progress1.setProgress((100 * (pager.getCurrentItem() + 1)) / TopicModelList.size());
             // builder.setTitle("هييييييييييييييييه");
             LayoutInflater li = LayoutInflater.from(this);
             LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.correct_answer, null);
