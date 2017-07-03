@@ -699,7 +699,6 @@ public class InstructorTopicCreationActivity extends BaseActivity
         }
     }
 
-
     @Override
     public void setImageOrSound(boolean imageOrSound, boolean isQuestion1) {
         isImageOrSound = imageOrSound;
@@ -779,7 +778,6 @@ public class InstructorTopicCreationActivity extends BaseActivity
 //            Log.v("Parms","- "+s.replaceAll(HOLD," "));
 //        }
     }
-
 
     String[] parseMutiImageQue(String layout) {
         return layout.split("(?<=" + HOLD + ")");
