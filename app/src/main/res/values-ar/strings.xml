@@ -151,5 +151,6 @@
     <string name="registering">جارى التسجيل...</string>
     <string name="delete_alert">هل انت تريد الحذف؟</string>
     <string name="delete">مسح</string>
+    <string name="singinnow">جاري تسجيل الدخول...</string>
 
 </resources>

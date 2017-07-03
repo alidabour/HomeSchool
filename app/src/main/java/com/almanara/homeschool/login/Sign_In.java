@@ -107,7 +107,7 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener {
 
         // [START sign_in_with_email]
 
-        progressDialog.setMessage("جاري تسجيل الدخول...");
+        progressDialog.setMessage(getString(R.string.singinnow));
         progressDialog.show();
         progressDialog.setCancelable(false);
 
