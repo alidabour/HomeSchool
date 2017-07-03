@@ -76,9 +76,11 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener {
                         Intent intent = new Intent(getApplicationContext(),
                                 StudentHomeActivityNew.class);
                         startActivity(intent);
+                        finish();
                     } else {
                         Intent intent = new Intent(getApplicationContext(), SignInAs.class);
                         startActivity(intent);
+                        finish();
                     }
 
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
@@ -124,9 +126,11 @@ public class Sign_In extends AppCompatActivity implements View.OnClickListener {
                                 Intent intent = new Intent(getApplicationContext(),
                                         StudentHomeActivityNew.class);
                                 startActivity(intent);
+                                finish();
                             }else {
                                 Intent intent = new Intent(getApplicationContext(), SignInAs.class);
                                 startActivity(intent);
+                                finish();
                             }
                         } else {
                             if (internetConnectionChecker.isInternetOn()) {

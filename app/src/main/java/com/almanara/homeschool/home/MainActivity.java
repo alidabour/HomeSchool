@@ -35,6 +35,7 @@ TextView logoname;
             {
                 Intent intent = new Intent(getApplicationContext(), SignInAs.class);
                 startActivity(intent);
+                finish();
             }
             Log.d("onAuthChang:signed_in:","");
         } else {
@@ -75,6 +76,7 @@ TextView logoname;
             public void onClick(View view) {
 
                 startActivity(new Intent(getBaseContext() , Sign_In.class));
+                finish();
 
             }
         });
@@ -84,6 +86,7 @@ TextView logoname;
             public void onClick(View view) {
 
                 startActivity(new Intent(getBaseContext() , Register.class));
+                finish();
 
             }
         });

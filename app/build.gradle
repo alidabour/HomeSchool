@@ -61,7 +61,10 @@ dependencies {
     compile 'me.relex:circleindicator:1.2.2@aar'
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
     compile 'com.cleveroad:fan-layout-manager:1.0.4'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     testCompile 'junit:junit:4.12'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
 }
 

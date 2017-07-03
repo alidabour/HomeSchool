@@ -100,7 +100,7 @@ public class InstructorFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                        instructorCoursesCardAdapter.notifyDataSetChanged();    
+                        instructorCoursesCardAdapter.notifyDataSetChanged();
                     }
                 });
                 builder.setPositiveButton(R.string.delete,new DialogInterface.OnClickListener(){

@@ -37,15 +37,17 @@ import static android.R.drawable.title_bar;
  */
 
 public class SignInAsAdapter extends PagerAdapter {
-
-    Context mContext;
+    Activity activity;
+    //    Context mContext;
     LayoutInflater mLayoutInflater;
     ArrayList<Home> mResources;
 
-    public SignInAsAdapter(Context context, ArrayList<Home> mResources) {
-        mContext = context;
+    public SignInAsAdapter(Activity activity, ArrayList<Home> mResources) {
+//        mContext = context;
+        this.activity = activity;
         this.mResources = mResources;
-        mLayoutInflater = (LayoutInflater) mContext
+//        Log.v("SignInAsAdapter","MRes : 1:" + mResources.get(0).getName() +" 2 :" +mResources.get(1).getName()+ " 3  :" +mResources.get(2).getName() );
+        mLayoutInflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -66,18 +68,20 @@ public class SignInAsAdapter extends PagerAdapter {
 
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inTargetDensity = DisplayMetrics.DENSITY_DEFAULT;
-        Bitmap bmp = BitmapFactory.decodeResource(mContext.getResources(),
+        Bitmap bmp = BitmapFactory.decodeResource(activity.getResources(),
                 mResources.get(position).getImage(), o);
         int w = bmp.getWidth();
         int h = bmp.getHeight();
-         Log.v("Size " , w + " " +h) ;
+        Log.v("Size ", w + " " + h);
+        Log.v("Size ", "mRes :" + mResources.get(position).getName());
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-        Glide.with(mContext).load(mResources.get(position).getImage()).override(w,h).into(imageView);
+        Glide.with(activity).load(mResources.get(position).getImage()).override(w, h)
+                .into(imageView);
         TextView textView = (TextView) itemView.findViewById(R.id.textView);
         textView.setText(mResources.get(position).getName());
         ImageView layout = (ImageView) itemView.findViewById(R.id.framePager);
-        Glide.with(mContext).load(mResources.get(position).getBackGround()).into(layout);
+        Glide.with(activity).load(mResources.get(position).getBackGround()).into(layout);
         TextView slogan = (TextView) itemView.findViewById(R.id.slogan);
         slogan.setText(mResources.get(position).getSlogan());
 
@@ -86,27 +90,33 @@ public class SignInAsAdapter extends PagerAdapter {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (position == 0) {
+                if (mResources.get(position).getName()
+                        .equals(activity.getString(R.string.Parents))) {
 
-                    Intent intent =new Intent(mContext, ParentActivity.class);
-                    intent.putExtra("FLAG_ACTIVITY_NEW_TASK" , true );
-                    mContext.startActivity(intent);
-                    Utility.setTheme(mContext, 1);
-                   // ((SignInAs)mContext).recreateActivity();
+                    Intent intent = new Intent(activity, ParentActivity.class);
+                    intent.putExtra("FLAG_ACTIVITY_NEW_TASK", true);
+                    activity.startActivity(intent);
+                    Utility.setTheme(activity, 1);
+                    // ((SignInAs)mContext).recreateActivity();
 
 
-                } else if (position == 1) {
+                } else if (mResources.get(position).getName()
+                        .equals(activity.getString(R.string.Instructor))) {
 
-                    Intent intent =new Intent(mContext, InstructorActivity.class);
-                    intent.putExtra("FLAG_ACTIVITY_NEW_TASK" , true );
-                    mContext.startActivity(intent);
-                    Utility.setTheme(mContext, 2);
-                   // ((SignInAs)mContext).recreateActivity();
 
-                } else if (position == 2) {
-                    Intent intent =new Intent(mContext, StudentHomeActivityNew.class);
-                    intent.putExtra("FLAG_ACTIVITY_NEW_TASK" , true );
-                    mContext.startActivity(intent);
+                    Intent intent = new Intent(activity, InstructorActivity.class);
+                    intent.putExtra("FLAG_ACTIVITY_NEW_TASK", true);
+                    activity.startActivity(intent);
+                    Utility.setTheme(activity, 2);
+                    // ((SignInAs)mContext).recreateActivity();
+
+                } else if (mResources.get(position).getName()
+                        .equals(activity.getString(R.string.Student))) {
+
+                    Intent intent = new Intent(activity, StudentHomeActivityNew.class);
+                    intent.putExtra("FLAG_ACTIVITY_NEW_TASK", true);
+                    activity.startActivity(intent);
+                    activity.finish();
 
 
                 }

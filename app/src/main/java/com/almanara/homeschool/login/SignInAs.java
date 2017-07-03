@@ -24,7 +24,7 @@ public class SignInAs extends AppCompatActivity {
 
     ViewPager pager;
     ViewPager pagerIndicator;
-    int [] colors = new int []{R.color.instructor , R.color.parent , R.color.student};
+    int [] colors;
     ArrayList<Integer> indicators = new ArrayList<>();
     boolean isArabic= false;
     @Override
@@ -44,6 +44,7 @@ public class SignInAs extends AppCompatActivity {
         ArrayList<Home> res = new ArrayList<>();
 
         if(isArabic){
+            colors = new int []{R.color.instructor , R.color.parent , R.color.student};
             Home home = new Home();
             home.setImage(R.drawable.parents_icon);
             home.setName(getString(R.string.Parents));
@@ -63,11 +64,12 @@ public class SignInAs extends AppCompatActivity {
             home.setBackGround(R.drawable.student_background);
             res.add(home);
         }else {
+            colors = new int []{ R.color.student, R.color.parent , R.color.instructor};
             Home home = new Home();
-            home.setImage(R.drawable.parents_icon);
-            home.setName(getString(R.string.Parents));
-            home.setSlogan(getString(R.string.Efficent));
-            home.setBackGround(R.drawable.parent_background);
+            home.setImage(R.drawable.student_icon);
+            home.setName(getString(R.string.Student));
+            home.setSlogan(getString(R.string.Easy));
+            home.setBackGround(R.drawable.student_background);
             res.add(home);
             home = new Home();
             home.setImage(R.drawable.instructor_icon);
@@ -76,12 +78,13 @@ public class SignInAs extends AppCompatActivity {
             home.setBackGround(R.drawable.instructor_background);
             res.add(home);
             home = new Home();
-            home.setImage(R.drawable.student_icon);
-            home.setName(getString(R.string.Student));
-            home.setSlogan(getString(R.string.Easy));
-            home.setBackGround(R.drawable.student_background);
+            home.setImage(R.drawable.parents_icon);
+            home.setName(getString(R.string.Parents));
+            home.setSlogan(getString(R.string.Efficent));
+            home.setBackGround(R.drawable.parent_background);
             res.add(home);
         }
+        Log.v("SignInAsAdapter","MRes : 1:" + res.get(0).getName() +" 2 :" +res.get(1).getName()+ " 3  :" +res.get(2).getName() );
 
         SignInAsAdapter signInAsAdapter = new SignInAsAdapter(this, res);
         pager.setAdapter(signInAsAdapter);
