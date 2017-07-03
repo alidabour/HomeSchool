@@ -89,6 +89,7 @@ public class InstructorTopicCreationActivity extends BaseActivity
     ImageView question;
     ImageView sound;
     ImageView text;
+    ImageView animation ;
     String courseId;
     String lessonid;
     String topicid = " ";
@@ -159,6 +160,7 @@ public class InstructorTopicCreationActivity extends BaseActivity
         image = (ImageView) findViewById(R.id.image);
         sound = (ImageView) findViewById(R.id.sound);
         text = (ImageView) findViewById(R.id.textViewInstructor);
+        animation = (ImageView) findViewById(R.id.Animation);
 
         progressImage = this;
         Intent intent = getIntent();
@@ -307,7 +309,6 @@ public class InstructorTopicCreationActivity extends BaseActivity
                 final TextView textDetection = (TextView) someLayout
                         .findViewById(R.id.textDetection);
                 final TextView multiImageQue = (TextView) someLayout.findViewById(R.id.imagesMulti);
-                final TextView animation = (TextView) someLayout.findViewById(R.id.animation);
                 final TextView matching = (TextView) someLayout.findViewById(R.id.matching);
                 builder.setView(someLayout);
                 final AlertDialog dialog = builder.create();
@@ -373,18 +374,7 @@ public class InstructorTopicCreationActivity extends BaseActivity
                         topicType = "multiImageQue";
                     }
                 });
-                animation.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.cancel();
-                        animationDialog = new AnimationDialog(InstructorTopicCreationActivity.this, onQuestionLayoutReady);
-                        animationDialog.setCourseId(courseId);
-                        animationDialog.openAnimationDialog();
-                        animationDialog.setProgressImage(progressImage);
-                        topicType = "animation";
 
-                    }
-                });
                 matching.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -398,6 +388,17 @@ public class InstructorTopicCreationActivity extends BaseActivity
             }
         });
 
+        animation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animationDialog = new AnimationDialog(InstructorTopicCreationActivity.this, onQuestionLayoutReady);
+                animationDialog.setCourseId(courseId);
+                animationDialog.openAnimationDialog();
+                animationDialog.setProgressImage(progressImage);
+                topicType = "animation";
+
+            }
+        });
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
