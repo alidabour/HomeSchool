@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.data.firebase.CourseCreated;
@@ -196,6 +197,7 @@ public class CoursesFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (firebaseUser != null) {
+             viewRoot.findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
             coursesRecycleView.setVisibility(View.GONE);
             db.child("users").child(firebaseUser.getUid()).child("enrolledcourses")
                     .addValueEventListener(new ValueEventListener() {
@@ -248,6 +250,7 @@ public class CoursesFragment extends Fragment {
                                         });
                                 //end of courses
                             }
+                            viewRoot.findViewById(R.id.progressBar).setVisibility(View.GONE);
                             coursesRecycleView.setVisibility(View.VISIBLE);
                             // [END_EXCLUDE]
 
