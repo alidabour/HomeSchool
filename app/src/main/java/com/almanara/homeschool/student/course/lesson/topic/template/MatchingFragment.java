@@ -234,11 +234,19 @@ public class MatchingFragment extends Fragment {
                     if (countToResult == matchImageList.size()) {
 //                        Intent intent =new Intent(RealTime.this,Result.class);
 //                        startActivity(intent);
-                        if(getActivity() instanceof ClassActivity){
-                            ((ClassActivity)getActivity()).onAnswer(true);
+//                        if(getActivity() instanceof ClassActivity){
+//                            ((ClassActivity)getActivity()).onAnswer(true);
+//
+//                        }
+//                        if(getActivity() instanceof  ClassActivity){
+//                            ((ClassActivity)getActivity()).pauseSound(true);
+//                        }
 
+                        if(getActivity() instanceof  ClassActivity){
+                            ((ClassActivity)getActivity()).pauseSound(true);
                         }
                     }
+
                     break;
 
                 default:
