@@ -9,7 +9,7 @@
     <string name="CourseDescriptionBody">تعلم معلومات عن الحيوانات</string>
 
     <string name="signin">تسجيل الدخول</string>
-    <string name="guest">ضيف</string>
+    <string name="guest">زائر</string>
     <string name="password">كلمة المرور</string>
     <string name="name">أدخل اسمك</string>
     <string name="register">إنشاء حساب</string>
@@ -93,7 +93,7 @@
     <string name="images_multiple_choice"> سؤال اختر من بين الصور</string>
     <string name="text_detection"> اوجد الكلمة </string>
     <string name="elmanara_app">المنارة</string>
-    <string name="all_rights_reserved_2017">جميع الحقوق محفوظه 2017</string>
+    <string name="all_rights_reserved_2017">جميع الحقوق محفوظة 2017</string>
     <string name="edit_course">تعديل المنهج</string>
     <string name="preview_classroom">مشاهده الفصل </string>
     <string name="sea">بحر</string>
@@ -104,7 +104,7 @@
     <string name="viewThisChild"> اعرض ل مستوى ابني في دروسه </string>
     <string name="addCourse"> اضافة منهج </string>
     <string name="matching">سؤال وصل </string>
-    <string name="Efficent">فاعليه</string>
+    <string name="Efficent">فعال</string>
     <string name="Smart">ذكى</string>
     <string name="Easy">سهل</string>
     <string name="audio_recording_error">خطأ في تسجيل الصوت</string>

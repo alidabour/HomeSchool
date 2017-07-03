@@ -89,7 +89,7 @@ public class SignInAs extends AppCompatActivity {
         SignInAsAdapter signInAsAdapter = new SignInAsAdapter(this, res);
         pager.setAdapter(signInAsAdapter);
 
-        indicators.add(R.drawable.empty);
+        indicators.add(R.drawable.empty1);
         indicators.add(R.drawable.selected);
         IndicatorViewPagerAdapter indicatorViewPagerAdapter = new IndicatorViewPagerAdapter(getApplicationContext(),indicators,signInAsAdapter.getCount(),isArabic);
         pagerIndicator.setAdapter(indicatorViewPagerAdapter);

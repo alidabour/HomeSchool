@@ -11,7 +11,7 @@
 
     <style name="AppTheme.Instructor" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/parent</item>
-        <item name="colorPrimaryDark">@color/parent</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_parent</item>
         <item name="colorAccent">@color/parent</item>
         <item name="colorControlNormal">@color/colorBack</item>
     </style>

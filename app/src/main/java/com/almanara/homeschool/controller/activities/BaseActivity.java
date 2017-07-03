@@ -29,7 +29,7 @@ public class BaseActivity extends AppCompatActivity {
             setTheme(R.style.AppTheme_Instructor);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                getWindow().setStatusBarColor(getResources().getColor(R.color.parent));
+                getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark_parent));
             }
         }
     }

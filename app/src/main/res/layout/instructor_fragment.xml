@@ -3,17 +3,19 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_instructor"
+    style="@style/AppTheme.Instructor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="16dp"
     android:gravity="center"
-    style="@style/AppTheme.Instructor"
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/courses"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab2"

@@ -21,7 +21,7 @@
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:icon="@drawable/icon"
-        android:label="المناره"
+        android:label="المنارة"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.almanara.homeschool.home.Splash">
@@ -84,7 +84,6 @@
         <activity
             android:name="com.almanara.homeschool.instructor.create.InstructorTopicCreationActivity"
             android:windowSoftInputMode="adjustPan" />
-        >
         <activity android:name="com.almanara.homeschool.exercises.simple.SimpleExercises" />
         <activity android:name="com.almanara.homeschool.student.course.lesson.LessonActivity" />
         <activity android:name="com.almanara.homeschool.exercises.speech.Speech" />
@@ -93,10 +92,10 @@
         <activity
             android:name="com.almanara.homeschool.student.StudentHomeActivityNew"
             android:icon="@drawable/icon2"
-            android:label="المناره">
+            android:label="المنارة - طفل">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

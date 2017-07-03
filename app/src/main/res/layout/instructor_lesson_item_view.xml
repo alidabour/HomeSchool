@@ -5,9 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    card_view:cardElevation="152dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:orientation="vertical"
     card_view:cardBackgroundColor="@android:color/white"
-    android:orientation="vertical">
+    card_view:cardElevation="152dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,6 +23,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:weightSum="10">
+
             <TextView
                 android:id="@+id/lessonName"
                 android:layout_width="wrap_content"
@@ -41,7 +44,7 @@
                 android:layout_weight="0.5"
                 android:text="&#8942;"
                 android:textAppearance="?android:textAppearanceLarge"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimaryDark_parent" />
 
 
         </LinearLayout>

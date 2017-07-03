@@ -84,10 +84,9 @@ public class SignInAsAdapter extends PagerAdapter {
         Glide.with(activity).load(mResources.get(position).getBackGround()).into(layout);
         TextView slogan = (TextView) itemView.findViewById(R.id.slogan);
         slogan.setText(mResources.get(position).getSlogan());
-
         container.addView(itemView);
 
-        itemView.setOnClickListener(new View.OnClickListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mResources.get(position).getName()

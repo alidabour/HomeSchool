@@ -32,11 +32,11 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:background="@color/colorPrimary"
             android:elevation="5dp"
             android:padding="8dp"
             android:text="@string/signin"
             android:textAllCaps="false"
-            android:background="@color/colorPrimary"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textColor="@color/colorBack"
             android:translationZ="5dp" />
@@ -47,15 +47,14 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
+            android:background="@color/colorPrimary"
             android:elevation="10000dp"
             android:padding="8dp"
             android:text="@string/register"
-            android:translationZ="10000dp"
             android:textAllCaps="false"
-            android:background="@color/colorPrimary"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textColor="@color/colorBack"
-             />
+            android:translationZ="10000dp" />
 
         <Button
             android:id="@+id/Guest"
@@ -70,6 +69,30 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textColor="@color/colorBack"
             android:translationZ="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/elmanara_app"
+            android:textColor="@color/colorBack"
+            android:textSize="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/all_rights_reserved_2017"
+            android:textColor="@color/colorBack"
+            android:textSize="10dp" />
 
     </LinearLayout>
 </LinearLayout>

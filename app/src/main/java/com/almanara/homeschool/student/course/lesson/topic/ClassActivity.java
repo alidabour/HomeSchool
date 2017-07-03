@@ -406,22 +406,23 @@ public class ClassActivity extends AppCompatActivity {
     }
 
     public void onAnswer(boolean correct) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(
-                this);
+        if(correct) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(
+                    this);
 
-       // builder.setTitle("هييييييييييييييييه");
-        LayoutInflater li = LayoutInflater.from(this);
-        LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.correct_answer, null);
-        imageView2 = (ImageView) someLayout.findViewById(R.id.masha);
-        Log.v("Dialogue " , someLayout.toString());
-        final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
-                imageView2);
-        Glide.with(this).load(R.raw.source).into(imageViewTarget);
+            // builder.setTitle("هييييييييييييييييه");
+            LayoutInflater li = LayoutInflater.from(this);
+            LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.correct_answer, null);
+            imageView2 = (ImageView) someLayout.findViewById(R.id.masha);
+            Log.v("Dialogue ", someLayout.toString());
+            final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
+                    imageView2);
+            Glide.with(this).load(R.raw.source).into(imageViewTarget);
 //        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
 //
-        builder.setView(someLayout);
-        final AlertDialog dialog = builder.create();
-        dialog.show();
+            builder.setView(someLayout);
+            final AlertDialog dialog = builder.create();
+            dialog.show();
 //        try {
 //            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
 ////            mediaPlayer.setDataSource(getApplicationContext(), Uri.parse(RES_PREFIX + R.raw.yay));
@@ -436,58 +437,58 @@ public class ClassActivity extends AppCompatActivity {
 //                swipPager();
 //            }
 //        });
-        int mpPosition = 0;
-        if (mediaPlayer != null) {
-            mpPosition = mediaPlayer.getCurrentPosition();
-            mediaPlayer.pause();
-        }
-        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.yay);
-        mediaPlayer.start();
-        final int finalMpPosition = mpPosition;
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mediaPlayer = MediaPlayer
-                        .create(getApplicationContext(), R.raw.backgroundsound);
-                mediaPlayer.seekTo(finalMpPosition);
-                mediaPlayer.start();
-                imageView2.setVisibility(View.GONE);
-
-                db.child("users").child(user.getUid()).child("enrolledcourses")
-                        .addValueEventListener(listener2);
-                dialog.dismiss();
-                swipPager();
+            int mpPosition = 0;
+            if (mediaPlayer != null) {
+                mpPosition = mediaPlayer.getCurrentPosition();
+                mediaPlayer.pause();
             }
-        });
+            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.yay);
+            mediaPlayer.start();
+            final int finalMpPosition = mpPosition;
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mediaPlayer = MediaPlayer
+                            .create(getApplicationContext(), R.raw.backgroundsound);
+                    mediaPlayer.seekTo(finalMpPosition);
+                    mediaPlayer.start();
+                    imageView2.setVisibility(View.GONE);
 
-
-        listener2 = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot d : dataSnapshot.getChildren()) {
-                    for (DataSnapshot d1 : d.getChildren())
-                        for (DataSnapshot d2 : d1.getChildren()) {
-                            ProgressModel progressModel = d2
-                                    .getValue(ProgressModel.class);
-                            if (progressModel.getTopicProgressId()
-                                    .equals(TopicModelList
-                                            .get(pager.getCurrentItem() - 1).getId())) {
-                                progressModel.setTopicProgressFlag("true");
-                                db.child("users").child(user.getUid())
-                                        .child("enrolledcourses")
-                                        .child(progressModel.getEnrolledcourseid())
-                                        .child("progress")
-                                        .child(progressModel.getProgressid())
-                                        .updateChildren(progressModel.toMap());
-                            }
-                        }
+                    db.child("users").child(user.getUid()).child("enrolledcourses")
+                            .addValueEventListener(listener2);
+                    dialog.dismiss();
+                    swipPager();
                 }
-            }
+            });
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        };
 
+            listener2 = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot d : dataSnapshot.getChildren()) {
+                        for (DataSnapshot d1 : d.getChildren())
+                            for (DataSnapshot d2 : d1.getChildren()) {
+                                ProgressModel progressModel = d2
+                                        .getValue(ProgressModel.class);
+                                if (progressModel.getTopicProgressId()
+                                        .equals(TopicModelList
+                                                .get(pager.getCurrentItem() - 1).getId())) {
+                                    progressModel.setTopicProgressFlag("true");
+                                    db.child("users").child(user.getUid())
+                                            .child("enrolledcourses")
+                                            .child(progressModel.getEnrolledcourseid())
+                                            .child("progress")
+                                            .child(progressModel.getProgressid())
+                                            .updateChildren(progressModel.toMap());
+                                }
+                            }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            };
+        }
     }
 }

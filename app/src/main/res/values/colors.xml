@@ -11,8 +11,8 @@
     <color name="parent">#400684</color>
     <color name="instructor">#03879f</color>
     <color name="question">#f2091f</color>
+    <color name="colorPrimaryDark_parent">#34056b</color>
     <color name="splash">#F5BA09</color>
-    <color
-        name="transparent">#00000000</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

@@ -92,8 +92,6 @@ public class StudentFeaturedCourses extends AppCompatActivity {
 
     }
 
-
-
     @Override
     public void onPause() {
         if(queryListener != null)

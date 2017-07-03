@@ -3,52 +3,56 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="150dp"
     android:layout_height="150dp"
+    android:elevation="15dp"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground"
     android:layout_margin="16dp">
 
     <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_height="match_parent">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_height="match_parent">-->
 
-        <ImageView
-            android:id="@+id/courseImage"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="top" />
+    <ImageView
+        android:id="@+id/courseImage"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:scaleType="fitXY"
+        android:layout_gravity="center|top" />
 
-        <!--<view-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:layout_marginBottom="30dp"-->
-            <!--android:background="#d13033"/>-->
+    <!--<view-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:layout_marginBottom="30dp"-->
+    <!--android:background="#d13033"/>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        style="@style/Base.TextAppearance.AppCompat.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/courseName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_margin="8dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_weight="7"
+            android:padding="8dp"
+            android:text="hello"
+            android:textColor="@color/parent"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/courseName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:padding="8dp"
-                android:text="hello"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textViewOptions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="&#8942;"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/parent" />
 
-            <TextView
-                android:id="@+id/textViewOptions"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="&#8942;"
-                android:textAppearance="?android:textAppearanceLarge"
-                android:textColor="@color/colorPrimary" />
-
-        </LinearLayout>
+    </LinearLayout>
     <!--</LinearLayout>-->
 </android.support.v7.widget.CardView>
