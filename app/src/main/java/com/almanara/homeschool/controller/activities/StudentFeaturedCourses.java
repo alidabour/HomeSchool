@@ -2,22 +2,29 @@ package com.almanara.homeschool.controller.activities;
 
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.AppBarLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.almanara.homeschool.data.HeaderRVData;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.adapter.CourseSectionListAdapter;
+import com.almanara.homeschool.adapter.SampleCoursesToolbarAdapter;
+import com.almanara.homeschool.data.HeaderRVData;
+import com.almanara.homeschool.data.firebase.CourseCreated;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +36,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.content.ContentValues.TAG;
 
@@ -43,7 +52,7 @@ import static android.content.ContentValues.TAG;
  * as the navigation bar for his courses and settings
  */
 
-public class StudentFeaturedCourses extends AppCompatActivity {
+public class StudentFeaturedCourses extends AppCompatActivity implements courseInterface{
     View view;
     CourseSectionListAdapter courseSectionListAdapter;
     RecyclerView courseSectionRV;
@@ -61,10 +70,21 @@ public class StudentFeaturedCourses extends AppCompatActivity {
     String userId="Hello";
     String mychild="no";
 
+    ViewPager mViewPager;
+    ArrayList<CourseCreated> courseList ;
+
+    SampleCoursesToolbarAdapter imageCollapsingToolBarAdapter;
+    AppBarLayout appBarLayout;
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.courses_fragment_layout);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.Courses);
+        mViewPager = (ViewPager) findViewById(R.id.viewPage_collapsing_toolbar);
+        appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         progressBar = (ProgressBar) findViewById(R.id.indeterminateBar);
         courseSectionRV = (RecyclerView) findViewById(R.id.category_recyclerView);
@@ -75,7 +95,7 @@ public class StudentFeaturedCourses extends AppCompatActivity {
       /*  if (container != null) {
             container.removeAllViews();
         }*/
-//        listener = (courseInterface) StudentFeaturedCourses.this;
+        listener = (courseInterface) StudentFeaturedCourses.this;
         gifImage = (ImageView) findViewById(R.id.gif);
         GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(gifImage);
         Glide.with(this).load(R.raw.animated).into(imageViewTarget);
@@ -158,7 +178,8 @@ public class StudentFeaturedCourses extends AppCompatActivity {
                 courseSectionRV.setAdapter(courseSectionListAdapter);
 
                 // [END_EXCLUDE]
-//                listener.onDataFetched(random);
+            //    if(random!=null)
+                listener.onDataFetched(random);
                 progressBar.setVisibility(View.INVISIBLE);
             }
 
@@ -176,6 +197,59 @@ public class StudentFeaturedCourses extends AppCompatActivity {
         myRef.child("courses").addValueEventListener(queryListener);
     }
 
+    Timer timer;
+    @Override
+    public void onDataFetched(final ArrayList courses) {
+        courseList = courses ;
+        imageCollapsingToolBarAdapter = new SampleCoursesToolbarAdapter(this , courses );
+        mViewPager.setAdapter(imageCollapsingToolBarAdapter);
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                mViewPager.post(new Runnable(){
+
+                    @Override
+                    public void run() {
+                        mViewPager.setCurrentItem((mViewPager.getCurrentItem()+1)%courses.size());
+                    }
+                });
+            }
+        };
+        timer = new Timer();
+        timer.schedule(timerTask, 45000, 45000);
+        mViewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+
+                switch(event.getAction()){
+                    case MotionEvent.ACTION_MOVE:
+
+                        Log.e("viewPager" ,mViewPager.getCurrentItem() +"");
+
+                        return false; //This is important, if you return TRUE the action of swipe will not take place.
+
+                }
+                return false;
+            }
+        });
+
+
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                mViewPager.getParent().requestDisallowInterceptTouchEvent(true);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+            }
+        });
+
+
+
+    }
 }
 
 

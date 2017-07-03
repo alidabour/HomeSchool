@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,15 +14,22 @@ import android.view.MenuItem;
 
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.controller.activities.BaseActivity;
+import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.homeschool.home.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class ParentActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
+
+public class ParentActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
 
     FirebaseAuth mAuth;
+  //  SampleCoursesToolbarAdapter imageCollapsingToolBarAdapter;
+   // ViewPager mViewPager;
+    AppBarLayout appBarLayout;
     FirebaseUser user;
+    ArrayList<CourseCreated> courseList ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,8 +39,8 @@ public class ParentActivity extends BaseActivity implements NavigationView.OnNav
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.Courses);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -56,7 +64,8 @@ public class ParentActivity extends BaseActivity implements NavigationView.OnNav
 //                        .setAction("Action", null).show();
 //            }
 //        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      //  mViewPager.setAdapter(imageCollapsingToolBarAdapter);
+      //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -87,4 +96,5 @@ public class ParentActivity extends BaseActivity implements NavigationView.OnNav
         startActivity(intent);
         finish();
     }
+
 }
