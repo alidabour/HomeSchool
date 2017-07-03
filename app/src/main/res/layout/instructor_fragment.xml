@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:layout_margin="16dp"
     android:gravity="center"
+    style="@style/AppTheme.Instructor"
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView

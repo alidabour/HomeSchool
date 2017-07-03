@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:background="@color/colorPrimary"
+    android:background="@color/parent"
     android:fitsSystemWindows="true"
     android:gravity="center"
     android:orientation="horizontal"
+    style="@style/AppTheme.Instructor"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <LinearLayout

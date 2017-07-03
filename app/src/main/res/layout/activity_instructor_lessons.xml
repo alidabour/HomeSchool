@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bkgrnd"
     android:orientation="vertical"
+    style="@style/AppTheme.Instructor"
     tools:context="com.almanara.ali.homeschool.com.almanara.homeschool.instructor.lesson.InstructorLessonsActivity">
 
     <android.support.v7.widget.Toolbar

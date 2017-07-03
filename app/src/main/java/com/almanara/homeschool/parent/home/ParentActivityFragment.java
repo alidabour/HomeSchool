@@ -22,6 +22,7 @@ import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.adapter.ChildrenAdapter;
 import com.almanara.homeschool.childProgress.ChildCourses;
 import com.almanara.homeschool.controller.activities.StudentFeaturedCourses;
+import com.almanara.homeschool.controller.activities.Utility;
 import com.almanara.homeschool.data.CategoryInformation;
 import com.almanara.homeschool.data.firebase.ChildModel;
 import com.almanara.homeschool.data.firebase.UserModel;
@@ -199,7 +200,9 @@ import java.util.List;
                                                     intent.putExtra("childModel",test);
                                                     intent.putExtra("userid",test.getId());
                                                     intent.putExtra("mychild","hello");
+                                                    Utility.setTheme(getActivity(), 1);
                                                     startActivity(intent);
+
                                                 }
                                                 else {
                                                     Intent intent = new Intent(getContext(), ChildCourses.class);
@@ -207,7 +210,9 @@ import java.util.List;
 
                                                     intent.putExtra("childModel",test);
                                                     intent.putExtra("userid",test.getId());
+                                                    Utility.setTheme(getActivity(), 1);
                                                     startActivity(intent);
+
                                                 }
 
 

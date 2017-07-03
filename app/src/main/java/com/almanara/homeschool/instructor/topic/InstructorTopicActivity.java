@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.almanara.homeschool.controller.activities.BaseActivity;
 import com.almanara.homeschool.data.firebase.TopicModel;
 import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.homeschool.data.firebase.LessonModel;
@@ -34,7 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InstructorTopicActivity extends AppCompatActivity {
+public class InstructorTopicActivity extends BaseActivity {
     RecyclerView lessonsRV;
     String m_Text = "";
     DatabaseReference db;
@@ -53,7 +54,7 @@ public class InstructorTopicActivity extends AppCompatActivity {
     List<TopicModel> lessonModelList = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_topic2);
 

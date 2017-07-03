@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.almanara.homeschool.Answer;
+import com.almanara.homeschool.controller.activities.BaseActivity;
 import com.almanara.homeschool.instructor.create.dialogs.AnimationDialog;
 import com.almanara.homeschool.instructor.create.dialogs.ColorQuestionDialog;
 import com.almanara.homeschool.instructor.create.dialogs.ImageDialog;
@@ -67,7 +68,7 @@ import java.util.List;
 
 
 
-public class InstructorTopicCreationActivity extends AppCompatActivity
+public class InstructorTopicCreationActivity extends BaseActivity
         implements OnLayoutReadyInterface, XMLClick, ColorPickerDialogListener,
         OnStartDragListener, DoneOrderInterface, OnEditLayoutReady, XMLEditClick, ProgressImage, OnQuestionLayoutReady {
     static int id = 0;
@@ -128,7 +129,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
     boolean isQuestion = false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_topic);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -179,6 +180,7 @@ public class InstructorTopicCreationActivity extends AppCompatActivity
             String topicType = topicModel.getTopicType();
             Log.v("Test", "Topic Model :" + topicType);
             Log.v("Test", "Topic Model :" + topicModel.getName());
+            toolbar.setTitle(topicModel.getName());
             String layout = topicModel.getLayout();
             parms =layout;
             this.topicType = topicModel.getTopicType();

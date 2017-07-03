@@ -26,6 +26,8 @@ import android.widget.Toast;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.UserModelHelper.FileUploadHelper;
 import com.almanara.homeschool.UserModelHelper.UploadFile;
+import com.almanara.homeschool.controller.activities.BaseActivity;
+import com.almanara.homeschool.controller.activities.Utility;
 import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.homeschool.data.firebase.LessonModel;
 import com.almanara.homeschool.instructor.topic.InstructorTopicActivity;
@@ -38,7 +40,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class InstructorLessonsActivity extends AppCompatActivity {
+public class InstructorLessonsActivity extends BaseActivity {
     RecyclerView lessonsRV;
     String m_Text = "";
     DatabaseReference db;
@@ -55,7 +57,7 @@ public class InstructorLessonsActivity extends AppCompatActivity {
     InstructorLessonAdapter instructorLessonAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        Intent intentt = new Intent(this, InstructorTopicCreationActivity.class);
 //        intentt.putExtra("courseId","dsdssd");
@@ -260,6 +262,8 @@ public class InstructorLessonsActivity extends AppCompatActivity {
                                 intent.putExtra("lessonid", test.getId());
                                 //     intent.putExtra("lesson",test);
                                 // starting the Activity
+                                Utility.setTheme(getApplicationContext(), 2);
+
                                 startActivity(intent);
                             }
                         }, InstructorLessonsActivity.this, courseID);

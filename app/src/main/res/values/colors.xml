@@ -7,11 +7,10 @@
     <color name="rate">#F6CC19</color>
     <color name="bkgrnd">#edebeb</color>
     <color name="colorLesson">#000000</color>
-    <color name="student">#770fb9</color>
-    <color name="parent">#032b50</color>
+    <color name="student">#F6CC19</color>
+    <color name="parent">#400684</color>
     <color name="instructor">#03879f</color>
-
     <color name="question">#f2091f</color>
-    <color name="splash">#400684</color>
+    <color name="splash">#F5BA09</color>
 
 </resources>

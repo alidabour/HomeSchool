@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/bkgrnd"
+    style="@style/AppTheme.Instructor"
     tools:context="com.almanara.ali.homeschool.com.almanara.homeschool.instructor.topic.InstructorTopicActivity">
 
     <android.support.v7.widget.Toolbar

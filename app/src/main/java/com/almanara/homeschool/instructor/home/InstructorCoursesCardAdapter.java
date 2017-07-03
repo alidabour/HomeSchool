@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.almanara.homeschool.controller.activities.Utility;
 import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.bumptech.glide.Glide;
 import com.almanara.homeschool.instructor.lesson.InstructorLessonsActivity;
@@ -68,13 +69,17 @@ public class InstructorCoursesCardAdapter extends RecyclerView.Adapter<Instructo
                                             Classroom.class);
                                     intent.putExtra("courseid", courseCreated.getCourse_id());
                                     context.startActivity(intent);
-                            }
+                                    Utility.setTheme(context, 2);
+
+                                }
                                     break;
                                 case R.id.EditCourse: {
                                     Intent intent = new Intent(context,
                                             InstructorLessonsActivity.class);
                                     intent.putExtra("course", courseCreated);
                                     context.startActivity(intent);
+                                    Utility.setTheme(context, 2);
+
                                 }
                                     break;
                             }

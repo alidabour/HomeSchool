@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.almanara.homeschool.controller.activities.Utility;
 import com.almanara.homeschool.data.firebase.CourseCreated;
 import com.almanara.homeschool.instructor.lesson.InstructorLessonsActivity;
 import com.almanara.ali.homeschool.R;
@@ -318,6 +319,7 @@ public class InstructorFragment extends Fragment {
                                 Intent intent = new Intent(getContext(),
                                         InstructorLessonsActivity.class);
                                 intent.putExtra("course", test);
+                                Utility.setTheme(getActivity(), 2);
                                 startActivity(intent);
                             }
                         }, getContext());

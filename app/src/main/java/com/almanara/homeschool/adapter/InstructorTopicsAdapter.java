@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.almanara.homeschool.controller.activities.Utility;
 import com.almanara.homeschool.instructor.create.InstructorTopicCreationActivity;
 import com.almanara.homeschool.data.firebase.TopicModel;
 import com.almanara.ali.homeschool.R;
@@ -120,6 +121,7 @@ public class InstructorTopicsAdapter extends RecyclerView.Adapter<InstructorTopi
         intent.putExtra("layout", topicModel.getLayout());
         intent.putExtra("lessonid", lessonId);
         intent.putExtra("courseId", courseId);
+        Utility.setTheme(activity, 2);
         activity.startActivity(intent);
     }
 }

@@ -23,10 +23,8 @@ import java.util.Locale;
 public class SignInAs extends AppCompatActivity {
 
     ViewPager pager;
-
-
     ViewPager pagerIndicator;
-    int [] colors = new int []{R.color.instructor , R.color.parent , R.color.splash};
+    int [] colors = new int []{R.color.instructor , R.color.parent , R.color.student};
     ArrayList<Integer> indicators = new ArrayList<>();
     boolean isArabic= false;
     @Override
