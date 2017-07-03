@@ -21,6 +21,8 @@ import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
+import static com.almanara.ali.homeschool.R.id.cardView;
+
 /**
  * Created by Ali on 1/22/2017.
  * This class is designed to create the course as an image and a text beneath it
@@ -99,10 +101,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public  class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         protected TextView categoryName;
         protected ImageView categoryImage;
-        protected CardView cardView;
         public CategoryViewHolder(View itemView) {
             super(itemView);
-            cardView = (CardView) itemView.findViewById(R.id.cardView);
             categoryImage = (ImageView) itemView.findViewById(R.id.category_imageView);
             categoryName = (TextView) itemView.findViewById(R.id.category_textView);
             itemView.setOnClickListener(this);
@@ -111,7 +111,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            cardView.setBackgroundColor(Color.parseColor("#04bf4f"));
 //            cardView.setBackground(context.getResources().getDrawable(R.drawable.student_icon));
 //            Cursor cursor = mCursor;
 //            cursor.moveToPosition(position);

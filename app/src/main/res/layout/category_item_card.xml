@@ -1,52 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="150dp"
     android:layout_height="150dp"
     android:layout_margin="8dp"
-    card_view:cardBackgroundColor="@android:color/transparent"
-    card_view:cardCornerRadius="15dp"
     card_view:cardElevation="3dp">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:id="@+id/cardView"
-        card_view:cardBackgroundColor="@color/rate"
-        card_view:cardCornerRadius="15dp"
-        card_view:cardElevation="0dp">
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/category_imageView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+            android:layout_height="90dp"
+            android:scaleType="fitXY" />
 
-            <ImageView
-                android:id="@+id/category_imageView"
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:scaleType="fitXY" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom">
 
-            <FrameLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/category_textView"
+                style="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|bottom">
+                android:layout_gravity="left|top"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/android"
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/category_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|top"
-                    android:text="@string/android"
-                    style="@style/Base.TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorBack"
-                    android:textStyle="bold" />
-            </FrameLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+        </FrameLayout>
 </android.support.v7.widget.CardView>
