@@ -104,7 +104,7 @@ public class ClassActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                progress1.setProgress((100 * (position + 1)) / TopicModelList.size());
+                progress1.setProgress((100 * (TopicModelList.size() - position -1)) / TopicModelList.size());
             }
 
             @Override
@@ -184,7 +184,7 @@ public class ClassActivity extends AppCompatActivity {
                             lessonPagerAdapter);
                     pager.setPageTransformer(true, new CubeOutTransformer()); //set the animation
                     if (!Locale.getDefault().getLanguage().equals("en")) {
-                        pager.setCurrentItem(lessonPagerAdapter.getCount() - 1);
+                        pager.setCurrentItem(lessonPagerAdapter.getCount() -1);
                     }
                 }
             };
@@ -228,36 +228,9 @@ public class ClassActivity extends AppCompatActivity {
                 onAnswer(true);
 
             } else if (resultCode == Constants.WRONGANSWER) {
-                db.child("users").child(user.getUid()).child("enrolledcourses")
-                        .addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot d : dataSnapshot.getChildren()) {
-                                    for (DataSnapshot d1 : d.getChildren())
-                                        for (DataSnapshot d2 : d1.getChildren()) {
-                                            ProgressModel progressModel = d2
-                                                    .getValue(ProgressModel.class);
-                                            if (progressModel.getTopicProgressId()
-                                                    .equals(TopicModelList
-                                                            .get(pager.getCurrentItem()).getId())) {
-                                                progressModel.setTopicProgressFlag("true");
-                                                db.child("users").child(user.getUid())
-                                                        .child("enrolledcourses")
-                                                        .child(progressModel.getEnrolledcourseid())
-                                                        .child("progress")
-                                                        .child(progressModel.getProgressid())
-                                                        .updateChildren(progressModel.toMap());
-                                            }
-                                        }
-                                }
-                            }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                            }
-                        });
-//                Toast.makeText(this, " حاول مرة أخري \n" + data.getData().toString(),
-//                        Toast.LENGTH_LONG).show();
+                Toast.makeText(this, " حاول مرة أخري \n" + data.getData().toString(),
+                        Toast.LENGTH_LONG).show();
 
             }
         }
@@ -395,7 +368,7 @@ public class ClassActivity extends AppCompatActivity {
 //    }
 
     public void swipPager() {
-        progress1.setProgress((100 * (pager.getCurrentItem() )) / TopicModelList.size());
+        progress1.setProgress((100 * (TopicModelList.size()-pager.getCurrentItem() )) / TopicModelList.size());
         pager.setCurrentItem(pager.getCurrentItem() + 1);
 
     }
@@ -406,9 +379,10 @@ public class ClassActivity extends AppCompatActivity {
     }
 
     public void onAnswer(boolean correct) {
-        if(correct) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(
-                    this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(
+                this);
+        if (correct) {
+            progress1.setProgress((100 * (TopicModelList.size()-pager.getCurrentItem()+1 )) / TopicModelList.size());
 
             // builder.setTitle("هييييييييييييييييه");
             LayoutInflater li = LayoutInflater.from(this);

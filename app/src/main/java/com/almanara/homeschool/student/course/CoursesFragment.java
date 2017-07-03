@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.data.firebase.CourseCreated;
@@ -189,14 +188,10 @@ public class CoursesFragment extends Fragment {
             // For overlap of Re Entering Activity - MainActivity.java and Exiting TransitionActivity.java
             getActivity().getWindow().setAllowReturnTransitionOverlap(false);
         }
-    }
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
         if (firebaseUser != null) {
-             view.findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
             coursesRecycleView.setVisibility(View.GONE);
             db.child("users").child(firebaseUser.getUid()).child("enrolledcourses")
                     .addValueEventListener(new ValueEventListener() {
@@ -259,6 +254,13 @@ public class CoursesFragment extends Fragment {
         }
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -266,6 +268,7 @@ public class CoursesFragment extends Fragment {
 
     @Override
     public void onDetach() {
+        coursesRecycleView.setVisibility(View.GONE);
         super.onDetach();
     }
 }

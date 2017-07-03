@@ -64,7 +64,16 @@ public class StudentHomeActivityNew extends AppCompatActivity {
 //           }
 //       });
 
+        Fragment newFragment = new CoursesFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack if needed
+        transaction.replace(R.id.fragment1, newFragment);
+        transaction.addToBackStack(null);
+
+// Commit the transaction
+        transaction.commit();
     }
 
     @Override

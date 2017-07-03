@@ -9,3 +9,5 @@ import com.almanara.homeschool.data.firebase.UserModel;
 public interface UserModelFirebase {
     public void dataRetrieved(UserModel userModel);
 }
+
+    
