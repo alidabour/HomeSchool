@@ -93,7 +93,7 @@ public class InstructorLessonsActivity extends BaseActivity {
                         String key = db.child("courses").child(courseCreated.getCourse_id())
                                 .child("lessons").push().getKey();
                         if (photo_url.isEmpty()) {
-                            photo_url = "https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2Fcourses%2Fphoto_default.png?alt=media&token=a338378b-eb7d-4d65-88ea-a4266fd0c1d5";
+                            photo_url = "https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2FcoursesPhoto%2Fimage.jpg?alt=media&token=365b53c9-1d6f-4d12-838a-0844249371c9";
                         }
 //                        lesson.put("id",key);
 //                        lesson.put("name",m_Text);

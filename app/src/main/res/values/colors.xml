@@ -12,5 +12,7 @@
     <color name="instructor">#03879f</color>
     <color name="question">#f2091f</color>
     <color name="splash">#F5BA09</color>
+    <color
+        name="transparent">#00000000</color>
 
 </resources>

@@ -61,8 +61,8 @@ import java.util.List;
     private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.fragment_parent2, container, false);
         progressBar=(ProgressBar)view.findViewById(R.id.parent_progressbar);
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -72,7 +72,6 @@ import java.util.List;
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 //builder.setTitle("Enter Email");
                 builder.setTitle(R.string.enter_email);
-
                 // Set up the input
                 final EditText input = new EditText(getActivity());
                 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
@@ -188,7 +187,7 @@ import java.util.List;
 
                                        CharSequence colors[] = new CharSequence[] {getString(R.string.enrollMyChild),getString(R.string.viewThisChild)};
 
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.CustomStyle);
                                         builder.setTitle(R.string.chooseanOption);
 
                                         builder.setItems(colors, new DialogInterface.OnClickListener() {

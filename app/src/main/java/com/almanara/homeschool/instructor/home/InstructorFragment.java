@@ -185,7 +185,7 @@ public class InstructorFragment extends Fragment {
                         description = descriptions.getText().toString();
 
                         if (photoUrl.isEmpty()) {
-                            photoUrl = "https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2FcoursesPhoto%2Fimage.jpg?alt=media&token=365b53c9-1d6f-4d12-838a-0844249371c9";
+                            photoUrl = "https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2FcoursesPhoto%2Fdefault.png?alt=media&token=efda707d-064a-4d70-b0dc-95d80157c3c0";
 
                         }
                         String key = db.child("users").child(user.getUid()).child("CreatedCourse")
@@ -224,7 +224,7 @@ public class InstructorFragment extends Fragment {
                                 .child(lessonKey).child("name").setValue("الدرس الاول");
                         db.child("courses").child(key).child("lessons")
                                 .child(lessonKey).child("photo_url").setValue(
-                                "https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2Fcourses%2Fphoto_default.png?alt=media&token=a338378b-eb7d-4d65-88ea-a4266fd0c1d5");
+                                "https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2FcoursesPhoto%2Fimage.jpg?alt=media&token=365b53c9-1d6f-4d12-838a-0844249371c9");
                         String topicKey = db.child("courses").child(key)
                                 .child("lessons").child(lessonKey).child("topics").push().getKey();
                         db.child("courses").child(key)
