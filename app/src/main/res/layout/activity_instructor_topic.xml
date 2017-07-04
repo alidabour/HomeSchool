@@ -24,19 +24,25 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/mainRe"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar">
 
-
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            />
         <HorizontalScrollView
+            android:background="@color/bkgrnd"
             android:id="@+id/control"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="8dp">
+           >
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -156,7 +162,7 @@
 
                             <ImageView
                                 android:id="@+id/questionImage"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"
                                 android:src="@drawable/question" />
@@ -187,8 +193,8 @@
 
                             <ImageView
                                 android:id="@+id/Animation"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
                                 android:gravity="center_horizontal"
                                 android:src="@drawable/animation" />
 
@@ -210,12 +216,7 @@
         </HorizontalScrollView>
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycleView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="54dp" />
-    </RelativeLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

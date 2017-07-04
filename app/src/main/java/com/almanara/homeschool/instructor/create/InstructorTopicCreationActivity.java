@@ -122,7 +122,7 @@ public class InstructorTopicCreationActivity extends BaseActivity
     RecyclerListAdapter adapter;
     Toolbar toolbar;
     RelativeLayout relativeLayout;
-    RelativeLayout mainRe;
+    LinearLayout mainRe;
     Button openFragment;
     FrameLayout fragmentLayout;
 
@@ -136,7 +136,7 @@ public class InstructorTopicCreationActivity extends BaseActivity
         setContentView(R.layout.activity_instructor_topic);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         relativeLayout = (RelativeLayout) findViewById(R.id.activiy_main);
-        mainRe =  (RelativeLayout) findViewById(R.id.mainRe);
+        mainRe =  (LinearLayout) findViewById(R.id.mainRe);
         setSupportActionBar(toolbar);
         openFragment = (Button) findViewById(R.id.openFragment);
         parseXMLInstructor = new ParseXMLInstructor(InstructorTopicCreationActivity.this);
