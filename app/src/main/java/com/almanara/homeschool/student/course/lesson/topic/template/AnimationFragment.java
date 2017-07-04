@@ -173,16 +173,22 @@ public class AnimationFragment extends Fragment {
                 if(getActivity() instanceof  ClassActivity){
                     ((ClassActivity)getActivity()).pauseSound(true);
                 }
-                mediaPlayerword.start();
-                mediaPlayerword.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        if(getActivity() instanceof  ClassActivity){
-                            ((ClassActivity)getActivity()).swipPager(true);
-                            ((ClassActivity)getActivity()).pauseSound(false);
+                if(mediaPlayerword != null) {
+                    mediaPlayerword.start();
+                    mediaPlayerword.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            if (getActivity() instanceof ClassActivity) {
+                                ((ClassActivity) getActivity()).swipPager();
+                                ((ClassActivity) getActivity()).pauseSound(false);
+                            }
                         }
+                    });
+                }else {
+                    if (getActivity() instanceof ClassActivity) {
+                        ((ClassActivity) getActivity()).swipPager();
                     }
-                });
+                }
 
             }
         });
