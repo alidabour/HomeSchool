@@ -190,5 +190,9 @@
     <string name="delete">Delete</string>
     <string name="singinnow">جاري تسجيل الدخول...</string>
     <string name="Animation">Animation</string>
+    <string name="easiest">اسهل طريقة للتعلم من المنزل</string>
+    <string name="efficiency">متابعة اطفالك اكثر فاعلية الان</string>
+    <string name="smartest">تحضير درسك ليس اذكي من الان</string>
+    <string name="parent">parent</string>
 
 </resources>

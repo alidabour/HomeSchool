@@ -1,31 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/content_parent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.almanara.ali.homeschool.com.almanara.homeschool.parent.home.ParentActivityFragment"
-        tools:showIn="@layout/activity_parent">
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/category_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:nestedScrollingEnabled="false"/></LinearLayout>
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:nestedScrollingEnabled="false" />
 
     <ProgressBar
+        android:id="@+id/parent_progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/parent_progressbar"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
 
 
     <android.support.design.widget.FloatingActionButton
@@ -34,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:tint="@color/colorBack"
         android:src="@android:drawable/ic_input_add" />
 
 </FrameLayout>

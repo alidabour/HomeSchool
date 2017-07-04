@@ -153,6 +153,10 @@
     <string name="delete">مسح</string>
     <string name="singinnow">جاري تسجيل الدخول...</string>
     <string name="Animation">تحريك</string>
+    <string name="easiest">اسهل طريقة للتعلم من المنزل</string>
+    <string name="efficiency">متابعة أطفالك أكثر فاعلية الأن</string>
+    <string name="smartest">تحضير دروسك ليس أذكي من الأن</string>
+    <string name="parent">ولى الأمر</string>
 
     <string-array name="color_array" translatable="false">
         <item>أحمر</item>

@@ -136,9 +136,9 @@ public class ParentActivityFragment extends Fragment {
                     @Override
                     public void onShow(DialogInterface arg0) {
                         dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                                .setTextColor(getActivity().getResources().getColor(R.color.parent));
+                                .setTextColor(getActivity().getResources().getColor(R.color.instructor));
                         dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                                .setTextColor(getActivity().getResources().getColor(R.color.parent));
+                                .setTextColor(getActivity().getResources().getColor(R.color.instructor));
                     }
                 });
                 dialog.show();
@@ -198,7 +198,7 @@ public class ParentActivityFragment extends Fragment {
 
                                 CharSequence colors[] = new CharSequence[]{getString(R.string.enrollMyChild), getString(R.string.viewThisChild)};
 
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.CustomStyle);
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                         builder.setTitle(R.string.chooseanOption);
 
                                 builder.setItems(colors, new DialogInterface.OnClickListener() {
@@ -216,15 +216,12 @@ public class ParentActivityFragment extends Fragment {
                                         } else {
                                             Intent intent = new Intent(getContext(), ChildCourses.class);
                                             Log.v("Test", "Child id" + test.getId());
-
                                             intent.putExtra("childModel", test);
                                             intent.putExtra("userid", test.getId());
                                             Utility.setTheme(getActivity(), 1);
                                             startActivity(intent);
 
                                         }
-
-
                                     }
                                 });
                                 final AlertDialog dialog = builder.create();
@@ -232,9 +229,9 @@ public class ParentActivityFragment extends Fragment {
                                     @Override
                                     public void onShow(DialogInterface arg0) {
                                         dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                                                .setTextColor(getActivity().getResources().getColor(R.color.parent));
+                                                .setTextColor(getActivity().getResources().getColor(R.color.instructor));
                                         dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                                                .setTextColor(getActivity().getResources().getColor(R.color.parent));
+                                                .setTextColor(getActivity().getResources().getColor(R.color.instructor));
                                     }
                                 });
                                 dialog.show();

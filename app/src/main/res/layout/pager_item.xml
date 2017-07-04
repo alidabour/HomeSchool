@@ -30,7 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
+            android:id="@+id/description"
             android:textColor="@color/bkgrnd"
             android:text="مهتثبمسببهخثقخةب هتبهتبهبىهثق تبىبثبهثقبت"/>
 

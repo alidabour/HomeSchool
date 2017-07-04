@@ -28,6 +28,8 @@ import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.controller.activities.Home;
 import com.almanara.homeschool.controller.activities.StudentHomeActivity;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import static android.R.drawable.title_bar;
@@ -84,6 +86,8 @@ public class SignInAsAdapter extends PagerAdapter {
         Glide.with(activity).load(mResources.get(position).getBackGround()).into(layout);
         TextView slogan = (TextView) itemView.findViewById(R.id.slogan);
         slogan.setText(mResources.get(position).getSlogan());
+        TextView description = (TextView) itemView.findViewById(R.id.description);
+        description.setText(mResources.get(position).getDescription());
         container.addView(itemView);
 
         imageView.setOnClickListener(new View.OnClickListener() {

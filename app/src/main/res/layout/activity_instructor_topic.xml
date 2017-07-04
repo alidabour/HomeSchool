@@ -26,23 +26,22 @@
 
     <LinearLayout
         android:id="@+id/mainRe"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/toolbar"
+        android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleView"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            />
+            android:layout_weight="1" />
+
         <HorizontalScrollView
-            android:background="@color/bkgrnd"
             android:id="@+id/control"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-           >
+            android:background="@color/bkgrnd">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -54,7 +53,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="380dp"
+                        android:layout_width="370dp"
                         android:layout_height="wrap_content"
                         android:background="@color/bkgrnd"
                         android:orientation="horizontal"
@@ -71,14 +70,14 @@
                                 android:id="@+id/image"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"
+                                android:layout_gravity="center_horizontal"
                                 android:src="@drawable/image" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
                                 android:layout_margin="8dp"
-                                android:gravity="center_horizontal"
                                 android:text="@string/image"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Button" />
                         </LinearLayout>
@@ -101,15 +100,15 @@
                                 android:id="@+id/sound"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"
+                                android:layout_gravity="center_horizontal"
                                 android:src="@drawable/sound" />
 
                             <TextView
 
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
                                 android:layout_margin="8dp"
-                                android:gravity="center_horizontal"
                                 android:text="@string/sound"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Button" />
 
@@ -133,7 +132,7 @@
                                 android:id="@+id/textViewInstructor"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"
+                                android:layout_gravity="center_horizontal"
                                 android:src="@drawable/text" />
 
                             <TextView
@@ -164,7 +163,7 @@
                                 android:id="@+id/questionImage"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"
+                                android:layout_gravity="center_horizontal"
                                 android:src="@drawable/question" />
 
                             <TextView
@@ -195,7 +194,7 @@
                                 android:id="@+id/Animation"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:gravity="center_horizontal"
+                                android:layout_gravity="center_horizontal"
                                 android:src="@drawable/animation" />
 
                             <TextView
@@ -214,7 +213,6 @@
                 </LinearLayout>
             </ScrollView>
         </HorizontalScrollView>
-
 
 
     </LinearLayout>

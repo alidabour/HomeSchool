@@ -40,7 +40,7 @@ public class ParentActivity extends BaseActivity implements NavigationView.OnNav
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.Courses);
+        toolbar.setTitle(R.string.parent);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

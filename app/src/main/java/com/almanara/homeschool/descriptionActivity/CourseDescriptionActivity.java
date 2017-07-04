@@ -50,7 +50,7 @@ and supposely later on i would use the data base to fetch this data
  */
 public class CourseDescriptionActivity extends AppCompatActivity {
     Toolbar toolbar;
-    String mychild ="no";
+    String mychild = "no";
     ListView topicsListView;
     RecyclerView topicsRecyclerView;
     Button enroll;
@@ -66,7 +66,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
     LessonModel lessonModel;
     CourseCreated courseCreated;
     EnrolledCourseModel courseCreated1;
-    boolean courseExists ;
+    boolean courseExists;
     DatabaseReference myRef1;
     DatabaseReference myRef2;
     TopicModel topicModel;
@@ -90,7 +90,7 @@ public class CourseDescriptionActivity extends AppCompatActivity {
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         Drawable drawable = ratingBar.getProgressDrawable();
-        drawable.setColorFilter(Color.parseColor("#0C75DE"),PorterDuff.Mode.SRC_ATOP);
+        drawable.setColorFilter(Color.parseColor("#F6CC19"), PorterDuff.Mode.SRC_ATOP);
 
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
 //        fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -119,13 +119,12 @@ public class CourseDescriptionActivity extends AppCompatActivity {
             toolbar.setTitle(courseCreated.getName());
             Log.v("Test", "Child : " + courseCreated.getName());
         }
-        if(intent.hasExtra("userid")){
+        if (intent.hasExtra("userid")) {
             userid = intent.getStringExtra("userid");
-            mychild=intent.getStringExtra("mychild");
-            Log.e(TAG, "onCreate: _____________"+mychild );
-            Log.v("ElidZaahr",userid);
-        }
-        else if(type != 0)
+            mychild = intent.getStringExtra("mychild");
+            Log.e(TAG, "onCreate: _____________" + mychild);
+            Log.v("ElidZaahr", userid);
+        } else if (type != 0)
             userid = user.getUid();
 
         setSupportActionBar(toolbar);
@@ -139,75 +138,76 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                 if (type != 0) {
 
                     listener1 = new ValueEventListener() {
-                                        boolean flag = false;
-                                        int count = 0;
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            if (!courseExists)
-                                                for (DataSnapshot d : dataSnapshot.getChildren()) {
-                                                    courseCreated1 = d.getValue(EnrolledCourseModel.class);
-                                                    if (courseCreated.getCourse_id().equals(courseCreated1.getCourse_id())) {
-                                                        courseExists = true;
+                        boolean flag = false;
+                        int count = 0;
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (!courseExists)
+                                for (DataSnapshot d : dataSnapshot.getChildren()) {
+                                    courseCreated1 = d.getValue(EnrolledCourseModel.class);
+                                    if (courseCreated.getCourse_id().equals(courseCreated1.getCourse_id())) {
+                                        courseExists = true;
+                                    }
+                                }
+                            if (!courseExists) {
+                                myRef1 = databaseReference;
+                                final EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
+                                enrolledCourseModel.setName(courseCreated.getName());
+                                enrolledCourseModel.setCourse_id(key);
+                                Log.v("enrolledCourseModel ", userid + " " + enrolledCourseModel.getName() + " ");
+                                String key = myRef1.child("users").child(userid).child("enrolledcourses").push().getKey();
+                                enrolledCourseModel.setEnrolledcoursemodelid(key);
+                                myRef1.child("users").child(userid).child("enrolledcourses").child(key).setValue(enrolledCourseModel);
+                                String key2 = myRef1.child("users").child(userid).child("enrolledcourses").child(key).child("progress").push().getKey();
+
+                                courseExists = true;
+                                if (mychild.equals("hello"))
+                                    Toast.makeText(CourseDescriptionActivity.this, R.string.sign_in, Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(CourseDescriptionActivity.this, R.string.sign_in, Toast.LENGTH_SHORT).show();
+
+                                databaseReference.child("courses").child(enrolledCourseModel.getCourse_id()).child("lessons").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot d1 : dataSnapshot.getChildren()) {
+                                            for (DataSnapshot d2 : d1.getChildren()) {
+                                                for (DataSnapshot d3 : d2.getChildren()) {
+                                                    TopicModel topicModel = d3.getValue(TopicModel.class);
+                                                    if (topicModel.getQuestion().equals("true")) {
+                                                        myRef1 = databaseReference;
+                                                        String key2 = myRef1.child("users").child(userid).child("enrolledcourses").child(enrolledCourseModel.getEnrolledcoursemodelid()).child("progress").push().getKey();
+                                                        myRef1 = myRef1.child("users").child(userid).child("enrolledcourses").child(enrolledCourseModel.getEnrolledcoursemodelid()).child("progress");
+                                                        progresstrial.setTopicProgressFlag("false");
+                                                        progresstrial.setTopicProgressId(topicModel.getId());
+                                                        progresstrial.setProgressid(key2);
+                                                        progresstrial.setEnrolledcourseid(enrolledCourseModel.getEnrolledcoursemodelid());
+                                                        Log.v("TopicModel", topicModel.getQuestion());
+                                                        Log.v("TopicModel", topicModel.getId());
+                                                        Log.v("TopicModel", topicModel.getName());
+                                                        Log.v("TopicModel", topicModel.getLayout());
+                                                        Log.v("TopicModel", topicModel.getTopicType());
+                                                        myRef1.child(key2).updateChildren(progresstrial.toMap());
                                                     }
                                                 }
-                                                if(!courseExists) {
-                                                    myRef1 = databaseReference;
-                                                    final EnrolledCourseModel enrolledCourseModel = new EnrolledCourseModel();
-                                                    enrolledCourseModel.setName(courseCreated.getName());
-                                                    enrolledCourseModel.setCourse_id(key);
-                                                    Log.v("enrolledCourseModel ", userid + " " + enrolledCourseModel.getName() + " ");
-                                                    String key = myRef1.child("users").child(userid).child("enrolledcourses").push().getKey();
-                                                    enrolledCourseModel.setEnrolledcoursemodelid(key);
-                                                    myRef1.child("users").child(userid).child("enrolledcourses").child(key).setValue(enrolledCourseModel);
-                                                    String key2 = myRef1.child("users").child(userid).child("enrolledcourses").child(key).child("progress").push().getKey();
-
-                                                    courseExists = true;
-                                                    if(mychild.equals("hello"))
-                                                        Toast.makeText(CourseDescriptionActivity.this, R.string.sign_in, Toast.LENGTH_SHORT).show();
-                                                    else
-                                                        Toast.makeText(CourseDescriptionActivity.this, R.string.sign_in, Toast.LENGTH_SHORT).show();
-
-                                                    databaseReference.child("courses").child(enrolledCourseModel.getCourse_id()).child("lessons").addValueEventListener(new ValueEventListener() {
-                                                        @Override
-                                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                                            for (DataSnapshot d1 : dataSnapshot.getChildren()) {
-                                                                for (DataSnapshot d2 : d1.getChildren()) {
-                                                                    for (DataSnapshot d3 : d2.getChildren()) {
-                                                                        TopicModel topicModel = d3.getValue(TopicModel.class);
-                                                                        if(topicModel.getQuestion().equals("true")){
-                                                                            myRef1 = databaseReference;
-                                                                            String key2 = myRef1.child("users").child(userid).child("enrolledcourses").child(enrolledCourseModel.getEnrolledcoursemodelid()).child("progress").push().getKey();
-                                                                            myRef1 = myRef1.child("users").child(userid).child("enrolledcourses").child(enrolledCourseModel.getEnrolledcoursemodelid()).child("progress");
-                                                                            progresstrial.setTopicProgressFlag("false");
-                                                                            progresstrial.setTopicProgressId(topicModel.getId());
-                                                                            progresstrial.setProgressid(key2);
-                                                                            progresstrial.setEnrolledcourseid(enrolledCourseModel.getEnrolledcoursemodelid());
-                                                                            Log.v("TopicModel",topicModel.getQuestion());
-                                                                            Log.v("TopicModel",topicModel.getId());
-                                                                            Log.v("TopicModel",topicModel.getName());
-                                                                            Log.v("TopicModel",topicModel.getLayout());
-                                                                            Log.v("TopicModel",topicModel.getTopicType());
-                                                                            myRef1.child(key2).updateChildren(progresstrial.toMap());
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                            }
-
-
-                                                        @Override
-                                                        public void onCancelled(DatabaseError databaseError) {
-
-                                                        }
-                                                    });
-                                                }
+                                            }
                                         }
+                                    }
 
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
 
-                                        }
-                                    };
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    };
                     databaseReference.child("users").child(userid).child("enrolledcourses").addValueEventListener(listener1);
 
                 } else
@@ -216,60 +216,62 @@ public class CourseDescriptionActivity extends AppCompatActivity {
         });
 
     }
+
     @Override
-    protected void onPause(){
+    protected void onPause() {
         if (listener1 != null)
             databaseReference.removeEventListener(listener1);
         if (listener2 != null)
             databaseReference.removeEventListener(listener2);
         super.onPause();
     }
+
     @Override
     public void onStart() {
         super.onStart();
         // Add value event listener to the post
         // [START post_value_event_listener]DatabaseReference myRef = databaseReference;
 
-           listener2 =      new ValueEventListener() {
-                    List<TopicModel> lessonModelList;
+        listener2 = new ValueEventListener() {
+            List<TopicModel> lessonModelList;
 
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.v("Testing", "Lesson " + dataSnapshot.toString());
-                        lessonModelList = new ArrayList<TopicModel>();
-                        for (DataSnapshot d1 : dataSnapshot.getChildren()) {
-                            Log.e("datasnapshot: ", d1 +"");
-                            lessonModel = d1.getValue(LessonModel.class);
-                            for (DataSnapshot d2 : d1.getChildren()) {
-                                for (DataSnapshot d3 : d2.getChildren()) {
-                                    Log.e("d2ooool: ", d3.toString());
-                                    topicModel = d3.getValue(TopicModel.class);
-                                    Log.e("Topic Model: ", topicModel.getName() + "");
-                                    lessonModelList.add(topicModel);
-                                }
-                            }
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.v("Testing", "Lesson " + dataSnapshot.toString());
+                lessonModelList = new ArrayList<TopicModel>();
+                for (DataSnapshot d1 : dataSnapshot.getChildren()) {
+                    Log.e("datasnapshot: ", d1 + "");
+                    lessonModel = d1.getValue(LessonModel.class);
+                    for (DataSnapshot d2 : d1.getChildren()) {
+                        for (DataSnapshot d3 : d2.getChildren()) {
+                            Log.e("d2ooool: ", d3.toString());
+                            topicModel = d3.getValue(TopicModel.class);
+                            Log.e("Topic Model: ", topicModel.getName() + "");
+                            lessonModelList.add(topicModel);
                         }
-                        TopicsAdapter topicAdapter
-                                = new TopicsAdapter(lessonModelList,
-                                new TopicsAdapter.OnClickHandler() {
-                                    @Override
-                                    public void onClick(TopicModel test) {
-
-                                    }
-                                });
-                        topicsRecyclerView.setAdapter(topicAdapter);
                     }
+                }
+                TopicsAdapter topicAdapter
+                        = new TopicsAdapter(lessonModelList,
+                        new TopicsAdapter.OnClickHandler() {
+                            @Override
+                            public void onClick(TopicModel test) {
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                topicsRecyclerView.setAdapter(topicAdapter);
+            }
 
-                    }
-                };
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
+            }
+        };
 
 
         listener1 = new ValueEventListener() {
             int count = 0;
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (!courseExists)
@@ -284,8 +286,8 @@ public class CourseDescriptionActivity extends AppCompatActivity {
                             courseExists = true;
                         }
                     }
-                if(courseExists) {
-                   enroll.setText("Enrolled");
+                if (courseExists) {
+                    enroll.setText("Enrolled");
                     enroll.setBackgroundColor((ContextCompat.getColor(CourseDescriptionActivity.this, R.color.colorLesson)));
                 }
             }
@@ -295,8 +297,8 @@ public class CourseDescriptionActivity extends AppCompatActivity {
 
             }
         };
-        if(userid!=null)
-        databaseReference.child("users").child(userid).child("enrolledcourses").addValueEventListener(listener1);
+        if (userid != null)
+            databaseReference.child("users").child(userid).child("enrolledcourses").addValueEventListener(listener1);
         databaseReference.child("courses").child(String.valueOf(courseCreated.getCourse_id())).child("lessons").addValueEventListener(listener2);
 //
 ////            for(Lessons x : lessonsID)
@@ -353,7 +355,6 @@ public class CourseDescriptionActivity extends AppCompatActivity {
 
 
     }
-
 
 
 }

@@ -49,18 +49,21 @@ public class SignInAs extends AppCompatActivity {
             home.setImage(R.drawable.parents_icon);
             home.setName(getString(R.string.Parents));
             home.setSlogan(getString(R.string.Efficent));
+            home.setDescription(getString(R.string.efficiency));
             home.setBackGround(R.drawable.parent_background);
             res.add(home);
             home = new Home();
             home.setImage(R.drawable.instructor_icon);
             home.setName(getString(R.string.Instructor));
             home.setSlogan(getString(R.string.Smart));
+            home.setDescription(getString(R.string.smartest));
             home.setBackGround(R.drawable.instructor_background);
             res.add(home);
             home = new Home();
             home.setImage(R.drawable.student_icon);
             home.setName(getString(R.string.Student));
             home.setSlogan(getString(R.string.Easy));
+            home.setDescription(getString(R.string.easiest));
             home.setBackGround(R.drawable.student_background);
             res.add(home);
         }else {

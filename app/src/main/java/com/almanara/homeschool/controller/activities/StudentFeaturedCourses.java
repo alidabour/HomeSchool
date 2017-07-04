@@ -96,9 +96,7 @@ public class StudentFeaturedCourses extends AppCompatActivity implements courseI
             container.removeAllViews();
         }*/
         listener = (courseInterface) StudentFeaturedCourses.this;
-        gifImage = (ImageView) findViewById(R.id.gif);
-        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(gifImage);
-        Glide.with(this).load(R.raw.animated).into(imageViewTarget);
+
         //temp.setListener(listener);
         Log.v("StudentCoursesFragment", "Test");
         Intent intent = getIntent();

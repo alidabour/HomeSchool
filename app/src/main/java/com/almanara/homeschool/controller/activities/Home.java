@@ -24,6 +24,16 @@ public class Home {
     int image ;
     String name ;
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    String description ;
+
     public String getSlogan() {
         return slogan;
     }
