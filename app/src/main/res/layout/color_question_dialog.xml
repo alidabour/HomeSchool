@@ -1,37 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
-    }
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/select_color">
-        <EditText
-            android:id="@+id/question"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </android.support.design.widget.TextInputLayout>
+              android:layout_margin="8dp"
+              android:orientation="horizontal">
+    <!--<android.support.design.widget.TextInputLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:hint="@string/select_color">-->
+    <!--<EditText-->
+    <!--android:id="@+id/question"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"/>-->
+    <!--</android.support.design.widget.TextInputLayout>-->
 
     <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal">-->
 
-        <!--<TextView-->
-            <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="8dp"-->
-            <!--android:text="@string/select_color"/>-->
+    <!--<TextView-->
+    <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="8dp"-->
+    <!--android:text="@string/select_color"/>-->
 
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:layout_weight="1"
+        android:text="@string/select_color"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
-        <!--<Spinner-->
-            <!--android:id="@+id/colors"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content">-->
-        <!--</Spinner>-->
+    <Spinner
+        android:layout_margin="4dp"
+
+        android:id="@+id/colors"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title">
+    </Spinner>
     <!--</LinearLayout>-->
     <!--<include layout="@layout/layout_parameters"/>-->
 </LinearLayout>

@@ -154,4 +154,14 @@
     <string name="singinnow">جاري تسجيل الدخول...</string>
     <string name="Animation">تحريك</string>
 
+    <string-array name="color_array" translatable="false">
+        <item>أحمر</item>
+        <item>أصفر</item>
+        <item>برتقالي</item>
+        <item>أخضر</item>
+        <item>سيان</item>
+        <item>أزرق</item>
+        <item>بنفسجي</item>
+    </string-array>
+
 </resources>

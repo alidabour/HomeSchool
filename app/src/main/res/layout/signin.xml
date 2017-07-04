@@ -108,10 +108,10 @@
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:textColor="@color/colorBack"
-            android:foreground="@drawable/ripple"
             android:background="@drawable/button_shape"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium.Inverse"
-            android:text="@string/signin" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium.Inverse"
+        android:text="@string/signin" />
+    <!--android:foreground="@drawable/ripple"-->
     </LinearLayout>
 
     <LinearLayout

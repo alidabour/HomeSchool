@@ -21,6 +21,10 @@ import com.almanara.homeschool.instructor.create.OnQuestionLayoutReady;
 import com.almanara.homeschool.instructor.create.ProgressImage;
 
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static com.almanara.homeschool.Constants.mButton;
 
 /**
@@ -54,39 +58,42 @@ public class ColorQuestionDialog {
 
 
     public void openColorQuestionDialog() {
+        final ArrayList<String> colors =  new ArrayList<>();
+        colors.addAll(Arrays.asList("Red","Yellow","Orange","Green","Cyan","Blue","Violet"));
+
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 //        builder.setTitle("Title");
         LayoutInflater li = LayoutInflater.from(activity);
         LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.color_question_dialog, null);
-        final EditText questionET = (EditText) someLayout.findViewById(R.id.question);
+//        final EditText questionET = (EditText) someLayout.findViewById(R.id.question);
 //        questionET.setText(questionTitle);
 //        Constants.textViewProperties(someLayout, activity, this);
-//        Spinner colorSpinner = (Spinner) someLayout.findViewById(R.id.colors);
-//        ArrayAdapter<CharSequence> actionColors = ArrayAdapter.createFromResource(activity,
-//                R.array.color_array, android.R.layout.simple_spinner_item);
-//        actionColors.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner colorSpinner = (Spinner) someLayout.findViewById(R.id.colors);
+        ArrayAdapter<CharSequence> actionColors = ArrayAdapter.createFromResource(activity,
+                R.array.color_array, android.R.layout.simple_spinner_item);
+        actionColors.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Apply the adapter to the spinner
-//        colorSpinner.setAdapter(actionColors);
-//        final String[] selection = {" "};
-//        colorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int position,
-//                                       long l) {
-//                selection[0] = (String) adapterView.getItemAtPosition(position);
-//                Log.v("ITA", "Selected :" + selection[0]);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
+        colorSpinner.setAdapter(actionColors);
+        final String[] selection = {" "};
+        colorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position,
+                                       long l) {
+                selection[0] = colors.get(position);
+                Log.v("ITA", "Selected :" + selection[0]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         builder.setView(someLayout);
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String questionText = questionET.getText().toString();
+                String questionText = selection[0];
 //                if (!isEditing) {
 //                    onLayoutReadyInterface.setLayout(
 //                            Constants.mButton(++id, questionText, "ColorActivity", new Answer(selection[0]),
@@ -98,17 +105,17 @@ public class ColorQuestionDialog {
 //                            Constants.mButton(++id, questionText, "ColorActivity", new Answer(selection[0]),
 //                            Constants.PUT_SOUND_LINK_HERE),index);
 //                }
-                if (!questionET.getText().toString().trim().isEmpty()) {
+//                if (!questionET.getText().toString().trim().isEmpty()) {
                     String layout = "";
-                    layout += questionET.getText().toString().trim();
+                    layout += selection[0];
                     layout += HOLD;
                     progressImage.setImageOrSound(true, true);
                     onQuestionLayoutReady.onLayoutReady(layout);
 //                    progressImage.setImageOrSound(true,true);
                     dialogInterface.cancel();
-                } else {
-                    Toast.makeText(activity, R.string.enter_word, Toast.LENGTH_SHORT).show();
-                }
+//                } else {
+//                    Toast.makeText(activity, R.string.enter_word, Toast.LENGTH_SHORT).show();
+//                }
             }
         });
         builder.show();
