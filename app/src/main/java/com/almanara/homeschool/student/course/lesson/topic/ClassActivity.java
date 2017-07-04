@@ -68,6 +68,9 @@ public class ClassActivity extends AppCompatActivity {
 
     RoundCornerProgressBar progress1;
     int counter = 0;
+    int finalMpPosition;
+    MediaPlayer.OnCompletionListener onCompletionListener;
+    AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +124,23 @@ public class ClassActivity extends AppCompatActivity {
             course_id = b.getString("courseId");
             lesson_id = b.getString("lessonid");
         }
+       onCompletionListener = new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mediaPlayer = MediaPlayer
+                        .create(getApplicationContext(), R.raw.backgroundsound);
+                mediaPlayer.seekTo(finalMpPosition);
+                mediaPlayer.start();
+                imageView2.setVisibility(View.GONE);
+
+//                    db.child("users").child(user.getUid()).child("enrolledcourses")
+//                            .addValueEventListener(listener2);
+                if(dialog != null){
+                    dialog.dismiss();
+                }
+                swipPager();
+            }
+        };
     }
 
     public void pauseSound(boolean pause) {
@@ -136,7 +156,7 @@ public class ClassActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Toast.makeText(context, R.string.pleasee_swip, Toast.LENGTH_LONG  ).show();
-        Toast.makeText(context, "Swipe Right To See All The Topics", Toast.LENGTH_LONG).show();
+//        Toast.makeText(context, "Swipe Right To See All The Topics", Toast.LENGTH_LONG).show();
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.backgroundsound);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
@@ -208,7 +228,11 @@ public class ClassActivity extends AppCompatActivity {
             db.removeEventListener(listener);
         }
         if (mediaPlayer != null) {
+            mediaPlayer.stop();
             mediaPlayer.reset();
+            mediaPlayer = null;
+            onCompletionListener =null;
+            dialog = null;
         }
         super.onPause();
     }
@@ -331,7 +355,7 @@ public class ClassActivity extends AppCompatActivity {
 //        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
 //
             builder.setView(someLayout);
-            final AlertDialog dialog = builder.create();
+            dialog = builder.create();
             dialog.show();
 //        try {
 //            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.yay);
@@ -354,22 +378,8 @@ public class ClassActivity extends AppCompatActivity {
             }
             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.yay);
             mediaPlayer.start();
-            final int finalMpPosition = mpPosition;
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    mediaPlayer = MediaPlayer
-                            .create(getApplicationContext(), R.raw.backgroundsound);
-                    mediaPlayer.seekTo(finalMpPosition);
-                    mediaPlayer.start();
-                    imageView2.setVisibility(View.GONE);
-
-//                    db.child("users").child(user.getUid()).child("enrolledcourses")
-//                            .addValueEventListener(listener2);
-                    dialog.dismiss();
-                    swipPager();
-                }
-            });
+            finalMpPosition = mpPosition;
+            mediaPlayer.setOnCompletionListener(onCompletionListener);
 
 
 //            listener2 = new ValueEventListener() {

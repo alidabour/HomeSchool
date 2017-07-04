@@ -65,7 +65,8 @@ public class AnimationFragment extends Fragment {
 
         }
     }
-
+    MediaPlayer mediaPlayer;
+    MediaPlayer mediaPlayerword;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,8 +78,8 @@ public class AnimationFragment extends Fragment {
         Random r = new Random();
         final int letterIndex = r.nextInt(6 - 0) + 0;
         final int workIndex = r.nextInt(6 - 0) + 0;
-        final MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), Uri.parse(parms[2]));
-        final MediaPlayer mediaPlayerword = MediaPlayer.create(getActivity(), Uri.parse(parms[3]));
+        mediaPlayer = MediaPlayer.create(getActivity(), Uri.parse(parms[2]));
+        mediaPlayerword = MediaPlayer.create(getActivity(), Uri.parse(parms[3]));
         relativelayout = (RelativeLayout) view.findViewById(R.id.animation_layout);
 
         if (getActivity() instanceof ClassActivity) {
@@ -125,15 +126,17 @@ public class AnimationFragment extends Fragment {
                 if(getActivity() instanceof  ClassActivity){
                     ((ClassActivity)getActivity()).pauseSound(true);
                 }
-                mediaPlayer.start();
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        if(getActivity() instanceof  ClassActivity){
-                            ((ClassActivity)getActivity()).pauseSound(false);
+                if(mediaPlayer!=null){
+                    mediaPlayer.start();
+                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            if(getActivity() instanceof  ClassActivity){
+                                ((ClassActivity)getActivity()).pauseSound(false);
+                            }
                         }
-                    }
-                });
+                    });
+                }
                 v.animate().alpha(0).setDuration(2000).withEndAction(new Runnable() {
                     @Override
                     public void run() {
@@ -194,6 +197,22 @@ public class AnimationFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        if(mediaPlayer !=null){
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+            mediaPlayer = null;
+        }
+
+        if(mediaPlayerword !=null){
+            mediaPlayerword.stop();
+            mediaPlayerword.reset();
+            mediaPlayerword = null;
+        }
+        super.onPause();
     }
 
     public void clockwise(View view, int id) {
