@@ -66,7 +66,7 @@ public class StudentFeaturedCourses extends AppCompatActivity implements courseI
     ProgressBar progressBar;
     ValueEventListener queryListener;
     DatabaseReference myRef ;
-    ImageView gifImage;
+//    ImageView gifImage;
     String userId="Hello";
     String mychild="no";
 

@@ -107,6 +107,8 @@
     <string name="viewThisChild">View This Child\'s Progress</string>
     <string name="addCourse">Add Course</string>
     <string name="matching">Matching</string>
+    <string name="progress">Progress</string>
+
 
     <string-array name="color_array" translatable="false">
         <item>Red</item>

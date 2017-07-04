@@ -52,6 +52,7 @@ public class ChildCoursesFragment extends Fragment {
         context = getContext();
         db = FirebaseDatabase.getInstance().getReference();
 
+
         counter = 0;
         progress = 0;
         Intent intent = getActivity().getIntent();

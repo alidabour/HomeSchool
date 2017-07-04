@@ -60,7 +60,7 @@ public class StudentFeaturedCoursesFragment extends Fragment {
     ProgressBar progressBar;
     ValueEventListener queryListener;
     DatabaseReference myRef ;
-    ImageView gifImage;
+//    ImageView gifImage;
     public StudentFeaturedCoursesFragment() {
     }
 
@@ -80,9 +80,9 @@ public class StudentFeaturedCoursesFragment extends Fragment {
             container.removeAllViews();
         }
         listener = (courseInterface) getActivity();
-        gifImage = (ImageView) view.findViewById(R.id.gif);
-        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(gifImage);
-        Glide.with(this).load(R.raw.animated).into(imageViewTarget);
+//        gifImage = (ImageView) view.findViewById(R.id.gif);
+//        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(gifImage);
+//        Glide.with(this).load(R.raw.animated).into(imageViewTarget);
         //temp.setListener(listener);
         Log.v("StudentCoursesFragment", "Test");
         return view;

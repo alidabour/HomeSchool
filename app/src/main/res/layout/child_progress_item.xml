@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_margin="8dp"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
     <TextView
         android:id="@+id/courseName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <ProgressBar
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:id="@+id/courseProgress"
-        android:background="@color/bkgrnd"
-        android:progressDrawable="@drawable/progress_child"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
 
+    <ProgressBar
+        android:id="@+id/courseProgress"
+        android:layout_margin="8dp"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bkgrnd"
+        android:progressDrawable="@drawable/progress_child"/>
+
+    <View
+        android:layout_margin="4dp"
+        android:background="@color/bkgrnd"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        />
 </LinearLayout>

@@ -156,7 +156,7 @@ public class Register extends AppCompatActivity implements FileUploadHelper {
                                 Log.d("success", "");
                                 DatabaseReference myRef = databaseReference;
                                 if(photoString.isEmpty()){
-                                    photoString = " https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2FusersPhoto%2Fprofile.png?alt=media&token=b832ae10-6cda-45f5-9681-4ff355736da4";
+                                    photoString = "https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2FusersPhoto%2Fprofile.png?alt=media&token=b832ae10-6cda-45f5-9681-4ff355736da4";
                                 }
                                 newUser = new UserModel();
                                 newUser.setEmail(email.getText().toString().trim());

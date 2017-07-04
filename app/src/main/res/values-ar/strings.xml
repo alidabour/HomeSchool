@@ -157,6 +157,7 @@
     <string name="efficiency">متابعة أطفالك أكثر فاعلية الأن</string>
     <string name="smartest">تحضير دروسك ليس أذكي من الأن</string>
     <string name="parent">ولى الأمر</string>
+    <string name="progress">نسبة التقدم</string>
 
     <string-array name="color_array" translatable="false">
         <item>أحمر</item>
