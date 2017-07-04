@@ -5,7 +5,7 @@
               android:layout_height="match_parent">
 
     <android.support.design.widget.TextInputLayout
-        android:hint="@string/text"
+        android:hint="Enter your text"
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

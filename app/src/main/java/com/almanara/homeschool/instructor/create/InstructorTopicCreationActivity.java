@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -300,7 +301,7 @@ public class InstructorTopicCreationActivity extends BaseActivity
                 }
                 final AlertDialog.Builder builder = new AlertDialog.Builder(
                         InstructorTopicCreationActivity.this);
-                builder.setTitle(R.string.choose_kind);
+                builder.setTitle((Html.fromHtml("<font color='#400684'>"+builder.getContext().getResources().getString(R.string.choose_que_type)+"</font>")));
                 LayoutInflater li = LayoutInflater.from(InstructorTopicCreationActivity.this);
                 LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.question_list, null);
                 final TextView colorQue = (TextView) someLayout.findViewById(R.id.color);

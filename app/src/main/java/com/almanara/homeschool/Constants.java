@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.almanara.ali.homeschool.R;
@@ -118,7 +119,7 @@ public class Constants {
 
     public static void textViewProperties(View view, final Activity activity, final TextAppInterface textAppInterface){
         TextAppInterface textAppInterface1 = textAppInterface;
-        Button openColorPicker = (Button) view.findViewById(R.id.colorsButton);
+        ImageButton openColorPicker = (ImageButton) view.findViewById(R.id.colorsButton);
         openColorPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,7 +146,7 @@ public class Constants {
 
     }
     public static void setColorButton(View view,int color){
-        Button openColorPicker = (Button) view.findViewById(R.id.colorsButton);
+        ImageButton openColorPicker = (ImageButton) view.findViewById(R.id.colorsButton);
         openColorPicker.setBackgroundColor(color);
     }
 
