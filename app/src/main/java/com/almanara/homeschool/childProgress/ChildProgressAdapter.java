@@ -1,6 +1,7 @@
 package com.almanara.homeschool.childProgress;
 
 import android.database.Cursor;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +59,9 @@ public class ChildProgressAdapter extends RecyclerView.Adapter<ChildProgressAdap
             super(itemView);
             courseName = (TextView) itemView.findViewById(R.id.courseName);
             progressBar = (ProgressBar) itemView.findViewById(R.id.courseProgress);
+//            progressBar.setProgressDrawable();
+//            progressBar.getProgressDrawable().setColorFilter(
+//                    Color.parseColor("#08aac7"), android.graphics.PorterDuff.Mode.SRC_IN);
         }
     }
 }

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
+              android:layout_margin="8dp"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
     <TextView
@@ -10,8 +11,9 @@
         android:layout_height="wrap_content" />
     <ProgressBar
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:progressTint="@color/colorPrimary"
         android:id="@+id/courseProgress"
+        android:background="@color/bkgrnd"
+        android:progressDrawable="@drawable/progress_child"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

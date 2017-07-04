@@ -2,6 +2,7 @@ package com.almanara.homeschool.parent.home;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,9 @@ import android.widget.TextView;
 import com.almanara.homeschool.data.firebase.ChildModel;
 import com.bumptech.glide.Glide;
 import com.almanara.ali.homeschool.R;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
@@ -47,7 +51,28 @@ public class ChildsAdapter extends RecyclerView.Adapter<ChildsAdapter.ChildViewH
         ChildModel childModel = childList.get(position);
         holder.childName.setText(childModel.getName());
         //holder.childPhoto.setImageResource(R.drawable.photoid);
-        Glide.with(context).load(childModel.getPhoto()).into(holder.childPhoto);
+        Glide.with(context).load(childModel.getPhoto().trim()).listener(
+                new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model,
+                                               Target<GlideDrawable> target,
+                                               boolean isFirstResource) {
+                        Log.v("TestImage","E :" + e.getMessage());
+//                        Log.v("TestImage","E :" + e.printStackTrace());
+                        e.printStackTrace();
+
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model,
+                                                   Target<GlideDrawable> target,
+                                                   boolean isFromMemoryCache,
+                                                   boolean isFirstResource) {
+                        Log.v("TestImage","Ready");
+                        return false;
+                    }
+                }).into(holder.childPhoto);
 
     }
 
