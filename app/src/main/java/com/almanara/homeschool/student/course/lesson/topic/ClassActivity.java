@@ -105,10 +105,10 @@ public class ClassActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 if (!Locale.getDefault().getLanguage().equals("en")) {
-                    progress1.setProgress((100 * (TopicModelList.size() - position - 1)) / TopicModelList.size());
+                    progress1.setProgress((100 * (TopicModelList.size() - position -1)) / TopicModelList.size());
                 }
                 else
-                progress1.setProgress((100 * (position+1)) / TopicModelList.size());
+                progress1.setProgress((100 * (position)) / TopicModelList.size());
             }
 
             @Override
@@ -292,93 +292,18 @@ public class ClassActivity extends AppCompatActivity {
         }
     }
 
-//    public void onAnswer(boolean isCorrect) {
-//        if (isCorrect) {
-////            correct();
-////          imageView2.setVisibility(View.VISIBLE);
-////            final GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(
-////                    imageView2);
-////
-////            Glide.with(this).load(R.raw.source).into(imageViewTarget);
-////            if(mediaPlayer != null){
-////                mediaPlayer.reset();
-////            }
-////            try {
-////                mediaPlayer.setDataSource(getApplicationContext(),Uri.parse(RES_PREFIX + R.raw.yay));
-////            } catch (IOException e) {
-////                e.printStackTrace();
-////            }
-////            if(mediaPlayer.isPlaying()){
-////                Log.v("ClassActivity","Playing");
-////                mediaPlayer.pause();
-////                mediaPlayer.start();
-////            }else {
-////                Log.v("ClassActivity","not Playing");
-////                mediaPlayer.start();
-////            }
-////            int mpPosition = 0;
-////            if (mediaPlayer != null) {
-////                mpPosition = mediaPlayer.getCurrentPosition();
-////                mediaPlayer.pause();
-////            }
-////            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.yay);
-////            mediaPlayer.start();
-////            final int finalMpPosition = mpPosition;
-////            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-////                @Override
-////                public void onCompletion(MediaPlayer mp) {
-////                    mediaPlayer = MediaPlayer
-////                            .create(getApplicationContext(), R.raw.backgroundsound);
-////                    mediaPlayer.seekTo(finalMpPosition);
-////                    mediaPlayer.start();
-////                    imageView2.setVisibility(View.GONE);
-////
-////                    db.child("users").child(user.getUid()).child("enrolledcourses")
-////                            .addValueEventListener(listener2);
-////                    swipPager();
-////                }
-////            });
-////
-////
-////            listener2 = new ValueEventListener() {
-////                @Override
-////                public void onDataChange(DataSnapshot dataSnapshot) {
-////                    for (DataSnapshot d : dataSnapshot.getChildren()) {
-////                        for (DataSnapshot d1 : d.getChildren())
-////                            for (DataSnapshot d2 : d1.getChildren()) {
-////                                ProgressModel progressModel = d2
-////                                        .getValue(ProgressModel.class);
-////                                if (progressModel.getTopicProgressId()
-////                                        .equals(TopicModelList
-////                                                .get(pager.getCurrentItem() - 1).getId())) {
-////                                    progressModel.setTopicProgressFlag("true");
-////                                    db.child("users").child(user.getUid())
-////                                            .child("enrolledcourses")
-////                                            .child(progressModel.getEnrolledcourseid())
-////                                            .child("progress")
-////                                            .child(progressModel.getProgressid())
-////                                            .updateChildren(progressModel.toMap());
-////                                }
-////                            }
-////                    }
-////                }
-////
-////                @Override
-////                public void onCancelled(DatabaseError databaseError) {
-////                }
-////            };
-//        }
 
-//    }
-
-    public void swipPager() {
+    public void swipPager(Boolean flag) {
         if (!Locale.getDefault().getLanguage().equals("en")) {
             progress1.setProgress((100 * (TopicModelList.size() - pager.getCurrentItem())) / TopicModelList.size());
         }
         else
             progress1.setProgress((100 * (pager.getCurrentItem() + 1)) / TopicModelList.size());
 
+        if(flag)
         pager.setCurrentItem(pager.getCurrentItem() + 1);
+
+
 
     }
 
@@ -443,7 +368,7 @@ public class ClassActivity extends AppCompatActivity {
                     db.child("users").child(user.getUid()).child("enrolledcourses")
                             .addValueEventListener(listener2);
                     dialog.dismiss();
-                    swipPager();
+                    swipPager(false);
                 }
             });
 

@@ -6,9 +6,9 @@ package com.almanara.homeschool.student.course.lesson.topic.template;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +24,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -179,7 +178,7 @@ public class AnimationFragment extends Fragment {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
                         if(getActivity() instanceof  ClassActivity){
-                            ((ClassActivity)getActivity()).swipPager();
+                            ((ClassActivity)getActivity()).swipPager(true);
                             ((ClassActivity)getActivity()).pauseSound(false);
                         }
                     }
