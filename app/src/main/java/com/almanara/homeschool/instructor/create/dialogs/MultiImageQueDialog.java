@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +66,7 @@ public class MultiImageQueDialog  implements View.OnClickListener {
 
     public void openMultiImageQueDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle(R.string.question);
+        builder.setTitle((Html.fromHtml("<font color='#400684'>"+builder.getContext().getResources().getString(R.string.question)+"</font>")));
         LayoutInflater li = LayoutInflater.from(activity);
         final LinearLayout relativeLT = (LinearLayout) li
                 .inflate(R.layout.mulit_image_question, null);

@@ -3,6 +3,7 @@ package com.almanara.homeschool.instructor.create.dialogs;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.EditText;
@@ -46,7 +47,7 @@ public class SpeechDialog {
     public void openSpeechDialog(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(
                 activity);
-        builder.setTitle(R.string.question);
+        builder.setTitle((Html.fromHtml("<font color='#400684'>"+builder.getContext().getResources().getString(R.string.question)+"</font>")));
         LayoutInflater li = LayoutInflater.from(activity);
         final LinearLayout linearLayout = (LinearLayout) li
                 .inflate(R.layout.speech_question_dialog, null);

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -49,7 +50,7 @@ public class TextDetectionDialog  {
     public void openTextDetectionDialog(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(
                 activity);
-        builder.setTitle(R.string.question);
+        builder.setTitle((Html.fromHtml("<font color='#400684'>"+builder.getContext().getResources().getString(R.string.question)+"</font>")));
         LayoutInflater li = LayoutInflater.from(activity);
         final LinearLayout linearLayout = (LinearLayout) li
                 .inflate(R.layout.text_detection_dialog, null);

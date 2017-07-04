@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,7 @@ public class MultiQuestionDialog  extends MainDialog {
 
     public void openMultiQuestionDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle(R.string.question);
+        builder.setTitle((Html.fromHtml("<font color='#400684'>"+builder.getContext().getResources().getString(R.string.question)+"</font>")));
         LayoutInflater li = LayoutInflater.from(activity);
         final RelativeLayout relativeLT = (RelativeLayout) li
                 .inflate(R.layout.mulit_choice_dialog, null);

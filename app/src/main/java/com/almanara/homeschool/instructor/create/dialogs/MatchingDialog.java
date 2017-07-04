@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -51,7 +52,7 @@ public class MatchingDialog implements View.OnClickListener {
 
     public void openMatchingDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle(R.string.animation);
+        builder.setTitle((Html.fromHtml("<font color='#400684'>"+builder.getContext().getResources().getString(R.string.animation)+"</font>")));
         LayoutInflater li = LayoutInflater.from(activity);
         final RelativeLayout relativeLT = (RelativeLayout) li
                 .inflate(R.layout.matching_dialog, null);

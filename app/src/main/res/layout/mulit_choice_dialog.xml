@@ -64,6 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_gravity="end"
+            android:tint="@color/colorBack"
             android:src="@android:drawable/ic_input_add"
             />
     </LinearLayout>
