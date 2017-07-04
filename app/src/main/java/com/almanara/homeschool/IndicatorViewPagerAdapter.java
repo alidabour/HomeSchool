@@ -64,7 +64,7 @@ public class IndicatorViewPagerAdapter extends PagerAdapter {
                         ViewGroup.LayoutParams.MATCH_PARENT,1.0f));
                 if(i==position){
 
-                    Glide.with(mContext).load(mResources.get(1)).override(w*2,h*2).into(imageView);
+                    Glide.with(mContext).load(mResources.get(1)).override(w,h).into(imageView);
                 }else {
                     Glide.with(mContext).load(mResources.get(0)).override(w,h).into(imageView);
                 }

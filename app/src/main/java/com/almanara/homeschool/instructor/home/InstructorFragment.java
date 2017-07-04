@@ -205,7 +205,7 @@ public class InstructorFragment extends Fragment {
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key)
                                 .child("teacher_id").setValue(user.getUid());
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key)
-                                .child("teacher_name").setValue("Mohamed");
+                                .child("teacher_name").setValue(user.getDisplayName());
 
                         db.child("courses").child(key).child("course_id").setValue(key);
                         db.child("courses").child(key).child("descriptionS").setValue(description);
