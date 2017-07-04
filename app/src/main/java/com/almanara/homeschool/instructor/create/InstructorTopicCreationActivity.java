@@ -313,7 +313,17 @@ public class InstructorTopicCreationActivity extends BaseActivity
                 final TextView matching = (TextView) someLayout.findViewById(R.id.matching);
                 builder.setView(someLayout);
                 final AlertDialog dialog = builder.create();
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface arg0) {
+                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                                .setTextColor(getApplicationContext().getResources().getColor(R.color.parent));
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                                .setTextColor(getApplicationContext().getResources().getColor(R.color.parent));
+                    }
+                });
                 dialog.show();
+//                dialog.show();
                 colorQue.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -684,8 +694,10 @@ public class InstructorTopicCreationActivity extends BaseActivity
 //            setContentView(R.layout.activity_instructor_topic);
 
         } else {
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
+            final AlertDialog.Builder builder = new AlertDialog.Builder(
+                    InstructorTopicCreationActivity.this);
+
+                    builder.setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle("انهاء الدرس")
                     .setMessage("هل تريد الانهاء بدون حفظ؟")
                     .setPositiveButton("نعم", new DialogInterface.OnClickListener() {
@@ -695,8 +707,18 @@ public class InstructorTopicCreationActivity extends BaseActivity
                         }
 
                     })
-                    .setNegativeButton("لا", null)
-                    .show();
+                    .setNegativeButton("لا", null);
+            final AlertDialog dialog = builder.create();
+            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface arg0) {
+                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                            .setTextColor(getApplicationContext().getResources().getColor(R.color.parent));
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                            .setTextColor(getApplicationContext().getResources().getColor(R.color.parent));
+                }
+            });
+            dialog.show();
         }
     }
 

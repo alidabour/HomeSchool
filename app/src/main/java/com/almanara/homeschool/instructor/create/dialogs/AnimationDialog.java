@@ -34,10 +34,12 @@ public class AnimationDialog implements View.OnClickListener {
     String[] uris = new String[4];
     private OnQuestionLayoutReady onQuestionLayoutReady;
     ProgressImage progressImage;
+
     public void setProgressImage(
             ProgressImage progressImage) {
         this.progressImage = progressImage;
     }
+
     public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
@@ -55,6 +57,7 @@ public class AnimationDialog implements View.OnClickListener {
     ImageView letter_image;
     ImageView word_sound;
     ImageView letter_sound;
+
     public void openAnimationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.animation);
@@ -78,7 +81,6 @@ public class AnimationDialog implements View.OnClickListener {
                 dialog.cancel();
             }
         });
-
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -90,6 +92,15 @@ public class AnimationDialog implements View.OnClickListener {
             }
         });
         final AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface arg0) {
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                        .setTextColor(activity.getResources().getColor(R.color.parent));
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                        .setTextColor(activity.getResources().getColor(R.color.parent));
+            }
+        });
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(
                 new View.OnClickListener() {
@@ -108,8 +119,8 @@ public class AnimationDialog implements View.OnClickListener {
                             layout += HOLD;
                             layout += uris[3];
                             layout += HOLD;
-                            progressImage.setImageOrSound(true,true);
-                            Log.v("Animation " , layout);
+                            progressImage.setImageOrSound(true, true);
+                            Log.v("Animation ", layout);
                             onQuestionLayoutReady.onLayoutReady(layout);
                             dialog.dismiss();
                         }
@@ -121,8 +132,8 @@ public class AnimationDialog implements View.OnClickListener {
 
     private boolean checkifEmpty(String... links) {
         for (String x : links) {
-            if (x ==null) {
-                Toast.makeText(activity,R.string.complete_data, Toast.LENGTH_SHORT).show();
+            if (x == null) {
+                Toast.makeText(activity, R.string.complete_data, Toast.LENGTH_SHORT).show();
                 return true;
             }
         }
@@ -139,7 +150,7 @@ public class AnimationDialog implements View.OnClickListener {
                 openImageActivity();
                 break;
             case R.id.word:
-                postion =1;
+                postion = 1;
                 word.setEnabled(false);
                 openImageActivity();
                 break;
@@ -182,11 +193,11 @@ public class AnimationDialog implements View.OnClickListener {
                 uris[postion] = url;
                 switch (postion) {
                     case 0:
-                        Log.v("Animation ",uris[0]);
+                        Log.v("Animation ", uris[0]);
                         Glide.with(activity).load(uris[0]).into(letter_image);
                         break;
                     case 1:
-                        Log.v("Animation ",uris[1]);
+                        Log.v("Animation ", uris[1]);
                         Glide.with(activity).load(uris[1]).into(word);
                         break;
                     case 2:

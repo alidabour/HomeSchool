@@ -131,8 +131,19 @@ public class ParentActivityFragment extends Fragment {
                         dialog.cancel();
                     }
                 });
-
-                builder.show();
+                final AlertDialog dialog = builder.create();
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface arg0) {
+                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                                .setTextColor(getActivity().getResources().getColor(R.color.parent));
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                                .setTextColor(getActivity().getResources().getColor(R.color.parent));
+                    }
+                });
+                dialog.show();
+//
+//                builder.show();
 
 
             }
@@ -216,7 +227,18 @@ public class ParentActivityFragment extends Fragment {
 
                                     }
                                 });
-                                builder.show();
+                                final AlertDialog dialog = builder.create();
+                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                    @Override
+                                    public void onShow(DialogInterface arg0) {
+                                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                                                .setTextColor(getActivity().getResources().getColor(R.color.parent));
+                                        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                                                .setTextColor(getActivity().getResources().getColor(R.color.parent));
+                                    }
+                                });
+                                dialog.show();
+//                                builder.show();
 
 
                             }

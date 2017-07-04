@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import com.almanara.homeschool.controller.activities.Utility;
 import com.almanara.homeschool.data.firebase.CourseCreated;
+import com.almanara.homeschool.data.firebase.UserModel;
+import com.almanara.homeschool.instructor.InstructorActivity;
 import com.almanara.homeschool.instructor.lesson.InstructorLessonsActivity;
 import com.almanara.ali.homeschool.R;
 import com.almanara.homeschool.UserModelHelper.FileUploadHelper;
@@ -137,7 +139,18 @@ public class InstructorFragment extends Fragment {
 
                     }
                 });
-                builder.show();
+                final AlertDialog dialog = builder.create();
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface arg0) {
+                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                                .setTextColor(getActivity().getResources().getColor(R.color.parent));
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                                .setTextColor(getActivity().getResources().getColor(R.color.parent));
+                    }
+                });
+                dialog.show();
+//                builder.show();
                 //Remove swiped item from list and notify the RecyclerView
 
             }
@@ -188,6 +201,10 @@ public class InstructorFragment extends Fragment {
                             photoUrl = "https://firebasestorage.googleapis.com/v0/b/dealgamed-f2066.appspot.com/o/images%2FcoursesPhoto%2Fdefault.png?alt=media&token=efda707d-064a-4d70-b0dc-95d80157c3c0";
 
                         }
+                        UserModel userModel = null;
+                        if(getActivity() instanceof InstructorActivity){
+                           userModel = ((InstructorActivity)getActivity()).getUserModel();
+                        }
                         String key = db.child("users").child(user.getUid()).child("CreatedCourse")
                                 .push().getKey();
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key)
@@ -205,7 +222,7 @@ public class InstructorFragment extends Fragment {
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key)
                                 .child("teacher_id").setValue(user.getUid());
                         db.child("users").child(user.getUid()).child("CreatedCourse").child(key)
-                                .child("teacher_name").setValue(user.getDisplayName());
+                                .child("teacher_name").setValue(userModel.getName());
 
                         db.child("courses").child(key).child("course_id").setValue(key);
                         db.child("courses").child(key).child("descriptionS").setValue(description);
@@ -214,7 +231,7 @@ public class InstructorFragment extends Fragment {
                         db.child("courses").child(key).child("rate").setValue("5.0");
                         db.child("courses").child(key).child("subjectS").setValue(subject);
                         db.child("courses").child(key).child("teacher_id").setValue(user.getUid());
-                        db.child("courses").child(key).child("teacher_name").setValue("Mohamed");
+                        db.child("courses").child(key).child("teacher_name").setValue(userModel.getName());
 
                         String lessonKey = db.child("courses").child(key)
                                 .child("lessons").push().getKey();
@@ -261,8 +278,19 @@ public class InstructorFragment extends Fragment {
                         dialog.cancel();
                     }
                 });
-
-                builder.show();
+                final AlertDialog dialog = builder.create();
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface arg0) {
+                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                                .setTextColor(getActivity().getResources().getColor(R.color.parent));
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                                .setTextColor(getActivity().getResources().getColor(R.color.parent));
+                    }
+                });
+                dialog.show();
+//
+//                builder.show();
             }
         });
         return view;

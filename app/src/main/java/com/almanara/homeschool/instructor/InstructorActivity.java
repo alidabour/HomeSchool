@@ -35,7 +35,7 @@ public class InstructorActivity extends BaseActivity implements NavigationView.O
     AppBarLayout appBarLayout;
     FirebaseAuth mAuth;
     FirebaseUser user;
-    UserModel userModel;
+    UserModel userModel1;
     ImageView userPhotoId;
     TextView UserName;
     DatabaseReference databaseReference;
@@ -88,6 +88,7 @@ public class InstructorActivity extends BaseActivity implements NavigationView.O
                                 .transform(new CircleTransform(getApplicationContext()))
                                 .into(userPhotoId);
                         UserName.setText(userModel.getName());
+                        userModel1=userModel;
                     }
                 });
 
@@ -139,5 +140,10 @@ public class InstructorActivity extends BaseActivity implements NavigationView.O
     protected void onResume() {
         super.onResume();
 
+    }
+    public UserModel getUserModel(){
+        if(userModel1 != null)
+        return userModel1;
+        else return new UserModel();
     }
 }

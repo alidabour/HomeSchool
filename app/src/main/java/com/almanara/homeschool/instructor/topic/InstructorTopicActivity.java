@@ -124,8 +124,19 @@ public class InstructorTopicActivity extends BaseActivity {
                         dialog.cancel();
                     }
                 });
-
-                builder.show();
+                final AlertDialog dialog = builder.create();
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface arg0) {
+                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                                .setTextColor(getApplicationContext().getResources().getColor(R.color.parent));
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                                .setTextColor(getApplicationContext().getResources().getColor(R.color.parent));
+                    }
+                });
+                dialog.show();
+//
+//                builder.show();
             }
         });
 //        addTopicB.setOnClickListener(new View.OnClickListener() {
@@ -191,7 +202,18 @@ public class InstructorTopicActivity extends BaseActivity {
 
                     }
                 });
-                builder.show();
+                final AlertDialog dialog = builder.create();
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface arg0) {
+                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                                .setTextColor(getApplicationContext().getResources().getColor(R.color.parent));
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                                .setTextColor(getApplicationContext().getResources().getColor(R.color.parent));
+                    }
+                });
+                dialog.show();
+//                builder.show();
 //              Toast.makeText(getApplicationContext(), R.string.on_swiped, Toast.LENGTH_SHORT).show();
 
             }

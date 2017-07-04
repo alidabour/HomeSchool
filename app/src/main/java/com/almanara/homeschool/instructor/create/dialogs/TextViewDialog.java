@@ -60,7 +60,18 @@ public class TextViewDialog extends MainTextDialog implements TextAppInterface {
             }
         });
         builder.setView(linearLayout);
-        builder.show();
+        final AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface arg0) {
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                        .setTextColor(activity.getResources().getColor(R.color.parent));
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                        .setTextColor(activity.getResources().getColor(R.color.parent));
+            }
+        });
+        dialog.show();
+//        builder.show();
 
     }
 

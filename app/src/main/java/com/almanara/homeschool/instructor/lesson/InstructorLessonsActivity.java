@@ -112,6 +112,15 @@ public class InstructorLessonsActivity extends BaseActivity {
                     }
                 });
                 final AlertDialog dialog = builder.create();
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface arg0) {
+                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                                .setTextColor(getApplicationContext().getResources().getColor(R.color.parent));
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                                .setTextColor(getApplicationContext().getResources().getColor(R.color.parent));
+                    }
+                });
                 dialog.show();
                 gallery.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -191,7 +200,17 @@ public class InstructorLessonsActivity extends BaseActivity {
                         db.child("courses").child(courseID).child("lessons").child(lessonID).removeValue();
                     }
                 });
-                builder.show();
+                final AlertDialog dialog = builder.create();
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface arg0) {
+                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                                .setTextColor(getApplicationContext().getResources().getColor(R.color.parent));
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                                .setTextColor(getApplicationContext().getResources().getColor(R.color.parent));
+                    }
+                });
+                dialog.show();
 
 
 //                Toast.makeText(getApplicationContext(), R.string.on_swiped, Toast.LENGTH_SHORT).show();
