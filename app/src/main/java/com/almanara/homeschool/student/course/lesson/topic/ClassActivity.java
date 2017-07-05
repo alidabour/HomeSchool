@@ -382,33 +382,33 @@ public class ClassActivity extends AppCompatActivity {
             mediaPlayer.setOnCompletionListener(onCompletionListener);
 
 
-//            listener2 = new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    for (DataSnapshot d : dataSnapshot.getChildren()) {
-//                        for (DataSnapshot d1 : d.getChildren())
-//                            for (DataSnapshot d2 : d1.getChildren()) {
-//                                ProgressModel progressModel = d2
-//                                        .getValue(ProgressModel.class);
-//                                if (progressModel.getTopicProgressId()
-//                                        .equals(TopicModelList
-//                                                .get(pager.getCurrentItem() - 1).getId())) {
-//                                    progressModel.setTopicProgressFlag("true");
-//                                    db.child("users").child(user.getUid())
-//                                            .child("enrolledcourses")
-//                                            .child(progressModel.getEnrolledcourseid())
-//                                            .child("progress")
-//                                            .child(progressModel.getProgressid())
-//                                            .updateChildren(progressModel.toMap());
-//                                }
-//                            }
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//                }
-//            };
+            listener2 = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot d : dataSnapshot.getChildren()) {
+                        for (DataSnapshot d1 : d.getChildren())
+                            for (DataSnapshot d2 : d1.getChildren()) {
+                                ProgressModel progressModel = d2
+                                        .getValue(ProgressModel.class);
+                                if (progressModel.getTopicProgressId()
+                                        .equals(TopicModelList
+                                                .get(pager.getCurrentItem() ).getId())) {
+                                    progressModel.setTopicProgressFlag("true");
+                                    db.child("users").child(user.getUid())
+                                            .child("enrolledcourses")
+                                            .child(progressModel.getEnrolledcourseid())
+                                            .child("progress")
+                                            .child(progressModel.getProgressid())
+                                            .updateChildren(progressModel.toMap());
+                                }
+                            }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            };
         }
     }
 }
