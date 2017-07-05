@@ -10,7 +10,7 @@
         <ImageView
             android:id="@+id/category_imageView"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="110dp"
             android:scaleType="fitXY" />
 
         <FrameLayout
@@ -23,11 +23,11 @@
                 style="@style/Base.TextAppearance.AppCompat.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left|top"
-                android:layout_marginLeft="9dp"
-                android:layout_marginTop="5dp"
+                android:layout_gravity="start|top"
+                android:layout_margin="8dp"
                 android:text="@string/android"
                 android:textSize="16dp"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
         </FrameLayout>
