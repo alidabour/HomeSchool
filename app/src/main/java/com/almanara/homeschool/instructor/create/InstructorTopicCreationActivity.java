@@ -539,6 +539,9 @@ public class InstructorTopicCreationActivity extends BaseActivity
 //        if (colorQuestionDialog != null) {
 //            colorQuestionDialog.setTextColor(color);
 //        }
+        if(textViewDialog !=null){
+            textViewDialog.setTextColor(color);
+        }
 
     }
 

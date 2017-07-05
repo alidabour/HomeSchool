@@ -70,6 +70,8 @@ public class ClassActivity extends AppCompatActivity {
     int counter = 0;
     int finalMpPosition;
     MediaPlayer.OnCompletionListener onCompletionListener;
+    MediaPlayer.OnCompletionListener onCompletionListenerWrong;
+
     AlertDialog dialog;
 
     @Override
@@ -124,6 +126,16 @@ public class ClassActivity extends AppCompatActivity {
             course_id = b.getString("courseId");
             lesson_id = b.getString("lessonid");
         }
+        onCompletionListenerWrong = new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mediaPlayer = MediaPlayer
+                        .create(getApplicationContext(), R.raw.backgroundsound);
+                mediaPlayer.seekTo(finalMpPosition);
+                mediaPlayer.start();
+                swipPager();
+            }
+        };
        onCompletionListener = new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -131,10 +143,12 @@ public class ClassActivity extends AppCompatActivity {
                         .create(getApplicationContext(), R.raw.backgroundsound);
                 mediaPlayer.seekTo(finalMpPosition);
                 mediaPlayer.start();
-                imageView2.setVisibility(View.GONE);
+                if(imageView2!=null){
+                    imageView2.setVisibility(View.GONE);
+                }
 
-//                    db.child("users").child(user.getUid()).child("enrolledcourses")
-//                            .addValueEventListener(listener2);
+                    db.child("users").child(user.getUid()).child("enrolledcourses")
+                            .addValueEventListener(listener2);
                 if(dialog != null){
                     dialog.dismiss();
                 }
@@ -232,6 +246,7 @@ public class ClassActivity extends AppCompatActivity {
             mediaPlayer.reset();
             mediaPlayer = null;
             onCompletionListener =null;
+            onCompletionListenerWrong = null;
             dialog = null;
         }
         super.onPause();
@@ -382,33 +397,43 @@ public class ClassActivity extends AppCompatActivity {
             mediaPlayer.setOnCompletionListener(onCompletionListener);
 
 
-//            listener2 = new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    for (DataSnapshot d : dataSnapshot.getChildren()) {
-//                        for (DataSnapshot d1 : d.getChildren())
-//                            for (DataSnapshot d2 : d1.getChildren()) {
-//                                ProgressModel progressModel = d2
-//                                        .getValue(ProgressModel.class);
-//                                if (progressModel.getTopicProgressId()
-//                                        .equals(TopicModelList
-//                                                .get(pager.getCurrentItem() - 1).getId())) {
-//                                    progressModel.setTopicProgressFlag("true");
-//                                    db.child("users").child(user.getUid())
-//                                            .child("enrolledcourses")
-//                                            .child(progressModel.getEnrolledcourseid())
-//                                            .child("progress")
-//                                            .child(progressModel.getProgressid())
-//                                            .updateChildren(progressModel.toMap());
-//                                }
-//                            }
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//                }
-//            };
+            listener2 = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot d : dataSnapshot.getChildren()) {
+                        for (DataSnapshot d1 : d.getChildren())
+                            for (DataSnapshot d2 : d1.getChildren()) {
+                                ProgressModel progressModel = d2
+                                        .getValue(ProgressModel.class);
+                                if (progressModel.getTopicProgressId()
+                                        .equals(TopicModelList
+                                                .get(pager.getCurrentItem()).getId())) {
+                                    progressModel.setTopicProgressFlag("true");
+                                    db.child("users").child(user.getUid())
+                                            .child("enrolledcourses")
+                                            .child(progressModel.getEnrolledcourseid())
+                                            .child("progress")
+                                            .child(progressModel.getProgressid())
+                                            .updateChildren(progressModel.toMap());
+                                }
+                            }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            };
+        }else{
+            int mpPosition = 0;
+            if (mediaPlayer != null) {
+                mpPosition = mediaPlayer.getCurrentPosition();
+                mediaPlayer.pause();
+            }
+            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.wronganswer);
+            mediaPlayer.start();
+            finalMpPosition = mpPosition;
+            mediaPlayer.setOnCompletionListener(onCompletionListenerWrong);
         }
     }
 }

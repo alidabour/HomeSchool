@@ -24,9 +24,9 @@ public class StudentHomeActivityNew extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_student_home);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         } else {
@@ -64,16 +64,16 @@ public class StudentHomeActivityNew extends AppCompatActivity {
 //           }
 //       });
 
-        Fragment newFragment = new CoursesFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack if needed
-        transaction.replace(R.id.fragment1, newFragment);
-        transaction.addToBackStack(null);
-
-// Commit the transaction
-        transaction.commit();
+//        Fragment newFragment = new CoursesFragment();
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//
+//// Replace whatever is in the fragment_container view with this fragment,
+//// and add the transaction to the back stack if needed
+//        transaction.replace(R.id.fragment1, newFragment);
+//        transaction.addToBackStack(null);
+//
+//// Commit the transaction
+//        transaction.commit();
     }
 
     @Override
@@ -82,7 +82,16 @@ public class StudentHomeActivityNew extends AppCompatActivity {
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.backgroundsound2);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
-
+//        Fragment newFragment = new CoursesFragment();
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//
+//// Replace whatever is in the fragment_container view with this fragment,
+//// and add the transaction to the back stack if needed
+//        transaction.replace(R.id.fragment1, newFragment);
+//        transaction.addToBackStack(null);
+//
+//// Commit the transaction
+//        transaction.commit();
 
 
 //        viewPager.setOnTouchListener(new View.OnTouchListener() {
@@ -93,25 +102,26 @@ public class StudentHomeActivityNew extends AppCompatActivity {
 //
 //        });
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Fragment newFragment = new CoursesFragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack if needed
-                transaction.replace(R.id.fragment1, newFragment);
-                transaction.addToBackStack(null);
-
-// Commit the transaction
-                transaction.commit();
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Fragment newFragment = new CoursesFragment();
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//
+//// Replace whatever is in the fragment_container view with this fragment,
+//// and add the transaction to the back stack if needed
+//                transaction.replace(R.id.fragment1, newFragment);
+//                transaction.addToBackStack(null);
+//
+//// Commit the transaction
+//                transaction.commit();
 //                viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
-            }
-        },1500);
+//            }
+//        },1500);
 
     }
+
 
     @Override
     protected void onPause() {

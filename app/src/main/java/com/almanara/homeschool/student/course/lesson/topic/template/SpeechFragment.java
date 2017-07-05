@@ -42,7 +42,7 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
     String layout;
     private final String HOLD = " ,HO##LD,";
     String[] parms;
-    private TextView returnedText;
+//    private TextView returnedText;
     private ImageView toggleButton;
     private ProgressBar progressBar;
     private SpeechRecognizer speech = null;
@@ -81,7 +81,7 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.speech_fragment, container, false);
-        returnedText = (TextView) view.findViewById(R.id.textView1);
+//        returnedText = (TextView) view.findViewById(R.id.textView1);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar1);
         toggleButton = (ImageView) view.findViewById(R.id.toggleButton1);
         textSpeech = (TextView) view.findViewById(R.id.textView2);
@@ -163,14 +163,14 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
     @Override
     public void onEndOfSpeech() {
         progressBar.setIndeterminate(true);
-        toggleButton.setEnabled(false);
+//        toggleButton.setEnabled(false);
     }
 
     @Override
     public void onError(int errorCode) {
         String errorMessage = getErrorText(errorCode);
-        returnedText.setText(errorMessage);
-        toggleButton.setEnabled(false);
+//        returnedText.setText(errorMessage);
+//        toggleButton.setEnabled(false);
     }
 
     @Override
@@ -201,7 +201,7 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
                 ((ClassActivity) getActivity()).onAnswer(false);
             }
         }
-        returnedText.setText(text);
+//        returnedText.setText(text);
     }
 
     @Override

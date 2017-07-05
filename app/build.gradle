@@ -16,8 +16,8 @@ android {
         applicationId "com.almanara.homeschool"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 5
-        versionName "1.4"
+        versionCode 6
+        versionName "1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
     }
