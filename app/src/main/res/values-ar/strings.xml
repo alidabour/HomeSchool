@@ -159,7 +159,7 @@
     <string name="parent">ولى الأمر</string>
     <string name="progress">نسبة التقدم</string>
 
-    <string-array name="color_array" translatable="false">
+    <string-array name="color_array">
         <item>أحمر</item>
         <item>أصفر</item>
         <item>برتقالي</item>
@@ -168,5 +168,8 @@
         <item>أزرق</item>
         <item>بنفسجي</item>
     </string-array>
+    <string name="network_timeout">حدث خطأ بالشبكة</string>
+    <string name="email_wrong">البريد الاكتروني غير مسجل</string>
+    <string name="no_internerts">حدث خطأ بالشبكة</string>
 
 </resources>

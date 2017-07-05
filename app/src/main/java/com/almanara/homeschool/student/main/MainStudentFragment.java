@@ -3,12 +3,14 @@ package com.almanara.homeschool.student.main;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.almanara.ali.homeschool.R;
+import com.almanara.homeschool.student.course.CoursesFragment;
 
 public class MainStudentFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -59,6 +61,20 @@ public class MainStudentFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main_student, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.masha);
+        view.findViewById(R.id.frame).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment newFragment = new CoursesFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager()
+                        .beginTransaction();
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack if needed
+                transaction.replace(R.id.fragment1, newFragment);
+                transaction.addToBackStack(null);
+// Commit the transaction
+                transaction.commit();
+            }
+        });
 //        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView);
 //        Glide.with(this).load(R.raw.source).into(imageViewTarget);
         return view;

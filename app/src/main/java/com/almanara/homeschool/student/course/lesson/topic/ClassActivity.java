@@ -70,6 +70,8 @@ public class ClassActivity extends AppCompatActivity {
     int counter = 0;
     int finalMpPosition;
     MediaPlayer.OnCompletionListener onCompletionListener;
+    MediaPlayer.OnCompletionListener onCompletionListenerWrong;
+
     AlertDialog dialog;
 
     @Override
@@ -124,23 +126,7 @@ public class ClassActivity extends AppCompatActivity {
             course_id = b.getString("courseId");
             lesson_id = b.getString("lessonid");
         }
-       onCompletionListener = new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mediaPlayer = MediaPlayer
-                        .create(getApplicationContext(), R.raw.backgroundsound);
-                mediaPlayer.seekTo(finalMpPosition);
-                mediaPlayer.start();
-                imageView2.setVisibility(View.GONE);
 
-//                    db.child("users").child(user.getUid()).child("enrolledcourses")
-//                            .addValueEventListener(listener2);
-                if(dialog != null){
-                    dialog.dismiss();
-                }
-                swipPager();
-            }
-        };
     }
 
     public void pauseSound(boolean pause) {
@@ -155,6 +141,35 @@ public class ClassActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        onCompletionListenerWrong = new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mediaPlayer = MediaPlayer
+                        .create(getApplicationContext(), R.raw.backgroundsound);
+                mediaPlayer.seekTo(finalMpPosition);
+                mediaPlayer.start();
+                swipPager();
+            }
+        };
+        onCompletionListener = new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mediaPlayer = MediaPlayer
+                        .create(getApplicationContext(), R.raw.backgroundsound);
+                mediaPlayer.seekTo(finalMpPosition);
+                mediaPlayer.start();
+                if(imageView2!=null){
+                    imageView2.setVisibility(View.GONE);
+                }
+
+                db.child("users").child(user.getUid()).child("enrolledcourses")
+                        .addValueEventListener(listener2);
+                if(dialog != null){
+                    dialog.dismiss();
+                }
+                swipPager();
+            }
+        };
         Toast.makeText(context, R.string.pleasee_swip, Toast.LENGTH_LONG  ).show();
 //        Toast.makeText(context, "Swipe Right To See All The Topics", Toast.LENGTH_LONG).show();
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.backgroundsound);
@@ -224,6 +239,7 @@ public class ClassActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
+        Log.v("LessonFragment","onPause");
         if (listener != null) {
             db.removeEventListener(listener);
         }
@@ -232,6 +248,7 @@ public class ClassActivity extends AppCompatActivity {
             mediaPlayer.reset();
             mediaPlayer = null;
             onCompletionListener =null;
+            onCompletionListenerWrong = null;
             dialog = null;
         }
         super.onPause();
@@ -248,42 +265,46 @@ public class ClassActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == Constants.SPEECH) {
-            if (resultCode == Constants.CORRECTANSWER) {
-//                Toast.makeText(this, " احسنت \n" + data.getData().toString(), Toast.LENGTH_LONG)
-//                        .show();
-                onAnswer(true);
-
-            } else if (resultCode == Constants.WRONGANSWER) {
-
-                Toast.makeText(this, " حاول مرة أخري \n" + data.getData().toString(),
-                        Toast.LENGTH_LONG).show();
-
-            }
+        if(resultCode == Constants.CORRECTANSWER){
+            onAnswer(true);
+        }else if(resultCode == Constants.WRONGANSWER) {
+            onAnswer(false);
         }
-        if (resultCode == Constants.CORRECTANSWER) {
-            if (requestCode == Constants.SIMPLE) {
-//                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
-//                Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
-                onAnswer(true);
-
-            }
-        }
-        if (resultCode == Constants.WRONGANSWER) {
-            if (requestCode == Constants.SIMPLE) {
-//                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
-//                Toast.makeText(context, "Result Wrong", Toast.LENGTH_SHORT).show();
-
-            }
-        }
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == Constants.SPEECH) {
-                onAnswer(true);
-
-//                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
-            }
-        }
+//        if (requestCode == Constants.SPEECH) {
+//            if (resultCode == Constants.CORRECTANSWER) {
+////                Toast.makeText(this, " احسنت \n" + data.getData().toString(), Toast.LENGTH_LONG)
+////                        .show();
+//                onAnswer(true);
+//
+//            } else if (resultCode == Constants.WRONGANSWER) {
+//                onAnswer(false);
+//                Toast.makeText(this, " حاول مرة أخري \n" + data.getData().toString(),
+//                        Toast.LENGTH_LONG).show();
+//
+//            }
+//        }
+//        if (resultCode == Constants.CORRECTANSWER) {
+//            if (requestCode == Constants.SIMPLE) {
+////                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
+////                Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
+//                onAnswer(true);
+//
+//            }
+//        }
+//        if (resultCode == Constants.WRONGANSWER) {
+//            if (requestCode == Constants.SIMPLE) {
+////                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
+////                Toast.makeText(context, "Result Wrong", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        }
+//        if (resultCode == Activity.RESULT_OK) {
+//            if (requestCode == Constants.SPEECH) {
+//                onAnswer(true);
+//
+////                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
+//            }
+//        }
         //-----------------------------------------------------------------------------------------------------
         Log.v("LessonFragment", "Activity Result " + requestCode + " , " + resultCode);
         if (data != null) {
@@ -298,22 +319,22 @@ public class ClassActivity extends AppCompatActivity {
         }
 
         //-----------------------------------------------------------------------------------------------------
-        if (resultCode == Constants.CORRECTANSWER) {
-            if (requestCode == Constants.Text_Detection) {
-//                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
-                onAnswer(true);
-//
-//                Log.v("yahoo2", "Correct yabnii");
-//                Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
-            }
-        }
-        if (resultCode == Constants.WRONGANSWER) {
-            if (requestCode == Constants.Text_Detection) {
-//                Log.v("yahoo2", "Wrong yabnii");
+//        if (resultCode == Constants.CORRECTANSWER) {
+//            if (requestCode == Constants.Text_Detection) {
 ////                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
-                Toast.makeText(context, "Result Incorrect", Toast.LENGTH_SHORT).show();
-            }
-        }
+//                onAnswer(true);
+////
+////                Log.v("yahoo2", "Correct yabnii");
+////                Toast.makeText(context, "Result Correct", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//        if (resultCode == Constants.WRONGANSWER) {
+//            if (requestCode == Constants.Text_Detection) {
+////                Log.v("yahoo2", "Wrong yabnii");
+//////                pager.setCurrentItem((pager.getCurrentItem() + 1) % TopicModelList.size());
+//                Toast.makeText(context, "Result Incorrect", Toast.LENGTH_SHORT).show();
+//            }
+//        }
     }
 
 
@@ -392,7 +413,7 @@ public class ClassActivity extends AppCompatActivity {
                                         .getValue(ProgressModel.class);
                                 if (progressModel.getTopicProgressId()
                                         .equals(TopicModelList
-                                                .get(pager.getCurrentItem() ).getId())) {
+                                                .get(pager.getCurrentItem()).getId())) {
                                     progressModel.setTopicProgressFlag("true");
                                     db.child("users").child(user.getUid())
                                             .child("enrolledcourses")
@@ -409,6 +430,16 @@ public class ClassActivity extends AppCompatActivity {
                 public void onCancelled(DatabaseError databaseError) {
                 }
             };
+        }else{
+            int mpPosition = 0;
+            if (mediaPlayer != null) {
+                mpPosition = mediaPlayer.getCurrentPosition();
+                mediaPlayer.pause();
+            }
+            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.wronganswer);
+            mediaPlayer.start();
+            finalMpPosition = mpPosition;
+            mediaPlayer.setOnCompletionListener(onCompletionListenerWrong);
         }
     }
 }

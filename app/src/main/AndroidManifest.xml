@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.almanara.ali.homeschool"
-    android:installLocation="preferExternal">
+          package="com.almanara.ali.homeschool"
+          android:installLocation="preferExternal">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
-    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
     <uses-feature
         android:name="android.hardware.camera.flash"
-        android:required="false" />
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.screen.landscape" />
+        android:required="false"/>
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.screen.landscape"/>
 
     <application
         android:allowBackup="false"
@@ -23,19 +23,27 @@
         android:label="المنارة"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.almanara.homeschool.home.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name="com.almanara.homeschool.home.Splash"
+            android:screenOrientation="portrait">
 
-                <category android:name="android.intent.category.LAUNCHER" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.almanara.homeschool.home.MainActivity">
+        <activity
+            android:name="com.almanara.homeschool.home.MainActivity"
+            android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name="com.almanara.homeschool.register.Register" />
-        <activity android:name="com.almanara.homeschool.login.Sign_In" />
-        <activity android:name="com.almanara.homeschool.login.SignInAs" />
+        <activity android:name="com.almanara.homeschool.register.Register"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="com.almanara.homeschool.login.Sign_In"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="com.almanara.homeschool.login.SignInAs"
+                  android:screenOrientation="portrait"/>
         <!-- <activity -->
         <!-- android:name=".exercises.textdetection.CaptureActivity" -->
         <!-- android:configChanges="orientation|keyboardHidden|screenSize" -->
@@ -44,61 +52,77 @@
         <!-- android:windowSoftInputMode="stateAlwaysHidden"/> -->
         <!-- <activity android:name=".exercises.textdetection.PreferencesActivity"/> -->
 
-        <activity android:name="com.almanara.homeschool.student.course.lesson.topic.ClassActivity" />
-        <activity android:name="com.almanara.homeschool.home.Guest" />
-        <activity android:name="com.almanara.homeschool.controller.activities.StudentFeaturedCourses" />
+        <activity android:name="com.almanara.homeschool.student.course.lesson.topic.ClassActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="com.almanara.homeschool.home.Guest"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="com.almanara.homeschool.controller.activities.StudentFeaturedCourses"
+                  android:screenOrientation="portrait"/>
         <activity
             android:name="com.almanara.homeschool.descriptionActivity.CourseDescriptionActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName="com.almanara.homeschool.controller.activities.StudentHomeActivity"></activity>
         <activity
             android:name="com.almanara.homeschool.controller.activities.StudentHomeActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_main4"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"/>
         <!-- <activity -->
         <!-- android:name=".childEnrolledCourses.EnrolledCourseActivity" -->
         <!-- android:label="@string/title_activity_enrolled_course" -->
         <!-- android:theme="@style/AppTheme"/> -->
         <activity
             android:name="com.almanara.homeschool.parent.ParentActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_parent"
             android:parentActivityName="com.almanara.homeschool.login.SignInAs"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.almanara.homeschool.login.SignInAs" />
+                android:value="com.almanara.homeschool.login.SignInAs"/>
         </activity>
         <activity
             android:name="com.almanara.homeschool.childProgress.ChildCourses"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_child_courses"
             android:parentActivityName="com.almanara.homeschool.parent.ParentActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.almanara.homeschool.parent.ParentActivity" />
+                android:value="com.almanara.homeschool.parent.ParentActivity"/>
         </activity>
-        <activity android:name="com.almanara.homeschool.instructor.InstructorActivity" />
+        <activity android:name="com.almanara.homeschool.instructor.InstructorActivity"
+                  android:screenOrientation="portrait"/>
         <activity
             android:name="com.almanara.homeschool.instructor.lesson.InstructorLessonsActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName="com.almanara.homeschool.instructor.InstructorActivity"></activity>
         <activity
             android:name="com.almanara.homeschool.instructor.create.InstructorTopicCreationActivity"
-            android:windowSoftInputMode="adjustPan" />
-        <activity android:name="com.almanara.homeschool.exercises.simple.SimpleExercises" />
-        <activity android:name="com.almanara.homeschool.student.course.lesson.LessonActivity" />
-        <activity android:name="com.almanara.homeschool.exercises.speech.Speech" />
-        <activity android:name="com.almanara.homeschool.instructor.topic.InstructorTopicActivity" />
-        <activity android:name="com.almanara.homeschool.instructor.home.Classroom" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name="com.almanara.homeschool.exercises.simple.SimpleExercises"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="com.almanara.homeschool.student.course.lesson.LessonActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="com.almanara.homeschool.exercises.speech.Speech"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="com.almanara.homeschool.instructor.topic.InstructorTopicActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="com.almanara.homeschool.instructor.home.Classroom"
+                  android:screenOrientation="portrait"/>
         <activity
             android:name="com.almanara.homeschool.student.StudentHomeActivityNew"
+            android:screenOrientation="portrait"
             android:icon="@drawable/icon2"
             android:label="المنارة - طفل">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.almanara.homeschool.student.course.lesson.topic.GenResult" />
+        <activity android:name="com.almanara.homeschool.student.course.lesson.topic.GenResult"/>
 
     </application>
 
