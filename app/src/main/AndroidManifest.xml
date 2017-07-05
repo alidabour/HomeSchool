@@ -17,7 +17,6 @@
     <uses-feature android:name="android.hardware.screen.landscape" />
 
     <application
-        android:name="com.almanara.homeschool.Almanara"
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:icon="@drawable/icon"
