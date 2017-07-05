@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.almanara.ali.homeschool.R;
@@ -169,6 +170,7 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
     @Override
     public void onError(int errorCode) {
         String errorMessage = getErrorText(errorCode);
+        Toast.makeText(getActivity(),errorMessage, Toast.LENGTH_SHORT).show();
 //        returnedText.setText(errorMessage);
 //        toggleButton.setEnabled(false);
     }
@@ -201,6 +203,7 @@ public class SpeechFragment extends Fragment implements RecognitionListener {
                 ((ClassActivity) getActivity()).onAnswer(false);
             }
         }
+        Toast.makeText(getActivity(),text, Toast.LENGTH_SHORT).show();
 //        returnedText.setText(text);
     }
 
