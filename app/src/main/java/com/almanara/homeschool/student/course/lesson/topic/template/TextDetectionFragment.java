@@ -79,7 +79,7 @@ public class TextDetectionFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.text_detection_fragment, container, false);
-        word = (TextView) view.findViewById(R.id.textView1);
+        word = (TextView) view.findViewById(R.id.textView2);
         word.setText(parms[0]);
         cameraIcon = (ImageView) view.findViewById(R.id.camera_icon);
 
