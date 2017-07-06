@@ -51,6 +51,8 @@ public class ChildsAdapter extends RecyclerView.Adapter<ChildsAdapter.ChildViewH
         ChildModel childModel = childList.get(position);
         holder.childName.setText(childModel.getName());
         //holder.childPhoto.setImageResource(R.drawable.photoid);
+        Log.v("TestImage","E :" + childList.size());
+        if(childModel.getPhoto()!=null)
         Glide.with(context).load(childModel.getPhoto().trim()).listener(
                 new RequestListener<String, GlideDrawable>() {
                     @Override
