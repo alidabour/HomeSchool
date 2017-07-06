@@ -1,7 +1,6 @@
 package com.almanara.homeschool.childProgress;
 
 import android.database.Cursor;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +25,7 @@ public class ChildProgressAdapter extends RecyclerView.Adapter<ChildProgressAdap
     @Override
     public void onBindViewHolder(ChildProgressViewHolder holder, int position) {
         mCursor.moveToPosition(position);
+
 //        holder.courseName.setText(mCursor.getString(mCursor.getColumnIndex(ChildProgressColumns.COURSE_NAME)));
 //        holder.progressBar.setProgress(mCursor.getInt(mCursor.getColumnIndex(ChildProgressColumns.COURSE_PROGRESS)));
     }

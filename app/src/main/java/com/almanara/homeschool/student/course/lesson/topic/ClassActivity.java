@@ -1,6 +1,5 @@
 package com.almanara.homeschool.student.course.lesson.topic;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -430,6 +429,8 @@ public class ClassActivity extends AppCompatActivity {
                 public void onCancelled(DatabaseError databaseError) {
                 }
             };
+            db.child("users").child(user.getUid()).child("enrolledcourses")
+                    .addValueEventListener(listener2);
         }else{
             int mpPosition = 0;
             if (mediaPlayer != null) {

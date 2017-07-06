@@ -33,7 +33,7 @@ public class ChildCoursesFragment extends Fragment {
     ListView lv;
     Context context;
     RecyclerView recyclerView;
-    ChildProgressAdapter childProgressAdapter;
+    ChildProgressAdapter1 childProgressAdapter;
     DatabaseReference db;
     ChildModel c;
     List<EnrolledCourseModel> enrolledCourseModel;
@@ -63,7 +63,7 @@ public class ChildCoursesFragment extends Fragment {
         }
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        childProgressAdapter = new ChildProgressAdapter();
+
         return view;
     }
 
@@ -89,6 +89,7 @@ public class ChildCoursesFragment extends Fragment {
                             ProgressModel progressModel = d2.getValue(ProgressModel.class);
                             if (progressModel.getTopicProgressFlag().equals("true")) {
                                 progress++;
+                                Log.v("progresscounter",d2.getValue() +"    "  + "");
                             }
 
                             counter++;
