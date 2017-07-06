@@ -66,6 +66,7 @@ public class ChildsAdapter extends RecyclerView.Adapter<ChildsAdapter.ChildViewH
                         return false;
                     }
 
+
                     @Override
                     public boolean onResourceReady(GlideDrawable resource, String model,
                                                    Target<GlideDrawable> target,
